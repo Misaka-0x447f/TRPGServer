@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "inspect-webpack-config": "vue-cli-service inspect > webpack-config-readable.txt"
   },
   "dependencies": {
     "vue": "^2.5.17",
@@ -14,12 +15,12 @@
   "devDependencies": {
     "@vue/cli-plugin-typescript": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
+    "style-resources-loader": "^1.2.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "tslint": "^5.11.0",
     "tslint-loader": "^3.5.4",
     "typescript": "^3.0.0",
-    "vue-cli-plugin-pug": "^1.0.7",
     "vue-template-compiler": "^2.5.17",
     "webpack-cli": "^3.1.2"
   },

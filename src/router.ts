@@ -10,9 +10,9 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "select",
       // lazy load
-      component: () => import("./pages/Home/index.vue"),
+      component: () => import("./pages/MainMenu/index.vue"),
     }
   ],
 });

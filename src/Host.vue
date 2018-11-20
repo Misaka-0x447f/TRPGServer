@@ -1,8 +1,9 @@
-<template lang="pug">
-  router-view
+<template>
+  <div class="container">
+    <router-view></router-view>
+  </div>
 </template>
 <style lang="stylus">
-  @import "color-profiles"
   body
     width 100vw
     height 100vh
