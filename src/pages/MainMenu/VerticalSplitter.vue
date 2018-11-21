@@ -1,19 +1,20 @@
-<template>
+<template functional>
   <div class="root">
     <div class="container">
-      <span>create your character.</span>
+      
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
+  .container
+    height 100%
+    width 0.1em
+    background-color plain-text-0
 </style>
 <script lang="ts">
   import Vue from "vue";
 
   export default Vue.extend({
-    name: "create",
-    data: () => {
-      return {};
-    }
+    name: "VerticalSplitter"
   });
 </script>

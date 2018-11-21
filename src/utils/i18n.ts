@@ -1,8 +1,13 @@
 const dict = {
   zh: {
-    intro: "Misaka is here to help.",
+    dashboard: "Dashboard",
+    of: "of",
+    projectName: "TRPG Server Project",
+    misaka: "Misaka is here to help.",
     createCharacter: "创建角色",
-    importCharacter: "导入角色"
+    importCharacter: "导入角色",
+    characterEditor: "角色卡编辑器",
+    viewOnlineGames: "搜索线上游戏"
   }
 };
 

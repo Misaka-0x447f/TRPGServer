@@ -1,7 +1,5 @@
 <template>
-  <div class="container">
-    <router-view></router-view>
-  </div>
+  <router-view></router-view>
 </template>
 <style lang="stylus">
   body
@@ -12,9 +10,10 @@
     display flex
     align-content center
     justify-content center
-    font-family 'Avenir', Helvetica, Arial, sans-serif
+    font-family 'Microsoft JhengHei UI Light', 'Microsoft YaHei UI Light', sans-serif
     -webkit-font-smoothing antialiased
     -moz-osx-font-smoothing grayscale
     text-align center
     color plain-text-0
+    perspective 4500px
 </style>

@@ -30,12 +30,12 @@ module.exports = {
       .end();
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
     // noinspection JSUnresolvedFunction
-    types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)))
+    types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)));
   }
 };
 
 function addStyleResource(rule) {
-  // noinspection JSUnresolvedFunction
+  // noinspection JSUnresolvedFunction, JSUnresolvedVariable
   rule.use('style-resource')
     .loader('style-resources-loader')
     .options({
