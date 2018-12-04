@@ -10,9 +10,23 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "select",
+      redirect: "/index"
+    },
+    {
+      path: "*",
+      name: "defaultPage",
+      component: () => import("./pages/Default/index.vue"),
+    },
+    {
+      path: "/index",
+      name: "index",
       // lazy load
-      component: () => import("./pages/MainMenu/index.vue"),
+      component: () => import("./pages/Index/index.vue"),
+    },
+    {
+      path: "/editor",
+      name: "editor",
+      component: () => import("./pages/Editor/index.vue"),
     }
   ],
 });

@@ -5,12 +5,12 @@ import router from "./router";
 import {library} from "@fortawesome/fontawesome-svg-core";
 // @ts-ignore
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {faGlobe, faUsersCog} from "@fortawesome/free-solid-svg-icons";
+import {faGlobe, faUserFriends, faUsersCog} from "@fortawesome/free-solid-svg-icons";
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
-library.add(faUsersCog, faGlobe);
+library.add(faUsersCog, faGlobe, faUserFriends);
 
 // noinspection JSUnusedGlobalSymbols
 new Vue({
