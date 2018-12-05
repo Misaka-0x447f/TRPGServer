@@ -9,7 +9,8 @@ const dict = {
     characterEditor: "角色卡编辑器",
     viewOnlineGames: "搜索线上游戏",
     unknownRoute: "出现错误！访问的内存地址未经授权。将返回主选单。",
-    fileMenu: "文件"
+    fileMenu: "文件",
+    viewMenu: "视图",
   }
 };
 
@@ -20,3 +21,5 @@ export default function say(word: keyof typeof dict.zh) {
   }
   return dict.zh[word];
 }
+
+export type lang = "zh-CN" | "en-US";

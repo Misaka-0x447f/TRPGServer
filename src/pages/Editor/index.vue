@@ -2,18 +2,20 @@
   <div class="root">
     <div class="container">
       <side
+        class="overlay-side-view"
         :visualName="e('fileMenu')"
       >
-        <font-awesome-icon
-          slot="icon"
-          icon="user-friends"
-        ></font-awesome-icon>
-        
+
       </side>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
+  .overlay-side-view {
+    display: fixed;
+    right: 0;
+    height: 100vh;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";

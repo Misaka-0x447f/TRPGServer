@@ -1,19 +1,19 @@
 <template>
   <div class="root">
     <div class="container">
-      <div class="tag">
-        <slot name="icon"></slot>
-      </div>
-      <div>
-        <slot></slot>
-      </div>
+      <tag icon="user-friends" isActive>
+        {{e("fileMenu")}}
+      </tag>
+      <tag icon="low-vision">
+        {{e("viewMenu")}}
+      </tag>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
 
   .tag {
@@ -22,16 +22,18 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import TagView from "./TagView.vue";
+  import say from "@/utils/i18n";
 
   export default Vue.extend({
-    name: "index",
-    props: {
-      visualName: {
-        type: String
-      }
+    name: "sidebarIndex",
+    components: {
+      tag: TagView
     },
     data: () => {
-      return {};
+      return {
+        e: say
+      };
     }
   });
 </script>
