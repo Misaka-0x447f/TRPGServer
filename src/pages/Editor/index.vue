@@ -1,16 +1,21 @@
 <template>
   <div class="root">
     <div class="container">
+      <wp></wp>
       <side
         class="overlay-side-view"
-        :visualName="e('fileMenu')"
       >
-
       </side>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
+  .container {
+    width 100vw
+    height 100vh
+    overflow hidden
+  }
+  
   .overlay-side-view {
     display: fixed;
     right: 0;
@@ -20,12 +25,14 @@
 <script lang="ts">
   import Vue from "vue";
   import SideTab from "./SideTab/index.vue";
+  import WallPaper from "@/pages/_public/Wallpaper.vue";
   import say from "@/utils/i18n";
 
   export default Vue.extend({
     name: "editorIndex",
     components: {
-      side: SideTab
+      side: SideTab,
+      wp: WallPaper
     },
     data: () => {
       return {

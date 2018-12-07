@@ -1,6 +1,7 @@
 <template>
   <div class="root">
     <div class="container">
+      <wp></wp>
       <span class="big">
         {{e("dashboard")}}
       </span>
@@ -29,21 +30,23 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container
-    background url("./../../assets/wallpaper.jpg")
+  .container {
     width 100vw
     height 100vh
-    overflow hidden
-
-  .tiltContainer
+    overflow: hidden
+  }
+  
+  .tiltContainer {
     display flex
     align-items center
     justify-content center
     width 100%
     height 100%
-
-  .big
+  }
+    
+  .big {
     font-size 1.5em
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
@@ -52,13 +55,15 @@
   import MenuButton from "./MenuButton.vue";
   import Splitter from "./VerticalSplitter.vue";
   import {timeout} from "@/utils/System";
+  import WallPaper from "@/pages/_public/Wallpaper.vue";
 
   export default Vue.extend({
     name: "MainMenu",
     components: {
       tilt: Tilt,
       menuButton: MenuButton,
-      vs: Splitter
+      vs: Splitter,
+      wp: WallPaper
     },
     data: () => {
       return {
