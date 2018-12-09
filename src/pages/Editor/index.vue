@@ -15,10 +15,10 @@
     height 100vh
     overflow hidden
   }
-  
+
   .overlay-side-view {
     display: fixed;
-    right: 0;
+    top: 0;
     height: 100vh;
   }
 </style>

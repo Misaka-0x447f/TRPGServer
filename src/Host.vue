@@ -10,8 +10,8 @@
     display flex
     align-content center
     justify-content center
-    font-family 'Microsoft JhengHei UI Light', 'Microsoft YaHei UI Light', sans-serif
-    -webkit-font-smoothing antialiased
+    font-family 'DengXian', 'Microsoft JhengHei UI', sans-serif
+    -webkit-font-smoothing subpixel-antialiased
     -moz-osx-font-smoothing grayscale
     text-align center
     color plain-text-0
