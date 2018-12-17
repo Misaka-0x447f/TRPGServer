@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import {sidebar} from "@/pages/Editor/index.ts";
 import {lang} from "@/utils/i18n.ts";
+import {Menu, MenuCarrier} from "@/utils/Menu";
 
 Vue.use(Vuex);
 
@@ -10,7 +11,7 @@ export const FiniteStateMachine = new Vuex.Store({
     public: {
       namespaced: true,
       state: {
-        language: "zh-CN",
+        language: "zh-CN"
       },
       mutations: {
         setLang(state, payload: lang) {
@@ -20,6 +21,20 @@ export const FiniteStateMachine = new Vuex.Store({
       getters: {
         isEastAsian(state) {
           return ["zh-CN"].includes(state.language);
+        }
+      }
+    },
+    menu: {
+      namespaced: true,
+      state: {
+        instance: new Menu()
+      },
+      mutations: {
+        constructTab(state, payload: MenuCarrier) {
+          state.instance.constructTab(payload);
+        },
+        destoryTab(state, payload: string[]) {
+          state.instance.destoryTab(payload);
         }
       }
     },

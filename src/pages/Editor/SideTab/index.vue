@@ -2,7 +2,7 @@
   <div class="root">
     <div class="container">
       <div class="tab-tags">
-        <tag icon="user-friends" :queueOrder="0">
+        <tag icon="user-friends" :queueOrder="0" isActive>
           {{e("fileMenu")}}
         </tag>
         <tag icon="low-vision" :queueOrder="1">
@@ -35,7 +35,7 @@
   .vs {
     width: 0.2em;
     height: 100vh;
-    background: sidebar-edge-0;
+    background: sidebar-edge-1;
   }
   
   .vs.active {

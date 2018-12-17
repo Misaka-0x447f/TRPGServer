@@ -1,4 +1,4 @@
-const dict = {
+export const dict = {
   zh: {
     dashboard: "Dashboard",
     of: "of",
