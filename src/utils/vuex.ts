@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {sidebar} from "@/pages/Editor/index.ts";
 import {lang} from "@/utils/i18n.ts";
 import {Menu, MenuCarrier} from "@/utils/Menu";
 
@@ -33,20 +32,16 @@ export const FiniteStateMachine = new Vuex.Store({
         constructTab(state, payload: MenuCarrier) {
           state.instance.constructTab(payload);
         },
-        destoryTab(state, payload: string[]) {
-          state.instance.destoryTab(payload);
+        destroyTab(state, payload: string[]) {
+          state.instance.destroyTab(payload);
         }
       }
     },
     editor: {
       namespaced: true,
       state: {
-        sidebar: null
       },
       mutations: {
-        changeSideBar(state, payload: sidebar) {
-          state.sidebar = payload;
-        }
       }
     }
   }
