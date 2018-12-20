@@ -24,14 +24,12 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import SideTab from "./SideTab/index.vue";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import say from "@/utils/i18n";
 
   export default Vue.extend({
     name: "editorIndex",
     components: {
-      side: SideTab,
       wp: WallPaper
     },
     data: () => {

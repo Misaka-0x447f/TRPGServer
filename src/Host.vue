@@ -1,6 +1,9 @@
 <template>
-  <router-view></router-view>
-</template>
+  <div>
+    <router-view></router-view>
+    <side-tabs></side-tabs>
+  </div>
+</template>♦
 <style lang="stylus">
   body
     width 100vw

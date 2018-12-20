@@ -25,6 +25,8 @@
     flex-direction: row;
     position: fixed;
     right: 0;
+    top: 0;
+    z-index: 65535;
   }
 
   .tab-tags {
@@ -46,7 +48,7 @@
   import Vue from "vue";
   import TagView from "./TagView.vue";
   import TagViewPadding from "./TagViewPadding.vue";
-  import say from "@/utils/i18n";
+  import say from "../../../utils/i18n";
 
   export default Vue.extend({
     name: "sidebarIndex",
