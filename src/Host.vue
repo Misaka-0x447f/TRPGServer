@@ -3,7 +3,7 @@
     <router-view></router-view>
     <side-tabs></side-tabs>
   </div>
-</template>♦
+</template>
 <style lang="stylus">
   body
     width 100vw

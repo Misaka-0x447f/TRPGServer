@@ -1,12 +1,13 @@
 <template functional>
-  <div class="root">
+  <div class="root" data-manuallyScoped-j3uasjk>
     <!--suppress JSValidateTypes -->
-    <div :class="{
-      container: props,
-      active: props.isActive,
-      even: props.queueOrder % 2 === 0,
-      first: props.queueOrder === 0
-    }">
+    <div
+      :class="{
+        container: props,
+        active: props.isActive
+      }"
+      @click="props.clickHandler(props.tagName)"
+    >
       <font-awesome-icon
         :icon="props.icon"
         class="icon"
@@ -23,6 +24,7 @@
   .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 1.2em;
     padding: 2.5em 0.5em;
     margin-bottom: -2em;
@@ -35,18 +37,18 @@
     color: sidebar-font-0;
   }
 
-  .container.even {
+  .root[data-manuallyScoped-j3uasjk]:nth-of-type(even) .container {
     background-color: sidebar-edge-1;
   }
 
-  .container.first {
+  .root[data-manuallyScoped-j3uasjk]:first-of-type .container{
     padding-top: 1.5em;
     padding-bottom: 3em;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 2em));
   }
 
-  .container.active {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 2em));
+  .root[data-manuallyScoped-j3uasjk] .container.active {
+    // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 2em));
     background: sidebar-edge-active-0;
     color: sidebar-font-active-0;
   }
@@ -69,13 +71,18 @@
         type: String,
         default: "user-friends"
       },
+      tagName: {
+        type: String,
+      },
       isActive: {
         type: Boolean,
         default: false
       },
-      queueOrder: {
-        type: Number,
-        default: 0
+      counter: {
+        type: Number
+      },
+      clickHandler: {
+        type: Function
       }
     }
   });

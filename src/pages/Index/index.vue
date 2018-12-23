@@ -35,7 +35,7 @@
     height 100vh
     overflow: hidden
   }
-  
+
   .tiltContainer {
     display flex
     align-items center
@@ -43,7 +43,7 @@
     width 100%
     height 100%
   }
-    
+
   .big {
     font-size 1.5em
   }
@@ -56,6 +56,9 @@
   import Splitter from "./VerticalSplitter.vue";
   import {timeout} from "@/utils/System";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
+  import {sideTab} from "@/main";
+  import {ico} from "@/utils/FontAwesome";
+  import {MenuStyle} from "@/utils/SideTabHandler";
 
   export default Vue.extend({
     name: "MainMenu",
@@ -69,6 +72,42 @@
       return {
         e: say
       };
+    },
+    mounted() {
+      // noinspection JSUnusedGlobalSymbols
+      sideTab.updateTab({
+        templateMenu: {
+          icon: ico.userCogs,
+          children: {
+            currentTemplate: {
+              style: MenuStyle.text,
+              handler: () => {
+                return `${say("currentTemplate")}${say("nechronica")}`;
+              }
+            },
+            changeTemplate: {
+              style: MenuStyle.click,
+              handler: () => {
+                console.log("clickHandler");
+              }
+            }
+          }
+        },
+        aboutMenu: {
+          icon: ico.infoCircle,
+          children: {
+            version: {
+              style: MenuStyle.text
+            },
+            about: {
+              style: MenuStyle.textarea
+            }
+          }
+        }
+      });
+    },
+    destroyed() {
+      sideTab.destroyTab(["templateMenu"]);
     },
     async beforeRouteLeave(_0, _1, next) {
       await timeout(1000);
