@@ -20,7 +20,7 @@ export const dict = {
       changeTemplate: "更改模板",
     aboutMenu: "关于",
       version: "TRPG Server Project (development build)",
-      about: "如遇问题，请回报给Misaka\nTelegram: @Misaka_0x447f"
+      about: "如遇问题，请回报给Misaka\nTelegram: @Misaka_0x447f\n447f.misaka@outlook.com"
   }
 };
 

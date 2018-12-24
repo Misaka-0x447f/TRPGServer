@@ -37,7 +37,7 @@
     color: sidebar-font-0;
   }
 
-  .root[data-manuallyScoped-j3uasjk]:nth-of-type(even) .container {
+  .root[data-manuallyScoped-j3uasjk]:nth-of-type(odd) .container {
     background-color: sidebar-edge-1;
   }
 

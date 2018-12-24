@@ -51,15 +51,16 @@
     width: 0.3em;
     height: 100%;
     background: sidebar-edge-1;
-    border-left: sidebar-font-active-0 1px solid;
+    border-left: sidebar-splitter 1px solid;
   }
 
   .vs.active {
     background: sidebar-edge-active-0;
+    border-left: sidebar-splitter-active 1px solid;
   }
 
   .side-enter-active, .side-leave-active {
-    transition: width .5s;
+    transition: width .5s cubic-bezier(0, 0.5, 0.25, 1);
   }
 
   .side-enter, .side-leave-to {
@@ -71,21 +72,21 @@
   }
 
   .menu-content-container {
-    background: container-background-0;
+    background: sidebar-background-0;
   }
 
   .overlay-container {
     position: absolute;
     top: 0;
     display: block;
-    background: container-mask-0;
+    background: sidebar-mask-0;
     width: 100vw;
     height: 100vh;
     z-index: 65530;
   }
     
   .background-ks3ja5sj-enter-active, .background-ks3ja5sj-leave-active {
-    transition: opacity 0.5s;
+    transition: opacity .5s;
   }
   
   .background-ks3ja5sj-enter, .background-ks3ja5sj-leave-to {
