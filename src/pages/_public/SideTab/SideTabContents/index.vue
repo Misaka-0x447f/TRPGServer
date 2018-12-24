@@ -12,8 +12,8 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-    min-width: 30vw;
+  .container { 
+    width: 30vw;
   }
 </style>
 <script lang="ts">

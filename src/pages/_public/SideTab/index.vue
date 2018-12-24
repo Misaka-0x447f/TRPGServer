@@ -1,5 +1,12 @@
 <template>
   <div class="root">
+    <transition name="background-ks3ja5sj">
+      <div
+        v-if="isActive()"
+        class="overlay-container"
+        @click="closeTab"
+      ></div>
+    </transition>
     <div class="container">
       <div
         class="tab-tags"
@@ -16,9 +23,11 @@
         </tag>
       </div>
       <div :class="{vs: true, active: isActive()}"></div>
-      <div class="menu-content-container">
-        <sm :definition="this.definition"></sm>
-      </div>
+      <transition name="side">
+        <div v-if="isActive()" class="menu-content-container">
+          <sm :definition="this.definition"></sm>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -49,8 +58,38 @@
     background: sidebar-edge-active-0;
   }
 
+  .side-enter-active, .side-leave-active {
+    transition: width .5s;
+  }
+
+  .side-enter, .side-leave-to {
+    width: 0;
+  }
+
+  .side-enter-to, .side-leave {
+    width: 30vw;
+  }
+
   .menu-content-container {
     background: container-background-0;
+  }
+
+  .overlay-container {
+    position: absolute;
+    top: 0;
+    display: block;
+    background: container-mask-0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 65530;
+  }
+    
+  .background-ks3ja5sj-enter-active, .background-ks3ja5sj-leave-active {
+    transition: opacity 0.5s;
+  }
+  
+  .background-ks3ja5sj-enter, .background-ks3ja5sj-leave-to {
+    opacity: 0;
   }
 </style>
 <script lang="ts">
@@ -80,11 +119,9 @@
       tabClickHandler(e: string) {
         if (this.instance.storage.hasOwnProperty(e)) {
           if (this.activeTab !== e) {
-            this.activeTab = e;
-            this.definition = this.instance.storage[e].children;
+            this.openTab(e);
           } else {
-            this.activeTab = "";
-            this.definition = {};
+            this.closeTab();
           }
           return;
         }
@@ -96,6 +133,14 @@
         } else {
           return this.activeTab !== "";
         }
+      },
+      openTab(e: string) {
+        this.activeTab = e;
+        this.definition = this.instance.storage[e].children;
+      },
+      closeTab() {
+        this.activeTab = "";
+        this.definition = {};
       }
     }
   });
