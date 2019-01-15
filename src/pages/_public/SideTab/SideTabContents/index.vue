@@ -44,12 +44,14 @@
     },
     methods: {
       getText(value: any, key: string) {
+        // condition: property 'handler' exist, then execute
         if (value.hasOwnProperty("handler")) {
-          const receiver: string | void = value.handler();
-          if (typeof receiver === "string") {
-            return receiver;
+          const result: string | void = value.handler();
+          if (typeof result === "string") {
+            return result;
           }
         }
+        // condition: no handler, use key as output
         return say(key as keyof typeof dict.zh);
       },
       useHandler(handler: any) {

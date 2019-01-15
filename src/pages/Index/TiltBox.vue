@@ -11,7 +11,7 @@
     background container-background-0-fade-0
 </style>
 <style lang="stylus">
-  @keyframes tilt-left-manual-scoped-kafl2192
+  @keyframes tilt-left-manual-scoped-ka7c2192
     from
       transform rotate3d(0, 1, 0, 0deg)
     20%
@@ -19,7 +19,7 @@
     to
       transform rotate3d(0, 1, 0, 0deg)
       
-  @keyframes tilt-right-manual-scoped-kafl2192
+  @keyframes tilt-right-manual-scoped-ka7c2192
     from
       transform rotate3d(0, 1, 0, 0deg)
     20%
@@ -54,9 +54,9 @@
         }
         this.animationPlaying = true;
         if (e.clientX < document.body.offsetWidth / 2) {
-          this.styleSto.animation = "tilt-left-manual-scoped-kafl2192 0.8s";
+          this.styleSto.animation = "tilt-left-manual-scoped-ka7c2192 0.8s";
         } else {
-          this.styleSto.animation = "tilt-right-manual-scoped-kafl2192 0.8s";
+          this.styleSto.animation = "tilt-right-manual-scoped-ka7c2192 0.8s";
         }
         await timeout(1000);
         this.styleSto.animation = "";

@@ -20,6 +20,7 @@ export class SideTabHandler {
     });
   }
 
+  // TODO: give ability to destroy tabs using the same TabInfoCarrier
   public destroyTab(obj: menuNames[]) {
     for (const key of obj) {
       Vue.delete(this.storage, key);

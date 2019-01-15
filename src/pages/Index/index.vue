@@ -57,8 +57,7 @@
   import {timeout} from "@/utils/System";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import {sideTab} from "@/main";
-  import {ico} from "@/utils/FontAwesome";
-  import {MenuStyle} from "@/utils/SideTabHandler";
+  import menu from "@/utils/SideTabDefinitions/Editor";
 
   export default Vue.extend({
     name: "MainMenu",
@@ -74,40 +73,10 @@
       };
     },
     mounted() {
-      // noinspection JSUnusedGlobalSymbols
-      sideTab.updateTab({
-        templateMenu: {
-          icon: ico.userCogs,
-          children: {
-            currentTemplate: {
-              style: MenuStyle.text,
-              handler: () => {
-                return `${say("currentTemplate")}${say("nechronica")}`;
-              }
-            },
-            changeTemplate: {
-              style: MenuStyle.click,
-              handler: () => {
-                console.log("clickHandler");
-              }
-            }
-          }
-        },
-        aboutMenu: {
-          icon: ico.infoCircle,
-          children: {
-            version: {
-              style: MenuStyle.text
-            },
-            about: {
-              style: MenuStyle.textarea
-            }
-          }
-        }
-      });
+      sideTab.updateTab(menu);
     },
     destroyed() {
-      sideTab.destroyTab(["templateMenu"]);
+      sideTab.destroyTab(["templateMenu", "aboutMenu"]);
     },
     async beforeRouteLeave(_0, _1, next) {
       await timeout(1000);

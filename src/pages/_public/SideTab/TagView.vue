@@ -1,19 +1,19 @@
-<template functional>
+<template>
   <div class="root" data-manuallyScoped-j3uasjk>
     <!--suppress JSValidateTypes -->
     <div
       :class="{
-        container: props,
-        active: props.isActive
+        container: true,
+        active: isActive
       }"
-      @click="props.clickHandler(props.tagName)"
+      @click="clickHandler(tagName)"
     >
       <font-awesome-icon
-        :icon="props.icon"
+        :icon="this.icon"
         class="icon"
       ></font-awesome-icon>
       <div
-        :class="{'non-asia': !parent.$store.getters['public/isEastAsian']}"
+        :class="{'non-asia': !isEastAsian()}"
       >
         <slot></slot>
       </div>
@@ -41,7 +41,7 @@
     background-color: sidebar-edge-1;
   }
 
-  .root[data-manuallyScoped-j3uasjk]:first-of-type .container{
+  .root[data-manuallyScoped-j3uasjk]:first-of-type .container {
     padding-top: 1.5em;
     padding-bottom: 3em;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 2em));
@@ -63,9 +63,15 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import {isEastAsian} from "@/utils/i18n";
 
   export default Vue.extend({
     name: "TagView",
+    data() {
+      return {
+        isEastAsian
+      };
+    },
     props: {
       icon: {
         type: String,

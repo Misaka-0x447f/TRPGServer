@@ -24,4 +24,3 @@ export enum ico {
   chevronRight = "chevron-right",
   infoCircle = "info-circle"
 }
-
