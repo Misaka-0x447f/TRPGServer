@@ -20,11 +20,10 @@ export class SideTabHandler {
     });
   }
 
-  // TODO: give ability to destroy tabs using the same TabInfoCarrier
-  public destroyTab(obj: menuNames[]) {
-    for (const key of obj) {
+  public destroyTab(obj: TabInfoCarrier) {
+    forIn(obj, (value, key) => {
       Vue.delete(this.storage, key);
-    }
+    });
   }
 }
 
@@ -68,7 +67,7 @@ export type TabInfoCarrier = {
 
 export interface MenuValue {
   // TODO: align?: "bottom" | "top";           // should be show at the bottom? default: "top";
-  // TODO: index?: number;                     // arrange menus; default: 0;
+  index?: number;                     // arrange menus; default: 0;
   icon?: ico;
   children: {
     [T in keyof typeof dict.zh]?: {

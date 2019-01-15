@@ -12,14 +12,14 @@
         class="tab-tags"
       >
         <tag
-          v-for="(value, key) in instance.storage"
-          :key="key"
-          :tagName="key"
+          v-for="i in sortedTagList"
+          :key="i._private_key"
+          :tagName="i._private_key"
           :clickHandler="tabClickHandler"
-          :icon="value.icon"
-          :isActive="isActive(key)"
+          :icon="i.icon"
+          :isActive="isActive(i._private_key)"
         >
-          {{e(key)}}
+          {{e(i._private_key)}}
         </tag>
       </div>
       <div :class="{vs: true, active: isActive()}"></div>
@@ -84,11 +84,11 @@
     height: 100vh;
     z-index: 65530;
   }
-    
+
   .background-ks3ja5sj-enter-active, .background-ks3ja5sj-leave-active {
     transition: opacity .5s;
   }
-  
+
   .background-ks3ja5sj-enter, .background-ks3ja5sj-leave-to {
     opacity: 0;
   }
@@ -100,6 +100,7 @@
   import say from "../../../utils/i18n";
   import {sideTab} from "@/main";
   import sideTabManager from "./SideTabContents/index.vue";
+  import {cloneDeep, forIn, sortBy} from "lodash";
 
   export default Vue.extend({
     name: "sidebarIndex",
@@ -115,6 +116,15 @@
         activeTab: "",
         e: say
       } as any;
+    },
+    computed: {
+      sortedTagList() {
+        const copy: any = cloneDeep(sideTab.storage);
+        forIn(copy, (value, key) => {
+          copy[key]._private_key = key;
+        });
+        return sortBy(copy, ["index"]);
+      }
     },
     methods: {
       tabClickHandler(e: string) {

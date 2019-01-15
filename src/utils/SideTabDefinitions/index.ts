@@ -1,5 +1,5 @@
-import {ico} from "../../FontAwesome";
-import {MenuStyle, TabInfoCarrier} from "../../SideTabHandler";
+import {ico} from "../FontAwesome";
+import {MenuStyle, TabInfoCarrier} from "../SideTabHandler";
 
 export const menu: TabInfoCarrier = {
   aboutMenu: {

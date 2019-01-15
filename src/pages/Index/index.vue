@@ -57,7 +57,7 @@
   import {timeout} from "@/utils/System";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import {sideTab} from "@/main";
-  import menu from "@/utils/SideTabDefinitions/Editor";
+  import menu from "@/utils/SideTabDefinitions";
 
   export default Vue.extend({
     name: "MainMenu",
@@ -76,7 +76,7 @@
       sideTab.updateTab(menu);
     },
     destroyed() {
-      sideTab.destroyTab(["templateMenu", "aboutMenu"]);
+      sideTab.destroyTab(menu);
     },
     async beforeRouteLeave(_0, _1, next) {
       await timeout(1000);
