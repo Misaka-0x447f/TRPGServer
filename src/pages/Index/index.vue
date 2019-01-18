@@ -2,15 +2,9 @@
   <div class="root">
     <div class="container">
       <wp></wp>
-      <span class="big">
-        {{e("dashboard")}}
-      </span>
-      <span>
-        {{e("of")}}
-      </span>
-      <span class="big">
-        {{e("projectName")}}
-      </span>
+      <div class="title">
+        {{e("launcherTitle")}}
+      </div>
       <tilt class="tiltContainer">
         <menu-button
           :text="e('characterEditor')"
@@ -34,6 +28,10 @@
     width 100vw
     height 100vh
     overflow: hidden
+  }
+
+  .title {
+    margin: 1em 0;
   }
 
   .tiltContainer {

@@ -1,0 +1,63 @@
+<template>
+  <div class="root">
+    <div class="container">
+      <table>
+        <tr>
+          <th>{{e("identifier")}}</th>
+          <th>{{e("value")}}</th>
+          <th>{{e("text")}}</th>
+        </tr>
+        <tr v-for="i in content.data">
+          <td>{{i.id}}</td>
+          <td>{{i.value}}</td>
+          <td>{{i.text}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>
+<style lang="stylus" scoped>
+  .container {
+    text-align: left;
+    margin: 1em;
+  }
+
+  table {
+    border-collapse: collapse;
+  }
+
+  tr:not(:first-of-type) {
+    border: table-splitter 0 solid;
+    border-top-width: 1px;
+  }
+
+  th, td {
+    padding: 0.2em 0.3em;
+  }
+
+  th, td {
+    font-weight: inherit;
+    text-align: inherit;
+    vertical-align: inherit;
+  }
+</style>
+<script lang="ts">
+  import Vue from "vue";
+  import {Property} from "@/utils/PropertyEditor";
+  import say from "@/utils/i18n";
+
+  export default Vue.extend({
+    name: "PropertyEditor",
+    components: {},
+    props: {
+      content: {
+        type: Object as () => Property
+      }
+    },
+    data: () => {
+      return {
+        e: say
+      };
+    }
+  });
+</script>

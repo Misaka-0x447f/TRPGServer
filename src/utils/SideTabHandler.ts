@@ -66,7 +66,7 @@ export type TabInfoCarrier = {
 };
 
 export interface MenuValue {
-  // TODO: align?: "bottom" | "top";           // should be show at the bottom? default: "top";
+  // TODO: [Maybe] align?: "bottom" | "top";           // should be show at the bottom? default: "top";
   index?: number;                     // arrange menus; default: 0;
   icon?: ico;
   children: {
