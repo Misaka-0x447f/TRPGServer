@@ -7,10 +7,17 @@
           <th>{{e("value")}}</th>
           <th>{{e("text")}}</th>
         </tr>
-        <tr v-for="i in content.data">
-          <td>{{i.id}}</td>
-          <td>{{i.value}}</td>
-          <td>{{i.text}}</td>
+        <!--suppress JSUnusedLocalSymbols -->
+        <tr v-for="(_0, i) in content.data">
+          <td>
+            <in :object="content" :path="`data[${i}].id`"></in>
+          </td>
+          <td>
+            <in :object="content" :path="`data[${i}].value`"></in>
+          </td>
+          <td>
+            <in :object="content" :path="`data[${i}].text`"></in>
+          </td>
         </tr>
       </table>
     </div>
@@ -24,6 +31,8 @@
 
   table {
     border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
   }
 
   tr:not(:first-of-type) {
@@ -45,10 +54,13 @@
   import Vue from "vue";
   import {Property} from "@/utils/PropertyEditor";
   import say from "@/utils/i18n";
+  import inp from "@/pages/_public/InputField/ObjectSyncInput.vue";
 
   export default Vue.extend({
     name: "PropertyEditor",
-    components: {},
+    components: {
+      in: inp
+    },
     props: {
       content: {
         type: Object as () => Property
