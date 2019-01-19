@@ -8,8 +8,13 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-
+  input {
+    background: none;
+    border: none;
+    outline: none;
+    color: inherit;
+    padding: 0.2em 0;
+    width: 100%;
   }
 </style>
 <script lang="ts">

@@ -33,13 +33,7 @@
             checksum: "123",
             source: checksumDataSource.gen
           },
-          data: [
-            {
-              id: "test",
-              value: "123",
-              text: "test value"
-            }
-          ]
+          data: []
         };
       }
     }

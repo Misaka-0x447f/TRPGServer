@@ -1,14 +1,14 @@
 <template>
   <div class="root">
     <div class="container">
-      <table>
+      <table v-if="content.data.length">
         <tr>
           <th>{{e("identifier")}}</th>
           <th>{{e("value")}}</th>
           <th>{{e("text")}}</th>
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
-        <tr v-for="(_0, i) in content.data">
+        <tr v-for="(_, i) in content.data">
           <td>
             <in :object="content" :path="`data[${i}].id`"></in>
           </td>
@@ -20,6 +20,7 @@
           </td>
         </tr>
       </table>
+      <div v-if="content.data.length === 0">{{e("propertyEditorContentEmpty")}}</div>
     </div>
   </div>
 </template>
@@ -42,6 +43,10 @@
 
   th, td {
     padding: 0.2em 0.3em;
+  }
+
+  th {
+    padding-bottom: 0.3em;
   }
 
   th, td {
