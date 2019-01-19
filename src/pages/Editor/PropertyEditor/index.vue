@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="container">
+    <div class="container" @keydown="keyDownHandler">
       <table v-if="content.data.length">
         <tr>
           <th>{{e("identifier")}}</th>
@@ -8,19 +8,29 @@
           <th>{{e("text")}}</th>
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
-        <tr v-for="(_, i) in content.data">
-          <td>
-            <in :object="content" :path="`data[${i}].id`"></in>
+        <tr v-for="(_, i) in content.data" :data-i="i">
+          <!--suppress EqualityComparisonWithCoercionJS -->
+          <td v-show="confirmDeleteAt != i">
+            <in :object="content.data[i]" k="id"></in>
           </td>
-          <td>
-            <in :object="content" :path="`data[${i}].value`"></in>
+          <!--suppress EqualityComparisonWithCoercionJS -->
+          <td v-show="confirmDeleteAt != i">
+            <in :object="content.data[i]" k="value"></in>
           </td>
-          <td>
-            <in :object="content" :path="`data[${i}].text`"></in>
+          <!--suppress EqualityComparisonWithCoercionJS -->
+          <td v-show="confirmDeleteAt != i">
+            <in :object="content.data[i]" k="text"></in>
+          </td>
+          <!--suppress EqualityComparisonWithCoercionJS -->
+          <td class="confirmDelete" v-if="confirmDeleteAt == i" rowspan="true"
+              @click="deleteLine(confirmDeleteAt)">
+            点击这里以确认删除; Esc: 取消;
           </td>
         </tr>
       </table>
-      <div v-if="content.data.length === 0">{{e("propertyEditorContentEmpty")}}</div>
+      <div class="clickTip" v-if="content.data.length === 0" @click="newLine">
+        {{e("propertyEditorContentEmpty")}}
+      </div>
     </div>
   </div>
 </template>
@@ -28,6 +38,10 @@
   .container {
     text-align: left;
     margin: 1em;
+  }
+
+  .clickTip {
+    cursor: pointer
   }
 
   table {
@@ -57,9 +71,11 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {Property} from "@/utils/PropertyEditor";
+  import {Property, PropertyData} from "@/utils/PropertyEditor";
   import say from "@/utils/i18n";
   import inp from "@/pages/_public/InputField/ObjectSyncInput.vue";
+  import {getAttrInEvent} from "@/utils/dom";
+  import {pullAt} from "lodash";
 
   export default Vue.extend({
     name: "PropertyEditor",
@@ -73,8 +89,51 @@
     },
     data: () => {
       return {
-        e: say
+        e: say,
+        confirmDeleteAt: -1,
+        pullAt
       };
+    },
+    mounted() {
+      const up = () => {
+        const out = [];
+        for (const i of this.content.data) {
+          out.push(i.id);
+        }
+        console.log(out);
+        this.$forceUpdate();
+      };
+      setInterval(up, 1000);
+    },
+    methods: {
+      keyDownHandler(e: KeyboardEvent) {
+        // Case: delete
+        if (e.key === "Delete" && this.confirmDeleteAt < 0) {
+          this.confirmDeleteAt = getAttrInEvent(e, "data-i");
+          this.$forceUpdate();
+        } else if (this.confirmDeleteAt >= 0) {
+          this.confirmDeleteAt = -1;
+        } else if (e.key === "Enter") {
+          this.newLine(getAttrInEvent(e, "data-i") as number);
+        }
+        this.$forceUpdate();
+      },
+      newLine(line: number) {
+        console.log(line);
+        const placeholder: PropertyData = {
+          id: "-",
+          value: "-",
+          text: "-"
+        };
+        // TODO: buggy
+        this.content.data.splice(line + 1, 0, placeholder);
+        this.$forceUpdate();
+      },
+      deleteLine(line: number) {
+        Vue.delete(this.content.data, line);
+        this.confirmDeleteAt = -1;
+        this.$forceUpdate();
+      }
     }
   });
 </script>

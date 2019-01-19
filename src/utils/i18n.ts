@@ -27,7 +27,7 @@ export const dict = {
     identifier: "标识符",
     value: "值",
     text: "文本",
-    propertyEditorContentEmpty: "属性查看器中没有数据。"
+    propertyEditorContentEmpty: "属性查看器中没有数据。按这里添加一行数据。"
   }
 };
 

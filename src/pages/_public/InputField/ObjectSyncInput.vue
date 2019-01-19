@@ -19,7 +19,6 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {get, set} from "lodash";
 
   export default Vue.extend({
     name: "ObjectSynchronizedInput",
@@ -27,23 +26,25 @@
       object: {
         type: Object
       },
-      path: {
+      k: {
         type: String
       }
     },
     data: () => {
       return {
-        get,
-        set,
         storage: ""
       };
     },
     mounted() {
-      this.storage = get(this.object, this.path);
+      // noinspection TypeScriptUnresolvedFunction
+      this.storage = this.object[this.k];
     },
     watch: {
       storage() {
-        set(this.object, this.path, this.storage);
+        Vue.set(this.object, this.k, this.storage);
+      },
+      object() {
+        this.storage = this.object[this.k];
       }
     }
   });

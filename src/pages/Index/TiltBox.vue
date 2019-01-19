@@ -30,7 +30,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {timeout} from "@/utils/System";
+  import {timeout} from "@/utils/lang";
 
   export default Vue.extend({
     name: "TiltBox",

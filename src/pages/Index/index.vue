@@ -52,7 +52,7 @@
   import Tilt from "./TiltBox.vue";
   import MenuButton from "./MenuButton.vue";
   import Splitter from "./VerticalSplitter.vue";
-  import {timeout} from "@/utils/System";
+  import {timeout} from "@/utils/lang";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import {sideTab} from "@/main";
   import menu from "@/utils/SideTabDefinitions";
