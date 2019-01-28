@@ -27,7 +27,7 @@
         type: Object
       },
       k: {
-        type: String
+        type: String  // Route to the value
       }
     },
     data: () => {

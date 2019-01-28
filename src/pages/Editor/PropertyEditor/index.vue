@@ -40,7 +40,7 @@
     margin: 1em;
   }
 
-  .clickTip {
+  .clickTip, .confirmDelete {
     cursor: pointer
   }
 
@@ -94,27 +94,22 @@
         pullAt
       };
     },
-    mounted() {
-      const up = () => {
-        const out = [];
-        for (const i of this.content.data) {
-          out.push(i.id);
-        }
-        console.log(out);
-        this.$forceUpdate();
-      };
-      setInterval(up, 1000);
-    },
+    // mounted() {
+    //   window.addEventListener("keypress", this.keyDownHandler);
+    // },
+    // destroyed() {
+    //   window.removeEventListener("keypress", this.keyDownHandler);
+    // },
     methods: {
       keyDownHandler(e: KeyboardEvent) {
         // Case: delete
         if (e.key === "Delete" && this.confirmDeleteAt < 0) {
-          this.confirmDeleteAt = getAttrInEvent(e, "data-i");
+          this.confirmDeleteAt = parseInt(getAttrInEvent(e, "data-i") as string, 10);
           this.$forceUpdate();
         } else if (this.confirmDeleteAt >= 0) {
           this.confirmDeleteAt = -1;
         } else if (e.key === "Enter") {
-          this.newLine(getAttrInEvent(e, "data-i") as number);
+          this.newLine(parseInt(getAttrInEvent(e, "data-i") as string, 10));
         }
         this.$forceUpdate();
       },
@@ -125,7 +120,6 @@
           value: "-",
           text: "-"
         };
-        // TODO: buggy
         this.content.data.splice(line + 1, 0, placeholder);
         this.$forceUpdate();
       },
