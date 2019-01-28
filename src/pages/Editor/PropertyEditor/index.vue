@@ -9,22 +9,14 @@
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
         <tr v-for="(_, i) in content.data" :data-i="i">
-          <!--suppress EqualityComparisonWithCoercionJS -->
-          <td v-show="confirmDeleteAt != i">
-            <in :object="content.data[i]" k="id"></in>
+          <td>
+            <in :object="content.data[i]" k="id" :p="e('identifier')"></in>
           </td>
-          <!--suppress EqualityComparisonWithCoercionJS -->
-          <td v-show="confirmDeleteAt != i">
-            <in :object="content.data[i]" k="value"></in>
+          <td>
+            <in :object="content.data[i]" k="value" :p="e('value')"></in>
           </td>
-          <!--suppress EqualityComparisonWithCoercionJS -->
-          <td v-show="confirmDeleteAt != i">
-            <in :object="content.data[i]" k="text"></in>
-          </td>
-          <!--suppress EqualityComparisonWithCoercionJS -->
-          <td class="confirmDelete" v-if="confirmDeleteAt == i" rowspan="true"
-              @click="deleteLine(confirmDeleteAt)">
-            点击这里以确认删除; Esc: 取消;
+          <td>
+            <in :object="content.data[i]" k="text" :p="e('text')"></in>
           </td>
         </tr>
       </table>
@@ -90,7 +82,6 @@
     data: () => {
       return {
         e: say,
-        confirmDeleteAt: -1,
         pullAt
       };
     },
@@ -102,30 +93,24 @@
     // },
     methods: {
       keyDownHandler(e: KeyboardEvent) {
-        // Case: delete
-        if (e.key === "Delete" && this.confirmDeleteAt < 0) {
-          this.confirmDeleteAt = parseInt(getAttrInEvent(e, "data-i") as string, 10);
-          this.$forceUpdate();
-        } else if (this.confirmDeleteAt >= 0) {
-          this.confirmDeleteAt = -1;
+        if (e.key === "Delete") {
+          this.deleteLine(parseInt(getAttrInEvent(e, "data-i") as string, 10));
         } else if (e.key === "Enter") {
           this.newLine(parseInt(getAttrInEvent(e, "data-i") as string, 10));
         }
-        this.$forceUpdate();
+        // this.$forceUpdate();
       },
       newLine(line: number) {
-        console.log(line);
         const placeholder: PropertyData = {
-          id: "-",
-          value: "-",
-          text: "-"
+          id: "",
+          value: "",
+          text: ""
         };
         this.content.data.splice(line + 1, 0, placeholder);
         this.$forceUpdate();
       },
       deleteLine(line: number) {
         Vue.delete(this.content.data, line);
-        this.confirmDeleteAt = -1;
         this.$forceUpdate();
       }
     }

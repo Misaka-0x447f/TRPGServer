@@ -2,7 +2,7 @@
   <div class="root">
     <div class="container">
       <label>
-        <input type="text" v-model="storage">
+        <input type="text" v-model="storage" :placeholder="p">
       </label>
     </div>
   </div>
@@ -28,6 +28,10 @@
       },
       k: {
         type: String  // Route to the value
+      },
+      p: {
+        type: String, // Placeholder
+        default: "/"
       }
     },
     data: () => {
