@@ -101,6 +101,7 @@
   import {sideTab} from "@/main";
   import sideTabManager from "./SideTabContents/index.vue";
   import {cloneDeep, forIn, sortBy} from "lodash";
+  import {emptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "sidebarIndex",
@@ -125,6 +126,12 @@
         });
         return sortBy(copy, ["index"]);
       }
+    },
+    mounted() {
+      sideTab.registerTabDestroyMethod(this.closeTab);
+    },
+    beforeDestroy() {
+      sideTab.registerTabDestroyMethod(emptyEventHandler);
     },
     methods: {
       tabClickHandler(e: string) {

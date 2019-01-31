@@ -35,6 +35,7 @@
     z-index: 65535;
     background: sidebar-edge-0;
     color: sidebar-font-0;
+    cursor: pointer;
   }
 
   .root[data-manuallyScoped-j3uasjk]:nth-of-type(odd) .container {

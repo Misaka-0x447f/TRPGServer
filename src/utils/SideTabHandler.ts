@@ -2,11 +2,12 @@ import Vue from "vue";
 import {defaults, forIn} from "lodash";
 
 import {dict} from "@/utils/i18n";
-import {Filter} from "@/utils/TypeScript";
+import {emptyEventHandler, Filter} from "@/utils/TypeScript";
 import {ico} from "@/utils/FontAwesome";
 
 export class SideTabHandler {
   public storage: TabInfoCarrier = {};
+  public closeTabMethod: () => void = emptyEventHandler;
 
   public updateTab(obj: TabInfoCarrier) {
     forIn(obj, (value, key) => {
@@ -44,6 +45,11 @@ export class SideTabHandler {
         throw new Error(`Unexpected menu path: ${key}`);
       }
     });
+    this.closeTabMethod();
+  }
+
+  public registerTabDestroyMethod(method: () => void) {
+    this.closeTabMethod = method;
   }
 }
 

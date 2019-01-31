@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="{container: true, disabled: this.isDisabled}" @click="this.click">
+    <div :class="{container: true, disabled: this.isDisabled}" @click="clickHandler">
       {{this.name}}
       <font-awesome-icon
         icon="chevron-right"
@@ -15,6 +15,7 @@
     align-items: center
     min-height: 2em;
     padding: 1em 1.5em 0 1.5em;
+    cursor: pointer;
   }
 
   .disabled {
@@ -23,6 +24,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import {sideTab} from "@/main";
 
   export default Vue.extend({
     name: "Click",
@@ -41,6 +43,14 @@
     },
     data: () => {
       return {};
+    },
+    methods: {
+      clickHandler() {
+        this.click();
+        if (!this.isDisabled) {
+          sideTab.closeTabMethod();
+        }
+      }
     }
   });
 </script>
