@@ -1,5 +1,5 @@
 export interface Property {
-  checksum: {
+  checksum?: {
     algorithm: checksumAlgorithm,
     checksum: string,             // checksum of JSON.stringify(data)
     source: checksumDataSource

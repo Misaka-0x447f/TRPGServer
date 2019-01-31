@@ -17,7 +17,7 @@
   import Vue from "vue";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import PropEditor from "./PropertyEditor/index.vue";
-  import {checksumAlgorithm, checksumDataSource, Property} from "@/utils/PropertyEditor";
+  import {Property} from "@/utils/PropertyEditor";
 
   export default Vue.extend({
     name: "editorIndex",
@@ -28,11 +28,6 @@
     computed: {
       generatedContent(): Property {
         return {
-          checksum: {
-            algorithm: checksumAlgorithm.sha1,
-            checksum: "123",
-            source: checksumDataSource.gen
-          },
           data: []
         };
       }

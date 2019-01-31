@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="container" @keydown="keyDownHandler">
+    <div class="container">
       <table v-if="content.data.length">
         <tr>
           <th>{{e("identifier")}}</th>
@@ -67,7 +67,20 @@
   import say from "@/utils/i18n";
   import inp from "@/pages/_public/InputField/ObjectSyncInput.vue";
   import {getAttrInEvent} from "@/utils/dom";
-  import {pullAt} from "lodash";
+  import {cloneDeep, isNull, last, pullAt} from "lodash";
+  import {sideTab} from "@/main";
+  import {MenuStyle} from "@/utils/SideTabHandler";
+  import {ico} from "@/utils/FontAwesome";
+
+  enum mutation {
+    del = "delete"
+  }
+
+  interface History {
+    changedLine: number;
+    data?: PropertyData;
+    mutation: mutation;
+  }
 
   export default Vue.extend({
     name: "PropertyEditor",
@@ -79,39 +92,90 @@
         type: Object as () => Property
       }
     },
-    data: () => {
+    data: (): {
+      e: typeof say,
+      pullAt: typeof pullAt,
+      history: History[]
+    } => {
       return {
         e: say,
-        pullAt
+        pullAt,
+        history: []
       };
     },
-    // mounted() {
-    //   window.addEventListener("keypress", this.keyDownHandler);
-    // },
-    // destroyed() {
-    //   window.removeEventListener("keypress", this.keyDownHandler);
-    // },
-    methods: {
-      keyDownHandler(e: KeyboardEvent) {
-        if (e.key === "Delete") {
-          this.deleteLine(parseInt(getAttrInEvent(e, "data-i") as string, 10));
-        } else if (e.key === "Enter") {
-          this.newLine(parseInt(getAttrInEvent(e, "data-i") as string, 10));
+    mounted() {
+      window.addEventListener("keydown", this.keyEventHandler);
+      sideTab.updateTab({
+        editMenu: {
+          icon: ico.userEdit,
+          children: {
+            undoDeleteLine: {
+              style: MenuStyle.click,
+              handler: this.undo
+            }
+          }
         }
-        // this.$forceUpdate();
+      });
+    },
+    destroyed() {
+      window.removeEventListener("keydown", this.keyEventHandler);
+      sideTab.destroyTabByPath({
+        editMenu: ["undoDeleteLine"]
+      });
+    },
+    methods: {
+      keyEventHandler(e: KeyboardEvent) {
+        let eventAt;
+        if (isNull(getAttrInEvent(e, "data-i"))) {
+          eventAt = 0;
+        } else {
+          eventAt = parseInt(getAttrInEvent(e, "data-i") as string, 10);
+        }
+
+        if (e.code === "Enter") {
+          if (isNull(getAttrInEvent(e, "data-i"))) {
+            // got null, add line at the end of array
+            this.newLine(this.content.data.length - 1);
+          } else {
+            this.newLine(eventAt);
+          }
+        } else if (e.key === "Delete") {
+          this.history.push({
+            changedLine: eventAt,
+            mutation: mutation.del,
+            data: this.content.data[eventAt]
+          });
+          this.deleteLine(eventAt);
+        }
       },
-      newLine(line: number) {
-        const placeholder: PropertyData = {
+      newLine(line: number, data?: PropertyData) {
+        let placeholder: PropertyData = {
           id: "",
           value: "",
           text: ""
         };
+        if (data) {
+          placeholder = cloneDeep(data);
+        }
         this.content.data.splice(line + 1, 0, placeholder);
         this.$forceUpdate();
       },
       deleteLine(line: number) {
         Vue.delete(this.content.data, line);
         this.$forceUpdate();
+      },
+      undo() {
+        if (last(this.history) !== undefined) {
+          const l = last(this.history) as History;
+          if (l.mutation === mutation.del) {
+            this.newLine(l.changedLine as number, l.data);
+            this.history.pop();
+          } else {
+            throw new Error("unknown undo task");
+          }
+        } else {
+          throw new Error("nothing to undo");
+        }
       }
     }
   });

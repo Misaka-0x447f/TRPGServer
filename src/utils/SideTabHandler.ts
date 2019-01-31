@@ -25,6 +25,32 @@ export class SideTabHandler {
       Vue.delete(this.storage, key);
     });
   }
+
+  public destroyTabByPath(obj: PathDef) {
+    forIn(obj, (value, key) => {
+      if (typeof value === "object" && this.storage.hasOwnProperty(key)) {
+        let keysCount = -1;
+        for (const v of value) {
+          // @ts-ignore. key must exist.
+          const host = (this.storage[key] as MenuValue).children;
+          if (host.hasOwnProperty(v)) {
+            // exist. clean it.
+            Vue.delete(host, v);
+            // count remaining items in this menu
+            keysCount = Object.keys(host).length;
+          } else {
+            throw new Error(`Unexpected menu path: ${key}.${v}`);
+          }
+        }
+        if (keysCount === 0) {
+          // no items in the menu. clean it.
+          Vue.delete(this.storage, key);
+        }
+      } else {
+        throw new Error(`Unexpected menu path: ${key}`);
+      }
+    });
+  }
 }
 
 /*  /// example
@@ -44,7 +70,11 @@ export class SideTabHandler {
     /// never forgot to destroy tab when you leave.
  */
 
-type menuNames = "fileMenu" | "viewMenu" | "templateMenu" | "aboutMenu";
+type PathDef = {
+  [T in menuName]?: Array<keyof typeof dict.zh>;
+};
+
+type menuNames = "editMenu" | "aboutMenu";
 type menuName = Filter<menuNames, keyof typeof dict.zh>;
 
 export enum MenuStyle {
@@ -69,6 +99,7 @@ export interface MenuValue {
   // TODO: [Maybe] align?: "bottom" | "top";           // should be show at the bottom? default: "top";
   index?: number;                     // arrange menus; default: 0;
   icon?: ico;
+  // TODO: enabled?: (): boolean => {}
   children: {
     [T in keyof typeof dict.zh]?: {
       style: MenuStyle,
