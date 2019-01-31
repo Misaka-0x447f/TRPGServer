@@ -89,6 +89,9 @@ export enum MenuStyle {
  * checkBox: (e?: CheckBoxEvent) => void
  * text?: () => string /// if handler exist and return a string, override the key name.
  * textarea?: () => string /// use \n for word wrap
+ *
+ * Enabled:
+ * Called when menu mounted. Only works with click for now.
  */
 
 export type TabInfoCarrier = {
@@ -99,13 +102,15 @@ export interface MenuValue {
   // TODO: [Maybe] align?: "bottom" | "top";           // should be show at the bottom? default: "top";
   index?: number;                     // arrange menus; default: 0;
   icon?: ico;
-  // TODO: enabled?: (): boolean => {}
   children: {
-    [T in keyof typeof dict.zh]?: {
-      style: MenuStyle,
-      handler?: (e?: CheckBoxEvent) => void | string
-    }
+    [T in keyof typeof dict.zh]?: MenuItem
   };
+}
+
+export interface MenuItem {
+  style: MenuStyle;
+  enabled?: () => boolean;
+  handler?: (e?: CheckBoxEvent) => void | string;
 }
 
 interface CheckBoxEvent {

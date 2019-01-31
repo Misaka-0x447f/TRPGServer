@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="container" @click="this.click">
+    <div :class="{container: true, disabled: this.isDisabled}" @click="this.click">
       {{this.name}}
       <font-awesome-icon
         icon="chevron-right"
@@ -16,6 +16,10 @@
     min-height: 2em;
     padding: 1em 1.5em 0 1.5em;
   }
+
+  .disabled {
+    color: nearly-grey;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
@@ -29,6 +33,10 @@
       },
       click: {
         type: Function
+      },
+      isDisabled: {
+        type: Boolean,
+        default: false
       }
     },
     data: () => {

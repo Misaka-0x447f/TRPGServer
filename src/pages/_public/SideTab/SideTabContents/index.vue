@@ -7,12 +7,13 @@
     <div class="container" v-for="(value, key) in this.definition">
       <txt v-if="value.style === MenuStyle.text" :text="getText(value, key)"></txt>
       <txt-area v-if="value.style === MenuStyle.textarea" :text="getText(value, key)"></txt-area>
-      <click v-if="value.style === MenuStyle.click" :name="e(key)" :click="useHandler(value.handler)"></click>
+      <click :isDisabled="isDisabled(value)" v-if="value.style === MenuStyle.click" :name="e(key)"
+             :click="useHandler(value)"></click>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container { 
+  .container {
     width: 30vw;
   }
 </style>
@@ -22,7 +23,8 @@
   import ClickComponent from "./Click.vue";
   import TextareaComponent from "./Textarea.vue";
   import say, {dict} from "@/utils/i18n";
-  import {MenuStyle} from "@/utils/SideTabHandler";
+  import {MenuItem, MenuStyle} from "@/utils/SideTabHandler";
+  import {emptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "SideTabManager",
@@ -46,6 +48,7 @@
       getText(value: any, key: string) {
         // condition: property 'handler' exist, then execute
         if (value.hasOwnProperty("handler")) {
+          // noinspection TypeScriptValidateJSTypes
           const result: string | void = value.handler();
           if (typeof result === "string") {
             return result;
@@ -54,13 +57,18 @@
         // condition: no handler, use key as output
         return say(key as keyof typeof dict.zh);
       },
-      useHandler(handler: any) {
-        if (typeof handler === "function") {
-          return handler;
+      useHandler(item: MenuItem) {
+        if (typeof item.handler === "function") {
+          if (this.isDisabled(item)) {
+            return emptyEventHandler();
+          } else {
+            return item.handler;
+          }
         }
-        return () => {
-          return;
-        };
+        return emptyEventHandler();
+      },
+      isDisabled(item: MenuItem) {
+        return typeof item.enabled === "function" && item.enabled() === false;
       }
     }
   });

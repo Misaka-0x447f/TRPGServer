@@ -111,7 +111,8 @@
           children: {
             undoDeleteLine: {
               style: MenuStyle.click,
-              handler: this.undo
+              handler: this.undo,
+              enabled: this.undoable
             }
           }
         }
@@ -176,6 +177,9 @@
         } else {
           throw new Error("nothing to undo");
         }
+      },
+      undoable() {
+        return this.history.length > 0;
       }
     }
   });
