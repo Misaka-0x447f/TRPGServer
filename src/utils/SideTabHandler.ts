@@ -20,13 +20,7 @@ export class SideTabHandler {
     });
   }
 
-  public destroyTab(obj: TabInfoCarrier) {
-    forIn(obj, (value, key) => {
-      Vue.delete(this.storage, key);
-    });
-  }
-
-  public destroyTabByPath(obj: PathDef) {
+  public destroyTab(obj: PathDef) {
     forIn(obj, (value, key) => {
       if (typeof value === "object" && this.storage.hasOwnProperty(key)) {
         let keysCount = -1;

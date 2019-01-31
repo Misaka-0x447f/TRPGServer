@@ -120,7 +120,7 @@
     },
     destroyed() {
       window.removeEventListener("keydown", this.keyEventHandler);
-      sideTab.destroyTabByPath({
+      sideTab.destroyTab({
         editMenu: ["undoDeleteLine"]
       });
     },
