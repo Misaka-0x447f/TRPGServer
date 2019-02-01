@@ -1,6 +1,12 @@
 <template>
   <div class="root">
     <div class="container">
+      <div class="readOnlyOverlayContainer" v-if="this.isReadOnly">
+        <div class="readOnlyOverlay"></div>
+        <div class="readOnlyTips">
+          {{e("propertyEditorIsReadOnly")}}
+        </div>
+      </div>
       <table v-if="content.data.length">
         <tr>
           <th>{{e("identifier")}}</th>
@@ -21,15 +27,40 @@
         </tr>
       </table>
       <div class="clickTip" v-if="content.data.length === 0" @click="newLine">
-        {{e("propertyEditorContentEmpty")}}
+        {{this.isReadOnly ? e("propertyEditorContentEmptyWhileRO") : e("propertyEditorContentEmpty")}}
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
+  .readOnlyOverlayContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  .readOnlyOverlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+  }
+
+  .readOnlyTips {
+    position: absolute;
+    border-radius: 0.5em;
+    right: 3em;
+    background: container-background-2;
+    padding: 0.5em 1em;
+    color: plain-text-1;
+  }
+
   .container {
+    height: 100%;
     text-align: left;
     margin: 1em;
+    position: relative;
   }
 
   .clickTip, .confirmDelete {
@@ -90,6 +121,10 @@
     props: {
       content: {
         type: Object as () => Property
+      },
+      isReadOnly: {
+        type: Boolean,
+        default: true
       }
     },
     data: (): {
@@ -126,6 +161,9 @@
     },
     methods: {
       keyEventHandler(e: KeyboardEvent) {
+        if (this.isReadOnly) {
+          return;
+        }
         let eventAt;
         if (isNull(getAttrInEvent(e, "data-i"))) {
           eventAt = 0;
@@ -179,7 +217,7 @@
         }
       },
       undoable() {
-        return this.history.length > 0;
+        return this.history.length > 0 && !this.isReadOnly;
       }
     }
   });

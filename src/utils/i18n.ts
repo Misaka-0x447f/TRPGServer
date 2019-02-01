@@ -23,7 +23,9 @@ export const dict = {
     identifier: "标识符",
     value: "值",
     text: "文本",
-    propertyEditorContentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。"
+    propertyEditorContentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
+    propertyEditorContentEmptyWhileRO: "属性编辑器中没有数据且处于写保护模式，这意味着你只能用其他方式更新数据。",
+    propertyEditorIsReadOnly: "写保护"
   }
 };
 
