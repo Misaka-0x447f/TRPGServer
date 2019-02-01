@@ -1,5 +1,5 @@
 ## misaka-vue-template
-
+[![Build Status](https://dev.azure.com/TRPG-server/TRPGServer/_apis/build/status/Misaka-0x447f.TRPGServer?branchName=master)](https://dev.azure.com/TRPG-server/TRPGServer/_build/latest?definitionId=1&branchName=master)
 ## Project setup
 ```
 npm install
