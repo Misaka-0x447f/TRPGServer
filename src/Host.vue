@@ -1,13 +1,15 @@
 <template>
-  <div>
-    <router-view></router-view>
-    <side-tabs></side-tabs>
+  <div class="master-root">
+    <side-tabs class="side-tab-viewer"></side-tabs>
+    <div class="container">
+      <router-view class="router-view"></router-view>
+    </div>
   </div>
 </template>
 <style lang="stylus">
   body
-    width 100vw
-    height 100vh
+    width 100%
+    height 100%
     margin 0
     background background-0
     display flex
@@ -19,4 +21,28 @@
     text-align center
     color plain-text-0
     perspective 4500px
+    overflow hidden
+</style>
+<style lang="stylus" scoped>
+  .master-root {
+    width: 100vw;
+    height: 100vh;
+  }
+  
+  .container {
+    width 100%
+    height 100%
+    overflow hidden
+  }
+
+  .side-tab-viewer {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+  }
+
+  .router-view {
+    height: 100%;
+    margin-right: 2.55em;
+  }
 </style>

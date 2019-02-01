@@ -76,7 +76,7 @@
   }
 
   .overlay-container {
-    position: absolute;
+    position: fixed;
     top: 0;
     display: block;
     background: sidebar-mask-0;

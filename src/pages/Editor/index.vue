@@ -2,14 +2,13 @@
   <div class="root">
     <div class="container">
       <wp></wp>
-      <pe :content="generatedContent"></pe>
+      <pe :isReadOnly="true" :content="generatedContent"></pe>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .container {
-    width 100vw
-    height 100vh
+    height 100%;
     overflow hidden
   }
 </style>

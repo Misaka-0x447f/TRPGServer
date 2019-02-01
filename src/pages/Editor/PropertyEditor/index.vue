@@ -50,7 +50,7 @@
   .readOnlyTips {
     position: absolute;
     border-radius: 0.5em;
-    right: 3em;
+    right: 0.5em;
     background: container-background-2;
     padding: 0.5em 1em;
     color: plain-text-1;
@@ -124,7 +124,7 @@
       },
       isReadOnly: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     data: (): {
