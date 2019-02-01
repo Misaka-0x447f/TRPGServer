@@ -1,5 +1,10 @@
-## misaka-vue-template
+## trpg-server
 [![Build Status](https://dev.azure.com/TRPG-server/TRPGServer/_apis/build/status/Misaka-0x447f.TRPGServer?branchName=master)](https://dev.azure.com/TRPG-server/TRPGServer/_build/latest?definitionId=1&branchName=master)
+
+This project is still under development and only support Chinese(Simplified) for now.  
+CI/CD configured using azure. Access CD version here:
+[trpg.misaka.org](http://trpg.misaka.org)
+
 ## Project setup
 ```
 npm install

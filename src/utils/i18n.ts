@@ -14,8 +14,13 @@ export const dict = {
     editMenu: "编辑",
     aboutMenu: "关于",
     // global side menu text
-    version: "TRPG Server Project (development build)",
-    about: "如遇问题，请回报给Misaka\nTelegram: @Misaka_0x447f\n447f.misaka@outlook.com",
+    version: "TRPG Server Project (continuous delivery build)",
+    about: "此程序正在开发中，应该能在一个月内开始alpha测试。" +
+      "\n届时会对后日谈做简单支持。" +
+      "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
+      "\n如遇问题，请回报给Misaka" +
+      "\nTelegram: @Misaka_0x447f" +
+      "\n447f.misaka@outlook.com",
     undoDeleteLine: "撤销 删除行",
     // editor
     editorSaveWarning: "保存数据将导致被标记为并非由内建生成器所生成。\n" +
