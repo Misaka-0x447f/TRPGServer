@@ -6,7 +6,7 @@
       <div class="vs">
         <vs></vs>
       </div>
-      <pe class="propertyEditor" :isReadOnly="true" :content="generatedContent"></pe>
+      <pe class="propertyEditor" :isReadOnly="true" :content="state.editor.storage"></pe>
     </div>
   </div>
 </template>
@@ -18,11 +18,11 @@
     display: flex;
     padding: 1em;
   }
-  
+
   .generator, .propertyEditor {
     flex: 15;
   }
-  
+
   .vs {
     margin: 0 1em;
   }
@@ -31,10 +31,10 @@
   import Vue from "vue";
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import PropEditor from "./PropertyEditor/index.vue";
-  import {Property} from "@/utils/PropertyEditor";
   import ne from "./Generators/Nechronica/index.vue";
   import vs from "@/pages/_public/VerticalSplitter.vue";
-  
+  import state from "@/utils/state";
+
   export default Vue.extend({
     name: "editorIndex",
     components: {
@@ -43,12 +43,10 @@
       ne,
       vs
     },
-    computed: {
-      generatedContent(): Property {
-        return {
-          data: []
-        };
-      }
+    data() {
+      return {
+        state
+      };
     }
   });
 </script>

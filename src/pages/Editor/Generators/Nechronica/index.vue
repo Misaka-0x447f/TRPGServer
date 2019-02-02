@@ -19,14 +19,20 @@
     text-align: left;
   }
 
+  .title {
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
+  }
+
   .button-group {
     display: flex;
     flex-direction: row-reverse;
+    margin-top: 0.5em;
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {PropertyData} from "@/utils/PropertyEditor";
+  import {PropertyData, createProperty} from "@/utils/PropertyEditor";
   import page1 from "./Page1.vue";
   import page2 from "./Page2.vue";
   import say from "@/utils/i18n";
@@ -52,6 +58,12 @@
         nextEnabled: true,
         e: say
       };
+    },
+    mounted() {
+      createProperty("gameType", "", "Nechronica");
+      createProperty("name", say("nechronicaDataGenCharacterName"));
+      createProperty("age", say("nechronicaDataGenCharacterAge"));
+      createProperty("desc", say("nechronicaDataGenCharacterDesc"));
     },
     methods: {
       nextStep() {

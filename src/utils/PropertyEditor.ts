@@ -1,9 +1,8 @@
+import state from "@/utils/state";
+import Vue from "vue";
+import {cloneDeep, find, findIndex} from "lodash";
+
 export interface Property {
-  checksum?: {                      // TODO: incomplete feature
-    algorithm?: checksumAlgorithm,  // default: sha1
-    checksum: string,               // checksum of JSON.stringify(data)
-    source: checksumDataSource
-  };
   data: PropertyData[];
 }
 
@@ -13,10 +12,31 @@ export interface PropertyData {
   text: string;                     // human readable property text
 }
 
-export enum checksumAlgorithm {
-  sha1 = "sha1"
-}
+export const PropertyExist = (id: string) => {
+  return findIndex(state.editor.storage.data, {id} as any) !== -1;
+};
 
-export enum checksumDataSource {
-  gen = "built-in generator"
-}
+export const createProperty = (id: string, text: string, value?: string) => {
+  if (PropertyExist(id)) {
+    return false;
+  }
+
+  const d = cloneDeep(state.editor.storage.data) as PropertyData[];
+  d.push({
+    id,
+    value: value ? value : "",
+    text
+  });
+
+  Vue.set(state.editor.storage, "data", d);
+};
+
+export const updateProperty = (id: string, value: string) => {
+  const target = find(state.editor.storage.data, {id}) as PropertyData | undefined;
+  if (target === undefined) {
+    console.warn(`Property does not exist while searching storage: ${id}`);
+    return false;
+  }
+  Vue.set(target, "value", value);
+  return true;
+};

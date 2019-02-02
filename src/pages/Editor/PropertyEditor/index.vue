@@ -16,13 +16,13 @@
         <!--suppress JSUnusedLocalSymbols -->
         <tr v-for="(_, i) in content.data" :data-i="i">
           <td>
-            <in :object="content.data[i]" k="id" :p="e('identifier')"></in>
+            <txt v-model="content.data[i].id" :placeholder="e('identifier')"></txt>
           </td>
           <td>
-            <in :object="content.data[i]" k="value" :p="e('value')"></in>
+            <txt v-model="content.data[i].value" :placeholder="e('value')"></txt>
           </td>
           <td>
-            <in :object="content.data[i]" k="text" :p="e('text')"></in>
+            <txt v-model="content.data[i].text" :placeholder="e('text')"></txt>
           </td>
         </tr>
       </table>
@@ -95,7 +95,7 @@
   import Vue from "vue";
   import {Property, PropertyData} from "@/utils/PropertyEditor";
   import say from "@/utils/i18n";
-  import inp from "@/pages/_public/InputField/ObjectSyncInput.vue";
+  import txt from "@/pages/_public/InputField/Input.vue";
   import {getAttrInEvent} from "@/utils/dom";
   import {cloneDeep, isNull, last, pullAt} from "lodash";
   import {sideTab} from "@/main";
@@ -115,7 +115,7 @@
   export default Vue.extend({
     name: "PropertyEditor",
     components: {
-      in: inp
+      txt
     },
     props: {
       content: {

@@ -18,7 +18,7 @@ export const dict = {
     version: "TRPG Server Project (continuous delivery build)",
     about: "此程序正在开发中，尚未开始alpha测试。" +
       "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
-      "" +
+      "\n" +
       "\n如遇问题，请回报给Misaka" +
       "\nTelegram: @Misaka_0x447f" +
       "\n447f.misaka@outlook.com",
@@ -31,12 +31,17 @@ export const dict = {
     text: "文本",
     propertyEditorContentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
     propertyEditorContentEmptyWhileRO: "属性编辑器中没有数据。",
-    propertyEditorIsReadOnly: "写保护",
+    propertyEditorIsReadOnly: "写保护生效中",
     // NechronicaDataGen
     nechronicaDataGenTitle: "Nechronica数据生成向导",
-    nechronicaDataGenDescription: "本向导将帮助您生成一名Nechronica角色。" +
+    nechronicaDataGenDescription: "本向导将帮助您生成一名Nechronica(永远的后日谈)角色。" +
       "本向导使用的规则来自这里的基础规则，但不包含扩充规则:",
-    nechronicaDataGenGetCharacterName: "键入您的角色名称。如果想把这一步骤留到最后，请点击下一步。"
+    nechronicaDataGenStep2Name: "基本信息生成",
+    nechronicaDataGenCharacterName: "角色名",
+    nechronicaDataGenCharacterAge: "年龄",
+    nechronicaDataGenCharacterDesc: "角色描述",
+    nechronicaDataGenSkipStep2: "我们已为该角色提供了随机名字和年龄。如果想把这里提到的信息留到向导结束时再填写，请直接点击下一步。" +
+      "也可以在向导结束后随意添加更多角色描述。"
   }
 };
 

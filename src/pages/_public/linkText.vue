@@ -1,5 +1,5 @@
 <template functional>
-  <a :class="props.class" :href="props.href" :target="newTab ? '_blank' : ''">
+  <a :class="props.class" :href="props.href" :target="props.newTab ? '_blank' : '_self'">
     <slot></slot>
   </a>
 </template>
