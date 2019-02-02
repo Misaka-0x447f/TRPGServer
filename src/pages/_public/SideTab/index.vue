@@ -22,6 +22,7 @@
           {{e(i._private_key)}}
         </tag>
       </div>
+      <vs :isWhite="isActive()"></vs>
       <div :class="{vs: true, active: isActive()}"></div>
       <transition name="side">
         <div v-if="isActive()" class="menu-content-container">
@@ -46,19 +47,7 @@
     display: flex;
     flex-direction: column;
   }
-
-  .vs {
-    width: 0.3em;
-    height: 100%;
-    background: sidebar-edge-1;
-    border-left: sidebar-splitter 1px solid;
-  }
-
-  .vs.active {
-    background: sidebar-edge-active-0;
-    border-left: sidebar-splitter-active 1px solid;
-  }
-
+    
   .side-enter-active, .side-leave-active {
     transition: width .5s cubic-bezier(0, 0.5, 0.25, 1);
   }
@@ -96,26 +85,26 @@
 <script lang="ts">
   import Vue from "vue";
   import TagView from "./TagView.vue";
-  import TagViewPadding from "./TagViewPadding.vue";
   import say from "../../../utils/i18n";
   import {sideTab} from "@/main";
   import sideTabManager from "./SideTabContents/index.vue";
   import {cloneDeep, forIn, sortBy} from "lodash";
   import {emptyEventHandler} from "@/utils/TypeScript";
-
+  import vs from "../VerticalSplitter.vue";
+  
   export default Vue.extend({
     name: "sidebarIndex",
     components: {
       tag: TagView,
-      tagP: TagViewPadding,
-      sm: sideTabManager
+      sm: sideTabManager,
+      vs
     },
     data: () => {
       return {
         instance: sideTab,
         definition: {},
         activeTab: "",
-        e: say
+        e: say,
       } as any;
     },
     computed: {

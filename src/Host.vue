@@ -22,13 +22,23 @@
     color plain-text-0
     perspective 4500px
     overflow hidden
+    
+  a {
+    color: link-text-0;
+    text-decoration: none;
+  }
+
+  a:hover, a:visited {
+    color: link-text-0-hover;
+    text-decoration: underline;
+  }
 </style>
 <style lang="stylus" scoped>
   .master-root {
     width: 100vw;
     height: 100vh;
   }
-  
+
   .container {
     width 100%
     height 100%
@@ -38,7 +48,7 @@
   .side-tab-viewer {
     position: absolute;
     left: 0;
-    z-index: 1;
+    z-index: 65535;
   }
 
   .router-view {

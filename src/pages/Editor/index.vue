@@ -1,15 +1,30 @@
 <template>
   <div class="root">
+    <wp></wp>
     <div class="container">
-      <wp></wp>
-      <pe :isReadOnly="true" :content="generatedContent"></pe>
+      <ne class="generator"></ne>
+      <div class="vs">
+        <vs></vs>
+      </div>
+      <pe class="propertyEditor" :isReadOnly="true" :content="generatedContent"></pe>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .container {
     height 100%;
-    overflow hidden
+    box-sizing: border-box;
+    overflow hidden;
+    display: flex;
+    padding: 1em;
+  }
+  
+  .generator, .propertyEditor {
+    flex: 15;
+  }
+  
+  .vs {
+    margin: 0 1em;
   }
 </style>
 <script lang="ts">
@@ -17,12 +32,16 @@
   import WallPaper from "@/pages/_public/Wallpaper.vue";
   import PropEditor from "./PropertyEditor/index.vue";
   import {Property} from "@/utils/PropertyEditor";
-
+  import ne from "./Generators/Nechronica/index.vue";
+  import vs from "@/pages/_public/VerticalSplitter.vue";
+  
   export default Vue.extend({
     name: "editorIndex",
     components: {
       wp: WallPaper,
-      pe: PropEditor
+      pe: PropEditor,
+      ne,
+      vs
     },
     computed: {
       generatedContent(): Property {

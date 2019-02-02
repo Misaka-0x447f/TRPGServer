@@ -59,7 +59,6 @@
   .container {
     height: 100%;
     text-align: left;
-    margin: 1em;
     position: relative;
   }
 
