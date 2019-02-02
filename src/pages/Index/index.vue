@@ -3,18 +3,18 @@
     <div class="container">
       <wp></wp>
       <div class="title">
-        {{e("launcherTitle")}}
+        {{e("global", "launcherTitle")}}
       </div>
       <tilt class="tiltContainer">
         <menu-button
-          :text="e('characterEditor')"
+          :text="e('global', 'characterEditor')"
           routerGoto="/editor"
         >
           <font-awesome-icon icon="users-cog"></font-awesome-icon>
         </menu-button>
         <vs></vs>
         <menu-button
-          :text="e('viewOnlineGames')"
+          :text="e('global', 'viewOnlineGames')"
           routerGoto="/lobby"
         >
           <font-awesome-icon icon="globe"></font-awesome-icon>
@@ -48,7 +48,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import say from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import Tilt from "./TiltBox.vue";
   import MenuButton from "./MenuButton.vue";
   import Splitter from "./VerticalSplitter.vue";

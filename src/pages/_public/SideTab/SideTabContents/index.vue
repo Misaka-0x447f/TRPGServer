@@ -22,7 +22,7 @@
   import TextComponent from "./Text.vue";
   import ClickComponent from "./Click.vue";
   import TextareaComponent from "./Textarea.vue";
-  import say, {dict} from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import {MenuItem, MenuStyle} from "@/utils/SideTabHandler";
   import {emptyEventHandler} from "@/utils/TypeScript";
 
@@ -55,7 +55,7 @@
           }
         }
         // condition: no handler, use key as output
-        return say(key as keyof typeof dict.zh);
+        return say("global", key);
       },
       useHandler(item: MenuItem) {
         if (typeof item.handler === "function") {

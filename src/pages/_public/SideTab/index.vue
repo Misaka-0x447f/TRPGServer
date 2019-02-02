@@ -19,7 +19,7 @@
           :icon="i.icon"
           :isActive="isActive(i._private_key)"
         >
-          {{e(i._private_key)}}
+          {{e("menuName", i._private_key)}}
         </tag>
       </div>
       <vs :isWhite="isActive()"></vs>
@@ -85,7 +85,7 @@
 <script lang="ts">
   import Vue from "vue";
   import TagView from "./TagView.vue";
-  import say from "../../../utils/i18n";
+  import {say} from "@/utils/i18n";
   import {sideTab} from "@/main";
   import sideTabManager from "./SideTabContents/index.vue";
   import {cloneDeep, forIn, sortBy} from "lodash";

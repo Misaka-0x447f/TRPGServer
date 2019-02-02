@@ -22,7 +22,7 @@ export class SideTabHandler {
   }
 
   public destroyTab(obj: PathDef) {
-    forIn(obj, (value, key) => {
+    forIn(obj as any, (value, key) => {
       if (typeof value === "object" && this.storage.hasOwnProperty(key)) {
         let keysCount = -1;
         for (const v of value) {

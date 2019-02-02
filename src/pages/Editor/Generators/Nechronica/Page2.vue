@@ -2,19 +2,19 @@
   <div class="root">
     <div class="container">
       <div>
-        {{e("nechronicaDataGenCharacterName")}}
+        {{e("nechronica", "characterName")}}
       </div>
       <txt v-model="nameInput" :placeholder="tempName"></txt>
       <div>
-        {{e("nechronicaDataGenCharacterAge")}}
+        {{e("nechronica", "characterAge")}}
       </div>
       <txt v-model="ageInput" :placeholder="tempAge"></txt>
       <div>
-        {{e("nechronicaDataGenCharacterDesc")}}
+        {{e("nechronica", "characterDesc")}}
       </div>
       <txt v-model="descInput"></txt>
       <div>
-        {{e("nechronicaDataGenSkipStep2")}}
+        {{e("nechronica", "SkipStep2")}}
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import say from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import {getRandomName} from "@/utils/math";
   import txt from "@/pages/_public/InputField/Input.vue";
   import state from "@/utils/state";

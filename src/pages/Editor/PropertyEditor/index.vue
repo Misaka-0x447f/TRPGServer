@@ -4,30 +4,30 @@
       <div class="readOnlyOverlayContainer" v-if="this.isReadOnly">
         <div class="readOnlyOverlay"></div>
         <div class="readOnlyTips">
-          {{e("propertyEditorIsReadOnly")}}
+          {{e("propertyEditor", "isReadOnly")}}
         </div>
       </div>
       <table v-if="content.data.length">
         <tr>
-          <th>{{e("identifier")}}</th>
-          <th>{{e("value")}}</th>
-          <th>{{e("text")}}</th>
+          <th>{{e("propertyEditor", "identifier")}}</th>
+          <th>{{e("propertyEditor", "value")}}</th>
+          <th>{{e("propertyEditor", "text")}}</th>
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
         <tr v-for="(_, i) in content.data" :data-i="i">
           <td>
-            <txt v-model="content.data[i].id" :placeholder="e('identifier')"></txt>
+            <txt v-model="content.data[i].id" :placeholder="e('propertyEditor', 'identifier')"></txt>
           </td>
           <td>
-            <txt v-model="content.data[i].value" :placeholder="e('value')"></txt>
+            <txt v-model="content.data[i].value" :placeholder="e('propertyEditor', 'value')"></txt>
           </td>
           <td>
-            <txt v-model="content.data[i].text" :placeholder="e('text')"></txt>
+            <txt v-model="content.data[i].text" :placeholder="e('propertyEditor', 'text')"></txt>
           </td>
         </tr>
       </table>
       <div class="clickTip" v-if="content.data.length === 0" @click="newLine">
-        {{this.isReadOnly ? e("propertyEditorContentEmptyWhileRO") : e("propertyEditorContentEmpty")}}
+        {{this.isReadOnly ? e("propertyEditor", "emptyWhileRO") : e("propertyEditor", "ContentEmpty")}}
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@
 <script lang="ts">
   import Vue from "vue";
   import {Property, PropertyData} from "@/utils/PropertyEditor";
-  import say from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import txt from "@/pages/_public/InputField/Input.vue";
   import {getAttrInEvent} from "@/utils/dom";
   import {cloneDeep, isNull, last, pullAt} from "lodash";

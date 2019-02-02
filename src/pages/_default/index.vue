@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="container">
-      {{e("unknownRoute")}}
+      {{e("global", "unknownRoute")}}
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import say from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import router from "@/router";
 
   export default Vue.extend({
@@ -25,6 +25,7 @@
       };
     },
     mounted() {
+      // noinspection TypeScriptUnresolvedFunction
       router.push("/");
     }
   });
