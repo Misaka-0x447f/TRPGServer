@@ -19,9 +19,7 @@ export const dict = {
     about: "此程序正在开发中，尚未开始alpha测试。" +
       "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
       "\n" +
-      "\n如遇问题，请回报给Misaka" +
-      "\nTelegram: @Misaka_0x447f" +
-      "\n447f.misaka@outlook.com",
+      "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
     undoDeleteLine: "撤销 删除行",
     // editor
     editorSaveWarning: "保存数据将导致被标记为并非由内建生成器所生成。\n" +
