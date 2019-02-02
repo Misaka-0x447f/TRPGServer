@@ -91,6 +91,7 @@
   import {cloneDeep, forIn, sortBy} from "lodash";
   import {emptyEventHandler} from "@/utils/TypeScript";
   import vs from "../VerticalSplitter.vue";
+  import {MenuItem} from "@/utils/SideTabHandler";
   
   export default Vue.extend({
     name: "sidebarIndex",
@@ -102,10 +103,10 @@
     data: () => {
       return {
         instance: sideTab,
-        definition: {},
+        definition: {} as MenuItem[],
         activeTab: "",
         e: say,
-      } as any;
+      };
     },
     computed: {
       sortedTagList() {
@@ -143,11 +144,11 @@
       },
       openTab(e: string) {
         this.activeTab = e;
-        this.definition = this.instance.storage[e].children;
+        this.definition = (this.instance.storage as any)[e].children;
       },
       closeTab() {
         this.activeTab = "";
-        this.definition = {};
+        this.definition = [];
       }
     }
   });

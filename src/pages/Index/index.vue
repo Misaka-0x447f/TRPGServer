@@ -75,20 +75,37 @@
       sideTab.updateTab({
         aboutMenu: {
           icon: ico.infoCircle,
-          children: {
-            version: {
+          children: [
+            {
+              name: {
+                scope: "global",
+                key: "version"
+              },
               style: MenuStyle.text
             },
-            about: {
+            {
+              name: {
+                scope: "global",
+                key: "about"
+              },
               style: MenuStyle.textarea
             }
-          }
+          ]
         }
       });
     },
     destroyed() {
       sideTab.destroyTab({
-        aboutMenu: ["version", "about"]
+        aboutMenu: [
+          {
+            scope: "global",
+            key: "version"
+          },
+          {
+            scope: "global",
+            key: "about"
+          }
+        ]
       });
     },
     async beforeRouteLeave(_0, _1, next) {

@@ -1,5 +1,5 @@
 import Vue from "vue";
-import {defaults, forIn} from "lodash";
+import {defaults, findIndex, forIn} from "lodash";
 
 import {dict} from "@/utils/i18n";
 import {emptyEventHandler, Filter} from "@/utils/TypeScript";
@@ -22,27 +22,23 @@ export class SideTabHandler {
   }
 
   public destroyTab(obj: PathDef) {
-    forIn(obj as any, (value, key) => {
+    const errorWords = "Failed to remove menu item since it does not exist: ";
+    forIn(obj, (value, key) => {
       if (typeof value === "object" && this.storage.hasOwnProperty(key)) {
-        let keysCount = -1;
-        for (const v of value) {
-          // @ts-ignore. key must exist.
-          const host = (this.storage[key] as MenuValue).children;
-          if (host.hasOwnProperty(v)) {
-            // exist. clean it.
-            Vue.delete(host, v);
-            // count remaining items in this menu
-            keysCount = Object.keys(host).length;
-          } else {
-            throw new Error(`Unexpected menu path: ${key}.${v}`);
+        const host = (this.storage as any)[key].children as MenuItem[];
+        forIn(value, (v) => {
+          const index = findIndex(host, {name: v});
+          if (index === -1) {
+            throw new Error(`${errorWords}${key}/${JSON.stringify(v)}`);
           }
-        }
-        if (keysCount === 0) {
-          // no items in the menu. clean it.
-          Vue.delete(this.storage, key);
-        }
+          host.splice(index, 1);
+          if (host.length === 0) {
+            // no items in the menu. clean it.
+            Vue.delete(this.storage, key);
+          }
+        });
       } else {
-        throw new Error(`Unexpected menu path: ${key}`);
+        throw new Error(`${errorWords}${key}/*`);
       }
     });
     this.closeTabMethod();
@@ -54,24 +50,44 @@ export class SideTabHandler {
 }
 
 /*  /// example
-    sideTab.updateTab({
-      templateMenu: {
-        icon: ico.userCogs,
-        children: {
-          useNechronica: {
-            style: MenuStyle.click,
-            handler: () => {
-              console.log("clicked")
+      sideTab.updateTab({
+        aboutMenu: {
+          icon: ico.infoCircle,
+          children: [
+            {
+              name: {
+                scope: "global",
+                key: "version"
+              },
+              style: MenuStyle.text
+            },
+            {
+              name: {
+                scope: "global",
+                key: "about"
+              },
+              style: MenuStyle.textarea
             }
-          }
+          ]
         }
-      }
-    });
+      });
     /// never forgot to destroy tab when you leave.
+      sideTab.destroyTab({
+        aboutMenu: [
+          {
+            scope: "global",
+            key: "version"
+          },
+          {
+            scope: "global",
+            key: "about"
+          }
+        ]
+      });
  */
 
 type PathDef = {
-  [T in menuName]?: Array<keyof typeof dict.zh>;
+  [T in menuName]?: Array<MenuItem["name"]>;
 };
 
 type menuNames = "editMenu" | "aboutMenu";
@@ -102,12 +118,14 @@ export interface MenuValue {
   // TODO: [Maybe] align?: "bottom" | "top";           // should be show at the bottom? default: "top";
   index?: number;                     // arrange menus; default: 0;
   icon?: ico;
-  children: {
-    [T in keyof typeof dict.zh]?: MenuItem
-  };
+  children: MenuItem[];
 }
 
 export interface MenuItem {
+  name: {
+    scope: string;
+    key: string;    // will be pass to @/utils/i18n/e
+  };
   style: MenuStyle;
   enabled?: () => boolean;
   handler?: (e?: CheckBoxEvent) => void | string;

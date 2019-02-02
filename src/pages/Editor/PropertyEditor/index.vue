@@ -142,20 +142,29 @@
       sideTab.updateTab({
         editMenu: {
           icon: ico.userEdit,
-          children: {
-            undoDeleteLine: {
+          children: [
+            {
+              name: {
+                scope: "propertyEditor",
+                key: "undoDeleteLine"
+              },
               style: MenuStyle.click,
               handler: this.undo,
               enabled: this.undoable
             }
-          }
+          ]
         }
       });
     },
     destroyed() {
       window.removeEventListener("keydown", this.keyEventHandler);
       sideTab.destroyTab({
-        editMenu: ["undoDeleteLine"]
+        editMenu: [
+          {
+            scope: "propertyEditor",
+            key: "undoDeleteLine"
+          }
+        ]
       });
     },
     methods: {

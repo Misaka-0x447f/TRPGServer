@@ -4,10 +4,10 @@
 -->
 <template>
   <div class="root">
-    <div class="container" v-for="(value, key) in this.definition">
-      <txt v-if="value.style === MenuStyle.text" :text="getText(value, key)"></txt>
-      <txt-area v-if="value.style === MenuStyle.textarea" :text="getText(value, key)"></txt-area>
-      <click :isDisabled="isDisabled(value)" v-if="value.style === MenuStyle.click" :name="e(key)"
+    <div class="container" v-for="value in this.definition">
+      <txt v-if="value.style === MenuStyle.text" :text="getText(value)"></txt>
+      <txt-area v-if="value.style === MenuStyle.textarea" :text="getText(value)"></txt-area>
+      <click :isDisabled="isDisabled(value)" v-if="value.style === MenuStyle.click" :name="getText(value, true)"
              :click="useHandler(value)"></click>
     </div>
   </div>
@@ -27,7 +27,7 @@
   import {emptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
-    name: "SideTabManager",
+    name: "SideTabContentsIndex",
     components: {
       txt: TextComponent,
       txtArea: TextareaComponent,
@@ -35,7 +35,7 @@
     },
     props: {
       definition: {
-        type: Object
+        type: Array as () => MenuItem[]
       }
     },
     data() {
@@ -45,17 +45,21 @@
       };
     },
     methods: {
-      getText(value: any, key: string) {
-        // condition: property 'handler' exist, then execute
-        if (value.hasOwnProperty("handler")) {
+      getText(value: MenuItem, doNotUseHandler?: boolean) {
+        const flag = doNotUseHandler === true; // default: false
+
+        // condition: property 'handler' exist, then try get name in the handler
+        if (flag !== true && value.hasOwnProperty("handler")) {
+          // Any, but must has a handler prop! So let's try to invoke.
           // noinspection TypeScriptValidateJSTypes
-          const result: string | void = value.handler();
+          const result = (value as any).handler();
           if (typeof result === "string") {
             return result;
           }
+          // failed... try the next one
         }
         // condition: no handler, use key as output
-        return say("global", key);
+        return say(value.name.scope, value.name.key);
       },
       useHandler(item: MenuItem) {
         if (typeof item.handler === "function") {

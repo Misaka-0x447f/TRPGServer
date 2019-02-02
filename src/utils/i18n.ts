@@ -18,10 +18,6 @@ export const dict = {
         "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
         "\n" +
         "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
-      undoDeleteLine: "撤销 删除行",
-      // editor
-      editorSaveWarning: "保存数据将导致被标记为并非由内建生成器所生成。\n" +
-        "建议使用生成器来生成您的人物。",
     },
     menuName: {
       // side menu names
@@ -32,6 +28,9 @@ export const dict = {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
       emptyWhileRO: "属性编辑器中没有数据。",
       isReadOnly: "写保护生效中",
+      undoDeleteLine: "撤销 删除行",
+      editorSaveWarning: "保存数据将导致被标记为并非由内建生成器所生成。\n" +
+        "建议使用生成器来生成您的人物。",
       identifier: "标识符",
       value: "值",
       text: "文本",
