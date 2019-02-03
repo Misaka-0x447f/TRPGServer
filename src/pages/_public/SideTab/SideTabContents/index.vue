@@ -24,7 +24,7 @@
   import TextareaComponent from "./Textarea.vue";
   import {say} from "@/utils/i18n";
   import {MenuItem, MenuStyle} from "@/utils/SideTabHandler";
-  import {emptyEventHandler} from "@/utils/TypeScript";
+  import {getEmptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "SideTabContentsIndex",
@@ -64,12 +64,12 @@
       useHandler(item: MenuItem) {
         if (typeof item.handler === "function") {
           if (this.isDisabled(item)) {
-            return emptyEventHandler();
+            return getEmptyEventHandler();
           } else {
             return item.handler;
           }
         }
-        return emptyEventHandler();
+        return getEmptyEventHandler();
       },
       isDisabled(item: MenuItem) {
         return typeof item.enabled === "function" && item.enabled() === false;

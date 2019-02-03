@@ -8,6 +8,7 @@ export const dict = {
       internalError: "内部错误。",
       internalErrorDetail: "程序发生内部错误。如果错误持续，请联系Misaka。",
       unknownRoute: "未知路由错误。将返回主选单。",
+      prevStep: "上一步",
       nextStep: "下一步",
       // main menu
       characterEditor: "角色卡编辑器",
@@ -54,23 +55,23 @@ export const dict = {
       customArchDesc: "自定义架构描述",
       builtInArch: [
         {
-          label: "01 Defeat",
+          label: "01",
           title: "破局",
           desc: "最好还是不要回想起來的恶意、惨剧、背叛。可是为了了解现在的情況，除了这个之外，想不出別的..."
         },
         {
-          label: "02 Despair",
+          label: "02",
           title: "绝望",
           desc: "那可能是跟现在比起来，有过之而无不及的残酷日子。为了不要重蹈覆辙，有回想起来的必要..."
         },
         {
-          label: "03 Trapped",
+          label: "03",
           title: "陷阱",
           desc: "突然之间遇到了什么，使妳身陷地狱之中，毫不讲理的命运。可是如果就连那样的内容都想不起来的话，" +
             "不管报复还是克服都办不到。"
         },
         {
-          label: "04 Doll",
+          label: "04",
           title: "人偶",
           desc: "你并非出自本愿而前进，只是单纯地被利用着。如果不晓得过去的情况，就连现在的脚步，到底出自谁的意志都无法确定。"
         }

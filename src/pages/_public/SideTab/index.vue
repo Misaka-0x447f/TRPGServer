@@ -89,7 +89,7 @@
   import {sideTab} from "@/main";
   import sideTabManager from "./SideTabContents/index.vue";
   import {cloneDeep, forIn, sortBy} from "lodash";
-  import {emptyEventHandler} from "@/utils/TypeScript";
+  import {getEmptyEventHandler} from "@/utils/TypeScript";
   import vs from "../VerticalSplitter.vue";
   import {MenuItem} from "@/utils/SideTabHandler";
   
@@ -121,7 +121,7 @@
       sideTab.registerTabDestroyMethod(this.closeTab);
     },
     beforeDestroy() {
-      sideTab.registerTabDestroyMethod(emptyEventHandler);
+      sideTab.registerTabDestroyMethod(getEmptyEventHandler);
     },
     methods: {
       tabClickHandler(e: string) {

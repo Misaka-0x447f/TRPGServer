@@ -2,12 +2,12 @@ import Vue from "vue";
 import {defaults, findIndex, forIn} from "lodash";
 
 import {dict} from "@/utils/i18n";
-import {emptyEventHandler, Filter} from "@/utils/TypeScript";
+import {getEmptyEventHandler, Filter} from "@/utils/TypeScript";
 import {ico} from "@/utils/FontAwesome";
 
 export class SideTabHandler {
   public storage: TabInfoCarrier = {};
-  public closeTabMethod: () => void = emptyEventHandler;
+  public closeTabMethod: () => void = getEmptyEventHandler;
 
   public updateTab(obj: TabInfoCarrier) {
     forIn(obj, (value, key) => {

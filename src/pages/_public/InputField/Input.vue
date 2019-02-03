@@ -2,11 +2,10 @@
   <div class="root">
     <div :class="{container: true, withLabel: label !== ''}">
       <label class="contents">
-        <!--suppress JSUnresolvedVariable -->
         <input
           type="text"
           :value="value"
-          @input="$emit('input', $event.target.value)"
+          @input="gotInputs"
           :placeholder="placeholder"
         >
       </label>
@@ -47,6 +46,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import {getEmptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "SimpleInput",
@@ -61,6 +61,20 @@
       placeholder: {
         type: String,
         default: "/"
+      },
+      listenTo: {
+        type: String,   // A string, not a method name.
+        default: "input"
+      },
+      callback: {
+        type: Function,
+        default: getEmptyEventHandler()
+      }
+    },
+    methods: {
+      gotInputs(e: any) {
+        this.$emit(this.listenTo, e.target.value);
+        this.callback(e.target.value);
       }
     }
   });

@@ -66,6 +66,8 @@
   import Vue from "vue";
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
+  import {getEmptyEventHandler} from "@/utils/TypeScript";
+  import {timeout} from "@/utils/lang";
 
   export interface Choices {
     label: string;  // label of an option. Will be passed to the handler.
@@ -87,7 +89,8 @@
         type: Array
       },
       callback: {
-        type: Function
+        type: Function,
+        default: getEmptyEventHandler()
       }
     },
     data: () => {
@@ -95,6 +98,15 @@
         page: 0 as number,
         ico
       };
+    },
+    watch: {
+      page() {
+        this.$emit("page", this.items[this.page]);
+      }
+    },
+    async mounted() {
+      await timeout(100);
+      this.$emit("page", this.items[this.page]);
     },
     computed: {
       prevAble(): boolean {

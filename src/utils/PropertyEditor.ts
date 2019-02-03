@@ -16,6 +16,19 @@ export const PropertyExist = (id: string) => {
   return findIndex(state.editor.storage.data, {id} as any) !== -1;
 };
 
+
+export const batchCreateProperty = (obj: PropertyCreateDef[]) => {
+  for (const i of obj) {
+    createProperty(i.id, i.text, i.value);
+  }
+};
+
+interface PropertyCreateDef {
+  id: string;
+  text: string;
+  value?: string;
+}
+
 export const createProperty = (id: string, text: string, value?: string) => {
   if (PropertyExist(id)) {
     return false;
