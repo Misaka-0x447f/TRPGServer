@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="container">
-      <div class="desc">
+      <div class="desc hint">
         {{e("nechronica", "desc")}}
       </div>
       <linkText :newTab="true" href="https://sites.google.com/site/nechronicaintaiwan/">
@@ -11,8 +11,8 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-
+  .hint {
+    color: plain-text-0-hints;
   }
 </style>
 <script lang="ts">

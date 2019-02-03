@@ -1,27 +1,19 @@
 <template>
   <div class="root">
     <div class="container">
-      <div>
-        {{e("nechronica", "characterName")}}
-      </div>
-      <txt v-model="nameInput" :placeholder="tempName"></txt>
-      <div>
-        {{e("nechronica", "characterAge")}}
-      </div>
-      <txt v-model="ageInput" :placeholder="tempAge"></txt>
-      <div>
-        {{e("nechronica", "characterDesc")}}
-      </div>
-      <txt v-model="descInput"></txt>
-      <div>
+      <txt :label="e('nechronica', 'characterName')" v-model="nameInput" :placeholder="tempName"></txt>
+      <txt :label="e('nechronica', 'characterAge')" v-model="ageInput" :placeholder="tempAge"></txt>
+      <txt :label="e('nechronica', 'characterDesc')" v-model="descInput"></txt>
+      <div class="hints">
         {{e("nechronica", "SkipStep2")}}
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-
+  .hints {
+    color: plain-text-0-hints;
+    margin-top: 0.5em;
   }
 </style>
 <script lang="ts">

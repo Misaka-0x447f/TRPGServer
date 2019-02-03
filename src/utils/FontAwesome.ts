@@ -6,7 +6,8 @@ import {
   faLowVision,
   faUserFriends,
   faUsersCog,
-  faUserEdit
+  faUserEdit,
+  faChevronLeft
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
 // @ts-ignore
@@ -19,6 +20,7 @@ export default function fontAwesomeInit() {
     faGlobe,
     faUserFriends,
     faLowVision,
+    faChevronLeft,
     faChevronRight,
     faInfoCircle,
     faUserEdit);
@@ -29,6 +31,7 @@ export enum ico {
   globe = "globe",
   userFriends = "user-friends",
   lowVision = "low-vision",
+  chevronLeft = "chevron-left",
   chevronRight = "chevron-right",
   userEdit = "user-edit",
   infoCircle = "info-circle"

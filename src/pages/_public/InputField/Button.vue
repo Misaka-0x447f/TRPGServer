@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="{container: true, enabled: enabled}" @click="callback">
+    <div :class="{container: true, enabled, inline}" @click="callback">
       <slot></slot>
     </div>
   </div>
@@ -12,6 +12,7 @@
     padding: 0.5em 1em;
     display: inline-block;
     cursor: not-allowed;
+    user-select: none;
   }
     
   .container.enabled {
@@ -22,6 +23,12 @@
   
   .container.enabled:hover {
     background: button-background-0;
+  }
+  
+  .container.inline {
+    border: none;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
   }
 </style>
 <script lang="ts">
@@ -36,6 +43,10 @@
       enabled: {
         type: Boolean,
         default: true
+      },
+      inline: {
+        type: Boolean,
+        default: false
       }
     },
     data: () => {

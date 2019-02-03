@@ -3,8 +3,12 @@ nearly-grey = #888
 nearly-black = #223
 
 plain-text-0 = #6cf
+plain-text-0-weak = rgba(desaturate(plain-text-0, 40%), 0.9)
+plain-text-0-hints = rgba(desaturate(plain-text-0, 60%), 0.7)
 background-0 = #011
 plain-text-1 = background-0
+align-line-0 = alpha(plain-text-0-weak, 0.5);
+underline-0 = dotted 1px align-line-0;
 
 link-text-0 = lighten(plain-text-0, 10%)
 link-text-0-hover = lighten(plain-text-0, 50%)

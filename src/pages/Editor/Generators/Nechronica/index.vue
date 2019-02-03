@@ -6,6 +6,7 @@
       </div>
       <page1 v-show="page === 1"></page1>
       <page2 v-show="page === 2"></page2>
+      <page3 v-show="page === 3"></page3>
       <div class="button-group">
         <bu :callback="nextStep" :enabled="nextEnabled">
           {{e("global", "nextStep")}}
@@ -35,16 +36,18 @@
   import {createProperty, PropertyData} from "@/utils/PropertyEditor";
   import page1 from "./Page1.vue";
   import page2 from "./Page2.vue";
+  import page3 from "./Page3.vue";
   import {say} from "@/utils/i18n";
   import bu from "@/pages/_public/InputField/Button.vue";
 
-  const maxPage = 2;
+  const maxPage = 3;
 
   export default Vue.extend({
     name: "nechronicaGenerator",
     components: {
       page1,
       page2,
+      page3,
       bu
     },
     props: {

@@ -45,7 +45,37 @@ export const dict = {
       characterAge: "年龄",
       characterDesc: "角色描述",
       SkipStep2: "我们已为该角色提供了随机名字和年龄。如果想把这里提到的信息留到向导结束时再填写，请直接点击下一步。" +
-        "也可以在向导结束后随意添加更多角色描述。"
+        "也可以在向导结束后随意添加更多角色描述。",
+      arch: "架构",
+      archDesc: "架构(即规则书中的'暗示')是角色在游戏中恢复记忆的依据，是角色被刻意擦除的记忆的指引。详情请参照规则书。",
+      preferBuiltInArch: "这里也可以自定架构，但我们不推荐如此，除非你知道自己在做什么。" +
+        "毕竟如果自定架构的范围过窄，反而会限制角色的可能性。",
+      customArch: "自定义架构",
+      customArchDesc: "自定义架构描述",
+      builtInArch: [
+        {
+          label: "01 Defeat",
+          title: "破局",
+          desc: "最好还是不要回想起來的恶意、惨剧、背叛。可是为了了解现在的情況，除了这个之外，想不出別的..."
+        },
+        {
+          label: "02 Despair",
+          title: "绝望",
+          desc: "那可能是跟现在比起来，有过之而无不及的残酷日子。为了不要重蹈覆辙，有回想起来的必要..."
+        },
+        {
+          label: "03 Trapped",
+          title: "陷阱",
+          desc: "突然之间遇到了什么，使妳身陷地狱之中，毫不讲理的命运。可是如果就连那样的内容都想不起来的话，" +
+            "不管报复还是克服都办不到。"
+        },
+        {
+          label: "04 Doll",
+          title: "人偶",
+          desc: "你并非出自本愿而前进，只是单纯地被利用着。如果不晓得过去的情况，就连现在的脚步，到底出自谁的意志都无法确定。"
+        }
+        // TODO: fill up
+      ]
     }
   }
 };
@@ -55,7 +85,7 @@ export function say(subItem: string, word: string) {
   if (!dict.zh.hasOwnProperty(subItem) || !(dict.zh as any)[subItem].hasOwnProperty(word)) {
     throw new Error(`unexpected i18n index: ${subItem}/${word}`);
   }
-  return (dict.zh as any)[subItem][word] as string;
+  return (dict.zh as any)[subItem][word];
 }
 
 export function isEastAsian() {
