@@ -18,11 +18,20 @@ export const init = () => {
       id: "desc", text: say("nechronica", "characterDesc")
     },
     {
-      id: "arch", text: say("nechronica", "arch"),
+      id: "redundancyData", text: say("nechronica", "redundancyData"),
     },
     {
       id: "cache", text: say("nechronica", "cache"),
       value: ["", ""]
+    },
+    {
+      id: "primaryFirmware", text: say("nechronica", "primaryFirmware")
+    },
+    {
+      id: "secondaryFirmware", text: say("nechronica", "secondaryFirmware")
+    },
+    {
+      id: "individuality", text: say("nechronica", "individuality")
     }
   ]);
 };

@@ -7,6 +7,7 @@
       <page1 v-show="page === 1"></page1>
       <page2 v-show="page === 2"></page2>
       <page3 v-show="page === 3"></page3>
+      <page4 v-show="page === 4"></page4>
       <div class="button-group">
         <bu :callback="nextStep" :enabled="nextAble">
           {{e("global", "nextStep")}}
@@ -44,11 +45,12 @@
   import page1 from "./Page1.vue";
   import page2 from "./Page2.vue";
   import page3 from "./Page3.vue";
+  import page4 from "./Page4.vue";
   import {say} from "@/utils/i18n";
   import bu from "@/pages/_public/InputField/Button.vue";
   import {init} from "@/interfaces/Nechronica";
 
-  const maxPage = 3;
+  const maxPage = 4;
 
   export default Vue.extend({
     name: "nechronicaGenerator",
@@ -56,6 +58,7 @@
       page1,
       page2,
       page3,
+      page4,
       bu
     },
     props: {

@@ -44,12 +44,12 @@ export const createProperty = (id: string, text: string, value?: string) => {
   Vue.set(state.editor.storage, "data", d);
 };
 
-export const updateProperty = (id: string, value: string) => {
+export const updateProperty = (id: string, value: any) => {
   const target = find(state.editor.storage.data, {id}) as PropertyData | undefined;
   if (target === undefined) {
     console.warn(`Property does not exist while searching storage: ${id}`);
     return false;
   }
-  Vue.set(target, "value", value);
+  Vue.set(target, "value", JSON.stringify(value));
   return true;
 };

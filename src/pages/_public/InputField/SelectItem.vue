@@ -35,10 +35,6 @@
     width: 100%;
   }
 
-  .title {
-    color: plain-text-0-weak;
-  }
-
   .name-container {
     display: flex;
     align-items: center;
@@ -51,9 +47,15 @@
     align-items: center;
   }
 
+  .title {
+    color: plain-text-0-weak;
+    user-select: none;
+  }
+    
   .name {
     margin-right: 0.5em;
     font-size: 1.2em;
+    user-select: none;
   }
 
   .desc {
@@ -91,6 +93,10 @@
       callback: {
         type: Function,
         default: getEmptyEventHandler()
+      },
+      default: {
+        type: Number,
+        default: 0
       }
     },
     data: () => {
@@ -105,6 +111,7 @@
       }
     },
     async mounted() {
+      this.page = this.default;
       await timeout(100);
       this.$emit("page", this.items[this.page]);
     },
