@@ -1,3 +1,4 @@
+import {MenuStyle} from "@/utils/SideTabHandler";
 <template>
   <div class="root">
     <div class="container">
@@ -9,13 +10,13 @@
       </div>
       <table v-if="content.data.length">
         <tr>
-          <th>{{e("propertyEditor", "identifier")}}</th>
+          <th v-show="showId">{{e("propertyEditor", "identifier")}}</th>
           <th>{{e("propertyEditor", "value")}}</th>
           <th>{{e("propertyEditor", "text")}}</th>
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
         <tr v-for="(_, i) in content.data" :data-i="i">
-          <td>
+          <td v-show="showId">
             <txt v-model="content.data[i].id" :placeholder="e('propertyEditor', 'identifier')"></txt>
           </td>
           <td>
@@ -128,11 +129,13 @@
     data: (): {
       e: typeof say,
       pullAt: typeof pullAt,
+      showId: boolean,
       history: History[]
     } => {
       return {
         e: say,
         pullAt,
+        showId: false,
         history: []
       };
     },
@@ -150,6 +153,19 @@
               style: MenuStyle.click,
               handler: this.undo,
               enabled: this.undoable
+            }
+          ]
+        },
+        viewMenu: {
+          icon: ico.eye,
+          children: [
+            {
+              name: {
+                scope: "propertyEditor",
+                key: "toggleIdentifier"
+              },
+              style: MenuStyle.click,
+              handler: this.toggleIdView
             }
           ]
         }
@@ -225,6 +241,9 @@
       },
       undoable() {
         return this.history.length > 0 && !this.isReadOnly;
+      },
+      toggleIdView() {
+        this.showId = this.showId !== true;
       }
     }
   });

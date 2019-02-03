@@ -7,6 +7,7 @@ import {
   faUserFriends,
   faUsersCog,
   faUserEdit,
+  faEye,
   faChevronLeft
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
@@ -23,6 +24,7 @@ export default function fontAwesomeInit() {
     faChevronLeft,
     faChevronRight,
     faInfoCircle,
+    faEye,
     faUserEdit);
 }
 
@@ -34,5 +36,6 @@ export enum ico {
   chevronLeft = "chevron-left",
   chevronRight = "chevron-right",
   userEdit = "user-edit",
-  infoCircle = "info-circle"
+  infoCircle = "info-circle",
+  eye = "eye"
 }

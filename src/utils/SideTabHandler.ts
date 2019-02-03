@@ -90,7 +90,7 @@ type PathDef = {
   [T in menuName]?: Array<MenuItem["name"]>;
 };
 
-type menuNames = "editMenu" | "aboutMenu";
+type menuNames = "editMenu" | "aboutMenu" | "viewMenu";
 type menuName = Filter<menuNames, keyof typeof dict.zh>;
 
 export enum MenuStyle {

@@ -24,6 +24,7 @@ export const dict = {
       // side menu names
       editMenu: "编辑",
       aboutMenu: "关于",
+      viewMenu: "视图",
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
@@ -35,6 +36,7 @@ export const dict = {
       identifier: "标识符",
       value: "值",
       text: "文本",
+      toggleIdentifier: "切换 标识符",
     },
     nechronica: {
       // NechronicaDataGen
