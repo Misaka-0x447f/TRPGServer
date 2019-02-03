@@ -19,6 +19,10 @@ export const init = () => {
     },
     {
       id: "arch", text: say("nechronica", "arch"),
+    },
+    {
+      id: "cache", text: say("nechronica", "cache"),
+      value: ["", ""]
     }
   ]);
 };

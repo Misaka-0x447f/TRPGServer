@@ -65,7 +65,7 @@
     },
     data: () => {
       return {
-        page: 1,
+        page: 3,
         nextEnabled: true,
         e: say
       };

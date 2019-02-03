@@ -19,14 +19,14 @@ export const PropertyExist = (id: string) => {
 
 export const batchCreateProperty = (obj: PropertyCreateDef[]) => {
   for (const i of obj) {
-    createProperty(i.id, i.text, i.value);
+    createProperty(i.id, i.text, JSON.stringify(i.value));
   }
 };
 
 interface PropertyCreateDef {
   id: string;
   text: string;
-  value?: string;
+  value?: any;
 }
 
 export const createProperty = (id: string, text: string, value?: string) => {

@@ -53,6 +53,9 @@ export const dict = {
         "毕竟如果自定架构的范围过窄，反而会限制角色的可能性。",
       customArch: "自定义架构",
       customArchDesc: "自定义架构描述",
+      cache: "永久缓存",
+      cacheDesc: "永久缓存(即'记忆碎片')是角色记忆内容的碎片化，每名角色初始具备2份永久缓存。" +
+        "请参考规则书在此随意填写。若还没有想好，可以留空。",
       builtInArch: [
         {
           label: "01",

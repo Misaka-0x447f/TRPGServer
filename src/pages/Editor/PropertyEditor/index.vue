@@ -73,8 +73,7 @@
   }
 
   tr:not(:first-of-type) {
-    border: table-splitter 0 solid;
-    border-top-width: 1px;
+    border-top: underline-0;
   }
 
   th, td {
