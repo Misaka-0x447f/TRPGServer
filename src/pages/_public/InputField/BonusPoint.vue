@@ -7,7 +7,7 @@
             {{freePoints}}
           </span>
           <span class="small">
-            {{e('nechronica', 'remainingPoints')}}
+            {{e('global', 'remainingPoints')}}
           </span>
         </span>
         <span v-if="!isUndefined(title)" class="title">
@@ -21,7 +21,7 @@
           </div>
           <div class="points-container">
             <div
-              v-for="i in maxPossiblePoints"
+              v-for="i in maxPoints"
               :class="{
                 square: true,
                 inherited: i <= v.inherited,
@@ -77,7 +77,7 @@
 
   .square {
     width: 2em;
-    height: 0.8em;
+    height: 0.6em;
     margin: 0 1px;
     background-color: slot-point;
   }
@@ -92,7 +92,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {find, findIndex, isUndefined, maxBy, remove} from "lodash";
+  import {find, findIndex, isUndefined, maxBy, remove, max} from "lodash";
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
@@ -137,6 +137,10 @@
       title: {
         type: String,
         default: undefined
+      },
+      minSlots: {
+        type: Number,
+        default: 0
       }
     },
     data: () => {
@@ -148,13 +152,16 @@
       };
     },
     computed: {
-      maxPossiblePoints(): number {
+      maxPoints(): number {
         // since it must include definitions, it must has a max element.
         const maxPredefinePoints = maxBy(this.InheritedDef.initialPoint, (o) => {
           return o.inherited;
         }) as InitialPointDef;
 
-        return maxPredefinePoints.inherited + this.InheritedDef.freePoint.totalFree;
+        return max([
+          maxPredefinePoints.inherited + this.InheritedDef.freePoint.totalFree,
+          this.minSlots
+        ]) as number;
       },
       freePoints(): number {
         // get total number of allocated points

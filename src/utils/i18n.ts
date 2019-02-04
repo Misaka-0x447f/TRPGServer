@@ -21,6 +21,7 @@ export const dict = {
         "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
         "\n" +
         "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
+      remainingPoints: "自由点数"
     },
     menuName: {
       // side menu names
@@ -166,9 +167,8 @@ export const dict = {
       ],
       arms: "武装",
       evolve: "进化",
-      modify: "改装",
+      modify: "改造",
       enhance: "强化",
-      remainingPoints: "自由点数"
     }
   }
 };
