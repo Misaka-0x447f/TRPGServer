@@ -2,70 +2,145 @@
   <div class="root">
     <div class="container">
       <ch
-        @page="primaryPage"
-        :title="e('nechronica', 'primaryFirmware')"
-        :items="e('nechronica', 'builtInFirmware')"
-        :default="random(0, maxFirmware)"
+        @page="primaryFirmware"
+        :title="e(ns, 'primaryFirmware')"
+        :items="firmArray"
       ></ch>
       <ch
-        @page="secondaryPage"
-        :title="e('nechronica', 'secondaryFirmware')"
-        :items="e('nechronica', 'builtInFirmware')"
-        :default="random(0, maxFirmware)"
+        @page="secondaryFirmware"
+        :title="e(ns, 'secondaryFirmware')"
+        :items="firmArray"
       ></ch>
       <div class="hint">
-        {{e("nechronica", "firmwareDesc")}}
+        {{e(ns, "firmwareDesc")}}
       </div>
       <ch
         @page="individuality"
-        :title="e('nechronica', 'individuality')"
-        :items="e('nechronica', 'builtInIndividuality')"
-        :default="random(0, maxIndividuality)"
+        :title="e(ns, 'individuality')"
+        :items="indArray"
       ></ch>
+      <div class="hint">
+        {{e(ns, "individualityDesc")}}
+      </div>
+      <bonus
+        :InheritedDef="bonusDef"
+        :callback="bonusCallback"
+        :title="e(ns, 'enhance')"
+      ></bonus>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .hint {
     color: plain-text-0-hints;
-    margin: 0.5em 0;
+    margin: 0.5em 0 0.8em 0;
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
   import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
-  import {updateProperty} from "@/utils/PropertyEditor";
-  import {random} from "lodash";
+  import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
+  import bonus, {DecideDef, PointDef} from "@/pages/_public/InputField/BonusPoint.vue";
+  import {idEnums} from "@/interfaces/Nechronica";
+
+  const enum enhance {
+    arms,
+    evolve,
+    modify
+  }
+
+  const namespace = "nechronica";
 
   export default Vue.extend({
     name: "Page4",
     components: {
-      ch
+      ch,
+      bonus
     },
     data: () => {
       return {
         e: say,
-        random
+        bonusDef: {
+          initialPoint: [],
+          freePoint: {
+            totalFree: 1
+          }
+        } as PointDef,
+        ns: namespace,
+        idEnums,
+        firm1: "Stacy",
+        firm2: "Stacy",
+        findPropertyById: getPropertyById
       };
     },
+    async mounted() {
+      this.setBonusDef();
+    },
     computed: {
-      maxFirmware(): number {
-        return this.e("nechronica", "primaryFirmware").length - 1;
+      firmArray() {
+        return say(namespace, "builtInFirmware");
       },
-      maxIndividuality(): number {
-        return this.e("nechronica", "builtInIndividuality").length - 1;
+      indArray() {
+        return say(namespace, "builtInIndividuality");
       }
     },
     methods: {
-      primaryPage(e: Choices) {
+      primaryFirmware(e: Choices) {
         updateProperty("primaryFirmware", e.label);
+        this.firm1 = e.label;
+        this.setBonusDef();
       },
-      secondaryPage(e: Choices) {
+      secondaryFirmware(e: Choices) {
         updateProperty("secondaryFirmware", e.label);
+        this.firm2 = e.label;
+        this.setBonusDef();
       },
       individuality(e: Choices) {
         updateProperty("individuality", e.label);
+      },
+      bonusCallback(e: { common: DecideDef[] }) {
+        updateProperty("enhance", e.common);
+      },
+      setBonusDef() {
+        this.bonusDef.initialPoint = [
+          {
+            label: "arms",
+            text: say(namespace, "arms"),
+            inherited: this.getInheritedEP(enhance.arms)
+          },
+          {
+            label: "evolve",
+            text: say(namespace, "evolve"),
+            inherited: this.getInheritedEP(enhance.evolve)
+          },
+          {
+            label: "modify",
+            text: say(namespace, "modify"),
+            inherited: this.getInheritedEP(enhance.modify)
+          }
+        ];
+      },
+      getInheritedEP(which: enhance) {
+        const map = {
+          Stacy: [1, 1, 0],
+          Thanatos: [1, 0, 1],
+          Gothic: [0, 1, 1],
+          Requiem: [2, 0, 0],
+          Baroque: [0, 2, 0],
+          Romanesque: [0, 0, 2]
+        };
+
+        if (!map.hasOwnProperty(this.firm1)) {
+          throw new Error(`unknown firmware ${this.firm1}. contact the factory.`);
+        }
+
+        if (!map.hasOwnProperty(this.firm2)) {
+          throw new Error(`unknown firmware ${this.firm2}. contact the factory.`);
+        }
+
+        // @ts-ignore; already checked at this point.
+        return (map[this.firm1] as number[])[which] + (map[this.firm2] as number[])[which];
       }
     }
   });

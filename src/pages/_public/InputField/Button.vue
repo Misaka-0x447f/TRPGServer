@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="{container: true, enabled, inline}" @click="callback">
+    <div :class="{container: true, enabled, inline}" @click="clicked">
       <slot></slot>
     </div>
   </div>
@@ -51,6 +51,13 @@
     },
     data: () => {
       return {};
+    },
+    methods: {
+      clicked() {
+        if (this.enabled) {
+          this.callback();
+        }
+      }
     }
   });
 </script>

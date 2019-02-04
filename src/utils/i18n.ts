@@ -34,8 +34,8 @@ export const dict = {
       editorSaveWarning: "保存数据将导致被标记为并非由内建生成器所生成。\n" +
         "建议使用生成器来生成您的人物。",
       identifier: "标识符",
-      value: "值",
-      text: "文本",
+      value: "数据",
+      text: "描述文本",
       toggleIdentifier: "切换 标识符",
     },
     nechronica: {
@@ -49,8 +49,8 @@ export const dict = {
       characterDesc: "角色描述",
       SkipStep2: "我们已为该角色提供了随机名字和年龄。如果想把这里提到的信息留到向导结束时再填写，请直接点击下一步。" +
         "也可以在向导结束后随意添加更多角色描述。",
-      redundancyData: "循环冗余校验数据",
-      redundancyDataDesc: "循环冗余校验数据(即规则书中的'暗示')是角色在游戏中恢复记忆的指引，是角色被刻意擦除的记忆的残余数据。" +
+      redundancyData: "CRC",
+      redundancyDataDesc: "CRC/循环冗余校验数据(即规则书中的'暗示')是角色在游戏中恢复记忆的指引，是角色被刻意擦除的记忆的残余数据。" +
         "如果有了这个，就能确认取回的数据是否为自身之记忆。详情请参照规则书。",
       preferBuiltInData: "这里也可以自定数据，但我们不推荐如此，除非你知道自己在做什么。" +
         "毕竟如果自定数据描述的范围过窄，反而会限制角色的可能性。",
@@ -161,7 +161,12 @@ export const dict = {
           desc: "所谓的背负并非负担，而是一种坚强。就连这副死亡的躯体，也还是能够背起欲负之物。只要撑得起来，" +
             "哪怕只剩下双腿，都要向前迈进。是停不下来的领路人型人格。"
         }
-      ]
+      ],
+      arms: "武装",
+      evolve: "进化",
+      modify: "改装",
+      enhance: "强化",
+      remainingPoints: "自由点数"
     }
   }
 };

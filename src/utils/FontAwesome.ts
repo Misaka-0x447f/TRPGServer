@@ -1,14 +1,16 @@
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {
+  faCaretDown,
+  faCaretUp,
+  faChevronLeft,
   faChevronRight,
+  faEye,
   faGlobe,
   faInfoCircle,
   faLowVision,
-  faUserFriends,
-  faUsersCog,
   faUserEdit,
-  faEye,
-  faChevronLeft
+  faUserFriends,
+  faUsersCog
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
 // @ts-ignore
@@ -25,7 +27,10 @@ export default function fontAwesomeInit() {
     faChevronRight,
     faInfoCircle,
     faEye,
-    faUserEdit);
+    faUserEdit,
+    faCaretUp,
+    faCaretDown
+  );
 }
 
 export enum ico {
@@ -37,5 +42,7 @@ export enum ico {
   chevronRight = "chevron-right",
   userEdit = "user-edit",
   infoCircle = "info-circle",
-  eye = "eye"
+  eye = "eye",
+  caretUp = "caret-up",
+  caretDown = "caret-down"
 }

@@ -1,37 +1,60 @@
 import {say} from "@/utils/i18n";
 import {batchCreateProperty} from "@/utils/PropertyEditor";
 
+const ns = "nechronica";
+
+export enum idEnums {
+  gameType = "gameType",
+  name = "name",
+  age = "age",
+  desc = "desc",
+  remains = "redundancyData",
+  cache = "cache",
+  Firm1 = "primaryFirmware",
+  Firm2 = "secondaryFirmware",
+  ind = "individuality",
+  enhance = "enhance"
+}
+
 export const init = () => {
   batchCreateProperty([
     {
-      id: "gameType",
+      id: idEnums.gameType,
       text: "",
       value: "Nechronica"
     },
     {
-      id: "name", text: say("nechronica", "characterName")
+      id: idEnums.name, text: say(ns, "characterName")
     },
     {
-      id: "age", text: say("nechronica", "characterAge")
+      id: idEnums.age, text: say(ns, "characterAge")
     },
     {
-      id: "desc", text: say("nechronica", "characterDesc")
+      id: idEnums.desc, text: say(ns, "characterDesc")
     },
     {
-      id: "redundancyData", text: say("nechronica", "redundancyData"),
+      id: idEnums.remains, text: say(ns, "redundancyData"),
+      value: "01"
     },
     {
-      id: "cache", text: say("nechronica", "cache"),
+      id: idEnums.cache, text: say(ns, "cache"),
       value: ["", ""]
     },
     {
-      id: "primaryFirmware", text: say("nechronica", "primaryFirmware")
+      id: idEnums.Firm1, text: say(ns, "primaryFirmware"),
+      value: "Stacy"
     },
     {
-      id: "secondaryFirmware", text: say("nechronica", "secondaryFirmware")
+      id: idEnums.Firm2, text: say(ns, "secondaryFirmware"),
+      value: "Stacy"
     },
     {
-      id: "individuality", text: say("nechronica", "individuality")
+      id: idEnums.ind, text: say(ns, "individuality"),
+      value: "Alice"
+    },
+    {
+      id: idEnums.enhance, text: say(ns, "enhance"),
+      value: []
     }
   ]);
 };

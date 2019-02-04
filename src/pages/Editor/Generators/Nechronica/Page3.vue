@@ -5,7 +5,6 @@
         @page="pageChanged"
         :title="e('nechronica', 'redundancyData')"
         :items="e('nechronica', 'builtInRedundancyData')"
-        :default="random(0, maxChoices)"
       ></ch>
       <div class="hint">
         {{e("nechronica", "redundancyDataDesc")}}
@@ -13,8 +12,10 @@
       <div class="hint">
         {{e("nechronica", "preferBuiltInData")}}
       </div>
-      <txt :label="e('nechronica', 'customRedundancyData')" :callback="customArchInput" v-model="customArch.title"></txt>
-      <txt :label="e('nechronica', 'customRedundancyDataDesc')" :callback="customArchInput" v-model="customArch.desc"></txt>
+      <txt :label="e('nechronica', 'customRedundancyData')" :callback="customArchInput"
+           v-model="customArch.title"></txt>
+      <txt :label="e('nechronica', 'customRedundancyDataDesc')" :callback="customArchInput"
+           v-model="customArch.desc"></txt>
       <div class="break"></div>
       <txt :label="e('nechronica', 'cache') + '#01'" :callback="cacheUpdate" v-model="customCache[0]"></txt>
       <txt :label="e('nechronica', 'cache') + '#02'" :callback="cacheUpdate" v-model="customCache[1]"></txt>
@@ -38,9 +39,10 @@
   import Vue from "vue";
   import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
-  import {updateProperty} from "@/utils/PropertyEditor";
+  import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
   import txt from "@/pages/_public/InputField/Input.vue";
-  import {defaultTo, random} from "lodash";
+  import {defaultTo} from "lodash";
+  import {idEnums} from "@/interfaces/Nechronica";
 
   export default Vue.extend({
     name: "NecPage3ArchSelect",
@@ -51,7 +53,6 @@
     data: () => {
       return {
         e: say,
-        random,
         customArch: {
           title: "",
           desc: ""
@@ -59,13 +60,10 @@
         customCache: [
           null,
           null
-        ]
+        ],
+        idEnums,
+        findPropertyById: getPropertyById
       };
-    },
-    computed: {
-      maxChoices(): number {
-        return this.e("nechronica", "builtInRedundancyData").length - 1;
-      }
     },
     methods: {
       pageChanged(e: Choices) {
