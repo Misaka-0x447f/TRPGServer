@@ -1,6 +1,7 @@
 import state from "@/utils/state";
 import Vue from "vue";
 import {cloneDeep, find, isUndefined} from "lodash";
+import {limitedStringify} from "@/utils/lang";
 
 export interface Property {
   data: PropertyData[];
@@ -34,7 +35,7 @@ export const PropertyExist = (id: string) => {
 
 export const batchCreateProperty = (obj: PropertyCreateDef[]) => {
   for (const i of obj) {
-    createProperty(i.id, i.text, JSON.stringify(i.value));
+    createProperty(i.id, i.text, i.value);
   }
 };
 
@@ -46,13 +47,14 @@ interface PropertyCreateDef {
 
 export const createProperty = (id: string, text: string, value?: string) => {
   if (PropertyExist(id)) {
+    // refused to create.
     return false;
   }
 
   const d = cloneDeep(state.editor.storage.data) as PropertyData[];
   d.push({
     id,
-    value: value ? value : "",
+    value: !isUndefined(value) ? limitedStringify(value) : "",
     text
   });
 
@@ -62,9 +64,10 @@ export const createProperty = (id: string, text: string, value?: string) => {
 export const updateProperty = (id: string, value: any) => {
   const target = getPropertyById(id);
   if (target === undefined) {
-    console.warn(`Property does not exist while searching storage: ${id}`);
+    console.warn(`Property does not exist: ${id}. Will not create one.`);
     return false;
   }
-  Vue.set(target, "value", JSON.stringify(value));
+
+  Vue.set(target, "value", limitedStringify(value));
   return true;
 };

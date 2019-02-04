@@ -39,7 +39,7 @@
 <script lang="ts">
   import Vue from "vue";
   import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
-  import {say} from "@/utils/i18n";
+  import {ns, say} from "@/utils/i18n";
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
   import bonus, {DecideDef, PointDef} from "@/pages/_public/InputField/BonusPoint.vue";
   import {idEnums} from "@/interfaces/Nechronica";
@@ -49,8 +49,6 @@
     evolve,
     modify
   }
-
-  const namespace = "nechronica";
 
   export default Vue.extend({
     name: "Page4",
@@ -67,7 +65,7 @@
             totalFree: 1
           }
         } as PointDef,
-        ns: namespace,
+        ns,
         idEnums,
         firm1: "Stacy",
         firm2: "Stacy",
@@ -79,10 +77,10 @@
     },
     computed: {
       firmArray() {
-        return say(namespace, "builtInFirmware");
+        return say(ns, "builtInFirmware");
       },
       indArray() {
-        return say(namespace, "builtInIndividuality");
+        return say(ns, "builtInIndividuality");
       }
     },
     methods: {
@@ -106,17 +104,17 @@
         this.bonusDef.initialPoint = [
           {
             label: "arms",
-            text: say(namespace, "arms"),
+            text: say(ns, "arms"),
             inherited: this.getInheritedEP(enhance.arms)
           },
           {
             label: "evolve",
-            text: say(namespace, "evolve"),
+            text: say(ns, "evolve"),
             inherited: this.getInheritedEP(enhance.evolve)
           },
           {
             label: "modify",
-            text: say(namespace, "modify"),
+            text: say(ns, "modify"),
             inherited: this.getInheritedEP(enhance.modify)
           }
         ];

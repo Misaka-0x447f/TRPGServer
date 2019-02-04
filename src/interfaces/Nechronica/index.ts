@@ -8,7 +8,7 @@ export enum idEnums {
   name = "name",
   age = "age",
   desc = "desc",
-  remains = "redundancyData",
+  remains = "remains",
   cache = "cache",
   Firm1 = "primaryFirmware",
   Firm2 = "secondaryFirmware",
@@ -33,7 +33,7 @@ export const init = () => {
       id: idEnums.desc, text: say(ns, "characterDesc")
     },
     {
-      id: idEnums.remains, text: say(ns, "redundancyData"),
+      id: idEnums.remains, text: say(ns, "remains"),
       value: "01"
     },
     {

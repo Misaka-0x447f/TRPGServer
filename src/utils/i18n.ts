@@ -1,5 +1,7 @@
 import { langEnum, state } from "@/utils/state";
 
+export const ns = "nechronica";
+
 export const dict = {
   zh: {
     global: {
@@ -49,17 +51,17 @@ export const dict = {
       characterDesc: "角色描述",
       SkipStep2: "我们已为该角色提供了随机名字和年龄。如果想把这里提到的信息留到向导结束时再填写，请直接点击下一步。" +
         "也可以在向导结束后随意添加更多角色描述。",
-      redundancyData: "CRC",
-      redundancyDataDesc: "CRC/循环冗余校验数据(即规则书中的'暗示')是角色在游戏中恢复记忆的指引，是角色被刻意擦除的记忆的残余数据。" +
+      remains: "CRC",
+      remainsDesc: "CRC/循环冗余校验数据(即规则书中的'暗示')是角色在游戏中恢复记忆的指引，是角色被刻意擦除的记忆的残余数据。" +
         "如果有了这个，就能确认取回的数据是否为自身之记忆。详情请参照规则书。",
-      preferBuiltInData: "这里也可以自定数据，但我们不推荐如此，除非你知道自己在做什么。" +
+      preferBuiltInRemains: "这里也可以自定数据，但我们不推荐如此，除非你知道自己在做什么。" +
         "毕竟如果自定数据描述的范围过窄，反而会限制角色的可能性。",
-      customRedundancyData: "自定冗余数据",
-      customRedundancyDataDesc: "自定数据描述",
+      customRemains: "自定冗余数据",
+      customRemainsDesc: "自定数据描述",
       cache: "永久缓存",
       cacheDesc: "永久缓存(即'记忆碎片')是角色记忆内容的碎片化，每名角色初始具备2份永久缓存。" +
         "请参考规则书在此随意填写。若还没有想好，可以留空。",
-      builtInRedundancyData: [
+      builtInRemains: [
         {
           label: "01",
           title: "破局",

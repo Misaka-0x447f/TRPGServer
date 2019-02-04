@@ -1,11 +1,11 @@
 <template>
   <div class="root">
     <div class="container">
-      <txt :label="e('nechronica', 'characterName')" v-model="nameInput" :placeholder="tempName"></txt>
-      <txt :label="e('nechronica', 'characterAge')" v-model="ageInput" :placeholder="tempAge"></txt>
-      <txt :label="e('nechronica', 'characterDesc')" v-model="descInput"></txt>
+      <txt :label="e(ns, 'characterName')" v-model="nameInput" :placeholder="tempName"></txt>
+      <txt :label="e(ns, 'characterAge')" v-model="ageInput" :placeholder="tempAge"></txt>
+      <txt :label="e(ns, 'characterDesc')" v-model="descInput"></txt>
       <div class="hints">
-        {{e("nechronica", "SkipStep2")}}
+        {{e(ns, "SkipStep2")}}
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {say} from "@/utils/i18n";
+  import {ns, say} from "@/utils/i18n";
   import {getRandomName} from "@/utils/math";
   import txt from "@/pages/_public/InputField/Input.vue";
   import state from "@/utils/state";
@@ -37,7 +37,8 @@
         state,
         nameInput: "",
         ageInput: "",
-        descInput: ""
+        descInput: "",
+        ns
       };
     },
     computed: {

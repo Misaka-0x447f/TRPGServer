@@ -2,7 +2,7 @@
   <div class="root">
     <div class="container">
       <div class="desc hint">
-        {{e("nechronica", "desc")}}
+        {{e(ns, "desc")}}
       </div>
       <linkText :newTab="true" href="https://sites.google.com/site/nechronicaintaiwan/">
         https://sites.google.com/site/nechronicaintaiwan/
@@ -17,7 +17,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {say} from "@/utils/i18n";
+  import {ns, say} from "@/utils/i18n";
   import linkText from "@/pages/_public/linkText.vue";
 
   export default Vue.extend({
@@ -27,7 +27,8 @@
     },
     data: () => {
       return {
-        e: say
+        e: say,
+        ns
       };
     }
   });
