@@ -169,6 +169,101 @@ export const dict = {
       evolve: "进化",
       modify: "改造",
       enhance: "强化",
+      resource: "资源",
+      resourceDesc: "资源是规则书中的宠爱点。资源点数初始为0。",
+      builtInArms: [
+        // TODO: arm lvl1
+        {
+          label: "fight",
+          text: "格斗",
+          desc: "脑内刻印的格斗技巧，虽然对上死者来说没有什么意义，不过身体却有着本能上的迅捷。"
+        },
+        {
+          label: "spikedClub",
+          text: "狼牙棒",
+          desc: "待补完"
+        },
+        {
+          label: "ironClub",
+          text: "铁棒",
+          desc: "待补完"
+        },
+        // TODO: arm lvl2
+        {
+          label: "bramble",
+          text: "荆棘",
+          desc: "带不玩"
+        },
+        {
+          label: "armedBoot",
+          text: "武装靴子",
+          desc: "带暗器的靴子。"
+        },
+        {
+          label: "push",
+          text: "发力",
+          desc: "隔山打牛。移动敌方。"
+        },
+        // TODO: arm lvl3
+        {
+          label: "serratedKnife",
+          text: "锯齿刀",
+          desc: "没描述"
+        },
+        {
+          label: "weeder",
+          text: "除草机",
+          desc: "除草剂"
+        },
+        {
+          label: "samuraiSword",
+          text: "武士刀",
+          desc: "武士刀"
+        }
+      ],
+      builtInEvolve: [
+        // TODO: evolve lvl1
+        {
+          label: "regenerate",
+          text: "再生",
+          desc: "就是寄生虫那个，描述得改一下"
+        },
+        {
+          label: "heart",
+          text: "心脏",
+          desc: "呼吸加速 AP++"
+        },
+        // TODO: evolve lvl2
+        {
+          label: "kemonomimi",
+          text: "兽耳",
+          desc: "ケモのミミ"
+        },
+        // TODO: evolve lvl3
+        {
+          label: "multiLegs",
+          text: "多脚",
+          desc: "脚部防护？"
+        }
+      ],
+      builtInModify: [
+        // TODO: needs fill
+        {
+          label: "limiter",
+          text: "限制器",
+          desc: "不写了"
+        },
+        {
+          label: "bomb",
+          text: "爆弹",
+          desc: "不想写"
+        },
+        {
+          label: "enhancedHand",
+          text: "钢铁手腕",
+          desc: "???"
+        }
+      ]
     }
   }
 };
