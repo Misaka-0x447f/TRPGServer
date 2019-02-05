@@ -4,6 +4,7 @@
       <div
         v-for="(slots, tech) in slotsDef"
         class="edge"
+        v-if="slots > 0"
       >
         <div class="equipListContainer">
           <div
@@ -42,6 +43,7 @@
   .equip {
     flex: 1;
     margin-right: 0.2em;
+    max-width: 6em;
   }
 
   .title {

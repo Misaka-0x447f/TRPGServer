@@ -13,7 +13,10 @@ export enum idEnums {
   Firm1 = "primaryFirmware",
   Firm2 = "secondaryFirmware",
   ind = "individuality",
-  enhance = "enhance"
+  enhance = "enhance",
+  arms = "arms",
+  evolve = "evolve",
+  modify = "modify"
 }
 
 export const init = () => {
@@ -54,6 +57,18 @@ export const init = () => {
     },
     {
       id: idEnums.enhance, text: say(ns, "enhance"),
+      value: []
+    },
+    {
+      id: idEnums.arms, text: say(ns, "arms"),
+      value: []
+    },
+    {
+      id: idEnums.evolve, text: say(ns, "evolve"),
+      value: []
+    },
+    {
+      id: idEnums.modify, text: say(ns, "modify"),
       value: []
     }
   ]);
