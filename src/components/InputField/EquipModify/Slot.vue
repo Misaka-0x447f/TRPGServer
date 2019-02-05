@@ -13,6 +13,7 @@
         <equips
           class="equipList"
           :list="inventory"
+          :callback="equipSelect"
         ></equips>
       </div>
     </div>
@@ -31,11 +32,13 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {EquipText} from "@/interfaces/Nechronica/Equips";
+  import {Backpack, EquipText} from "@/interfaces/Nechronica/Equips";
   import bu from "@/components/InputField/Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import equips from "./EquipList.vue";
+  import {cloneDeep, findIndex, isNull} from "lodash";
   import {count} from "@/components/InputField/EquipModify/EquipListCount";
+  import {getEmptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "EquipSlot",
@@ -44,9 +47,13 @@
       equips
     },
     props: {
-      equipped: {
-        type: Object as () => EquipText
-        // equipped in this slot
+      backpack: {
+        type: Array as () => Backpack
+        // dim1: tech level index (-1); dim2: slot index;
+      },
+      at: {
+        // at index of backpack
+        type: Array as () => number[]
       },
       inventory: {
         type: Array as () => EquipText[]
@@ -54,7 +61,8 @@
         // will not check tech levels.
       },
       callback: {
-        type: Function as unknown as () => (() => void)  // do callback if slot update
+        type: Function as unknown as () => ((T: EquipText | null) => void),
+        default: getEmptyEventHandler()
       }
     },
     data: () => {
@@ -65,11 +73,12 @@
     },
     computed: {
       hasEquipped(): boolean {
-        return this.equipped.hasOwnProperty("label");
+        return !isNull(this.backpack[this.at[0]][this.at[1]]);
       },
       getEquippedText(): string {
         if (this.hasEquipped) {
-          return this.equipped.text;
+          // already checked.
+          return (this.backpack[this.at[0]][this.at[1]] as EquipText).text;
         }
         return "";
       }
@@ -91,6 +100,31 @@
           count[0]();
           count.pop();
         }
+      },
+      equipSelect(label: string) {
+        const tech = this.at[0];
+        const slot = this.at[1];
+        const equipped = cloneDeep(this.backpack[tech][slot]);
+        if (!isNull(equipped)) {
+          // a equip in this slot
+          this.inventory.push(equipped);
+          this.backpack[tech].splice(slot, 1, null);
+        }
+        // ok no equip in this slot now. locate selected equip.
+        const i = findIndex(this.inventory, {label});
+        this.backpack[tech].splice(slot, 1, cloneDeep(this.inventory[i]));
+        this.inventory.splice(i, 1);
+
+        // close context menu if exist
+        if (count.length > 0) {
+          count[0]();
+          count.pop();
+        }
+
+        console.log(JSON.stringify(this.backpack));
+
+        // at last, callback.
+        this.callback(cloneDeep(this.backpack[tech][slot]));
       }
     }
   });

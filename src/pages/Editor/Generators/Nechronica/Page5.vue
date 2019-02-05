@@ -2,13 +2,12 @@
   <div class="root">
     <div class="container">
       <names>
-        {{e(ns, "arms")}}
+        {{e(ns, "modify")}}
       </names>
       <eq
         :backpack="backpack"
-        :inventory="e(ns, 'builtInArms')"
+        :inventory="e(ns, 'builtInModify')"
         :slotsDef="maxSlots"
-        :callback="backpackUpdate"
       >
       </eq>
     </div>
@@ -25,7 +24,7 @@
   import {ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import eq from "@/components/InputField/EquipModify/index.vue";
-  import {EquipText} from "@/interfaces/Nechronica/Equips";
+  import {Backpack} from "@/interfaces/Nechronica/Equips";
 
   export default Vue.extend({
     name: "Page5",
@@ -35,20 +34,15 @@
     },
     computed: {
       maxSlots() {
-        return [2, 2, 1];
+        return [3, 3, 3];
       }
     },
     data: () => {
       return {
         e: say,
         ns,
-        backpack: [] as EquipText[][],
+        backpack: [] as Backpack,
       };
-    },
-    methods: {
-      backpackUpdate() {
-        console.log("backpackUpdated");
-      }
     }
   });
 </script>

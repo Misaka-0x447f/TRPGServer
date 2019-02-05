@@ -1,13 +1,19 @@
 <template>
   <div class="root">
     <div class="container">
-      <div class="equip" v-for="v in list">
+      <div class="equip" v-for="v in list" @click="callback(v.label)">
         <div class="title">
           {{v.text}}
         </div>
         <div class="desc">
           {{v.desc}}
         </div>
+      </div>
+      <div
+        v-if="list.length === 0"
+        class="empty"
+      >
+        {{e('global', 'noEquipAvailable')}}
       </div>
     </div>
   </div>
@@ -40,11 +46,18 @@
   .desc {
     color: plain-text-0-weak;
   }
+  
+  .empty {
+    color: plain-text-0-hints;
+    font-size: 1.2em;
+    margin: 0.5em;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
   import {EquipText} from "@/interfaces/Nechronica/Equips";
   import {getEmptyEventHandler} from "@/utils/TypeScript";
+  import {say} from "@/utils/i18n";
 
   export default Vue.extend({
     name: "EquipList",
@@ -59,7 +72,9 @@
       }
     },
     data: () => {
-      return {};
+      return {
+        e: say
+      };
     }
   });
 </script>

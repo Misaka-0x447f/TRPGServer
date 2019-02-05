@@ -11,9 +11,9 @@
             class="equip"
           >
             <sl
-              :equipped="safeRead(tech, v)"
               :inventory="inventory"
-              :callback="slotCallback"
+              :backpack="backpack"
+              :at="[tech, v]"
             ></sl>
           </div>
         </div>
@@ -32,31 +32,30 @@
     align-items flex-end;
     color: plain-text-0-weak;
   }
-  
+
   .equipListContainer {
     display: flex;
     flex: 1;
     margin-top: 0.5em;
   }
-  
+
   .equip {
     flex: 1;
     margin-right: 0.2em;
   }
-  
+
   .title {
     margin: 0 0 0.2em 1em;
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {EquipText} from "@/interfaces/Nechronica/Equips";
+  import {Backpack, EquipText} from "@/interfaces/Nechronica/Equips";
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import sl from "./Slot.vue";
-  import {xr} from "@/utils/lang";
-
+  
   export default Vue.extend({
     name: "EquipModifyIndex",
     components: {
@@ -65,17 +64,14 @@
     },
     props: {
       backpack: {
-        type: Array as () => EquipText[][]
-        // dim1: tech levels; dim2: equip;
+        type: Array as () => Backpack
+        // dim1: tech levels; dim2: which equip;
       },
       inventory: {
         type: Array as () => EquipText[]
       },
       slotsDef: {
         type: Array as () => number[]
-      },
-      callback: {
-        type: Function as unknown as () => (() => void)  // do callback if inv update
       }
     },
     data: () => {
@@ -84,12 +80,15 @@
         ns
       };
     },
-    methods: {
-      slotCallback(e: any) {
-        console.log(e);
-      },
-      safeRead(tech: number, v: number) {
-        return xr(xr(this.backpack, tech, []), v, {});
+    beforeMount() {
+      while (this.backpack.length < this.slotsDef.length) {
+        this.backpack.push([]);
+      }
+      for (let i = 0; i < this.slotsDef.length; i++) {
+        const v = this.slotsDef[i];
+        while (this.backpack[i].length <= v) {
+          this.backpack[i].push(null);
+        }
       }
     }
   });

@@ -18,7 +18,8 @@ export const dict = {
         "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
         "\n" +
         "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
-      remainingPoints: "自由点数"
+      remainingPoints: "自由点数",
+      noEquipAvailable: "没有装备可用。"
     },
     menuName: {
       // side menu names
