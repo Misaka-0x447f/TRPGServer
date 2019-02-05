@@ -18,13 +18,14 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {ns, say} from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import {getRandomName} from "@/utils/math";
   import txt from "@/pages/_public/InputField/Input.vue";
   import state from "@/utils/state";
   import {random} from "lodash";
   import {updateProperty} from "@/utils/PropertyEditor";
   import {isNumeric} from "@/utils/lang";
+  import {ns} from "@/interfaces/Nechronica";
 
   export default Vue.extend({
     name: "NecPage2",

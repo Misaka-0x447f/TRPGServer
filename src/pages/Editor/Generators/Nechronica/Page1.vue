@@ -17,8 +17,9 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {ns, say} from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import linkText from "@/pages/_public/linkText.vue";
+  import {ns} from "@/interfaces/Nechronica";
 
   export default Vue.extend({
     name: "NecPage1",

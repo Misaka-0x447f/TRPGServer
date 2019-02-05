@@ -40,10 +40,10 @@
 <script lang="ts">
   import Vue from "vue";
   import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
-  import {ns, say} from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
   import bonus, {DecideDef, PointDef} from "@/pages/_public/InputField/BonusPoint.vue";
-  import {idEnums} from "@/interfaces/Nechronica";
+  import {idEnums, ns} from "@/interfaces/Nechronica";
 
   const enum enhance {
     arms,

@@ -46,10 +46,10 @@
   import page2 from "./Page2.vue";
   import page3 from "./Page3.vue";
   import page4 from "./Page4.vue";
-  import {ns, say} from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import bu from "@/pages/_public/InputField/Button.vue";
-  import {init} from "@/interfaces/Nechronica";
-
+  import {init, ns} from "@/interfaces/Nechronica";
+  
   const maxPage = 4;
 
   export default Vue.extend({

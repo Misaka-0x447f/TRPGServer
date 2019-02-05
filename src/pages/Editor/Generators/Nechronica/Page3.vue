@@ -38,11 +38,11 @@
 <script lang="ts">
   import Vue from "vue";
   import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
-  import {ns, say} from "@/utils/i18n";
+  import {say} from "@/utils/i18n";
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
   import txt from "@/pages/_public/InputField/Input.vue";
   import {defaultTo} from "lodash";
-  import {idEnums} from "@/interfaces/Nechronica";
+  import {idEnums, ns} from "@/interfaces/Nechronica";
   
   export default Vue.extend({
     name: "NecPage3ArchSelect",

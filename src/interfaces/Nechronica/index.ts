@@ -1,7 +1,7 @@
 import {say} from "@/utils/i18n";
 import {batchCreateProperty} from "@/utils/PropertyEditor";
 
-const ns = "nechronica";
+export const ns = "nechronica";
 
 export enum idEnums {
   gameType = "gameType",

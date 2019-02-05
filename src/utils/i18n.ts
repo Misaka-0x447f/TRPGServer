@@ -1,8 +1,6 @@
 import { langEnum, state } from "@/utils/state";
 import {EquipText} from "@/interfaces/Nechronica/Equips";
 
-export const ns = "nechronica";
-
 export const dict = {
   zh: {
     global: {
@@ -166,12 +164,14 @@ export const dict = {
             "哪怕只剩下双腿，都要向前迈进。是停不下来的领路人型人格。"
         }
       ],
+      enhance: "强化",
       arms: "武装",
       evolve: "进化",
       modify: "改造",
-      enhance: "强化",
       resource: "资源",
       resourceDesc: "资源是规则书中的宠爱点。资源点数初始为0。",
+      equips: "部件",
+      equipsDesc: "部件是具备特殊效果的装备。",
       builtInArms: [
         // TODO: arm lvl1
         {
