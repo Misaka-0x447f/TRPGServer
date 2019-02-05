@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="container">
-      <bu block>
+      <bu block :callback="equipClick">
         <span v-if="hasEquipped">{{getEquippedText}}</span>
         <span v-if="!hasEquipped">
           <font-awesome-icon
@@ -9,12 +9,24 @@
           ></font-awesome-icon>
         </span>
       </bu>
+      <div class="equipListContainer" v-if="showEquipList">
+        <equips
+          class="equipList"
+          :list="inventory"
+        ></equips>
+      </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
+  .equipListContainer {
+    position: relative;
+  }
 
+  .equipList {
+    position: absolute;
+    top: 0;
+    z-index: 127;
   }
 </style>
 <script lang="ts">
@@ -22,11 +34,14 @@
   import {EquipText} from "@/interfaces/Nechronica/Equips";
   import bu from "@/components/InputField/Button.vue";
   import {ico} from "@/utils/FontAwesome";
+  import equips from "./EquipList.vue";
+  import {count} from "@/components/InputField/EquipModify/EquipListCount";
 
   export default Vue.extend({
     name: "EquipSlot",
     components: {
-      bu
+      bu,
+      equips
     },
     props: {
       equipped: {
@@ -44,7 +59,8 @@
     },
     data: () => {
       return {
-        ico
+        ico,
+        showEquipList: false
       };
     },
     computed: {
@@ -56,6 +72,25 @@
           return this.equipped.text;
         }
         return "";
+      }
+    },
+    methods: {
+      equipClick() {
+        const turnOffCallback = () => {
+          this.showEquipList = false;
+        };
+
+        if (!this.showEquipList) {
+          this.showEquipList = true;
+          if (count.length === 1) {
+            count[0]();
+            count.pop();
+          }
+          count.push(turnOffCallback);
+        } else {
+          count[0]();
+          count.pop();
+        }
       }
     }
   });

@@ -5,7 +5,7 @@
         v-for="(slots, tech) in slotsDef"
         class="edge"
       >
-        <div class="equipList">
+        <div class="equipListContainer">
           <div
             v-for="v in slots"
             class="equip"
@@ -33,7 +33,7 @@
     color: plain-text-0-weak;
   }
   
-  .equipList {
+  .equipListContainer {
     display: flex;
     flex: 1;
     margin-top: 0.5em;

@@ -6,8 +6,6 @@ export const dict = {
     global: {
       // general
       launcherTitle: "TRPG Server Project Launcher",
-      internalError: "内部错误。",
-      internalErrorDetail: "程序发生内部错误。如果错误持续，请联系Misaka。",
       unknownRoute: "未知路由错误。将返回主选单。",
       prevStep: "上一步",
       nextStep: "下一步",
@@ -164,7 +162,7 @@ export const dict = {
             "哪怕只剩下双腿，都要向前迈进。是停不下来的领路人型人格。"
         }
       ],
-      techLevel: "科技等级",
+      techLevel: "T",
       enhance: "强化",
       arms: "武装",
       evolve: "进化",
