@@ -56,6 +56,10 @@
     font-size: 0.8em;
   }
 
+  .title {
+    margin: 0.2em 0;
+  }
+
   .small, .title {
     color: plain-text-0-weak;
   }
@@ -92,7 +96,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {find, findIndex, isUndefined, maxBy, remove, max} from "lodash";
+  import {find, findIndex, isUndefined, max, maxBy, remove} from "lodash";
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
