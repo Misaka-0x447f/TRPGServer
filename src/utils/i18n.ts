@@ -164,6 +164,7 @@ export const dict = {
             "哪怕只剩下双腿，都要向前迈进。是停不下来的领路人型人格。"
         }
       ],
+      techLevel: "科技等级",
       enhance: "强化",
       arms: "武装",
       evolve: "进化",

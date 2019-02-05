@@ -1,7 +1,14 @@
 <template>
   <div class="root">
     <div class="container">
-
+      <bu block>
+        <span v-if="hasEquipped">{{getEquippedText}}</span>
+        <span v-if="!hasEquipped">
+          <font-awesome-icon
+            :icon="ico.plus"
+          ></font-awesome-icon>
+        </span>
+      </bu>
     </div>
   </div>
 </template>
@@ -13,9 +20,14 @@
 <script lang="ts">
   import Vue from "vue";
   import {EquipText} from "@/interfaces/Nechronica/Equips";
-  
+  import bu from "@/components/InputField/Button.vue";
+  import {ico} from "@/utils/FontAwesome";
+
   export default Vue.extend({
-    name: "Slot",
+    name: "EquipSlot",
+    components: {
+      bu
+    },
     props: {
       equipped: {
         type: Object as () => EquipText
@@ -31,7 +43,20 @@
       }
     },
     data: () => {
-      return {};
+      return {
+        ico
+      };
+    },
+    computed: {
+      hasEquipped(): boolean {
+        return this.equipped.hasOwnProperty("label");
+      },
+      getEquippedText(): string {
+        if (this.hasEquipped) {
+          return this.equipped.text;
+        }
+        return "";
+      }
     }
   });
 </script>

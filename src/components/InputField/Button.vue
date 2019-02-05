@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="{container: true, enabled, inline}" @click="clicked">
+    <div :class="{container: true, enabled, inline, block}" @click="clicked">
       <slot></slot>
     </div>
   </div>
@@ -14,21 +14,27 @@
     cursor: not-allowed;
     user-select: none;
   }
-    
+
   .container.enabled {
     border-color: button-0;
     color: button-0;
     cursor: pointer;
   }
-  
+
   .container.enabled:hover {
     background: button-background-0;
   }
-  
+
   .container.inline {
     border: none;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
+  }
+  
+  .container.block {
+    display: flex;
+    align-items center;
+    justify-content center;
   }
 </style>
 <script lang="ts">
@@ -45,6 +51,10 @@
         default: true
       },
       inline: {
+        type: Boolean,
+        default: false
+      },
+      block: {
         type: Boolean,
         default: false
       }
