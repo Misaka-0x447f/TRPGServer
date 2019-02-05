@@ -35,7 +35,7 @@
     flex-direction: row-reverse;
     margin-top: 0.5em;
   }
-  
+
   .button-group > * {
     margin-left: 0.5em;
   }
@@ -51,7 +51,7 @@
   import {say} from "@/utils/i18n";
   import bu from "@/components/InputField/Button.vue";
   import {init, ns} from "@/interfaces/Nechronica";
-  
+
   const maxPage = 5;
 
   export default Vue.extend({

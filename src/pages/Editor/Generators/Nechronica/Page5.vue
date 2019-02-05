@@ -1,3 +1,8 @@
+import {enhance} from "@/interfaces/Nechronica";
+import {enhance} from "@/interfaces/Nechronica";
+import {enhance} from "@/interfaces/Nechronica";
+import {enhance} from "@/interfaces/Nechronica";
+import {enhance} from "@/interfaces/Nechronica";
 <template>
   <div class="root">
     <div class="container">
@@ -8,7 +13,7 @@
         <eq
           :backpack="arms"
           :inventory="e(ns, 'builtInArms')"
-          :slotsDef="maxSlots"
+          :slotsDef="arSlots"
         >
         </eq>
       </div>
@@ -19,7 +24,7 @@
         <eq
           :backpack="evolve"
           :inventory="e(ns, 'builtInEvolve')"
-          :slotsDef="maxSlots"
+          :slotsDef="evSlots"
         >
         </eq>
       </div>
@@ -30,7 +35,7 @@
         <eq
           :backpack="modify"
           :inventory="e(ns, 'builtInModify')"
-          :slotsDef="maxSlots"
+          :slotsDef="moSlots"
         >
         </eq>
       </div>
@@ -45,7 +50,7 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import {ns} from "@/interfaces/Nechronica";
+  import {enhance, getSlotsFromShared, ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import eq from "@/components/InputField/EquipModify/index.vue";
   import {Backpack} from "@/interfaces/Nechronica/Equips";
@@ -57,19 +62,26 @@
       names,
       eq
     },
-    computed: {
-      maxSlots() {
-        return [1, 1, 0];
-      }
-    },
     data: () => {
       return {
         e: say,
         ns,
         arms: [] as Backpack,
         evolve: [] as Backpack,
-        modify: [] as Backpack
+        modify: [] as Backpack,
+        maxSlots: []
       };
+    },
+    computed: {
+      arSlots() {
+        return getSlotsFromShared(enhance.arms);
+      },
+      evSlots() {
+        return getSlotsFromShared(enhance.evolve);
+      },
+      moSlots() {
+        return getSlotsFromShared(enhance.modify);
+      }
     },
     watch: {
       arms() {
