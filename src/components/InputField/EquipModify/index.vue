@@ -8,7 +8,7 @@
       >
         <div class="equipListContainer">
           <div
-            v-for="v in slots"
+            v-for="v in (slots-1)"
             class="equip"
           >
             <sl
@@ -57,7 +57,7 @@
   import {ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import sl from "./Slot.vue";
-  
+
   export default Vue.extend({
     name: "EquipModifyIndex",
     components: {
