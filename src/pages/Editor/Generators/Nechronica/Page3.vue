@@ -37,10 +37,10 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
+  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
-  import txt from "@/pages/_public/InputField/Input.vue";
+  import txt from "@/components/InputField/Input.vue";
   import {defaultTo} from "lodash";
   import {idEnums, ns} from "@/interfaces/Nechronica";
   

@@ -32,8 +32,7 @@
       }
     },
     data: () => {
-      return {
-      };
+      return {};
     }
   });
 </script>

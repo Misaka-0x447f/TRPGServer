@@ -14,7 +14,7 @@ export default new Router({
     {
       path: "*",
       name: "defaultPage",
-      component: () => import("./pages/_default/index.vue"),
+      component: () => import("./components/DefaultPage/index.vue"),
     },
     {
       path: "/index",

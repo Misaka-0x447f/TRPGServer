@@ -15,7 +15,7 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import router from "@/router";
+  import router from "../../router";
 
   export default Vue.extend({
     name: "index",

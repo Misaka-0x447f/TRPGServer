@@ -49,7 +49,7 @@
   import page4 from "./Page4.vue";
   import page5 from "./Page5.vue";
   import {say} from "@/utils/i18n";
-  import bu from "@/pages/_public/InputField/Button.vue";
+  import bu from "@/components/InputField/Button.vue";
   import {init, ns} from "@/interfaces/Nechronica";
   
   const maxPage = 5;

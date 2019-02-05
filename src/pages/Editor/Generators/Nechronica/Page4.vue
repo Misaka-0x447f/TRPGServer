@@ -39,10 +39,10 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import ch, {Choices} from "@/pages/_public/InputField/SelectItem.vue";
+  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
-  import bonus, {DecideDef, PointDef} from "@/pages/_public/InputField/BonusPoint.vue";
+  import bonus, {DecideDef, PointDef} from "@/components/InputField/BonusPoint.vue";
   import {idEnums, ns} from "@/interfaces/Nechronica";
 
   const enum enhance {

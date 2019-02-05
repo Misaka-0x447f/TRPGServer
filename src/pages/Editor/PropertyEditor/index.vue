@@ -95,7 +95,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
   import Vue from "vue";
   import {Property, PropertyData} from "@/utils/PropertyEditor";
   import {say} from "@/utils/i18n";
-  import txt from "@/pages/_public/InputField/Input.vue";
+  import txt from "@/components/InputField/Input.vue";
   import {getAttrInEvent} from "@/utils/dom";
   import {cloneDeep, isNull, last, pullAt} from "lodash";
   import {sideTab} from "@/main";

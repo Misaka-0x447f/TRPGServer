@@ -53,7 +53,7 @@
   import MenuButton from "./MenuButton.vue";
   import Splitter from "./VerticalSplitter.vue";
   import {timeout} from "@/utils/lang";
-  import WallPaper from "@/pages/_public/Wallpaper.vue";
+  import WallPaper from "@/components/Wallpaper.vue";
   import {sideTab} from "@/main";
   import {ico} from "@/utils/FontAwesome";
   import {MenuStyle} from "@/utils/SideTabHandler";

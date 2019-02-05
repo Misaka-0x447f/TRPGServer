@@ -7,7 +7,7 @@
 </template>
 <style lang="stylus" scoped>
     .container {
-      background url("./../../assets/wallpaper.jpg");
+      background url("../assets/wallpaper.jpg");
       width 100vw
       height 100vh
       overflow hidden

@@ -2,7 +2,7 @@ import Vue from "vue";
 import Host from "./Host.vue";
 import router from "./router";
 
-import SideTab from "@/pages/_public/SideTab/index.vue";
+import SideTab from "@/components/SideTab/index.vue";
 import {SideTabHandler} from "@/utils/SideTabHandler";
 import fontAwesomeInit from "@/utils/FontAwesome";
 

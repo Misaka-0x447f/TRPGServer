@@ -29,10 +29,10 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import WallPaper from "@/pages/_public/Wallpaper.vue";
+  import WallPaper from "@/components/Wallpaper.vue";
   import PropEditor from "./PropertyEditor/index.vue";
   import ne from "./Generators/Nechronica/index.vue";
-  import vs from "@/pages/_public/VerticalSplitter.vue";
+  import vs from "@/components/VerticalSplitter.vue";
   import state from "@/utils/state";
 
   export default Vue.extend({

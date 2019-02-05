@@ -20,7 +20,7 @@
   import Vue from "vue";
   import {say} from "@/utils/i18n";
   import {getRandomName} from "@/utils/math";
-  import txt from "@/pages/_public/InputField/Input.vue";
+  import txt from "@/components/InputField/Input.vue";
   import state from "@/utils/state";
   import {random} from "lodash";
   import {updateProperty} from "@/utils/PropertyEditor";
