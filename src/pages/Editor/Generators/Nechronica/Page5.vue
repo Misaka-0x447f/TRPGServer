@@ -2,11 +2,11 @@
   <div class="root">
     <div class="container">
       <names>
-        {{e(ns, "modify")}}
+        {{e(ns, "arms")}}
       </names>
       <eq
         :backpack="backpack"
-        :inventory="e(ns, 'builtInModify')"
+        :inventory="e(ns, 'builtInArms')"
         :slotsDef="maxSlots"
       >
       </eq>

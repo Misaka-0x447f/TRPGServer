@@ -12,7 +12,8 @@
       <div class="equipListContainer" v-if="showEquipList">
         <equips
           class="equipList"
-          :list="inventory"
+          :list="sortedInvList"
+          :tech="at[0] + 1"
           :callback="equipSelect"
         ></equips>
       </div>
@@ -36,7 +37,7 @@
   import bu from "@/components/InputField/Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import equips from "./EquipList.vue";
-  import {cloneDeep, findIndex, isNull} from "lodash";
+  import {cloneDeep, findIndex, isNull, reverse, sortBy} from "lodash";
   import {count} from "@/components/InputField/EquipModify/EquipListCount";
   import {getEmptyEventHandler} from "@/utils/TypeScript";
 
@@ -81,6 +82,9 @@
           return (this.backpack[this.at[0]][this.at[1]] as EquipText).text;
         }
         return "";
+      },
+      sortedInvList(): EquipText[] {
+        return reverse(sortBy(this.inventory, ["tech"]));
       }
     },
     methods: {
@@ -120,8 +124,6 @@
           count[0]();
           count.pop();
         }
-
-        console.log(JSON.stringify(this.backpack));
 
         // at last, callback.
         this.callback(cloneDeep(this.backpack[tech][slot]));
