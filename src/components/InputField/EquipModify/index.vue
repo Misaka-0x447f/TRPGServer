@@ -88,7 +88,7 @@
       }
       for (let i = 0; i < this.slotsDef.length; i++) {
         const v = this.slotsDef[i];
-        while (this.backpack[i].length <= v) {
+        while (this.backpack[i].length < v) {
           this.backpack[i].push(null);
         }
       }
