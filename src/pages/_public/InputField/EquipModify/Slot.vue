@@ -12,22 +12,22 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {Equip} from "@/pages/_public/InputField/EquipModify/index.vue";
-
+  import {EquipText} from "@/interfaces/Nechronica/Equips";
+  
   export default Vue.extend({
     name: "Slot",
     props: {
-      definition: {
-        type: Array as () => Equip[]
+      equipped: {
+        type: Object as () => EquipText
+        // equipped in this slot
       },
       inventory: {
-        type: Array as () => string[]
-      },
-      level: {
-        type: Number
+        type: Array as () => EquipText[]
+        // inventory for choose.
+        // will not check tech levels.
       },
       callback: {
-        type: Function
+        type: Function as unknown as () => (() => void)  // do callback if slot update
       }
     },
     data: () => {

@@ -12,32 +12,27 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-
-  export interface Equip {
-    label: string,
-    text: string,
-    desc: string,
-    tech: number  // tech level (T1~T3)
-  }
+  import {EquipText} from "@/interfaces/Nechronica/Equips";
 
   export default Vue.extend({
     name: "EquipModifyIndex",
     props: {
-      definition: {
-        type: Array as () => Equip[]
+      equipped: {
+        type: Array as () => EquipText[][]
+        // dim1: tech levels; dim2: equip;
       },
-      slots: {
-        type: Array as () => number[3]
+      inventory: {
+        type: Array as () => EquipText[]
+      },
+      slotsDef: {
+        type: Array as () => number[]
       },
       callback: {
-        type: Function
+        type: Function as unknown as () => (() => void)  // do callback if inv update
       }
     },
     data: () => {
       return {
-        inventory: [] as string[],  // available equipments
-        equipped: [] as string[][]  // only store labels
-        // dim1: tech levels; dim2: slots;
       };
     }
   });

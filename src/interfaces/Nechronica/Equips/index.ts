@@ -44,7 +44,7 @@ export enum SpecialEffect {
   handDef = "handDef"                 // got extra 1 point def on hand.
 }
 
-export interface Equips {
+export interface Equip {
   label: string;
   type: Type;
   socket: Socket;
@@ -52,4 +52,11 @@ export interface Equips {
   range?: number;   // if no range then only self
   effect: Effect;
   tech: number;     // tech level
+}
+
+export interface EquipText {
+  label: string;
+  text: string;
+  desc: string;
+  tech: number;  // tech level (T1~T3)
 }

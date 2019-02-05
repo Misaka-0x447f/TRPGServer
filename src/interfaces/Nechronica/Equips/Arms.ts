@@ -1,6 +1,6 @@
-import {Equips, Socket, Type} from "./index";
+import {Equip, Socket, Type} from "./index";
 
-export const arms: Equips[] = [
+export const arms: Equip[] = [
   {
     label: "fight",
     type: Type.passive,

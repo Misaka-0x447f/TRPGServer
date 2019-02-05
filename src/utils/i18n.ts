@@ -1,4 +1,5 @@
 import { langEnum, state } from "@/utils/state";
+import {EquipText} from "@/interfaces/Nechronica/Equips";
 
 export const ns = "nechronica";
 
@@ -176,94 +177,110 @@ export const dict = {
         {
           label: "fight",
           text: "格斗",
-          desc: "脑内刻印的格斗技巧，虽然对上死者来说没有什么意义，不过身体却有着本能上的迅捷。"
+          desc: "脑内刻印的格斗技巧，虽然对上死者来说没有什么意义，不过身体却有着本能上的迅捷。",
+          tech: 1,
         },
         {
           label: "spikedClub",
           text: "狼牙棒",
-          desc: "待补完"
+          desc: "待补完",
+          tech: 1,
         },
         {
           label: "ironClub",
           text: "铁棒",
-          desc: "待补完"
+          desc: "待补完",
+          tech: 1,
         },
         // TODO: arm lvl2
         {
           label: "bramble",
           text: "荆棘",
-          desc: "带不玩"
+          desc: "带不玩",
+          tech: 2,
         },
         {
           label: "armedBoot",
           text: "武装靴子",
-          desc: "带暗器的靴子。"
+          desc: "带暗器的靴子。",
+          tech: 2,
         },
         {
           label: "push",
           text: "发力",
-          desc: "隔山打牛。移动敌方。"
+          desc: "隔山打牛。移动敌方。",
+          tech: 2,
         },
         // TODO: arm lvl3
         {
           label: "serratedKnife",
           text: "锯齿刀",
-          desc: "没描述"
+          desc: "没描述",
+          tech: 3,
         },
         {
           label: "weeder",
           text: "除草机",
-          desc: "除草剂"
+          desc: "除草剂",
+          tech: 3,
         },
         {
           label: "samuraiSword",
           text: "武士刀",
-          desc: "武士刀"
+          desc: "武士刀",
+          tech: 3,
         }
-      ],
+      ] as EquipText[],
       builtInEvolve: [
         // TODO: evolve lvl1
         {
           label: "regenerate",
           text: "再生",
-          desc: "就是寄生虫那个，描述得改一下"
+          desc: "就是寄生虫那个，描述得改一下",
+          tech: 1,
         },
         {
           label: "heart",
           text: "心脏",
-          desc: "呼吸加速 AP++"
+          desc: "呼吸加速 AP++",
+          tech: 1,
         },
         // TODO: evolve lvl2
         {
           label: "kemonomimi",
           text: "兽耳",
-          desc: "ケモのミミ"
+          desc: "ケモのミミ",
+          tech: 2,
         },
         // TODO: evolve lvl3
         {
           label: "multiLegs",
           text: "多脚",
-          desc: "脚部防护？"
+          desc: "脚部防护？",
+          tech: 3,
         }
-      ],
+      ] as EquipText[],
       builtInModify: [
         // TODO: needs fill
         {
           label: "limiter",
           text: "限制器",
-          desc: "不写了"
+          desc: "不写了",
+          tech: 1,
         },
         {
           label: "bomb",
           text: "爆弹",
-          desc: "不想写"
+          desc: "不想写",
+          tech: 2,
         },
         {
           label: "enhancedHand",
           text: "钢铁手腕",
-          desc: "???"
+          desc: "???",
+          tech: 3,
         }
-      ]
+      ] as EquipText[]
     }
   }
 };

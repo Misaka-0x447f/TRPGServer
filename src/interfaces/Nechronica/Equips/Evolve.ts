@@ -1,6 +1,6 @@
-import {Equips, Socket, SpecialEffect, Type} from "./index";
+import {Equip, Socket, SpecialEffect, Type} from "./index";
 
-export const evolve: Equips[] = [
+export const evolve: Equip[] = [
   {
     label: "regenerate",
     type: Type.passive,

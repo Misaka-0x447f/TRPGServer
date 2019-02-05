@@ -1,6 +1,6 @@
-import {Equips, Socket, SpecialEffect, Type} from "./index";
+import {Equip, Socket, SpecialEffect, Type} from "./index";
 
-export const modify: Equips[] = [
+export const modify: Equip[] = [
   {
     label: "limiter",
     type: Type.passive,
