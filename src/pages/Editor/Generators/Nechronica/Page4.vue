@@ -44,7 +44,7 @@
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
   import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
   import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
-  import {Shared} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
+  import {Shared, sharedUpdated} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
 
   export default Vue.extend({
     name: "Page4",
@@ -85,12 +85,14 @@
         this.firm1 = e.label;
         this.setBonusDef();
         this.$set(Shared, "firm1", e.label);
+        sharedUpdated();
       },
       secondaryFirmware(e: Choices) {
         updateProperty("secondaryFirmware", e.label);
         this.firm2 = e.label;
         this.setBonusDef();
         this.$set(Shared, "firm2", e.label);
+        sharedUpdated();
       },
       individuality(e: Choices) {
         updateProperty("individuality", e.label);
@@ -98,6 +100,7 @@
       bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
         updateProperty("enhance", e.common);
         this.$set(Shared, "bonus", e.common);
+        sharedUpdated();
       },
       setBonusDef() {
         this.bonusDef.initialPoint = [

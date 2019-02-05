@@ -27,6 +27,8 @@ export const getPropertyById = (id: string) => {
         value: JSON.parse(found.value),
         text: found.text
       } as PropertyData;
+    } else {
+      return found;
     }
   }
 };

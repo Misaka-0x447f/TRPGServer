@@ -1,8 +1,3 @@
-import {enhance} from "@/interfaces/Nechronica";
-import {enhance} from "@/interfaces/Nechronica";
-import {enhance} from "@/interfaces/Nechronica";
-import {enhance} from "@/interfaces/Nechronica";
-import {enhance} from "@/interfaces/Nechronica";
 <template>
   <div class="root">
     <div class="container">
@@ -13,7 +8,7 @@ import {enhance} from "@/interfaces/Nechronica";
         <eq
           :backpack="arms"
           :inventory="e(ns, 'builtInArms')"
-          :slotsDef="arSlots"
+          :slotsDef="maxSlots['arms']"
         >
         </eq>
       </div>
@@ -24,7 +19,7 @@ import {enhance} from "@/interfaces/Nechronica";
         <eq
           :backpack="evolve"
           :inventory="e(ns, 'builtInEvolve')"
-          :slotsDef="evSlots"
+          :slotsDef="maxSlots['evolve']"
         >
         </eq>
       </div>
@@ -35,7 +30,7 @@ import {enhance} from "@/interfaces/Nechronica";
         <eq
           :backpack="modify"
           :inventory="e(ns, 'builtInModify')"
-          :slotsDef="moSlots"
+          :slotsDef="maxSlots['modify']"
         >
         </eq>
       </div>
@@ -55,6 +50,7 @@ import {enhance} from "@/interfaces/Nechronica";
   import eq from "@/components/InputField/EquipModify/index.vue";
   import {Backpack} from "@/interfaces/Nechronica/Equips";
   import {updateProperty} from "@/utils/PropertyEditor";
+  import {sharedUpdateListener} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
 
   export default Vue.extend({
     name: "Page5",
@@ -69,19 +65,12 @@ import {enhance} from "@/interfaces/Nechronica";
         arms: [] as Backpack,
         evolve: [] as Backpack,
         modify: [] as Backpack,
-        maxSlots: []
+        maxSlots: {
+          arms: [1, 1, 0],
+          evolve: [1, 1, 0],
+          modify: [0, 0, 0]
+        }
       };
-    },
-    computed: {
-      arSlots() {
-        return getSlotsFromShared(enhance.arms);
-      },
-      evSlots() {
-        return getSlotsFromShared(enhance.evolve);
-      },
-      moSlots() {
-        return getSlotsFromShared(enhance.modify);
-      }
     },
     watch: {
       arms() {
@@ -92,6 +81,16 @@ import {enhance} from "@/interfaces/Nechronica";
       },
       modify() {
         updateProperty("modify", this.modify);
+      }
+    },
+    mounted() {
+      sharedUpdateListener.push(this.updateSlot);
+    },
+    methods: {
+      updateSlot() {
+        this.maxSlots[enhance.arms] = getSlotsFromShared(enhance.arms);
+        this.maxSlots[enhance.evolve] = getSlotsFromShared(enhance.evolve);
+        this.maxSlots[enhance.modify] = getSlotsFromShared(enhance.modify);
       }
     }
   });

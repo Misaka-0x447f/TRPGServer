@@ -5,3 +5,11 @@ export const Shared = {
   firm2: "Stacy",
   bonus: [] as FreeEnhanceDecideDef[]
 };
+
+export const sharedUpdateListener = [] as Array<() => void>;
+
+export const sharedUpdated = () => {
+  for (const i of sharedUpdateListener) {
+    i();
+  }
+};
