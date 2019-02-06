@@ -7,7 +7,7 @@
         </names>
         <eq
           :backpack="arms"
-          :inventory="cloneDeep(e(ns, 'builtInArms'))"
+          :inventory="armsInv"
           :slotsDef="maxSlots['arms']"
         >
         </eq>
@@ -18,7 +18,7 @@
         </names>
         <eq
           :backpack="evolve"
-          :inventory="cloneDeep(e(ns, 'builtInEvolve'))"
+          :inventory="evolveInv"
           :slotsDef="maxSlots['evolve']"
         >
         </eq>
@@ -29,7 +29,7 @@
         </names>
         <eq
           :backpack="modify"
-          :inventory="cloneDeep(e(ns, 'builtInModify'))"
+          :inventory="modifyInv"
           :slotsDef="maxSlots['modify']"
         >
         </eq>
@@ -66,6 +66,9 @@
         arms: [] as Backpack,
         evolve: [] as Backpack,
         modify: [] as Backpack,
+        armsInv: cloneDeep(say(ns, "builtInArms")),
+        evolveInv: cloneDeep(say(ns, "builtInEvolve")),
+        modifyInv: cloneDeep(say(ns, "builtInModify")),
         maxSlots: {
           arms: [1, 1, 0],
           evolve: [1, 1, 0],
