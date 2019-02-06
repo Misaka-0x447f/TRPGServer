@@ -43,8 +43,8 @@
   import {say} from "@/utils/i18n";
   import {getPropertyById} from "@/utils/PropertyEditor";
   import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
-  import {FreeEnhanceDecideDef, idEnums, ns} from "@/interfaces/Nechronica";
-  import {s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
+  import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
     name: "Page4",
@@ -74,6 +74,12 @@
         return say(ns, "builtInIndividuality");
       }
     },
+    mounted() {
+      storageProxy.registerTrigger(() => {
+        this.updateBonusDef();
+      });
+      this.updateBonusDef();
+    },
     methods: {
       primaryFirmware(e: Choices) {
         this.$set(s, idEnums.Firm1, e.label);
@@ -86,6 +92,25 @@
       },
       bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
         this.$set(s, idEnums.enhance, e.common);
+      },
+      updateBonusDef() {
+        this.bonusDef.initialPoint = [
+          {
+            label: "arms",
+            text: say(ns, "arms"),
+            inherited: getInheritedEP(enhance.arms, s.primaryFirmware, s.secondaryFirmware)
+          },
+          {
+            label: "evolve",
+            text: say(ns, "evolve"),
+            inherited: getInheritedEP(enhance.evolve, s.primaryFirmware, s.secondaryFirmware)
+          },
+          {
+            label: "modify",
+            text: say(ns, "modify"),
+            inherited: getInheritedEP(enhance.modify, s.primaryFirmware, s.secondaryFirmware)
+          }
+        ];
       }
     }
   });

@@ -30,9 +30,9 @@ export const computedProxy = new Watchable();
 
 export const computed = computedProxy.init({
   slot: {
-    arms: [] as number[],
-    evolve: [] as number[],
-    modify: [] as number[]
+    arms: [1, 1, 0] as number[],
+    evolve: [1, 1, 0] as number[],
+    modify: [0, 0, 0] as number[]
   }
 });
 

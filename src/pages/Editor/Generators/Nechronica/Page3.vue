@@ -17,8 +17,8 @@
       <txt :label="e(ns, 'customRemainsDesc')" :callback="customRemainsInput"
            v-model="customRemains.desc"></txt>
       <div class="break"></div>
-      <txt :label="e(ns, 'cache') + '#01'" v-model="s.cache[0]"></txt>
-      <txt :label="e(ns, 'cache') + '#02'" v-model="s.cache[1]"></txt>
+      <txt :label="e(ns, 'cache') + '#01'" v-model="cache[0]"></txt>
+      <txt :label="e(ns, 'cache') + '#02'" v-model="cache[1]"></txt>
       <div class="hint">
         {{e(ns, "cacheDesc")}}
       </div>
@@ -58,11 +58,17 @@
           title: "",
           desc: ""
         },
+        cache: ["", ""],
         idEnums,
         getPropertyById,
         ns,
         s
       };
+    },
+    watch: {
+      cache() {
+        s.cache = cloneDeep(this.cache);
+      }
     },
     methods: {
       pageChanged(e: Choices) {
