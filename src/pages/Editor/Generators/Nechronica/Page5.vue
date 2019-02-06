@@ -7,7 +7,7 @@
         </names>
         <eq
           :backpack="arms"
-          :inventory="e(ns, 'builtInArms')"
+          :inventory="cloneDeep(e(ns, 'builtInArms'))"
           :slotsDef="maxSlots['arms']"
         >
         </eq>
@@ -18,7 +18,7 @@
         </names>
         <eq
           :backpack="evolve"
-          :inventory="e(ns, 'builtInEvolve')"
+          :inventory="cloneDeep(e(ns, 'builtInEvolve'))"
           :slotsDef="maxSlots['evolve']"
         >
         </eq>
@@ -29,7 +29,7 @@
         </names>
         <eq
           :backpack="modify"
-          :inventory="e(ns, 'builtInModify')"
+          :inventory="cloneDeep(e(ns, 'builtInModify'))"
           :slotsDef="maxSlots['modify']"
         >
         </eq>
@@ -51,6 +51,7 @@
   import {Backpack} from "@/interfaces/Nechronica/Equips";
   import {updateProperty} from "@/utils/PropertyEditor";
   import {sharedUpdateListener} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
+  import {cloneDeep} from "lodash";
 
   export default Vue.extend({
     name: "Page5",
@@ -69,7 +70,8 @@
           arms: [1, 1, 0],
           evolve: [1, 1, 0],
           modify: [0, 0, 0]
-        }
+        },
+        cloneDeep
       };
     },
     watch: {
