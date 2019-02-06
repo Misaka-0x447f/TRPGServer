@@ -104,7 +104,7 @@ export const getSlotsFromShared = (which: enhance) => {
 
 export const updateSlotsFromShared = () => {
   forIn(enhance, (v) => {
-    computed.slot[v] = getSlotsFromShared(v);
+    computed[v] = getSlotsFromShared(v);
   });
 };
 

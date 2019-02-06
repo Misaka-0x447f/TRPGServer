@@ -15,6 +15,7 @@
               :inventory="inventory"
               :backpack="backpack"
               :at="[tech, v - 1]"
+              :callback="syncRight"
             ></sl>
           </div>
         </div>
@@ -57,6 +58,7 @@
   import {ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import sl from "./Slot.vue";
+  import {syncRight} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
     name: "EquipModifyIndex",
@@ -79,7 +81,8 @@
     data: () => {
       return {
         e: say,
-        ns
+        ns,
+        syncRight
       };
     }
   });

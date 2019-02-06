@@ -74,9 +74,11 @@
     },
     mounted() {
       const updateSlots = () => {
-        this.maxSlots = cloneDeep(computed.slot);
+        this.maxSlots = cloneDeep(computed);
       };
       computedProxy.registerTrigger(updateSlots);
     }
   });
+  
+  // TODO: known bug: equip numbers will not check when EP changed.
 </script>

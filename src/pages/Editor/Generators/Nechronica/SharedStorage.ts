@@ -1,7 +1,7 @@
 import {CustomRemains, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
 import {Watchable} from "@/utils/lang";
 import {getRandomName} from "@/utils/math";
-import {random, forIn} from "lodash";
+import {forIn, random} from "lodash";
 import {Backpack} from "@/interfaces/Nechronica/Equips";
 import {updateProperty} from "@/utils/PropertyEditor";
 
@@ -23,17 +23,15 @@ export const s = storageProxy.init({
   enhance: [] as FreeEnhanceDecideDef[],
   arms: [] as Backpack,
   evolve: [] as Backpack,
-  modify: [] as Backpack,
+  modify: [] as Backpack, // sync right is called when slot update callback.
 });
 
 export const computedProxy = new Watchable();
 
 export const computed = computedProxy.init({
-  slot: {
-    arms: [1, 1, 0] as number[],
-    evolve: [1, 1, 0] as number[],
-    modify: [0, 0, 0] as number[]
-  }
+  arms: [1, 1, 0] as number[],
+  evolve: [1, 1, 0] as number[],
+  modify: [0, 0, 0] as number[]
 });
 
 export const syncRight = () => {
