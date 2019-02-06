@@ -32,6 +32,17 @@
     color: link-text-0-hover;
     text-decoration: underline;
   }
+  
+  ::-webkit-scrollbar {
+    width: 0.3em;
+    background-color: transparent;
+  }
+
+  /* Add a thumb */
+  ::-webkit-scrollbar-thumb {
+    background: scrollbar;
+    border-radius: 10px;
+  }
 </style>
 <style lang="stylus" scoped>
   .master-root {

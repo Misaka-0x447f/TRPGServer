@@ -60,3 +60,5 @@ export interface EquipText {
   desc: string;
   tech: number;  // tech level (T1~T3)
 }
+
+export type Backpack = Array<Array<EquipText | null>>;

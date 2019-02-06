@@ -42,14 +42,9 @@
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
   import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
-  import bonus, {DecideDef, PointDef} from "@/components/InputField/BonusPoint.vue";
-  import {idEnums, ns} from "@/interfaces/Nechronica";
-
-  const enum enhance {
-    arms,
-    evolve,
-    modify
-  }
+  import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
+  import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
+  import {Shared, sharedUpdated} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
 
   export default Vue.extend({
     name: "Page4",
@@ -89,17 +84,23 @@
         updateProperty("primaryFirmware", e.label);
         this.firm1 = e.label;
         this.setBonusDef();
+        this.$set(Shared, "firm1", e.label);
+        sharedUpdated();
       },
       secondaryFirmware(e: Choices) {
         updateProperty("secondaryFirmware", e.label);
         this.firm2 = e.label;
         this.setBonusDef();
+        this.$set(Shared, "firm2", e.label);
+        sharedUpdated();
       },
       individuality(e: Choices) {
         updateProperty("individuality", e.label);
       },
-      bonusCallback(e: { common: DecideDef[] }) {
+      bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
         updateProperty("enhance", e.common);
+        this.$set(Shared, "bonus", e.common);
+        sharedUpdated();
       },
       setBonusDef() {
         this.bonusDef.initialPoint = [
@@ -121,25 +122,7 @@
         ];
       },
       getInheritedEP(which: enhance) {
-        const map = {
-          Stacy: [1, 1, 0],
-          Thanatos: [1, 0, 1],
-          Gothic: [0, 1, 1],
-          Requiem: [2, 0, 0],
-          Baroque: [0, 2, 0],
-          Romanesque: [0, 0, 2]
-        };
-
-        if (!map.hasOwnProperty(this.firm1)) {
-          throw new Error(`unknown firmware ${this.firm1}. contact the factory.`);
-        }
-
-        if (!map.hasOwnProperty(this.firm2)) {
-          throw new Error(`unknown firmware ${this.firm2}. contact the factory.`);
-        }
-
-        // @ts-ignore; already checked at this point.
-        return (map[this.firm1] as number[])[which] + (map[this.firm2] as number[])[which];
+        return getInheritedEP(which, this.firm1, this.firm2);
       }
     }
   });

@@ -100,6 +100,7 @@
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
+  import {FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
 
   interface InitialPointDef {
     label: string;
@@ -114,11 +115,6 @@
   export interface PointDef {
     initialPoint: InitialPointDef[];
     freePoint: FreePointDef;
-  }
-
-  export interface DecideDef {
-    label: string;
-    points: number;
   }
 
   interface BonusStore {
@@ -136,7 +132,7 @@
         type: Object as () => PointDef
       },
       callback: {
-        type: (Function as unknown) as () => ((T: { common: DecideDef[] }) => void)
+        type: (Function as unknown) as () => ((T: { common: FreeEnhanceDecideDef[] }) => void)
       },
       title: {
         type: String,

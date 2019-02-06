@@ -7,7 +7,7 @@ import {
   faEye,
   faGlobe,
   faInfoCircle,
-  faLowVision,
+  faLowVision, faPlus,
   faUserEdit,
   faUserFriends,
   faUsersCog
@@ -29,7 +29,8 @@ export default function fontAwesomeInit() {
     faEye,
     faUserEdit,
     faCaretUp,
-    faCaretDown
+    faCaretDown,
+    faPlus,
   );
 }
 
@@ -44,5 +45,6 @@ export enum ico {
   infoCircle = "info-circle",
   eye = "eye",
   caretUp = "caret-up",
-  caretDown = "caret-down"
+  caretDown = "caret-down",
+  plus = "plus"
 }

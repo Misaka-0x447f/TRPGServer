@@ -1,4 +1,4 @@
-import {includes, isUndefined} from "lodash";
+import {includes, isUndefined, cloneDeep} from "lodash";
 
 export const timeout = async (time: number) => {
   return new Promise((success) => {
@@ -25,4 +25,12 @@ export const limitedStringify = (v: any) => {
   } else {
     throw new Error(`Unexpected type: ${typeof v}`);
   }
+};
+
+export const xr = (a: any[], i: number, e: any) => {
+  // this function tries to read array by index. if index not exist, push e.
+  while (a.length <= i) {
+    a.push(cloneDeep(e));
+  }
+  return a[i];
 };

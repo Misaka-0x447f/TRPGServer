@@ -9,14 +9,28 @@ export interface Property {
 
 export interface PropertyData {
   id: string;                       // must be a valid javascript identifier
-  value: string;                    // numeric string, enum string, or just string
+  value: any;                       // stored as numeric string, enum string, or just string
   text: string;                     // human readable property text
 }
 
 export const getPropertyById = (id: string) => {
-  return find(
+  const found = find(
     state.editor.storage.data, {id}
   ) as PropertyData | undefined;
+  if (typeof found === "undefined") {
+    console.warn(`property not found: ${id}. received ${JSON.stringify(found)}`);
+    return undefined;
+  } else {
+    if (typeof found.value === "object") {
+      return {
+        id: found.id,
+        value: JSON.parse(found.value),
+        text: found.text
+      } as PropertyData;
+    } else {
+      return found;
+    }
+  }
 };
 
 // export const getPropertyValueById = (id: string) => {
@@ -29,7 +43,11 @@ export const getPropertyById = (id: string) => {
 // };
 
 export const PropertyExist = (id: string) => {
-  return !isUndefined(getPropertyById(id));
+  return !isUndefined(
+    find(
+      state.editor.storage.data, {id}
+    ) as PropertyData | undefined
+  );
 };
 
 

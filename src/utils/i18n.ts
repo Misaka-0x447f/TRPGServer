@@ -6,8 +6,6 @@ export const dict = {
     global: {
       // general
       launcherTitle: "TRPG Server Project Launcher",
-      internalError: "内部错误。",
-      internalErrorDetail: "程序发生内部错误。如果错误持续，请联系Misaka。",
       unknownRoute: "未知路由错误。将返回主选单。",
       prevStep: "上一步",
       nextStep: "下一步",
@@ -20,7 +18,8 @@ export const dict = {
         "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
         "\n" +
         "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
-      remainingPoints: "自由点数"
+      remainingPoints: "自由点数",
+      noEquipAvailable: "没有装备可用。"
     },
     menuName: {
       // side menu names
@@ -164,6 +163,7 @@ export const dict = {
             "哪怕只剩下双腿，都要向前迈进。是停不下来的领路人型人格。"
         }
       ],
+      techLevel: "T",
       enhance: "强化",
       arms: "武装",
       evolve: "进化",
