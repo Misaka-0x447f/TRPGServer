@@ -8,7 +8,7 @@
       >
         <div class="equipListContainer">
           <div
-            v-for="v in (slots-1)"
+            v-for="v in slots"
             class="equip"
           >
             <sl
@@ -81,17 +81,6 @@
         e: say,
         ns
       };
-    },
-    beforeMount() {
-      while (this.backpack.length < this.slotsDef.length) {
-        this.backpack.push([]);
-      }
-      for (let i = 0; i < this.slotsDef.length; i++) {
-        const v = this.slotsDef[i];
-        while (this.backpack[i].length < v) {
-          this.backpack[i].push(null);
-        }
-      }
     }
   });
 </script>

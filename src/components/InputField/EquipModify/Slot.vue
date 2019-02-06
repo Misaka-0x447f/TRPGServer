@@ -40,6 +40,11 @@
   import {cloneDeep, findIndex, isNull, reverse, sortBy} from "lodash";
   import {count} from "@/components/InputField/EquipModify/EquipListCount";
   import {getEmptyEventHandler} from "@/utils/TypeScript";
+  import {xr} from "@/utils/lang";
+
+  const sr = (backpack: Backpack, tech: number, slot: number): EquipText | null => {
+    return cloneDeep(xr(xr(backpack, tech, []), slot, null));
+  };
 
   export default Vue.extend({
     name: "EquipSlot",
@@ -74,12 +79,13 @@
     },
     computed: {
       hasEquipped(): boolean {
-        return !isNull(this.backpack[this.at[0]][this.at[1]]);
+        return !isNull(sr(this.backpack, this.at[0], this.at[1]));
       },
       getEquippedText(): string {
-        if (this.hasEquipped) {
-          // already checked.
-          return (this.backpack[this.at[0]][this.at[1]] as EquipText).text;
+        const read = sr(this.backpack, this.at[0], this.at[1]);
+
+        if (!isNull(read)) {
+          return read.text;
         }
         return "";
       },
@@ -108,7 +114,8 @@
       equipSelect(label: string) {
         const tech = this.at[0];
         const slot = this.at[1];
-        const equipped = cloneDeep(this.backpack[tech][slot]);
+        // read or create an equip here.
+        const equipped = sr(this.backpack, tech, slot);
         if (!isNull(equipped)) {
           // a equip in this slot
           this.inventory.push(equipped);
