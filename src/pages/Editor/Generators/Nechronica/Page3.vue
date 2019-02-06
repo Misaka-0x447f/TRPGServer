@@ -17,8 +17,8 @@
       <txt :label="e(ns, 'customRemainsDesc')" :callback="customRemainsInput"
            v-model="customRemains.desc"></txt>
       <div class="break"></div>
-      <txt :label="e(ns, 'cache') + '#01'" :callback="cacheUpdate" v-model="customCache[0]"></txt>
-      <txt :label="e(ns, 'cache') + '#02'" :callback="cacheUpdate" v-model="customCache[1]"></txt>
+      <txt :label="e(ns, 'cache') + '#01'" v-model="s.cache[0]"></txt>
+      <txt :label="e(ns, 'cache') + '#02'" v-model="s.cache[1]"></txt>
       <div class="hint">
         {{e(ns, "cacheDesc")}}
       </div>
@@ -39,11 +39,12 @@
   import Vue from "vue";
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
-  import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
+  import {getPropertyById} from "@/utils/PropertyEditor";
   import txt from "@/components/InputField/Input.vue";
-  import {defaultTo} from "lodash";
+  import {cloneDeep} from "lodash";
   import {idEnums, ns} from "@/interfaces/Nechronica";
-  
+  import {s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+
   export default Vue.extend({
     name: "NecPage3ArchSelect",
     components: {
@@ -57,26 +58,20 @@
           title: "",
           desc: ""
         },
-        customCache: [
-          "",
-          ""
-        ],
         idEnums,
         getPropertyById,
-        ns
+        ns,
+        s
       };
     },
     methods: {
       pageChanged(e: Choices) {
-        updateProperty(idEnums.remains, e.label);
         this.customRemains.title = e.title;
-        this.customRemains.desc = defaultTo(e.desc, "");
+        this.customRemains.desc = e.desc;
+        s.remains = e.label;
       },
       customRemainsInput() {
-        updateProperty(idEnums.remains, this.customRemains);
-      },
-      cacheUpdate() {
-        updateProperty("cache", this.customCache);
+        s.remains = cloneDeep(this.customRemains);
       }
     }
   });

@@ -1,6 +1,7 @@
 import {say} from "@/utils/i18n";
 import {batchCreateProperty} from "@/utils/PropertyEditor";
-import {Shared} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
+import {computed, s, storageProxy, syncRight} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+import {forIn} from "lodash";
 
 export const ns = "nechronica";
 
@@ -20,7 +21,7 @@ export enum idEnums {
   modify = "modify"
 }
 
-export const enum enhance {
+export enum enhance {
   arms = "arms",
   evolve = "evolve",
   modify = "modify"
@@ -29,6 +30,11 @@ export const enum enhance {
 export interface FreeEnhanceDecideDef {
   label: string;
   points: number;
+}
+
+export interface CustomRemains {
+  title: string;
+  desc: string;
 }
 
 export const EPSlotMap = [
@@ -80,13 +86,9 @@ export const getInheritedEP = (which: enhance, firm1: string, firm2: string) => 
   return queryMap(firm1, which) + queryMap(firm2, which);
 };
 
-export const getInheritedEPFromShared = (which: enhance) => {
-  return getInheritedEP(which, Shared.firm1, Shared.firm2);
-};
-
-export const getFreeEPFromShared = (which: enhance) => {
+export const getFreeEP = (which: enhance, decide: FreeEnhanceDecideDef[]) => {
   let sto = 0;
-  for (const i of Shared.bonus) {
+  for (const i of decide) {
     if (i.label === which) {
       sto += i.points;
     }
@@ -95,33 +97,19 @@ export const getFreeEPFromShared = (which: enhance) => {
 };
 
 export const getSlotsFromShared = (which: enhance) => {
-  const p1 = getInheritedEPFromShared(which);
-  const p2 = getFreeEPFromShared(which);
+  const p1 = getInheritedEP(which, s.primaryFirmware, s.secondaryFirmware);
+  const p2 = getFreeEP(which, s.enhance);
   return EPSlotMap[p1 + p2];
 };
 
-// export const getEPFromPE = (which: enhance) => {
-//   const firm1 = getPropertyById("firm1");
-//   const firm2 = getPropertyById("firm2");
-//   if (isUndefined(firm1) || isUndefined(firm2)) {
-//     return getFreeEPFromPE(which) + getInheritedEP(which, "Transparent", "Transparent");
-//   } else {
-//     return getFreeEPFromPE(which) + getInheritedEP(which, firm1.value, firm2.value);
-//   }
-// };
-//
-// export const getFreeEPFromPE = (which: enhance) => {
-//   let sto = 0;
-//   const obj = getPropertyById("enhance");
-//   if (!isUndefined(obj)) {
-//     for (const i of obj.value as FreeEnhanceDecideDef[]) {
-//       if (i.label === which) {
-//         sto += i.points;
-//       }
-//     }
-//   }
-//   return sto;
-// };
+export const updateSlotsFromShared = () => {
+  forIn(enhance, (v) => {
+    computed.slot[v] = getSlotsFromShared(v);
+  });
+};
+
+storageProxy.registerTrigger(updateSlotsFromShared);
+updateSlotsFromShared();
 
 export const init = () => {
   batchCreateProperty([
@@ -176,4 +164,5 @@ export const init = () => {
       value: []
     }
   ]);
+  syncRight();
 };
