@@ -41,10 +41,10 @@
   import Vue from "vue";
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
-  import {getPropertyById, updateProperty} from "@/utils/PropertyEditor";
+  import {getPropertyById} from "@/utils/PropertyEditor";
   import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
   import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
-  import {Shared, sharedUpdated} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
+  import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
     name: "Page4",
@@ -63,13 +63,8 @@
         } as PointDef,
         ns,
         idEnums,
-        firm1: "Stacy",
-        firm2: "Stacy",
         findPropertyById: getPropertyById
       };
-    },
-    async mounted() {
-      this.setBonusDef();
     },
     computed: {
       firmArray() {
@@ -79,50 +74,43 @@
         return say(ns, "builtInIndividuality");
       }
     },
+    mounted() {
+      storageProxy.registerTrigger(() => {
+        this.updateBonusDef();
+      });
+      this.updateBonusDef();
+    },
     methods: {
       primaryFirmware(e: Choices) {
-        updateProperty("primaryFirmware", e.label);
-        this.firm1 = e.label;
-        this.setBonusDef();
-        this.$set(Shared, "firm1", e.label);
-        sharedUpdated();
+        this.$set(s, idEnums.Firm1, e.label);
       },
       secondaryFirmware(e: Choices) {
-        updateProperty("secondaryFirmware", e.label);
-        this.firm2 = e.label;
-        this.setBonusDef();
-        this.$set(Shared, "firm2", e.label);
-        sharedUpdated();
+        this.$set(s, idEnums.Firm2, e.label);
       },
       individuality(e: Choices) {
-        updateProperty("individuality", e.label);
+        this.$set(s, idEnums.ind, e.label);
       },
       bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
-        updateProperty("enhance", e.common);
-        this.$set(Shared, "bonus", e.common);
-        sharedUpdated();
+        this.$set(s, idEnums.enhance, e.common);
       },
-      setBonusDef() {
+      updateBonusDef() {
         this.bonusDef.initialPoint = [
           {
             label: "arms",
             text: say(ns, "arms"),
-            inherited: this.getInheritedEP(enhance.arms)
+            inherited: getInheritedEP(enhance.arms, s.primaryFirmware, s.secondaryFirmware)
           },
           {
             label: "evolve",
             text: say(ns, "evolve"),
-            inherited: this.getInheritedEP(enhance.evolve)
+            inherited: getInheritedEP(enhance.evolve, s.primaryFirmware, s.secondaryFirmware)
           },
           {
             label: "modify",
             text: say(ns, "modify"),
-            inherited: this.getInheritedEP(enhance.modify)
+            inherited: getInheritedEP(enhance.modify, s.primaryFirmware, s.secondaryFirmware)
           }
         ];
-      },
-      getInheritedEP(which: enhance) {
-        return getInheritedEP(which, this.firm1, this.firm2);
       }
     }
   });

@@ -6,7 +6,7 @@
           {{e(ns, "arms")}}
         </names>
         <eq
-          :backpack="arms"
+          :backpack="s.arms"
           :inventory="armsInv"
           :slotsDef="maxSlots['arms']"
         >
@@ -17,7 +17,7 @@
           {{e(ns, "evolve")}}
         </names>
         <eq
-          :backpack="evolve"
+          :backpack="s.evolve"
           :inventory="evolveInv"
           :slotsDef="maxSlots['evolve']"
         >
@@ -28,7 +28,7 @@
           {{e(ns, "modify")}}
         </names>
         <eq
-          :backpack="modify"
+          :backpack="s.modify"
           :inventory="modifyInv"
           :slotsDef="maxSlots['modify']"
         >
@@ -45,13 +45,11 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import {enhance, getSlotsFromShared, ns} from "@/interfaces/Nechronica";
+  import {ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import eq from "@/components/InputField/EquipModify/index.vue";
-  import {Backpack} from "@/interfaces/Nechronica/Equips";
-  import {updateProperty} from "@/utils/PropertyEditor";
-  import {sharedUpdateListener} from "@/pages/Editor/Generators/Nechronica/Page4SharedStorage";
   import {cloneDeep} from "lodash";
+  import {computed, computedProxy, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
     name: "Page5",
@@ -59,13 +57,10 @@
       names,
       eq
     },
-    data: () => {
+    data() {
       return {
         e: say,
         ns,
-        arms: [] as Backpack,
-        evolve: [] as Backpack,
-        modify: [] as Backpack,
         armsInv: cloneDeep(say(ns, "builtInArms")),
         evolveInv: cloneDeep(say(ns, "builtInEvolve")),
         modifyInv: cloneDeep(say(ns, "builtInModify")),
@@ -74,29 +69,16 @@
           evolve: [1, 1, 0],
           modify: [0, 0, 0]
         },
-        cloneDeep
+        s
       };
     },
-    watch: {
-      arms() {
-        updateProperty("arms", this.arms);
-      },
-      evolve() {
-        updateProperty("evolve", this.evolve);
-      },
-      modify() {
-        updateProperty("modify", this.modify);
-      }
-    },
     mounted() {
-      sharedUpdateListener.push(this.updateSlot);
-    },
-    methods: {
-      updateSlot() {
-        this.maxSlots[enhance.arms] = getSlotsFromShared(enhance.arms);
-        this.maxSlots[enhance.evolve] = getSlotsFromShared(enhance.evolve);
-        this.maxSlots[enhance.modify] = getSlotsFromShared(enhance.modify);
-      }
+      const updateSlots = () => {
+        this.maxSlots = cloneDeep(computed);
+      };
+      computedProxy.registerTrigger(updateSlots);
     }
   });
+  
+  // TODO: known bug: equip numbers will not check when EP changed.
 </script>
