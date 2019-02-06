@@ -117,7 +117,7 @@
         // read or create an equip here.
         const equipped = sr(this.backpack, tech, slot);
         if (!isNull(equipped)) {
-          // a equip in this slot
+          // a equip in this slot.
           this.inventory.push(equipped);
           this.backpack[tech].splice(slot, 1, null);
         }

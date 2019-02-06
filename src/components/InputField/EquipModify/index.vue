@@ -14,7 +14,7 @@
             <sl
               :inventory="inventory"
               :backpack="backpack"
-              :at="[tech, v]"
+              :at="[tech, v - 1]"
             ></sl>
           </div>
         </div>
