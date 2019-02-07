@@ -5,10 +5,10 @@
         <names>
           {{e(ns, "equips")}}
         </names>
-        <div class="desc">
+        <div class="hint">
           {{e(ns, "equipsDesc")}}
         </div>
-        <div class="desc">
+        <div class="hint">
           {{e(ns, "techLevelDesc")}}
         </div>
       </div>
@@ -47,14 +47,24 @@
           </eq>
         </div>
       </div>
+      <div class="collections">
+        <ch
+          @page="pageChanged"
+          :title="e(ns, 'collections')"
+          :items="e(ns, 'builtInCollections')"
+        ></ch>
+        <txt :label="e(ns, 'customCollections')" :callback="customCollectionsInput"
+             v-model="customCollections.title"></txt>
+        <txt :label="e(ns, 'customCollectionsDesc')" :callback="customCollectionsInput"
+             v-model="customCollections.desc"></txt>
+        <div class="hint">
+          {{e(ns, "collectionsDesc")}}
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .desc {
-    margin: 0.5em 0;
-  }
-  
   .equips {
     display: flex;
   }
@@ -62,9 +72,18 @@
   .equips > div {
     flex: 1;
   }
-  
+
   .equips > div:not(:last-child) {
     margin-right: 0.5em;
+  }
+
+  .hint {
+    color: plain-text-0-hints;
+    margin: 0.5em 0;
+  }
+  
+  .collections {
+    margin-top: 2em;
   }
 </style>
 <script lang="ts">
@@ -75,12 +94,16 @@
   import eq from "@/components/InputField/EquipModify/index.vue";
   import {cloneDeep} from "lodash";
   import {computed, computedProxy, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
+  import txt from "@/components/InputField/Input.vue";
 
   export default Vue.extend({
     name: "Page5",
     components: {
       names,
-      eq
+      eq,
+      ch,
+      txt
     },
     data() {
       return {
@@ -94,6 +117,10 @@
           evolve: [1, 1, 0],
           modify: [0, 0, 0]
         },
+        customCollections: {
+          title: "",
+          desc: ""
+        },
         s
       };
     },
@@ -102,6 +129,16 @@
         this.maxSlots = cloneDeep(computed);
       };
       computedProxy.registerTrigger(updateSlots);
+    },
+    methods: {
+      pageChanged(e: Choices) {
+        this.customCollections.title = e.title;
+        this.customCollections.desc = e.desc;
+        s.collections = [e.label];
+      },
+      customCollectionsInput() {
+        s.collections = [cloneDeep(this.customCollections)];
+      }
     }
   });
 

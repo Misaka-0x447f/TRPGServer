@@ -1,4 +1,4 @@
-import {CustomRemains, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
+import {CustomCollections, CustomRemains, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
 import {Watchable} from "@/utils/lang";
 import {getRandomName} from "@/utils/math";
 import {forIn, random} from "lodash";
@@ -15,7 +15,7 @@ export const s = storageProxy.init({
   name: randName,
   age: randAge,
   desc: "",
-  remains: "01" as string | CustomRemains,
+  remains: "wasted" as string | CustomRemains,
   cache: ["", ""],
   primaryFirmware: "Stacy",
   secondaryFirmware: "Stacy",
@@ -24,6 +24,7 @@ export const s = storageProxy.init({
   arms: [] as Backpack,
   evolve: [] as Backpack,
   modify: [] as Backpack, // sync right is called when slot update callback.
+  collections: ["photo"] as string[] | CustomCollections[]
 });
 
 export const computedProxy = new Watchable();

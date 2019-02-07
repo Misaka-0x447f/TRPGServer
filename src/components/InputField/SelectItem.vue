@@ -18,7 +18,7 @@
             {{title}}
           </div>
         </div>
-        <div class="desc" v-if="v.hasOwnProperty('desc')">
+        <div class="hint" v-if="v.hasOwnProperty('desc')">
           {{v.desc}}
         </div>
       </div>
@@ -58,7 +58,7 @@
     user-select: none;
   }
 
-  .desc {
+  .hint {
     margin: 0.5em 0;
     color: plain-text-0-weak;
     min-height: 2em;

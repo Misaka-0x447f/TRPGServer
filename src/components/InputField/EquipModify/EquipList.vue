@@ -11,7 +11,7 @@
           <div class="title">
             {{v.text}}
           </div>
-          <div class="desc">
+          <div class="hint">
             {{v.desc}}
           </div>
         </div>
@@ -66,7 +66,7 @@
     white-space: nowrap;
   }
 
-  .desc {
+  .hint {
     color: plain-text-0-weak;
   }
 

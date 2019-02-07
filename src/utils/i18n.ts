@@ -315,55 +315,59 @@ export const dict = {
           tech: 3,
         }
       ] as EquipText[],
+      collections: "宝物",
+      collectionsDesc: "宝物是角色随身携带的物件，能够减轻角色的精神压力。选择初始宝物，或者自定义您的初始宝物。",
+      customCollections: "自定宝物",
+      customCollectionsDesc: "自定宝物描述",
       builtInCollections: [
         {
           label: "photo",
-          text: "相片",
+          title: "相片",
           desc: "还是人类时候的相片，是过去幸福所残缺的一角。或许上头映着的是妳的生前也不一定。"
         },
         {
           label: "book",
-          text: "书",
+          title: "书",
           desc: "又脏又破的古老书本，是妳读过无数次的一本书。现在写在上头的，只是失去意义的一团文字。"
         },
         {
           label: "undead",
-          text: "小小的活死物",
+          title: "小小的活死物",
           desc: "为什么会造出这样的东西呢？这是活死物当中极其罕见的乌鸦、小猫咪或老鼠之类的小动物。至少比较不会那么无聊啦。"
         },
         {
           label: "destroyedPart",
-          text: "损坏的部件",
+          title: "损坏的部件",
           desc: "依恋对象的一部分，或者是过去自己的一部分。紧紧抱着已经没有功能的身体部份，看起来会比较像人类吗？"
         },
         {
           label: "mirror",
-          text: "手镜",
+          title: "手镜",
           desc: "小小的手镜。从以前就一直谨慎小心使用的镜子。尽管讨厌照出来的自己，重要的是这个镜子以前所映照的东西。"
         },
         {
           label: "puppet",
-          text: "人偶",
+          title: "人偶",
           desc: "可怜可爱的人偶。与现在的妳比起来，哪一边才是坏掉的人偶呢？"
         },
         {
           label: "doll",
-          text: "布娃娃",
+          title: "布娃娃",
           desc: "可爱的布偶。可是在经历过长久的战乱之后，这个布偶已经……"
         },
         {
           label: "jewelry",
-          text: "饰品",
+          title: "饰品",
           desc: "戒指或者首饰之类的东西，闪闪发亮的漂亮饰品。或者对妳而言，是个无可取代的护身符……"
         },
         {
           label: "basket",
-          text: "篮子",
+          title: "篮子",
           desc: "妳在荒野见到，感觉对上的，装满破铜烂铁的篮子。至于里面想要放些什么……妳也不知道。"
         },
         {
           label: "dress",
-          text: "服饰",
+          title: "服饰",
           desc: "哪怕身体变得不再像是自己，这件服装编织出来的可爱永远不变。就连穿着的妳，都能获得那颗永远不变的心。"
         }
       ]

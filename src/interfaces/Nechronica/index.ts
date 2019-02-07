@@ -18,7 +18,8 @@ export enum idEnums {
   enhance = "enhance",
   arms = "arms",
   evolve = "evolve",
-  modify = "modify"
+  modify = "modify",
+  collections = "collections"
 }
 
 export enum enhance {
@@ -33,6 +34,11 @@ export interface FreeEnhanceDecideDef {
 }
 
 export interface CustomRemains {
+  title: string;
+  desc: string;
+}
+
+export interface CustomCollections {
   title: string;
   desc: string;
 }
@@ -161,6 +167,10 @@ export const init = () => {
     },
     {
       id: idEnums.modify, text: say(ns, "modify"),
+      value: []
+    },
+    {
+      id: idEnums.collections, text: say(ns, "collections"),
       value: []
     }
   ]);
