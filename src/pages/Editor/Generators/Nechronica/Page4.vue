@@ -49,7 +49,7 @@
       </div>
       <div class="collections">
         <ch
-          @page="pageChanged"
+          @page="collectionChanged"
           :title="e(ns, 'collections')"
           :items="e(ns, 'builtInCollections')"
         ></ch>
@@ -59,6 +59,16 @@
              v-model="customCollections.desc"></txt>
         <div class="hint">
           {{e(ns, "collectionsDesc")}}
+        </div>
+      </div>
+      <div class="defaultLocation">
+        <ch
+          @page="locationChanged"
+          :title="e(ns, 'defaultLocation')"
+          :items="e(ns, 'location').slice(2)"
+        ></ch>
+        <div class="hint">
+          {{e(ns, "defaultLocationDesc")}}
         </div>
       </div>
     </div>
@@ -82,7 +92,7 @@
     margin: 0.5em 0;
   }
   
-  .collections {
+  .collections, .defaultLocation {
     margin-top: 2em;
   }
 </style>
@@ -131,10 +141,13 @@
       computedProxy.registerTrigger(updateSlots);
     },
     methods: {
-      pageChanged(e: Choices) {
+      collectionChanged(e: Choices) {
         this.customCollections.title = e.title;
         this.customCollections.desc = e.desc;
         s.collections = [e.label];
+      },
+      locationChanged(e: Choices) {
+        s.defaultLocation = e.label;
       },
       customCollectionsInput() {
         s.collections = [cloneDeep(this.customCollections)];

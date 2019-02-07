@@ -24,7 +24,8 @@ export const s = storageProxy.init({
   arms: [] as Backpack,
   evolve: [] as Backpack,
   modify: [] as Backpack, // sync right is called when slot update callback.
-  collections: ["photo"] as string[] | CustomCollections[]
+  collections: ["photo"] as string[] | CustomCollections[],
+  defaultLocation: "2"
 });
 
 export const computedProxy = new Watchable();

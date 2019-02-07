@@ -19,7 +19,8 @@ export enum idEnums {
   arms = "arms",
   evolve = "evolve",
   modify = "modify",
-  collections = "collections"
+  collections = "collections",
+  defaultLocation = "defaultLocation"
 }
 
 export enum enhance {
@@ -131,7 +132,8 @@ export const init = () => {
       id: idEnums.age, text: say(ns, "characterAge")
     },
     {
-      id: idEnums.desc, text: say(ns, "characterDesc")
+      id: idEnums.desc, text: say(ns, "characterDesc"),
+      value: ""
     },
     {
       id: idEnums.remains, text: say(ns, "remains"),
@@ -172,6 +174,10 @@ export const init = () => {
     {
       id: idEnums.collections, text: say(ns, "collections"),
       value: []
+    },
+    {
+      id: idEnums.defaultLocation, text: say(ns, "defaultLocation"),
+      value: "2"
     }
   ]);
   syncRight();

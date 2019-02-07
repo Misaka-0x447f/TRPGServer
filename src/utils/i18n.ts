@@ -370,6 +370,30 @@ export const dict = {
           title: "服饰",
           desc: "哪怕身体变得不再像是自己，这件服装编织出来的可爱永远不变。就连穿着的妳，都能获得那颗永远不变的心。"
         }
+      ],
+      defaultLocation: "默认位置",
+      defaultLocationDesc: "默认位置是你在一场战斗开始时的站位。随时可变更。",
+      location: [
+        {
+          label: "0",
+          title: "奈落",
+        },
+        {
+          label: "1",
+          title: "地狱",
+        },
+        {
+          label: "2",
+        title: "炼狱",
+        },
+        {
+          label: "3",
+          title: "花园"
+        },
+        {
+          label: "4",
+          title: "乐园"
+        }
       ]
     }
   }
