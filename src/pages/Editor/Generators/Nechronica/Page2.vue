@@ -22,6 +22,9 @@
       <div class="hint">
         {{e(ns, "cacheDesc")}}
       </div>
+      <linkText :newTab="true" href="https://sites.google.com/site/nechronicaintaiwan/">
+        https://sites.google.com/site/nechronicaintaiwan/
+      </linkText>
     </div>
   </div>
 </template>
@@ -44,12 +47,14 @@
   import {cloneDeep} from "lodash";
   import {idEnums, ns} from "@/interfaces/Nechronica";
   import {s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import linkText from "@/components/linkText.vue";
 
   export default Vue.extend({
-    name: "NecPage3ArchSelect",
+    name: "NecPage2",
     components: {
       ch,
-      txt
+      txt,
+      linkText,
     },
     data: () => {
       return {

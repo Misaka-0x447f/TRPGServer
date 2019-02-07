@@ -4,6 +4,15 @@
   </a>
 </template>
 <style lang="stylus" scoped>
+  a {
+    color: link-text-0;
+    text-decoration: none;
+  }
+
+  a:hover, a:visited {
+    color: link-text-0-hover;
+    text-decoration: underline;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";

@@ -22,16 +22,6 @@
     color plain-text-0
     perspective 4500px
     overflow hidden
-    
-  a {
-    color: link-text-0;
-    text-decoration: none;
-  }
-
-  a:hover, a:visited {
-    color: link-text-0-hover;
-    text-decoration: underline;
-  }
   
   ::-webkit-scrollbar {
     width: 0.3em;

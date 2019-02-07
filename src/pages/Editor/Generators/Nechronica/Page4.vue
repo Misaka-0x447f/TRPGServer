@@ -108,7 +108,7 @@
   import txt from "@/components/InputField/Input.vue";
 
   export default Vue.extend({
-    name: "Page5",
+    name: "Page4",
     components: {
       names,
       eq,

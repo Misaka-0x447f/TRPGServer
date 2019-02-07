@@ -47,7 +47,7 @@
   import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
-    name: "Page4",
+    name: "Page3",
     components: {
       ch,
       bonus
