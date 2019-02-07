@@ -18,6 +18,7 @@
       <page2 v-show="page === 2"></page2>
       <page3 v-show="page === 3"></page3>
       <page4 v-show="page === 4"></page4>
+      <page5 v-show="page === 5"></page5>
     </div>
   </div>
 </template>
@@ -52,11 +53,12 @@
   import page2 from "./Page2.vue";
   import page3 from "./Page3.vue";
   import page4 from "./Page4.vue";
+  import page5 from "./Page5.vue";
   import {say} from "@/utils/i18n";
   import bu from "@/components/InputField/Button.vue";
   import {init, ns} from "@/interfaces/Nechronica";
 
-  const maxPage = 4;
+  const maxPage = 5;
 
   export default Vue.extend({
     name: "nechronicaGenerator",
@@ -65,6 +67,7 @@
       page2,
       page3,
       page4,
+      page5,
       bu
     },
     data: () => {
