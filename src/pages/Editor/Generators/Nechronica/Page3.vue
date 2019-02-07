@@ -43,8 +43,9 @@
   import {say} from "@/utils/i18n";
   import {getPropertyById} from "@/utils/PropertyEditor";
   import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
-  import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
+  import {enhance, FreeEnhanceDecideDef, idEnums, ns} from "@/interfaces/Nechronica";
   import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import {getInheritedEP} from "@/utils/Nechronica";
 
   export default Vue.extend({
     name: "Page3",
