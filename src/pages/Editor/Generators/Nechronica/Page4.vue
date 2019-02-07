@@ -1,117 +1,109 @@
 <template>
   <div class="root">
     <div class="container">
-      <ch
-        @page="primaryFirmware"
-        :title="e(ns, 'primaryFirmware')"
-        :items="firmArray"
-      ></ch>
-      <ch
-        @page="secondaryFirmware"
-        :title="e(ns, 'secondaryFirmware')"
-        :items="firmArray"
-      ></ch>
-      <div class="hint">
-        {{e(ns, "firmwareDesc")}}
+      <div>
+        <names>
+          {{e(ns, "equips")}}
+        </names>
+        <div class="desc">
+          {{e(ns, "equipsDesc")}}
+        </div>
+        <div class="desc">
+          {{e(ns, "techLevelDesc")}}
+        </div>
       </div>
-      <ch
-        @page="individuality"
-        :title="e(ns, 'individuality')"
-        :items="indArray"
-      ></ch>
-      <div class="hint">
-        {{e(ns, "individualityDesc")}}
+      <div class="equips">
+        <div>
+          <names>
+            {{e(ns, "arms")}}
+          </names>
+          <eq
+            :backpack="s.arms"
+            :inventory="armsInv"
+            :slotsDef="maxSlots['arms']"
+          >
+          </eq>
+        </div>
+        <div>
+          <names>
+            {{e(ns, "evolve")}}
+          </names>
+          <eq
+            :backpack="s.evolve"
+            :inventory="evolveInv"
+            :slotsDef="maxSlots['evolve']"
+          >
+          </eq>
+        </div>
+        <div>
+          <names>
+            {{e(ns, "modify")}}
+          </names>
+          <eq
+            :backpack="s.modify"
+            :inventory="modifyInv"
+            :slotsDef="maxSlots['modify']"
+          >
+          </eq>
+        </div>
       </div>
-      <bonus
-        :InheritedDef="bonusDef"
-        :callback="bonusCallback"
-        :title="e(ns, 'enhance')"
-        :minSlots="5"
-      ></bonus>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .hint {
-    color: plain-text-0-hints;
-    margin: 0.5em 0 0.8em 0;
+  .desc {
+    margin: 0.5em 0;
+  }
+  
+  .equips {
+    display: flex;
+  }
+
+  .equips > div {
+    flex: 1;
+  }
+  
+  .equips > div:not(:last-child) {
+    margin-right: 0.5em;
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
-  import {getPropertyById} from "@/utils/PropertyEditor";
-  import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
-  import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
-  import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import {ns} from "@/interfaces/Nechronica";
+  import names from "@/components/propTitle.vue";
+  import eq from "@/components/InputField/EquipModify/index.vue";
+  import {cloneDeep} from "lodash";
+  import {computed, computedProxy, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
-    name: "Page4",
+    name: "Page5",
     components: {
-      ch,
-      bonus
+      names,
+      eq
     },
-    data: () => {
+    data() {
       return {
         e: say,
-        bonusDef: {
-          initialPoint: [],
-          freePoint: {
-            totalFree: 1
-          }
-        } as PointDef,
         ns,
-        idEnums,
-        findPropertyById: getPropertyById
+        armsInv: cloneDeep(say(ns, "builtInArms")),
+        evolveInv: cloneDeep(say(ns, "builtInEvolve")),
+        modifyInv: cloneDeep(say(ns, "builtInModify")),
+        maxSlots: {
+          arms: [1, 1, 0],
+          evolve: [1, 1, 0],
+          modify: [0, 0, 0]
+        },
+        s
       };
     },
-    computed: {
-      firmArray() {
-        return say(ns, "builtInFirmware");
-      },
-      indArray() {
-        return say(ns, "builtInIndividuality");
-      }
-    },
     mounted() {
-      storageProxy.registerTrigger(() => {
-        this.updateBonusDef();
-      });
-      this.updateBonusDef();
-    },
-    methods: {
-      primaryFirmware(e: Choices) {
-        this.$set(s, idEnums.Firm1, e.label);
-      },
-      secondaryFirmware(e: Choices) {
-        this.$set(s, idEnums.Firm2, e.label);
-      },
-      individuality(e: Choices) {
-        this.$set(s, idEnums.ind, e.label);
-      },
-      bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
-        this.$set(s, idEnums.enhance, e.common);
-      },
-      updateBonusDef() {
-        this.bonusDef.initialPoint = [
-          {
-            label: "arms",
-            text: say(ns, "arms"),
-            inherited: getInheritedEP(enhance.arms, s.primaryFirmware, s.secondaryFirmware)
-          },
-          {
-            label: "evolve",
-            text: say(ns, "evolve"),
-            inherited: getInheritedEP(enhance.evolve, s.primaryFirmware, s.secondaryFirmware)
-          },
-          {
-            label: "modify",
-            text: say(ns, "modify"),
-            inherited: getInheritedEP(enhance.modify, s.primaryFirmware, s.secondaryFirmware)
-          }
-        ];
-      }
+      const updateSlots = () => {
+        this.maxSlots = cloneDeep(computed);
+      };
+      computedProxy.registerTrigger(updateSlots);
     }
   });
+
+  // TODO: known bug: equip numbers will not check when EP changed.
 </script>

@@ -2,37 +2,39 @@
   <div class="root">
     <div class="container">
       <ch
-        @page="pageChanged"
-        :title="e(ns, 'remains')"
-        :items="e(ns, 'builtInRemains')"
+        @page="primaryFirmware"
+        :title="e(ns, 'primaryFirmware')"
+        :items="firmArray"
+      ></ch>
+      <ch
+        @page="secondaryFirmware"
+        :title="e(ns, 'secondaryFirmware')"
+        :items="firmArray"
       ></ch>
       <div class="hint">
-        {{e(ns, "remainsDesc")}}
+        {{e(ns, "firmwareDesc")}}
       </div>
+      <ch
+        @page="individuality"
+        :title="e(ns, 'individuality')"
+        :items="indArray"
+      ></ch>
       <div class="hint">
-        {{e(ns, "preferBuiltInRemains")}}
+        {{e(ns, "individualityDesc")}}
       </div>
-      <txt :label="e(ns, 'customRemains')" :callback="customRemainsInput"
-           v-model="customRemains.title"></txt>
-      <txt :label="e(ns, 'customRemainsDesc')" :callback="customRemainsInput"
-           v-model="customRemains.desc"></txt>
-      <div class="break"></div>
-      <txt :label="e(ns, 'cache') + '#01'" v-model="cache[0]"></txt>
-      <txt :label="e(ns, 'cache') + '#02'" v-model="cache[1]"></txt>
-      <div class="hint">
-        {{e(ns, "cacheDesc")}}
-      </div>
+      <bonus
+        :InheritedDef="bonusDef"
+        :callback="bonusCallback"
+        :title="e(ns, 'enhance')"
+        :minSlots="5"
+      ></bonus>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .hint {
     color: plain-text-0-hints;
-    margin: 0.5em 0;
-  }
-
-  .break {
-    height: min(3vh, 2em);
+    margin: 0.5em 0 0.8em 0;
   }
 </style>
 <script lang="ts">
@@ -40,44 +42,75 @@
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
   import {getPropertyById} from "@/utils/PropertyEditor";
-  import txt from "@/components/InputField/Input.vue";
-  import {cloneDeep} from "lodash";
-  import {idEnums, ns} from "@/interfaces/Nechronica";
-  import {s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
+  import {enhance, FreeEnhanceDecideDef, getInheritedEP, idEnums, ns} from "@/interfaces/Nechronica";
+  import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
-    name: "NecPage3ArchSelect",
+    name: "Page4",
     components: {
       ch,
-      txt
+      bonus
     },
     data: () => {
       return {
         e: say,
-        customRemains: {
-          title: "",
-          desc: ""
-        },
-        cache: ["", ""],
-        idEnums,
-        getPropertyById,
+        bonusDef: {
+          initialPoint: [],
+          freePoint: {
+            totalFree: 1
+          }
+        } as PointDef,
         ns,
-        s
+        idEnums,
+        findPropertyById: getPropertyById
       };
     },
-    watch: {
-      cache() {
-        s.cache = cloneDeep(this.cache);
+    computed: {
+      firmArray() {
+        return say(ns, "builtInFirmware");
+      },
+      indArray() {
+        return say(ns, "builtInIndividuality");
       }
     },
+    mounted() {
+      storageProxy.registerTrigger(() => {
+        this.updateBonusDef();
+      });
+      this.updateBonusDef();
+    },
     methods: {
-      pageChanged(e: Choices) {
-        this.customRemains.title = e.title;
-        this.customRemains.desc = e.desc;
-        s.remains = e.label;
+      primaryFirmware(e: Choices) {
+        this.$set(s, idEnums.Firm1, e.label);
       },
-      customRemainsInput() {
-        s.remains = cloneDeep(this.customRemains);
+      secondaryFirmware(e: Choices) {
+        this.$set(s, idEnums.Firm2, e.label);
+      },
+      individuality(e: Choices) {
+        this.$set(s, idEnums.ind, e.label);
+      },
+      bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
+        this.$set(s, idEnums.enhance, e.common);
+      },
+      updateBonusDef() {
+        this.bonusDef.initialPoint = [
+          {
+            label: "arms",
+            text: say(ns, "arms"),
+            inherited: getInheritedEP(enhance.arms, s.primaryFirmware, s.secondaryFirmware)
+          },
+          {
+            label: "evolve",
+            text: say(ns, "evolve"),
+            inherited: getInheritedEP(enhance.evolve, s.primaryFirmware, s.secondaryFirmware)
+          },
+          {
+            label: "modify",
+            text: say(ns, "modify"),
+            inherited: getInheritedEP(enhance.modify, s.primaryFirmware, s.secondaryFirmware)
+          }
+        ];
       }
     }
   });

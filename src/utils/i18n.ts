@@ -44,11 +44,12 @@ export const dict = {
       // NechronicaDataGen
       title: "Nechronica数据生成向导",
       desc: "本向导将帮助您生成一名Nechronica(永远的后日谈)角色。" +
-        "本向导使用的规则来自这里的基础规则，但不包含扩充规则:",
+        "本向导使用的规则来自这里的基础规则，但目前还不包含扩充规则。",
+      desc2: "让我们先从设定角色基本信息开始。",
       Step2: "基本信息生成",
-      characterName: "角色名",
+      characterName: "名字",
       characterAge: "年龄",
-      characterDesc: "角色描述",
+      characterDesc: "描述",
       SkipStep2: "我们已为该角色提供了随机名字和年龄。如果想把这里提到的信息留到向导结束时再填写，请直接点击下一步。" +
         "也可以在向导结束后随意添加更多角色描述。",
       remains: "CRC",

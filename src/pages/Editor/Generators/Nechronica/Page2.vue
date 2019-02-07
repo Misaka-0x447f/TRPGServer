@@ -1,43 +1,84 @@
 <template>
   <div class="root">
     <div class="container">
-      <txt :label="e(ns, 'characterName')" v-model="s.name" :placeholder="randName"></txt>
-      <txt :label="e(ns, 'characterAge')" v-model="s.age" :placeholder="randAge"></txt>
-      <txt :label="e(ns, 'characterDesc')" v-model="s.desc"></txt>
-      <div class="hints">
-        {{e(ns, "SkipStep2")}}
+      <ch
+        @page="pageChanged"
+        :title="e(ns, 'remains')"
+        :items="e(ns, 'builtInRemains')"
+      ></ch>
+      <div class="hint">
+        {{e(ns, "remainsDesc")}}
+      </div>
+      <div class="hint">
+        {{e(ns, "preferBuiltInRemains")}}
+      </div>
+      <txt :label="e(ns, 'customRemains')" :callback="customRemainsInput"
+           v-model="customRemains.title"></txt>
+      <txt :label="e(ns, 'customRemainsDesc')" :callback="customRemainsInput"
+           v-model="customRemains.desc"></txt>
+      <div class="break"></div>
+      <txt :label="e(ns, 'cache') + '#01'" v-model="cache[0]"></txt>
+      <txt :label="e(ns, 'cache') + '#02'" v-model="cache[1]"></txt>
+      <div class="hint">
+        {{e(ns, "cacheDesc")}}
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .hints {
+  .hint {
     color: plain-text-0-hints;
-    margin-top: 0.5em;
+    margin: 0.5em 0;
+  }
+
+  .break {
+    height: min(3vh, 2em);
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
+  import {getPropertyById} from "@/utils/PropertyEditor";
   import txt from "@/components/InputField/Input.vue";
-  import state from "@/utils/state";
-  import {ns} from "@/interfaces/Nechronica";
-  import {randAge, randName, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import {cloneDeep} from "lodash";
+  import {idEnums, ns} from "@/interfaces/Nechronica";
+  import {s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   export default Vue.extend({
-    name: "NecPage2",
+    name: "NecPage3ArchSelect",
     components: {
+      ch,
       txt
     },
     data: () => {
       return {
         e: say,
-        state,
+        customRemains: {
+          title: "",
+          desc: ""
+        },
+        cache: ["", ""],
+        idEnums,
+        getPropertyById,
         ns,
-        s,
-        randName,
-        randAge
+        s
       };
+    },
+    watch: {
+      cache() {
+        s.cache = cloneDeep(this.cache);
+      }
+    },
+    methods: {
+      pageChanged(e: Choices) {
+        this.customRemains.title = e.title;
+        this.customRemains.desc = e.desc;
+        s.remains = e.label;
+      },
+      customRemainsInput() {
+        s.remains = cloneDeep(this.customRemains);
+      }
     }
   });
 </script>
