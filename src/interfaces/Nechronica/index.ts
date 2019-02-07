@@ -129,7 +129,7 @@ export const init = () => {
     },
     {
       id: idEnums.remains, text: say(ns, "remains"),
-      value: "01"
+      value: "wasted"
     },
     {
       id: idEnums.cache, text: say(ns, "cache"),

@@ -1,6 +1,9 @@
 <template>
   <div class="root">
     <div class="container">
+      <div v-if="totalSlotsCount === 0" class="not-available">
+        {{e('global', 'noSlotsAvailable')}}
+      </div>
       <div
         v-for="(slots, tech) in slotsDef"
         class="edge"
@@ -27,6 +30,10 @@
   </div>
 </template>
 <style lang="stylus" scoped>
+  .container {
+    min-width: 4em;
+  }
+  
   .edge {
     border-bottom: underline-0;
     display: flex;
@@ -44,11 +51,16 @@
   .equip {
     flex: 1;
     margin-right: 0.2em;
-    max-width: 6em;
   }
 
   .title {
     margin: 0 0 0.2em 1em;
+  }
+
+  .not-available {
+    color: plain-text-0-hints;
+    margin: calc(0.5em / 1.2) 0;
+    font-size: 1.2em;
   }
 </style>
 <script lang="ts">
@@ -59,6 +71,7 @@
   import names from "@/components/propTitle.vue";
   import sl from "./Slot.vue";
   import {syncRight} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import {sum} from "lodash";
 
   export default Vue.extend({
     name: "EquipModifyIndex",
@@ -76,6 +89,11 @@
       },
       slotsDef: {
         type: Array as () => number[]
+      }
+    },
+    computed: {
+      totalSlotsCount(): number {
+        return sum(this.slotsDef);
       }
     },
     data: () => {

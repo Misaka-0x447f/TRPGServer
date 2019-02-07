@@ -3,43 +3,68 @@
     <div class="container">
       <div>
         <names>
-          {{e(ns, "arms")}}
+          {{e(ns, "equips")}}
         </names>
-        <eq
-          :backpack="s.arms"
-          :inventory="armsInv"
-          :slotsDef="maxSlots['arms']"
-        >
-        </eq>
+        <div class="desc">
+          {{e(ns, "equipsDesc")}}
+        </div>
+        <div class="desc">
+          {{e(ns, "techLevelDesc")}}
+        </div>
       </div>
-      <div>
-        <names>
-          {{e(ns, "evolve")}}
-        </names>
-        <eq
-          :backpack="s.evolve"
-          :inventory="evolveInv"
-          :slotsDef="maxSlots['evolve']"
-        >
-        </eq>
-      </div>
-      <div>
-        <names>
-          {{e(ns, "modify")}}
-        </names>
-        <eq
-          :backpack="s.modify"
-          :inventory="modifyInv"
-          :slotsDef="maxSlots['modify']"
-        >
-        </eq>
+      <div class="equips">
+        <div>
+          <names>
+            {{e(ns, "arms")}}
+          </names>
+          <eq
+            :backpack="s.arms"
+            :inventory="armsInv"
+            :slotsDef="maxSlots['arms']"
+          >
+          </eq>
+        </div>
+        <div>
+          <names>
+            {{e(ns, "evolve")}}
+          </names>
+          <eq
+            :backpack="s.evolve"
+            :inventory="evolveInv"
+            :slotsDef="maxSlots['evolve']"
+          >
+          </eq>
+        </div>
+        <div>
+          <names>
+            {{e(ns, "modify")}}
+          </names>
+          <eq
+            :backpack="s.modify"
+            :inventory="modifyInv"
+            :slotsDef="maxSlots['modify']"
+          >
+          </eq>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container > div {
-    margin-bottom: 2em;
+  .desc {
+    margin: 0.5em 0;
+  }
+  
+  .equips {
+    display: flex;
+  }
+
+  .equips > div {
+    flex: 1;
+  }
+  
+  .equips > div:not(:last-child) {
+    margin-right: 0.5em;
   }
 </style>
 <script lang="ts">
@@ -79,6 +104,6 @@
       computedProxy.registerTrigger(updateSlots);
     }
   });
-  
+
   // TODO: known bug: equip numbers will not check when EP changed.
 </script>

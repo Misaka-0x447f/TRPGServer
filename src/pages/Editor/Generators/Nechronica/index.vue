@@ -2,21 +2,23 @@
   <div class="root">
     <div class="container">
       <div class="title">
-        {{e(ns, "title")}}
+        <span class="title-text">
+          {{e(ns, "title")}}
+        </span>
+        <div class="button-group">
+          <bu :callback="nextStep" :enabled="nextAble">
+            {{e("global", "nextStep")}}
+          </bu>
+          <bu :callback="prevStep" :enabled="prevAble">
+            {{e("global", "prevStep")}}
+          </bu>
+        </div>
       </div>
       <page1 v-show="page === 1"></page1>
       <page2 v-show="page === 2"></page2>
       <page3 v-show="page === 3"></page3>
       <page4 v-show="page === 4"></page4>
       <page5 v-show="page === 5"></page5>
-      <div class="button-group">
-        <bu :callback="nextStep" :enabled="nextAble">
-          {{e("global", "nextStep")}}
-        </bu>
-        <bu :callback="prevStep" :enabled="prevAble">
-          {{e("global", "prevStep")}}
-        </bu>
-      </div>
     </div>
   </div>
 </template>
@@ -26,14 +28,19 @@
   }
 
   .title {
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title-text {
     font-size: 1.2em;
-    margin-bottom: 0.5em;
   }
 
   .button-group {
     display: flex;
     flex-direction: row-reverse;
-    margin-top: 0.5em;
   }
 
   .button-group > * {

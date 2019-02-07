@@ -21,6 +21,11 @@
   </div>
 </template>
 <style lang="stylus" scoped>
+  .container {
+    max-width: 6em;
+    min-width: 2em;
+  }
+  
   .equipListContainer {
     position: relative;
   }
