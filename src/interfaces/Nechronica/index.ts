@@ -25,7 +25,8 @@ export enum idEnums {
   equipsSocket = "equipsSocket"
 }
 
-export enum enhance {
+// do not just change string remember check every import
+export enum equipTypes {
   arms = "arms",
   evolve = "evolve",
   modify = "modify"

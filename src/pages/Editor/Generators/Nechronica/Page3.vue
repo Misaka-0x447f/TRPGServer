@@ -43,7 +43,7 @@
   import {say} from "@/utils/i18n";
   import {getPropertyById} from "@/utils/PropertyEditor";
   import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
-  import {enhance, FreeEnhanceDecideDef, idEnums, ns} from "@/interfaces/Nechronica";
+  import {equipTypes, FreeEnhanceDecideDef, idEnums, ns} from "@/interfaces/Nechronica";
   import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import {getInheritedEP} from "@/utils/Nechronica";
 
@@ -99,17 +99,17 @@
           {
             label: "arms",
             text: say(ns, "arms"),
-            inherited: getInheritedEP(enhance.arms, s.primaryFirmware, s.secondaryFirmware)
+            inherited: getInheritedEP(equipTypes.arms, s.primaryFirmware, s.secondaryFirmware)
           },
           {
             label: "evolve",
             text: say(ns, "evolve"),
-            inherited: getInheritedEP(enhance.evolve, s.primaryFirmware, s.secondaryFirmware)
+            inherited: getInheritedEP(equipTypes.evolve, s.primaryFirmware, s.secondaryFirmware)
           },
           {
             label: "modify",
             text: say(ns, "modify"),
-            inherited: getInheritedEP(enhance.modify, s.primaryFirmware, s.secondaryFirmware)
+            inherited: getInheritedEP(equipTypes.modify, s.primaryFirmware, s.secondaryFirmware)
           }
         ];
       }

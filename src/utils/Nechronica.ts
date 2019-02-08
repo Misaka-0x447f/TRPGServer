@@ -1,11 +1,12 @@
 // EP stands for enhance point
 import {computed, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
-import {CustomCollections, enhance, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
-import {find, forIn, isUndefined} from "lodash";
-import {Equip, Socket} from "@/interfaces/Nechronica/Equips";
+import {CustomCollections, equipTypes, FreeEnhanceDecideDef, ns} from "@/interfaces/Nechronica";
+import {cloneDeep, find, flatten, forIn, isNull, isUndefined} from "lodash";
+import {Equip, EquipText, Socket} from "@/interfaces/Nechronica/Equips";
 import {arms} from "@/interfaces/Nechronica/Equips/Arms";
 import {evolve} from "@/interfaces/Nechronica/Equips/Evolve";
 import {modify} from "@/interfaces/Nechronica/Equips/Modify";
+import {say} from "@/utils/i18n";
 
 export const EPSlotMap = [
   [0, 0, 0],
@@ -19,7 +20,7 @@ export const EPSlotMap = [
   [3, 3, 2],
   [3, 3, 3]
 ];
-export const getInheritedEP = (which: enhance, firm1: string, firm2: string) => {
+export const getInheritedEP = (which: equipTypes, firm1: string, firm2: string) => {
   const map = {
     Transparent: [0, 0, 0],
     Stacy: [1, 1, 0],
@@ -30,18 +31,18 @@ export const getInheritedEP = (which: enhance, firm1: string, firm2: string) => 
     Romanesque: [0, 0, 2]
   };
 
-  const queryMap = (name: string, w: enhance) => {
+  const queryMap = (name: string, w: equipTypes) => {
     // if not exist return zero.
     if (!map.hasOwnProperty(name)) {
       return 0;
     }
 
     let label = -1;
-    if (w === enhance.arms) {
+    if (w === equipTypes.arms) {
       label = 0;
-    } else if (w === enhance.evolve) {
+    } else if (w === equipTypes.evolve) {
       label = 1;
-    } else if (w === enhance.modify) {
+    } else if (w === equipTypes.modify) {
       label = 2;
     }
     // @ts-ignore; already checked at this point.
@@ -50,7 +51,7 @@ export const getInheritedEP = (which: enhance, firm1: string, firm2: string) => 
 
   return queryMap(firm1, which) + queryMap(firm2, which);
 };
-export const getFreeEP = (which: enhance, decide: FreeEnhanceDecideDef[]) => {
+export const getFreeEP = (which: equipTypes, decide: FreeEnhanceDecideDef[]) => {
   let sto = 0;
   for (const i of decide) {
     if (i.label === which) {
@@ -59,14 +60,14 @@ export const getFreeEP = (which: enhance, decide: FreeEnhanceDecideDef[]) => {
   }
   return sto;
 };
-export const getSlotsFromShared = (which: enhance) => {
+export const getSlotsFromShared = (which: equipTypes) => {
   const p1 = getInheritedEP(which, s.primaryFirmware, s.secondaryFirmware);
   const p2 = getFreeEP(which, s.enhance);
   return EPSlotMap[p1 + p2];
 };
 
 export const updateSlotsFromShared = () => {
-  forIn(enhance, (v) => {
+  forIn(equipTypes, (v) => {
     computed[v] = getSlotsFromShared(v);
   });
 };
@@ -74,20 +75,77 @@ export const updateSlotsFromShared = () => {
 storageProxy.registerTrigger(updateSlotsFromShared);
 updateSlotsFromShared();
 
-const selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny = (e: Equip[]) => {
-  const a = []; // storage of equips which needs to do that.
+const getAllEquipTexts = () => {
+  return cloneDeep(say(ns, "builtInArms"))
+    .concat(say(ns, "builtInEvolve"))
+    .concat(say(ns, "builtInModify")) as EquipText[];
+};
+
+const getAllEquips = () => {
+  return cloneDeep(arms)
+    .concat(evolve)
+    .concat(modify) as Equip[];
+};
+
+const getEquipTextsFromEquipLabel = (l: string) => {
+  const a = find(getAllEquipTexts(), {label: l});
+  if (isUndefined(a)) {
+    throw new Error(`equip query does not exist: ${l}`);
+  }
+  return a;
+};
+
+const getEquipFromEquipLabel = (l: string) => {
+  const a = find(getAllEquips(), {label: l});
+  if (isUndefined(a)) {
+    throw new Error(`equip query does not exist: ${l}`);
+  }
+  return a;
+};
+
+const equipTextArrayToEquipArray = (e: EquipText[]) => {
+  const a = [] as Equip[];
+  for (const v of e) {
+    a.push(
+      getEquipFromEquipLabel(
+        v.label
+      )
+    );
+  }
+  return a;
+};
+
+const selectEquipFromEquipGroupWhereSocketEqualToSocketDotAny = (e: Equip[]) => {
+  const a = [] as EquipText[]; // storage of equips which needs to do that.
   for (const v of e) {
     if (v.socket === Socket.any) {
-      a.push(v.label);
+      console.log(v.socket);
+      a.push(getEquipTextsFromEquipLabel(v.label));
     }
   }
   return a;
 };
 
+export const getEquippedEquips = (which?: equipTypes) => {
+  const a = [] as EquipText[];
+  forIn(equipTypes, (v: equipTypes) => {
+    if (v === which || isUndefined(v)) {
+      // @ts-ignore
+      forIn(flatten(s[v]), (p: EquipText | null) => {
+        if (!isNull(p)) {
+          a.push(getEquipTextsFromEquipLabel(p.label));
+        }
+      });
+    }
+  });
+  console.log(a);
+  return a;
+};
+
 export const getEquipsToBeSet = () => {
-  return selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny(arms).concat(
-    selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny(evolve).concat(
-      selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny(modify)
+  return selectEquipFromEquipGroupWhereSocketEqualToSocketDotAny(
+    equipTextArrayToEquipArray(
+      getEquippedEquips()
     )
   );
 };

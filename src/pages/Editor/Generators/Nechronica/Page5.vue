@@ -13,6 +13,14 @@
       <div v-else class="invalid">
         {{e("global", "invalid")}}
       </div>
+      <div v-for="v in equipsToBeSet">
+        <ch
+          @page="(e) => {equipsUpdate(e, v.label)}"
+          :title="v.text"
+          :items="soc"
+        >
+        </ch>
+      </div>
       <div class="hint">
         {{e(ns, "wizardDone")}}
       </div>
@@ -27,7 +35,7 @@
     color: plain-text-0-hints;
     margin: 0.5em 0;
   }
-  
+
   .invalid {
     color: invalid;
     font-size: 1.2em;
@@ -39,8 +47,9 @@
   import {ns} from "@/interfaces/Nechronica";
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
-  import {Socket} from "@/interfaces/Nechronica/Equips";
-  import {getCollectionByLabel} from "@/utils/Nechronica";
+  import {EquipText, Socket} from "@/interfaces/Nechronica/Equips";
+  import {getCollectionByLabel, getEquipsToBeSet} from "@/utils/Nechronica";
+  import {findIndex} from "lodash";
 
   export default Vue.extend({
     name: "Page5",
@@ -53,6 +62,7 @@
         ns,
         collectionLabel: "",
         collectionName: "",
+        equipsToBeSet: [] as EquipText[],
         s
       };
     },
@@ -77,7 +87,8 @@
             title: a[Socket.leg]
           }
         ];
-      }
+      },
+
     },
     mounted() {
       const updateListener = () => {
@@ -85,6 +96,7 @@
           this.collectionLabel = s.collections[0].label;
           this.collectionName = getCollectionByLabel(s.collections, this.collectionLabel).title as string;
         }
+        this.equipsToBeSet = getEquipsToBeSet();
       };
       storageProxy.registerTrigger(updateListener);
     },
@@ -94,6 +106,15 @@
           label: this.collectionLabel,
           socket: e.label as Socket
         }];
+      },
+      equipsUpdate(e: Choices, l: string) {
+        const i = findIndex(s.equipsSocket, {label: l});
+        const n = {label: l, socket: e.label as Socket};
+        if (i >= 0) {
+          s.equipsSocket.splice(i, 1, n);
+        } else {
+          s.equipsSocket.push(n);
+        }
       }
     }
   });
