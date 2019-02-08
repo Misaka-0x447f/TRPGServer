@@ -17,13 +17,25 @@ import {MenuStyle} from "@/utils/SideTabHandler";
         <!--suppress JSUnusedLocalSymbols -->
         <tr v-for="(_, i) in content.definition" :data-i="i">
           <td v-show="showId">
-            <txt v-model="content.definition[i].id" :placeholder="e('propertyEditor', 'identifier')"></txt>
+            <txt 
+              v-model="content.definition[i].id"
+              :disabled="isReadOnly"
+              :placeholder="e('propertyEditor', 'identifier')"
+            ></txt>
           </td>
           <td>
-            <txt v-model="content.definition[i].value" :placeholder="e('propertyEditor', 'value')"></txt>
+            <txt 
+              v-model="content.definition[i].value"
+              :disabled="isReadOnly"
+              :placeholder="e('propertyEditor', 'value')"
+            ></txt>
           </td>
           <td>
-            <txt v-model="content.definition[i].text" :placeholder="e('propertyEditor', 'text')"></txt>
+            <txt
+              v-model="content.definition[i].text"
+              :disabled="isReadOnly"
+              :placeholder="e('propertyEditor', 'text')"
+            ></txt>
           </td>
         </tr>
       </table>

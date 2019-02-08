@@ -7,6 +7,7 @@
           :value="value"
           @input="gotInputs"
           :placeholder="placeholder"
+          :disabled="disabled"
         >
       </label>
       <div class="label" v-if="label">
@@ -69,6 +70,10 @@
       callback: {
         type: Function,
         default: getEmptyEventHandler()
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
