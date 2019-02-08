@@ -8,26 +8,26 @@ import {MenuStyle} from "@/utils/SideTabHandler";
           {{e("propertyEditor", "isReadOnly")}}
         </div>
       </div>
-      <table v-if="content.data.length">
+      <table v-if="content.definition.length">
         <tr>
           <th v-show="showId">{{e("propertyEditor", "identifier")}}</th>
           <th>{{e("propertyEditor", "value")}}</th>
           <th>{{e("propertyEditor", "text")}}</th>
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
-        <tr v-for="(_, i) in content.data" :data-i="i">
+        <tr v-for="(_, i) in content.definition" :data-i="i">
           <td v-show="showId">
-            <txt v-model="content.data[i].id" :placeholder="e('propertyEditor', 'identifier')"></txt>
+            <txt v-model="content.definition[i].id" :placeholder="e('propertyEditor', 'identifier')"></txt>
           </td>
           <td>
-            <txt v-model="content.data[i].value" :placeholder="e('propertyEditor', 'value')"></txt>
+            <txt v-model="content.definition[i].value" :placeholder="e('propertyEditor', 'value')"></txt>
           </td>
           <td>
-            <txt v-model="content.data[i].text" :placeholder="e('propertyEditor', 'text')"></txt>
+            <txt v-model="content.definition[i].text" :placeholder="e('propertyEditor', 'text')"></txt>
           </td>
         </tr>
       </table>
-      <div class="clickTip" v-if="content.data.length === 0" @click="newLine">
+      <div class="clickTip" v-if="content.definition.length === 0" @click="newLine">
         {{this.isReadOnly ? e("propertyEditor", "emptyWhileRO") : e("propertyEditor", "ContentEmpty")}}
       </div>
     </div>
@@ -197,7 +197,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
         if (e.code === "Enter") {
           if (isNull(getAttrInEvent(e, "data-i"))) {
             // got null, add line at the end of array
-            this.newLine(this.content.data.length - 1);
+            this.newLine(this.content.definition.length - 1);
           } else {
             this.newLine(eventAt);
           }
@@ -205,7 +205,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
           this.history.push({
             changedLine: eventAt,
             mutation: mutation.del,
-            data: this.content.data[eventAt]
+            data: this.content.definition[eventAt]
           });
           this.deleteLine(eventAt);
         }
@@ -219,11 +219,11 @@ import {MenuStyle} from "@/utils/SideTabHandler";
         if (data) {
           placeholder = cloneDeep(data);
         }
-        this.content.data.splice(line + 1, 0, placeholder);
+        this.content.definition.splice(line + 1, 0, placeholder);
         this.$forceUpdate();
       },
       deleteLine(line: number) {
-        Vue.delete(this.content.data, line);
+        Vue.delete(this.content.definition, line);
         this.$forceUpdate();
       },
       undo() {

@@ -4,7 +4,7 @@ import {cloneDeep, find, isUndefined} from "lodash";
 import {limitedStringify} from "@/utils/lang";
 
 export interface Property {
-  data: PropertyData[];
+  definition: PropertyData[];
 }
 
 export interface PropertyData {
@@ -15,7 +15,7 @@ export interface PropertyData {
 
 export const getPropertyById = (id: string) => {
   const found = find(
-    state.editor.storage.data, {id}
+    state.editor.storage.definition, {id}
   ) as PropertyData | undefined;
   if (typeof found === "undefined") {
     console.warn(`property not found: ${id}. received ${JSON.stringify(found)}`);
@@ -45,7 +45,7 @@ export const getPropertyById = (id: string) => {
 export const PropertyExist = (id: string) => {
   return !isUndefined(
     find(
-      state.editor.storage.data, {id}
+      state.editor.storage.definition, {id}
     ) as PropertyData | undefined
   );
 };
@@ -69,14 +69,14 @@ export const createProperty = (id: string, text: string, value?: string) => {
     return false;
   }
 
-  const d = cloneDeep(state.editor.storage.data) as PropertyData[];
+  const d = cloneDeep(state.editor.storage.definition) as PropertyData[];
   d.push({
     id,
     value: !isUndefined(value) ? limitedStringify(value) : "",
     text
   });
 
-  Vue.set(state.editor.storage, "data", d);
+  Vue.set(state.editor.storage, "definition", d);
 };
 
 export const updateProperty = (id: string, value: any) => {

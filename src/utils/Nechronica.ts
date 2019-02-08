@@ -1,7 +1,11 @@
 // EP stands for enhance point
 import {computed, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
-import {enhance, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
-import {forIn} from "lodash";
+import {CustomCollections, enhance, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
+import {forIn, find, isUndefined} from "lodash";
+import {Equip, Socket} from "@/interfaces/Nechronica/Equips";
+import {arms} from "@/interfaces/Nechronica/Equips/Arms";
+import {evolve} from "@/interfaces/Nechronica/Equips/Evolve";
+import {modify} from "@/interfaces/Nechronica/Equips/Modify";
 
 export const EPSlotMap = [
   [0, 0, 0],
@@ -72,3 +76,29 @@ export const updateSlotsFromShared = () => {
 
 storageProxy.registerTrigger(updateSlotsFromShared);
 updateSlotsFromShared();
+
+const selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny = (e: Equip[]) => {
+  const a = []; // storage of equips which needs to do that.
+  for (const v of e) {
+    if (v.socket === Socket.any) {
+      a.push(v.label);
+    }
+  }
+  return a;
+};
+
+export const getEquipsToBeSet = () => {
+  return selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny(arms).concat(
+    selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny(evolve).concat(
+      selectEquipLabelFromEquipGroupWhereSocketEqualToSocketDotAny(modify)
+    )
+  );
+};
+
+export const getCollectionByLabel = (c: CustomCollections[], label: string): CustomCollections => {
+  const a = find(c, {label});
+  if (isUndefined(a)) {
+    throw new Error("Cannot found collection.");
+  }
+  return a;
+};

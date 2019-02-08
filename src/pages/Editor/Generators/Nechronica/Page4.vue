@@ -91,7 +91,7 @@
     color: plain-text-0-hints;
     margin: 0.5em 0;
   }
-  
+
   .collections, .defaultLocation {
     margin-top: 2em;
   }
@@ -99,13 +99,14 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import {ns} from "@/interfaces/Nechronica";
+  import {CustomCollections, ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import eq from "@/components/InputField/EquipModify/index.vue";
   import {cloneDeep} from "lodash";
   import {computed, computedProxy, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import txt from "@/components/InputField/Input.vue";
+  import {getHashByString} from "@/utils/math";
 
   export default Vue.extend({
     name: "Page4",
@@ -128,6 +129,7 @@
           modify: [0, 0, 0]
         },
         customCollections: {
+          label: "",
           title: "",
           desc: ""
         },
@@ -144,12 +146,13 @@
       collectionChanged(e: Choices) {
         this.customCollections.title = e.title;
         this.customCollections.desc = e.desc;
-        s.collections = [e.label];
+        s.collections = [e] as CustomCollections[];
       },
       locationChanged(e: Choices) {
         s.defaultLocation = e.label;
       },
       customCollectionsInput() {
+        this.customCollections.label = getHashByString(this.customCollections.title);
         s.collections = [cloneDeep(this.customCollections)];
       }
     }

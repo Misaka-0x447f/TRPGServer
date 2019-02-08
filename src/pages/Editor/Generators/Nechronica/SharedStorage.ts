@@ -1,15 +1,17 @@
-import {CustomCollections, CustomRemains, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
+import {CustomCollections, CustomRemains, FreeEnhanceDecideDef, SocketRecordDef} from "@/interfaces/Nechronica";
 import {Watchable} from "@/utils/lang";
 import {getRandomName} from "@/utils/math";
 import {forIn, random} from "lodash";
 import {Backpack} from "@/interfaces/Nechronica/Equips";
 import {updateProperty} from "@/utils/PropertyEditor";
+import {say} from "@/utils/i18n";
 
 export const storageProxy = new Watchable();
 
 export const randName = getRandomName();
 export const randAge = random(8, 17).toString();
 
+// These status are immutable during runtime.
 export const s = storageProxy.init({
   gameType: "Nechronica",
   name: randName,
@@ -24,8 +26,10 @@ export const s = storageProxy.init({
   arms: [] as Backpack,
   evolve: [] as Backpack,
   modify: [] as Backpack, // sync right is called when slot update callback.
-  collections: ["photo"] as string[] | CustomCollections[],
-  defaultLocation: "2"
+  collections: [say("nechronica", "builtInCollections")[0]] as CustomCollections[],
+  defaultLocation: "2",
+  collectionsSocket: [] as SocketRecordDef[],
+  equipsSocket: [] as SocketRecordDef[]
 });
 
 export const computedProxy = new Watchable();

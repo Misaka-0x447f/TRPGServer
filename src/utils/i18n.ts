@@ -1,5 +1,5 @@
 import { langEnum, state } from "@/utils/state";
-import {EquipText} from "@/interfaces/Nechronica/Equips";
+import {EquipText, Socket} from "@/interfaces/Nechronica/Equips";
 
 export const dict = {
   zh: {
@@ -315,6 +315,12 @@ export const dict = {
           tech: 3,
         }
       ] as EquipText[],
+      builtInSocket: {
+        [Socket.hand]: "手",
+        [Socket.body]: "身",
+        [Socket.head]: "头",
+        [Socket.leg]: "腿"
+      },
       collections: "宝物",
       collectionsDesc: "宝物是角色随身携带的物件，能够减轻角色的精神压力。选择初始宝物，或者自定义您的初始宝物。",
       customCollections: "自定宝物",
@@ -396,6 +402,8 @@ export const dict = {
         }
       ],
       lastStep: "你正在成功！这是向导最后一步。你的部分装备或宝物需要指定装备位置。",
+      collectionsSocket: "宝物插槽",
+      equipsSocket: "装备插槽",
       wizardDone: "全部完成！你可以在文件选单中找到保存选项，将你刚刚创建的角色保存到文件。" +
         "之后，就请期待联机游戏中你的角色的表现吧！",
       finishTip: "除此以外，有部分信息可能随游戏本身、队伍或GM变化，例如经验宝珠或依恋，" +

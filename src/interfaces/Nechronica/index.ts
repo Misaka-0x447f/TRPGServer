@@ -1,6 +1,7 @@
 import {say} from "@/utils/i18n";
 import {batchCreateProperty} from "@/utils/PropertyEditor";
 import {syncRight} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+import {Socket} from "@/interfaces/Nechronica/Equips";
 
 export const ns = "nechronica";
 
@@ -19,7 +20,9 @@ export enum idEnums {
   evolve = "evolve",
   modify = "modify",
   collections = "collections",
-  defaultLocation = "defaultLocation"
+  defaultLocation = "defaultLocation",
+  collectionsSocket = "collectionsSocket",
+  equipsSocket = "equipsSocket"
 }
 
 export enum enhance {
@@ -39,8 +42,14 @@ export interface CustomRemains {
 }
 
 export interface CustomCollections {
-  title: string;
-  desc: string;
+  label: string;
+  title?: string;
+  desc?: string;
+}
+
+export interface SocketRecordDef {
+  label: string;
+  socket: Socket;
 }
 
 export const init = () => {
@@ -103,6 +112,14 @@ export const init = () => {
     {
       id: idEnums.defaultLocation, text: say(ns, "defaultLocation"),
       value: "2"
+    },
+    {
+      id: idEnums.collectionsSocket, text: say(ns, "collectionsSocket"),
+      value: []
+    },
+    {
+      id: idEnums.equipsSocket, text: say(ns, "equipsSocket"),
+      value: []
     }
   ]);
   syncRight();
