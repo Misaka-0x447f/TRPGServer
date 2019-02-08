@@ -124,8 +124,8 @@
         evolveInv: cloneDeep(say(ns, "builtInEvolve")),
         modifyInv: cloneDeep(say(ns, "builtInModify")),
         maxSlots: {
-          arms: [1, 1, 0],
-          evolve: [1, 1, 0],
+          arms: [0, 0, 0],
+          evolve: [0, 0, 0],
           modify: [0, 0, 0]
         },
         customCollections: {

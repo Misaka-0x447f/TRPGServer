@@ -4,7 +4,6 @@ import {getRandomName} from "@/utils/math";
 import {forIn, random} from "lodash";
 import {Backpack} from "@/interfaces/Nechronica/Equips";
 import {updateProperty} from "@/utils/PropertyEditor";
-import {say} from "@/utils/i18n";
 
 export const storageProxy = new Watchable();
 
@@ -17,17 +16,17 @@ export const s = storageProxy.init({
   name: randName,
   age: randAge,
   desc: "",
-  remains: "wasted" as string | CustomRemains,
+  remains: "" as string | CustomRemains,
   cache: ["", ""],
-  primaryFirmware: "Stacy",
-  secondaryFirmware: "Stacy",
-  individuality: "Alice",
+  primaryFirmware: "",
+  secondaryFirmware: "",
+  individuality: "",
   enhance: [] as FreeEnhanceDecideDef[],
   arms: [] as Backpack,
   evolve: [] as Backpack,
   modify: [] as Backpack, // sync right is called when slot update callback.
-  collections: [say("nechronica", "builtInCollections")[0]] as CustomCollections[],
-  defaultLocation: "2",
+  collections: [] as CustomCollections[],
+  defaultLocation: "",
   collectionsSocket: [] as SocketRecordDef[],
   equipsSocket: [] as SocketRecordDef[]
 });
@@ -35,8 +34,8 @@ export const s = storageProxy.init({
 export const computedProxy = new Watchable();
 
 export const computed = computedProxy.init({
-  arms: [1, 1, 0] as number[],
-  evolve: [1, 1, 0] as number[],
+  arms: [0, 0, 0] as number[],
+  evolve: [0, 0, 0] as number[],
   modify: [0, 0, 0] as number[]
 });
 

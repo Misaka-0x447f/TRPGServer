@@ -8,7 +8,11 @@
         @page="collectionUpdate"
         :title="collectionName"
         :items="soc"
+        v-if="s.collections.length > 0"
       ></ch>
+      <div v-else class="invalid">
+        {{e("global", "invalid")}}
+      </div>
       <div class="hint">
         {{e(ns, "wizardDone")}}
       </div>
@@ -22,6 +26,11 @@
   .hint {
     color: plain-text-0-hints;
     margin: 0.5em 0;
+  }
+  
+  .invalid {
+    color: invalid;
+    font-size: 1.2em;
   }
 </style>
 <script lang="ts">
@@ -42,8 +51,9 @@
       return {
         e: say,
         ns,
-        collectionLabel: say(ns, "builtInCollections")[0].label as string,
-        collectionName: say(ns, "builtInCollections")[0].title as string
+        collectionLabel: "",
+        collectionName: "",
+        s
       };
     },
     computed: {
@@ -71,9 +81,10 @@
     },
     mounted() {
       const updateListener = () => {
-        this.collectionLabel = s.collections[0].label;
-        this.collectionName = getCollectionByLabel(s.collections, this.collectionLabel).title as string;
-        console.log(getCollectionByLabel(s.collections, this.collectionLabel));
+        if (s.collections.hasOwnProperty(0)) {
+          this.collectionLabel = s.collections[0].label;
+          this.collectionName = getCollectionByLabel(s.collections, this.collectionLabel).title as string;
+        }
       };
       storageProxy.registerTrigger(updateListener);
     },

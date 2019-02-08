@@ -71,7 +71,7 @@ export const init = () => {
     },
     {
       id: idEnums.remains, text: say(ns, "remains"),
-      value: "wasted"
+      value: ""
     },
     {
       id: idEnums.cache, text: say(ns, "cache"),
@@ -79,15 +79,15 @@ export const init = () => {
     },
     {
       id: idEnums.Firm1, text: say(ns, "primaryFirmware"),
-      value: "Stacy"
+      value: ""
     },
     {
       id: idEnums.Firm2, text: say(ns, "secondaryFirmware"),
-      value: "Stacy"
+      value: ""
     },
     {
       id: idEnums.ind, text: say(ns, "individuality"),
-      value: "Alice"
+      value: ""
     },
     {
       id: idEnums.enhance, text: say(ns, "enhance"),
@@ -111,7 +111,7 @@ export const init = () => {
     },
     {
       id: idEnums.defaultLocation, text: say(ns, "defaultLocation"),
-      value: "2"
+      value: ""
     },
     {
       id: idEnums.collectionsSocket, text: say(ns, "collectionsSocket"),

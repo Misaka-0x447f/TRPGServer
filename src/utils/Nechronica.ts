@@ -1,7 +1,7 @@
 // EP stands for enhance point
 import {computed, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 import {CustomCollections, enhance, FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
-import {forIn, find, isUndefined} from "lodash";
+import {find, forIn, isUndefined} from "lodash";
 import {Equip, Socket} from "@/interfaces/Nechronica/Equips";
 import {arms} from "@/interfaces/Nechronica/Equips/Arms";
 import {evolve} from "@/interfaces/Nechronica/Equips/Evolve";
@@ -30,15 +30,12 @@ export const getInheritedEP = (which: enhance, firm1: string, firm2: string) => 
     Romanesque: [0, 0, 2]
   };
 
-  if (!map.hasOwnProperty(firm1)) {
-    throw new Error(`unknown firmware ${firm1}. contact the factory.`);
-  }
-
-  if (!map.hasOwnProperty(firm2)) {
-    throw new Error(`unknown firmware ${firm2}. contact the factory.`);
-  }
-
   const queryMap = (name: string, w: enhance) => {
+    // if not exist return zero.
+    if (!map.hasOwnProperty(name)) {
+      return 0;
+    }
+
     let label = -1;
     if (w === enhance.arms) {
       label = 0;

@@ -20,7 +20,9 @@ export const dict = {
         "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
       remainingPoints: "自由点数",
       noEquipAvailable: "无可用装备。",
-      noSlotsAvailable: "无可用栏位。"
+      noSlotsAvailable: "无可用栏位。",
+      unspecified: "未指定",
+      invalid: "有其他一项或多项设定不正确。"
     },
     menuName: {
       // side menu names
@@ -124,7 +126,7 @@ export const dict = {
         {
           label: "Stacy",
           title: "活泼女孩",
-          desc: "武装1/异变1。泛用型固件。仍然活动的身体。延续死亡的士兵。持续迈进的时候。特点是不死性，具备顽强的身体。"
+          desc: "武装1/进化1。泛用型固件。仍然活动的身体。延续死亡的士兵。持续迈进的时候。特点是不死性，具备顽强的身体。"
         },
         {
           label: "Thanatos",
@@ -134,7 +136,7 @@ export const dict = {
         {
           label: "Gothic",
           title: "恐怖异端",
-          desc: "变异1/改造1。异端型固件。亡灵战士的天敌。对尸体特化战士。神智清醒的角色。特点是公认的异类，让其他亡灵战士感到恐惧的亡灵战士。"
+          desc: "进化1/改造1。异端型固件。亡灵战士的天敌。对尸体特化战士。神智清醒的角色。特点是公认的异类，让其他亡灵战士感到恐惧的亡灵战士。"
         },
         {
           label: "Requiem",
@@ -144,7 +146,7 @@ export const dict = {
         {
           label: "Baroque",
           title: "繁华无序",
-          desc: "变异1/变异1。变异型固件。身体扭曲的娃娃。持续进化的大师。意料之中的畸形。特点是极快反应，在各种速度方面。"
+          desc: "进化1/进化1。进化型固件。身体扭曲的娃娃。持续进化的大师。意料之中的畸形。特点是极快反应，在各种速度方面。"
         },
         {
           label: "Romanesque",

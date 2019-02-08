@@ -4,7 +4,10 @@
       <div v-for="(v, i) in items" v-show="i === page">
         <div class="name-container">
           <div class="selector">
-            <div class="name">
+            <div v-if="unset" class="name unset">
+              {{e("global", "unspecified")}}
+            </div>
+            <div v-else class="name">
               {{v.title}}
             </div>
             <bu :callback="prev" :enabled="prevAble" inline>
@@ -18,7 +21,7 @@
             {{title}}
           </div>
         </div>
-        <div class="hint" v-if="v.hasOwnProperty('desc')">
+        <div class="hint" v-if="v.hasOwnProperty('desc') && !unset">
           {{v.desc}}
         </div>
       </div>
@@ -29,6 +32,7 @@
   .container {
     display: flex;
     width: 100%;
+    margin-bottom: 0.5em;
   }
 
   .container > div {
@@ -63,6 +67,10 @@
     color: plain-text-0-weak;
     min-height: 2em;
   }
+
+  .unset {
+    color: invalid
+  }
 </style>
 <script lang="ts">
   /*
@@ -73,6 +81,7 @@
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {getEmptyEventHandler} from "@/utils/TypeScript";
+  import {say} from "@/utils/i18n";
 
   export interface Choices {
     label: string;  // label of an option. Will be passed to the handler.
@@ -100,8 +109,10 @@
     },
     data: () => {
       return {
-        page: 0,
-        ico
+        page: 1,
+        unset: true,
+        ico,
+        e: say
       };
     },
     watch: {
@@ -111,20 +122,32 @@
     },
     computed: {
       prevAble(): boolean {
+        if (this.unset) {
+          return true;
+        }
         return this.page > 0;
       },
       nextAble(): boolean {
+        if (this.unset) {
+          return true;
+        }
         return this.page < (this.items as Choices[]).length - 1;
       }
     },
     methods: {
       prev() {
-        if (this.prevAble) {
+        if (this.unset) {
+          this.page = 0;
+          this.unset = false;
+        } else if (this.prevAble) {
           this.page--;
         }
       },
       next() {
-        if (this.nextAble) {
+        if (this.unset) {
+          this.page = 0;
+          this.unset = false;
+        } else if (this.nextAble) {
           this.page++;
         }
       },
