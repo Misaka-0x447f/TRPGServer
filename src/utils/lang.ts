@@ -70,4 +70,10 @@ export class Watchable {
   public registerTrigger(listener: () => void) {
     this.triggers.push(listener);
   }
+
+  public triggerAll() {
+    for (const i of this.triggers) {
+      i();
+    }
+  }
 }

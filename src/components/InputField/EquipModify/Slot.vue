@@ -137,7 +137,8 @@
           count.pop();
         }
 
-        // at last, callback.
+        // at last, callback. emit.
+        this.$emit("event-slot-changed");
         this.callback(cloneDeep(this.backpack[tech][slot]));
       }
     }

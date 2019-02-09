@@ -1,7 +1,7 @@
 import {say} from "@/utils/i18n";
 import {batchCreateProperty} from "@/utils/PropertyEditor";
-import {syncRight} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 import {Socket} from "@/interfaces/Nechronica/Equips";
+import {storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
 export const ns = "nechronica";
 
@@ -123,5 +123,5 @@ export const init = () => {
       value: []
     }
   ]);
-  syncRight();
+  storageProxy.triggerAll();
 };

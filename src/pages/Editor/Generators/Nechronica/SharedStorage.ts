@@ -39,7 +39,7 @@ export const computed = computedProxy.init({
   modify: [0, 0, 0] as number[]
 });
 
-export const syncRight = () => {
+const syncRight = () => {
   // copy everything to PE
   forIn(s, (v, i) => {
     updateProperty(i, v);

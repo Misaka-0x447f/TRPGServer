@@ -119,7 +119,6 @@ const selectEquipFromEquipGroupWhereSocketEqualToSocketDotAny = (e: Equip[]) => 
   const a = [] as EquipText[]; // storage of equips which needs to do that.
   for (const v of e) {
     if (v.socket === Socket.any) {
-      console.log(v.socket);
       a.push(getEquipTextsFromEquipLabel(v.label));
     }
   }
@@ -129,7 +128,7 @@ const selectEquipFromEquipGroupWhereSocketEqualToSocketDotAny = (e: Equip[]) => 
 export const getEquippedEquips = (which?: equipTypes) => {
   const a = [] as EquipText[];
   forIn(equipTypes, (v: equipTypes) => {
-    if (v === which || isUndefined(v)) {
+    if (v === which || isUndefined(which)) {
       // @ts-ignore
       forIn(flatten(s[v]), (p: EquipText | null) => {
         if (!isNull(p)) {
@@ -138,7 +137,6 @@ export const getEquippedEquips = (which?: equipTypes) => {
       });
     }
   });
-  console.log(a);
   return a;
 };
 

@@ -57,6 +57,7 @@
   import {say} from "@/utils/i18n";
   import bu from "@/components/InputField/Button.vue";
   import {init, ns} from "@/interfaces/Nechronica";
+  import {storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   const maxPage = 5;
 
@@ -75,7 +76,8 @@
         page: 1,
         nextEnabled: true,
         e: say,
-        ns
+        ns,
+        storageProxy
       };
     },
     mounted() {

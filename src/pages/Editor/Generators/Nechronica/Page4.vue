@@ -21,6 +21,7 @@
             :backpack="s.arms"
             :inventory="armsInv"
             :slotsDef="maxSlots['arms']"
+            :callback="callbacks"
           >
           </eq>
         </div>
@@ -32,6 +33,7 @@
             :backpack="s.evolve"
             :inventory="evolveInv"
             :slotsDef="maxSlots['evolve']"
+            :callback="callbacks"
           >
           </eq>
         </div>
@@ -43,6 +45,7 @@
             :backpack="s.modify"
             :inventory="modifyInv"
             :slotsDef="maxSlots['modify']"
+            :callback="callbacks"
           >
           </eq>
         </div>
@@ -103,7 +106,7 @@
   import names from "@/components/propTitle.vue";
   import eq from "@/components/InputField/EquipModify/index.vue";
   import {cloneDeep} from "lodash";
-  import {computed, computedProxy, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+  import {computed, computedProxy, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import ch, {Choices} from "@/components/InputField/SelectItem.vue";
   import txt from "@/components/InputField/Input.vue";
   import {getHashByString} from "@/utils/math";
@@ -154,6 +157,9 @@
       customCollectionsInput() {
         this.customCollections.label = getHashByString(this.customCollections.title);
         s.collections = [cloneDeep(this.customCollections)];
+      },
+      callbacks() {
+        storageProxy.triggerAll();
       }
     }
   });

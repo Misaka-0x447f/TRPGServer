@@ -18,7 +18,7 @@
               :inventory="inventory"
               :backpack="backpack"
               :at="[tech, v - 1]"
-              :callback="syncRight"
+              :callback="callback"
             ></sl>
           </div>
         </div>
@@ -70,8 +70,8 @@
   import {ns} from "@/interfaces/Nechronica";
   import names from "@/components/propTitle.vue";
   import sl from "./Slot.vue";
-  import {syncRight} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import {sum} from "lodash";
+  import {getEmptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "EquipModifyIndex",
@@ -89,6 +89,10 @@
       },
       slotsDef: {
         type: Array as () => number[]
+      },
+      callback: {
+        type: Function as unknown as () => ((T: EquipText | null) => void),
+        default: getEmptyEventHandler()
       }
     },
     computed: {
@@ -99,8 +103,7 @@
     data: () => {
       return {
         e: say,
-        ns,
-        syncRight
+        ns
       };
     }
   });
