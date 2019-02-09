@@ -2,7 +2,7 @@ import Vue from "vue";
 import {defaults, findIndex, forIn} from "lodash";
 
 import {dict} from "@/utils/i18n";
-import {getEmptyEventHandler, Filter} from "@/utils/TypeScript";
+import {getEmptyEventHandler} from "@/utils/TypeScript";
 import {ico} from "@/utils/FontAwesome";
 
 export class SideTabHandler {
@@ -27,6 +27,7 @@ export class SideTabHandler {
       if (typeof value === "object" && this.storage.hasOwnProperty(key)) {
         const host = (this.storage as any)[key].children as MenuItem[];
         forIn(value, (v) => {
+          // @ts-ignore
           const index = findIndex(host, {name: v});
           if (index === -1) {
             throw new Error(`${errorWords}${key}/${JSON.stringify(v)}`);
@@ -87,11 +88,10 @@ export class SideTabHandler {
  */
 
 type PathDef = {
-  [T in menuName]?: Array<MenuItem["name"]>;
+  [T in menuNames]?: Array<MenuItem["name"]>;
 };
 
-type menuNames = "editMenu" | "aboutMenu" | "viewMenu";
-type menuName = Filter<menuNames, keyof typeof dict.zh>;
+type menuNames = keyof typeof dict.zh.menuName;
 
 export enum MenuStyle {
   click = "click",
@@ -111,7 +111,7 @@ export enum MenuStyle {
  */
 
 export type TabInfoCarrier = {
-  [T in menuName]?: MenuValue;
+  [T in menuNames]?: MenuValue;
 };
 
 export interface MenuValue {

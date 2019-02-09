@@ -10,7 +10,8 @@ import {
   faLowVision, faPlus,
   faUserEdit,
   faUserFriends,
-  faUsersCog
+  faUsersCog,
+  faFileMedicalAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
 // @ts-ignore
@@ -31,6 +32,7 @@ export default function fontAwesomeInit() {
     faCaretUp,
     faCaretDown,
     faPlus,
+    faFileMedicalAlt
   );
 }
 
@@ -46,5 +48,6 @@ export enum ico {
   eye = "eye",
   caretUp = "caret-up",
   caretDown = "caret-down",
-  plus = "plus"
+  plus = "plus",
+  fileMedicalAlt = "file-medical-alt"
 }

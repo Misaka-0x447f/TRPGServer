@@ -11,7 +11,7 @@ class FiniteStateManager {
 
   public editor = {
     storage: {
-      definition: []
+      definition: [] as object[]
     }
   };
 

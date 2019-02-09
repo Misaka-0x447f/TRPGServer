@@ -26,6 +26,7 @@ export const dict = {
     },
     menuName: {
       // side menu names
+      fileMenu: "文件",
       editMenu: "编辑",
       aboutMenu: "关于",
       viewMenu: "视图",
@@ -37,6 +38,8 @@ export const dict = {
       undoDeleteLine: "撤销 删除行",
       editorSaveWarning: "保存数据将导致被标记为并非由内建生成器所生成。\n" +
         "建议使用生成器来生成您的人物。",
+      export: "导出...",
+      fileOperateTips: "文件操作需要弹出窗口。如果安装了任何弹窗过滤器，请将此站点加入白名单。",
       identifier: "标识符",
       value: "数据",
       text: "描述文本",
