@@ -19,7 +19,8 @@
   }
 
   .disabled {
-    color: nearly-grey;
+    color: sidebar-invalid;
+    text-decoration: line-through;
   }
 </style>
 <script lang="ts">

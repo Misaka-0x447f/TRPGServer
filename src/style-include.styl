@@ -2,7 +2,15 @@ nearly-white = #eee
 nearly-grey = #888
 nearly-black = #223
 
-plain-text-0 = #6cf
+//o = 0px; // shadow-spread
+//p = 1px; // shadow-radius
+//
+//shadow-0 = o o p nearly-black,
+//  o -(o) p nearly-black,
+//  -(o) o p nearly-black,
+//  -(o) -(o) p nearly-black
+
+plain-text-0 = #b8ff1d
 plain-text-0-weak = rgba(desaturate(plain-text-0, 40%), 0.9)
 plain-text-0-hints = rgba(desaturate(plain-text-0, 60%), 0.6)
 background-0 = #011
@@ -25,20 +33,21 @@ container-edge-0 = alpha(nearly-white, 0.5)
 container-background-1 = alpha(nearly-white, 0.3)
 container-background-2 = alpha(nearly-white, 0.7)
 
-sidebar-mask-0 = alpha(nearly-black, 0.7)
-sidebar-background-0 = alpha(nearly-white, 0.2)
-
 context-menu-0 = alpha(nearly-black, 0.7)
 context-menu-0-active = lighten(context-menu-0, 50%)
 
 container-splitter = alpha(plain-text-0, 0.3)
 
+sidebar-mask-0 = alpha(nearly-black, 0.7)
+sidebar-background-0 = alpha(nearly-white, 0.2)
 sidebar-edge-active-0 = alpha(nearly-white, 0.8)
 sidebar-font-active-0 = #000;
+sidebar-font-0 = alpha(plain-text-0, 0.9)
 
 sidebar-edge-0 = alpha(nearly-white, 0.2)
 sidebar-edge-1 = alpha(nearly-white, 0.25)
-sidebar-font-0 = alpha(plain-text-0, 0.9)
+
+sidebar-invalid = darken(desaturate(plain-text-0, 0.5), 30%);
 
 sidebar-splitter = alpha(nearly-black, 0.7)
 sidebar-splitter-active = alpha(nearly-grey, 0.7)

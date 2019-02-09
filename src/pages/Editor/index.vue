@@ -60,7 +60,7 @@ import {MenuStyle} from "../../utils/SideTabHandler";
     mounted() {
       sideTab.updateTab({
         fileMenu: {
-          icon: ico.fileMedicalAlt,
+          icon: ico.fileCode,
           children: [
             {
               name: {

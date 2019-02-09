@@ -4,14 +4,15 @@ import {
   faCaretUp,
   faChevronLeft,
   faChevronRight,
-  faEye,
+  faFileCode,
   faGlobe,
   faInfoCircle,
-  faLowVision, faPlus,
-  faUserEdit,
+  faLowVision,
+  faPenSquare,
+  faPlus,
+  faStreetView,
   faUserFriends,
-  faUsersCog,
-  faFileMedicalAlt
+  faUsersCog
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
 // @ts-ignore
@@ -27,27 +28,23 @@ export default function fontAwesomeInit() {
     faChevronLeft,
     faChevronRight,
     faInfoCircle,
-    faEye,
-    faUserEdit,
+    faStreetView,
+    faPenSquare,
     faCaretUp,
     faCaretDown,
     faPlus,
-    faFileMedicalAlt
+    faFileCode
   );
 }
 
 export enum ico {
-  userCogs = "users-cog",
-  globe = "globe",
-  userFriends = "user-friends",
-  lowVision = "low-vision",
   chevronLeft = "chevron-left",
   chevronRight = "chevron-right",
-  userEdit = "user-edit",
+  penSquare = "pen-square",
   infoCircle = "info-circle",
-  eye = "eye",
+  streetView = "street-view",
   caretUp = "caret-up",
   caretDown = "caret-down",
   plus = "plus",
-  fileMedicalAlt = "file-medical-alt"
+  fileCode = "file-code"
 }

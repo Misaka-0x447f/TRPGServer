@@ -117,7 +117,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
       window.addEventListener("keydown", this.keyEventHandler);
       sideTab.updateTab({
         editMenu: {
-          icon: ico.userEdit,
+          icon: ico.penSquare,
           children: [
             {
               name: {
@@ -131,7 +131,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
           ]
         },
         viewMenu: {
-          icon: ico.eye,
+          icon: ico.streetView,
           children: [
             {
               name: {

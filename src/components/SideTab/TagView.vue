@@ -13,6 +13,7 @@
         class="icon"
       ></font-awesome-icon>
       <div
+        class="shadow"
         :class="{'non-asia': !isEastAsian()}"
       >
         <slot></slot>
@@ -60,6 +61,9 @@
 
   .icon {
     padding: 0.2em 0;
+  }
+  
+  .shadow {
   }
 </style>
 <script lang="ts">
