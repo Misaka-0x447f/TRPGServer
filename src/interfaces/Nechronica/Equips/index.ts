@@ -62,3 +62,4 @@ export interface EquipText {
 }
 
 export type Backpack = Array<Array<EquipText | null>>;
+// dim1: tech levels; dim2: slots

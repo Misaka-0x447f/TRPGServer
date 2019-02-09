@@ -260,12 +260,12 @@ export const dict = {
           desc: "除草剂",
           tech: 3,
         },
-        {
-          label: "samuraiSword",
-          text: "武士刀",
-          desc: "武士刀",
-          tech: 3,
-        }
+        // {
+        //   label: "samuraiSword",
+        //   text: "武士刀",
+        //   desc: "武士刀",
+        //   tech: 3,
+        // }
       ] as EquipText[],
       builtInEvolve: [
         // TODO: evolve lvl1

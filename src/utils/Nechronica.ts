@@ -1,5 +1,5 @@
 // EP stands for enhance point
-import {computed, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+import {computed, computedProxy, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 import {CustomCollections, equipTypes, FreeEnhanceDecideDef, ns} from "@/interfaces/Nechronica";
 import {cloneDeep, find, flatten, forIn, isNull, isUndefined} from "lodash";
 import {Equip, EquipText, Socket} from "@/interfaces/Nechronica/Equips";
@@ -155,3 +155,35 @@ export const getCollectionByLabel = (c: CustomCollections[], label: string): Cus
   }
   return a;
 };
+
+export const needsClearEquipConfig = (v: equipTypes) => {
+  let flag = false;
+  // i: tech level - 1; j: max slots on this tech level; k: specified slot;
+  // @ts-ignore
+  forIn(computed[v], (j: number, i: number) => {
+    // has this tech level?
+    if (s[v].hasOwnProperty(i)) {
+      // starts from max possible slots; ends equip length;
+      for (let k = j; k < s[v][i].length; k++) {
+        if (s[v][i].hasOwnProperty(k) && s[v][i][k] !== null) {
+          // an equip located in a slot that does not exist. needs to be clean.
+          flag = true;
+          return;  // This line means 'break' the 'forIn' here.
+        }
+      }
+    }
+    // if not, no equip here, no need to clean, check next.
+  });
+  return flag;
+};
+
+export const cleanEquipsConfig = () => {
+  forIn(equipTypes, (v: equipTypes) => {
+    if (needsClearEquipConfig(v) === true) {
+      // For now just clean up all.
+      s[v] = [];
+    }
+  });
+};
+
+computedProxy.registerTrigger(cleanEquipsConfig);
