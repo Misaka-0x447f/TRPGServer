@@ -2,73 +2,33 @@ import {MenuStyle} from "@/utils/SideTabHandler";
 <template>
   <div class="root">
     <div class="container">
-      <div class="readOnlyOverlayContainer" v-if="this.isReadOnly">
-        <div class="readOnlyOverlay"></div>
-        <div class="readOnlyTips">
-          {{e("propertyEditor", "isReadOnly")}}
-        </div>
-      </div>
-      <table v-if="content.definition.length">
+      <ro :ro="isReadOnly"></ro>
+      <table v-if="content.length">
         <tr>
           <th v-show="showId">{{e("propertyEditor", "identifier")}}</th>
           <th>{{e("propertyEditor", "value")}}</th>
           <th>{{e("propertyEditor", "text")}}</th>
         </tr>
         <!--suppress JSUnusedLocalSymbols -->
-        <tr v-for="(_, i) in content.definition" :data-i="i">
+        <tr v-for="(_, i) in content" :data-i="i">
           <td v-show="showId">
-            <txt 
-              v-model="content.definition[i].id"
-              :disabled="isReadOnly"
-              :placeholder="e('propertyEditor', 'identifier')"
-            ></txt>
+            <txt v-model="content[i].id" :disabled="isReadOnly" :placeholder="e('propertyEditor', 'identifier')"></txt>
           </td>
           <td>
-            <txt 
-              v-model="content.definition[i].value"
-              :disabled="isReadOnly"
-              :placeholder="e('propertyEditor', 'value')"
-            ></txt>
+            <txt v-model="content[i].value" :disabled="isReadOnly" :placeholder="e('propertyEditor', 'value')"></txt>
           </td>
           <td>
-            <txt
-              v-model="content.definition[i].text"
-              :disabled="isReadOnly"
-              :placeholder="e('propertyEditor', 'text')"
-            ></txt>
+            <txt v-model="content[i].text" :disabled="isReadOnly" :placeholder="e('propertyEditor', 'text')"></txt>
           </td>
         </tr>
       </table>
-      <div class="clickTip" v-if="content.definition.length === 0" @click="newLine">
+      <div class="clickTip" v-if="content.length === 0" @click="newLine">
         {{this.isReadOnly ? e("propertyEditor", "emptyWhileRO") : e("propertyEditor", "ContentEmpty")}}
       </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .readOnlyOverlayContainer {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-  }
-
-  .readOnlyOverlay {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    z-index: 1;
-  }
-
-  .readOnlyTips {
-    position: absolute;
-    border-radius: 0.5em;
-    right: 0.5em;
-    background: container-background-2;
-    padding: 0.5em 1em;
-    color: plain-text-1;
-  }
-
   .container {
     height: 100%;
     text-align: left;
@@ -105,7 +65,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {Property, PropertyData} from "@/utils/PropertyEditor";
+  import {PropertyData} from "@/utils/PropertyEditor";
   import {say} from "@/utils/i18n";
   import txt from "@/components/InputField/Input.vue";
   import {getAttrInEvent} from "@/utils/dom";
@@ -113,6 +73,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
   import {sideTab} from "@/main";
   import {MenuStyle} from "@/utils/SideTabHandler";
   import {ico} from "@/utils/FontAwesome";
+  import ro from "./ReadOnlyOverlay.vue";
 
   enum mutation {
     del = "delete"
@@ -127,11 +88,12 @@ import {MenuStyle} from "@/utils/SideTabHandler";
   export default Vue.extend({
     name: "PropertyEditor",
     components: {
-      txt
+      txt,
+      ro
     },
     props: {
       content: {
-        type: Object as () => Property
+        type: Array as () => PropertyData[]
       },
       isReadOnly: {
         type: Boolean,
@@ -209,7 +171,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
         if (e.code === "Enter") {
           if (isNull(getAttrInEvent(e, "data-i"))) {
             // got null, add line at the end of array
-            this.newLine(this.content.definition.length - 1);
+            this.newLine(this.content.length - 1);
           } else {
             this.newLine(eventAt);
           }
@@ -217,7 +179,7 @@ import {MenuStyle} from "@/utils/SideTabHandler";
           this.history.push({
             changedLine: eventAt,
             mutation: mutation.del,
-            data: this.content.definition[eventAt]
+            data: this.content[eventAt]
           });
           this.deleteLine(eventAt);
         }
@@ -231,11 +193,11 @@ import {MenuStyle} from "@/utils/SideTabHandler";
         if (data) {
           placeholder = cloneDeep(data);
         }
-        this.content.definition.splice(line + 1, 0, placeholder);
+        this.content.splice(line + 1, 0, placeholder);
         this.$forceUpdate();
       },
       deleteLine(line: number) {
-        Vue.delete(this.content.definition, line);
+        Vue.delete(this.content, line);
         this.$forceUpdate();
       },
       undo() {

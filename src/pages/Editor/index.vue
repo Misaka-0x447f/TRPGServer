@@ -6,7 +6,11 @@
       <div class="vs">
         <vs></vs>
       </div>
-      <pe class="propertyEditor" :isReadOnly="true" :content="state.editor.storage"></pe>
+      <pe
+        class="propertyEditor"
+        :isReadOnly="true"
+        :content="state.editor.storage.definition"
+      ></pe>
     </div>
   </div>
 </template>

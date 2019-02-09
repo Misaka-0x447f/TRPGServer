@@ -13,7 +13,7 @@ export const getRandomHash = () => {
 export const getRandomName = () => {
   let sto = "";
   for (let i = 0; i < 3; i++) {
-    sto += (random(10, 36)).toString(36);
+    sto += (random(11, 36)).toString(36);
   }
   sto += "-";
   sto += padStart(random(0, 9999).toString(), 4, "0");

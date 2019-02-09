@@ -3,10 +3,6 @@ import Vue from "vue";
 import {cloneDeep, find, isUndefined} from "lodash";
 import {limitedStringify} from "@/utils/lang";
 
-export interface Property {
-  definition: PropertyData[];
-}
-
 export interface PropertyData {
   id: string;                       // must be a valid javascript identifier
   value: any;                       // stored as numeric string, enum string, or just string
