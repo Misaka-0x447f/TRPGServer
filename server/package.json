@@ -1,0 +1,21 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "watch \"npm run serve\" src --interval=1",
+    "build": "npm run tslint && npm run compile",
+    "serve": "npm run tslint && npm run compile && npm run node",
+    "node": "node dist/main.js",
+    "compile": "tsc -p tsconfig.json",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3",
+    "watch": "^1.0.2"
+  }
+}
