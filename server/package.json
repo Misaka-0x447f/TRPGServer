@@ -17,5 +17,8 @@
     "tslint": "^5.12.1",
     "typescript": "^3.3.3",
     "watch": "^1.0.2"
+  },
+  "dependencies": {
+    "ws": "^6.1.3"
   }
 }
