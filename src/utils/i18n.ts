@@ -31,6 +31,10 @@ export const dict = {
       aboutMenu: "关于",
       viewMenu: "视图",
     },
+    onlineGame: {
+      registerTitle: "注册...",
+      registerDesc: "要继续，请先指定你的用户名。我们不要求密码等其他信息，也不会在您登出后储存任何信息。",
+    },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
       emptyWhileRO: "属性编辑器中没有数据。",

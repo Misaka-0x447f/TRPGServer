@@ -26,6 +26,11 @@ export default new Router({
       path: "/editor",
       name: "editor",
       component: () => import("./pages/Editor/index.vue"),
+    },
+    {
+      path: "/online",
+      name: "online",
+      component: () => import("./pages/Online/index.vue")
     }
   ],
 });

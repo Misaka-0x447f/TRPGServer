@@ -4,19 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "watch \"npm run serve\" src --interval=1",
-    "build": "npm run tslint && npm run compile",
-    "serve": "npm run tslint && npm run compile && npm run node",
-    "node": "node dist/main.js",
+    "start": "npm run serve",
+    "build": "npm run lint && npm run compile",
+    "serve": "tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail --c 'cyan,green' 'npm:lint' 'npm:node'\"",
     "compile": "tsc -p tsconfig.json",
-    "tslint": "tslint -c tslint.json -p tsconfig.json"
+    "node": "node dist/main.js",
+    "lint": "tslint -c tslint.json -p tsconfig.json"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^4.1.0",
+    "tsc-watch": "^1.1.37",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.3",
-    "watch": "^1.0.2"
+    "typescript": "^3.3.3"
   },
   "dependencies": {
     "ws": "^6.1.3"
