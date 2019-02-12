@@ -15,7 +15,7 @@
         <vs></vs>
         <menu-button
           :text="e('global', 'viewOnlineGames')"
-          routerGoto="/lobby"
+          routerGoto="/online"
         >
           <font-awesome-icon icon="globe"></font-awesome-icon>
         </menu-button>

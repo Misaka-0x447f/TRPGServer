@@ -1,12 +1,14 @@
-import WebSocket from "ws";
+import WSLib from "ws";
 
-const wss = new WebSocket.Server({port: 52504});
+const wsi = new WSLib.Server({port: 52504});
 
-wss.on("connection", function connection(ws) {
-  ws.on("message", function incoming(message) {
+wsi.on("connection", function connection(ws) {
+  ws.on("message", (message) => {
     console.log("<<< %s", message);
+    const data = JSON.stringify({data: {msg: "ACK"}});
+    console.log(`>>> %s`, data);
+    ws.send(data);
   });
-
   console.log("    connection established");
 });
 

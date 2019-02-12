@@ -7,12 +7,17 @@
       <div>
         {{e(ns, "registerDesc")}}
       </div>
-      <inp v-model="usernameInputs"></inp>
-      <bu :callback="tryReg"></bu>
+      <inp v-model="usernameInputs" placeholder=" "></inp>
+      <bu :callback="tryReg">
+        {{e(ns, "register")}}
+      </bu>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
+  .container {
+    max-width: 30em;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
@@ -20,7 +25,7 @@
   import {say} from "@/utils/i18n";
   import inp from "@/components/InputField/Input.vue";
   import bu from "@/components/InputField/Button.vue";
-  import {Comm} from "@/utils/wsLimiter";
+  import {Comm} from "@/utils/ws";
   import {Method} from "../../../serverInterfaces";
   import {Out} from "../../../serverInterfaces/RegisterUser";
 
@@ -45,7 +50,7 @@
           user: this.usernameInputs
         } as Out);
         tunnel.registerListener((e) => {
-          console.log(e);
+          console.log(e.data);
         });
       }
     }

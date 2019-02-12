@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run serve",
+    "start": "npx rimraf dist && npm run serve",
     "build": "npm run lint && npm run compile",
     "serve": "tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
     "compile": "tsc -p tsconfig.json",
@@ -14,7 +14,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/ws": "^6.0.1",
     "concurrently": "^4.1.0",
+    "rimraf": "^2.6.3",
     "tsc-watch": "^1.1.37",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
