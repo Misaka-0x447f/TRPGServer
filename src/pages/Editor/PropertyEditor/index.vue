@@ -153,6 +153,12 @@ import {MenuStyle} from "@/utils/SideTabHandler";
             scope: "propertyEditor",
             key: "undoDeleteLine"
           }
+        ],
+        viewMenu: [
+          {
+            scope: "propertyEditor",
+            key: "toggleIdentifier"
+          }
         ]
       });
     },

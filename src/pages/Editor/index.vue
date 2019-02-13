@@ -88,6 +88,10 @@ import {MenuStyle} from "../../utils/SideTabHandler";
             scope: "propertyEditor",
             key: "export"
           },
+          {
+            scope: "propertyEditor",
+            key: "fileOperateTips"
+          }
         ]
       });
     },
