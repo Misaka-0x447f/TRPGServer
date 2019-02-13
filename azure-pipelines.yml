@@ -17,9 +17,30 @@ steps:
 
 - script: |
     npm install
+  displayName: 'client - npm i'
+
+- script: |
     npm run build
-  displayName: 'npm install and build'
+  displayName: 'client - npm run build'
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
+    artifactName: 'client'
+  displayName: 'client - publish'
+
+- script: |
+    cd server
+    npm install
+  displayName: 'server - npm i'
+
+- script: |
+    cd server
+    npm run build
+  displayName: 'server - npm run build'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
+    artifactName: 'server'
+  displayName: 'server - publish'
