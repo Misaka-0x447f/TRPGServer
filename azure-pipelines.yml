@@ -26,6 +26,7 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
+    artifactName: 'client'
   displayName: 'client - publish'
 
 - script: |
@@ -41,4 +42,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
+    artifactName: 'server'
   displayName: 'server - publish'
