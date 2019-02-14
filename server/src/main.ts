@@ -1,6 +1,6 @@
 import WSLib from "ws";
 
-const wsi = new WSLib.Server({port: 52504});
+const wsi = new WSLib.Server({port: 80});
 
 wsi.on("connection", function connection(ws) {
   ws.on("message", (message) => {
