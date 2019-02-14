@@ -1,13 +1,13 @@
-import WSLib from "ws";
+import * as ws from "ws";
 
-const wsi = new WSLib.Server({port: 80});
+const wsi = new ws.Server({port: 80});
 
-wsi.on("connection", function connection(ws) {
-  ws.on("message", (message) => {
+wsi.on("connection", function connection(server) {
+  server.on("message", (message) => {
     console.log("<<< %s", message);
     const data = JSON.stringify({data: {msg: "ACK"}});
     console.log(`>>> %s`, data);
-    ws.send(data);
+    server.send(data);
   });
   console.log("    connection established");
 });
