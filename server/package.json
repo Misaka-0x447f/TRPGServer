@@ -5,17 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "npx rimraf dist && npm run serve",
-    "build": "npm run lint && npm run compile",
+    "build": "npm run lint && npm run compile && npm run copy-config",
     "serve": "tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
     "compile": "tsc -p tsconfig.json",
     "node": "node dist/index.js",
-    "lint": "tslint -c tslint.json -p tsconfig.json"
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "copy-config": "copyfiles web.config dist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/ws": "^6.0.1",
     "concurrently": "^4.1.0",
+    "copyfiles": "^2.1.0",
     "rimraf": "^2.6.3",
     "tsc-watch": "^1.1.37",
     "tslint": "^5.12.1",
