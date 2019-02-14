@@ -24,6 +24,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "tslib": "^1.9.3",
     "ws": "^6.1.3"
   }
 }
