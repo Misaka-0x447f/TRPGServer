@@ -4,13 +4,15 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "npx rimraf dist && npm run serve",
-    "build": "npx rimraf dist && npm run lint && webpack --config webpack.config.js -d && npm run copy-config",
-    "build.prod": "npx rimraf dist && npm run lint && webpack --config webpack.config.js -p && npm run copy-config",
-    "serve": "tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
-    "node": "node dist/main.js",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "copy-config": "copyfiles web.config dist"
+    "start": "npm run clean && npm run serve",
+    "build": "npm run clean && npm run lint && npm run compile && webpack --config webpack.config.js -p && npm run copy-config",
+    "serve": "npx tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
+    "compile": "npx tsc -p tsconfig.json",
+    "node": "node out/main.js",
+    "run-built": "node dist/bundle.js",
+    "lint": "npx tslint -c tslint.json -p tsconfig.json",
+    "copy-config": "npx copyfiles web.config dist",
+    "clean": "npx rimraf dist out"
   },
   "author": "",
   "license": "ISC",
