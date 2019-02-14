@@ -17,11 +17,8 @@ steps:
 
 - script: |
     npm install
-  displayName: 'client - npm i'
-
-- script: |
     npm run build
-  displayName: 'client - npm run build'
+  displayName: 'client - npm tasks'
 
 - task: PublishBuildArtifacts@1
   inputs:
@@ -32,12 +29,9 @@ steps:
 - script: |
     cd server
     npm install
-  displayName: 'server - npm i'
-
-- script: |
-    cd server
     npm run build
-  displayName: 'server - npm run build'
+  displayName: 'server - npm tasks'
+  
 
 - task: PublishBuildArtifacts@1
   inputs:
