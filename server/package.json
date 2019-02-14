@@ -5,9 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "npx rimraf dist && npm run serve",
-    "build": "npm run lint && npm run compile && npm run copy-config",
+    "build": "npx rimraf dist && npm run lint && webpack --config webpack.config.js -p && npm run copy-config",
     "serve": "tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
-    "compile": "tsc -p tsconfig.json",
     "node": "node dist/main.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "copy-config": "copyfiles web.config dist"
@@ -19,9 +18,12 @@
     "concurrently": "^4.1.0",
     "copyfiles": "^2.1.0",
     "rimraf": "^2.6.3",
+    "ts-loader": "^5.3.3",
     "tsc-watch": "^1.1.37",
     "tslint": "^5.12.1",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "ws": "^6.1.3"
