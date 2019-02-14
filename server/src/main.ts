@@ -1,6 +1,6 @@
 import * as ws from "ws";
 
-const wsi = new ws.Server({port: 52504});
+const wsi = new ws.Server({port: 6655});
 
 wsi.on("connection", function connection(server) {
   server.on("message", (message) => {
@@ -13,3 +13,7 @@ wsi.on("connection", function connection(server) {
 });
 
 console.log("    Websocket server started");
+
+setInterval(() => {
+  console.log(new Date().toLocaleTimeString());
+}, 10000);
