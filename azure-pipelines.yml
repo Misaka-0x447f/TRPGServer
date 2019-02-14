@@ -18,20 +18,16 @@ steps:
 - script: |
     npm install
     npm run build
-  displayName: 'client - npm tasks'
+    cd server
+    npm install
+    npm run build
+  displayName: 'npm run build'
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
     artifactName: 'client'
   displayName: 'client - publish'
-
-- script: |
-    cd server
-    npm install
-    npm run build
-  displayName: 'server - npm tasks'
-  
 
 - task: PublishBuildArtifacts@1
   inputs:
