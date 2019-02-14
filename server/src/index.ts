@@ -13,7 +13,3 @@ wsi.on("connection", function connection(server) {
 });
 
 console.log("    Websocket server started");
-
-setInterval(() => {
-  console.log(new Date().toLocaleTimeString());
-}, 10000);
