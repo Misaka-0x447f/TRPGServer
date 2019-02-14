@@ -8,7 +8,7 @@
     "build": "npm run lint && npm run compile && npm run copy-config",
     "serve": "tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
     "compile": "tsc -p tsconfig.json",
-    "node": "node dist/index.js",
+    "node": "node dist/main.js",
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "copy-config": "copyfiles web.config dist"
   },
