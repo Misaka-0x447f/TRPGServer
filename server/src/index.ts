@@ -1,13 +1,17 @@
 import * as ws from "ws";
+import * as http from "http";
 
-const wsi = new ws.Server({port: 80});
+const server = http.createServer();
+server.listen(80);
 
-wsi.on("connection", function connection(server) {
-  server.on("message", (message) => {
+const wsi = new ws.Server({server});
+
+wsi.on("connection", function connection(c) {
+  c.on("message", (message) => {
     console.log("<<< %s", message);
     const data = JSON.stringify({data: {msg: "ACK"}});
     console.log(`>>> %s`, data);
-    server.send(data);
+    c.send(data);
   });
   console.log("    connection established");
 });
