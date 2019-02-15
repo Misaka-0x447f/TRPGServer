@@ -7,6 +7,7 @@ export class Comm {
   private w = new WebSocket(serverAddr);
   private outBufferProxy = new Watchable();
   private outBuffer: WebsocketOut[] = this.outBufferProxy.init([]);
+  private outRequestCount = 0;
 
   constructor() {
     // traffic control
@@ -22,10 +23,17 @@ export class Comm {
         return; // will be try again
       }
       const payload = this.outBuffer.shift();
+      this.outRequestCount++;
       if (isUndefined(payload)) {
         return;
       }
-      this.w.send(JSON.stringify(payload));
+      try {
+        this.w.send(JSON.stringify(payload));
+      } catch (e) {
+        throw e;
+      } finally {
+        this.outRequestCount--;
+      }
       console.log(`>>> ${JSON.stringify(payload.data)}`);
     });
   }

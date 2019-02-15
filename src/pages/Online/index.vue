@@ -8,8 +8,12 @@
 </template>
 <style lang="stylus" scoped>
   .container {
-    padding: 25%;
     box-sizing: border-box;
+    height: 100%;
+  }
+  
+  .container > div {
+    height: 100%;
   }
 </style>
 <script lang="ts">

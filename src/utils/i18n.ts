@@ -22,7 +22,8 @@ export const dict = {
       noEquipAvailable: "无可用装备。",
       noSlotsAvailable: "无可用栏位。",
       unspecified: "未指定",
-      invalid: "有其他一项或多项设定不正确。"
+      invalid: "有其他一项或多项设定不正确。",
+      ok: "好"
     },
     menuName: {
       // side menu names
@@ -32,9 +33,9 @@ export const dict = {
       viewMenu: "视图",
     },
     onlineGame: {
-      registerTitle: "注册...",
-      registerDesc: "要继续，请先指定你的用户名。我们不要求密码等其他信息，也不会在您登出后储存任何信息。",
-      register: "注册"
+      username: "用户名",
+      registerTitle: "创建用户",
+      registerDesc: "要使用在线功能，你将需要一个用户名。我们不要求密码等其他信息，也不会在您登出后储存任何信息。",
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",

@@ -1,22 +1,44 @@
 <template>
   <div class="root">
     <div class="container">
-      <div>
-        {{e(ns, "registerTitle")}}
+      <div class="inner-container">
+        <dia
+          :title="e(ns, 'registerTitle')"
+        >
+          <div class="content">
+            <inp
+              v-model="usernameInputs"
+              :label="e(ns, 'username')"
+              placeholder=""
+            ></inp>
+            <span>{{e(ns, "registerDesc")}}</span>
+            <bu :callback="tryReg">
+              <span class="ok">{{e("global", "ok")}}</span>
+            </bu>
+          </div>
+        </dia>
       </div>
-      <div>
-        {{e(ns, "registerDesc")}}
-      </div>
-      <inp v-model="usernameInputs" placeholder=" "></inp>
-      <bu :callback="tryReg">
-        {{e(ns, "register")}}
-      </bu>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .container {
-    max-width: 30em;
+    height: 100%;
+  }
+
+  .inner-container {
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content > div {
+    margin: 0.5em 0;
+  }
+
+  .ok {
+    padding: 0 2em;
   }
 </style>
 <script lang="ts">
@@ -28,12 +50,14 @@
   import {Comm} from "@/utils/ws";
   import {Method} from "../../../serverInterfaces";
   import {Out} from "../../../serverInterfaces/RegisterUser";
+  import dia from "@/components/Dialogs/Simple/index.vue";
 
   export default Vue.extend({
     name: "RegisterUser",
     components: {
       inp,
-      bu
+      bu,
+      dia
     },
     data: () => {
       return {
