@@ -1,6 +1,8 @@
 import * as ws from "ws";
 
-const wsi = new ws.Server({port: 80});
+const port = (process.env.PORT || 80) as number;
+
+const wsi = new ws.Server({port});
 
 wsi.on("connection", function connection(c) {
   c.on("message", (message) => {
