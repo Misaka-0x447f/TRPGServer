@@ -2,7 +2,7 @@ import * as ws from "ws";
 import * as http from "http";
 
 const server = http.createServer();
-server.listen(80);
+server.listen(80, "0.0.0.0");
 
 const wsi = new ws.Server({server});
 
