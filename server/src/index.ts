@@ -1,6 +1,10 @@
 import * as ws from "ws";
+import * as http from "http";
 
-const wsi = new ws.Server({port: 80});
+const server = http.createServer();
+server.listen(80, "0.0.0.0");
+
+const wsi = new ws.Server({server});
 
 wsi.on("connection", function connection(c) {
   c.on("message", (message) => {
