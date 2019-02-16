@@ -16,7 +16,8 @@ class FiniteStateManager {
   };
 
   public online = {
-    user: null
+    user: undefined as string | undefined,
+    uid: undefined as string | undefined
   };
 
   // public update(namespace: keyof this, value: object) {

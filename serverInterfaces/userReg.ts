@@ -1,14 +1,17 @@
-import {WebsocketIn, WebsocketOut} from "./index";
+export enum events {
+  reg = "reg"
+}
 
-export interface Out extends WebsocketOut {
+export interface Out {
   data: {
     username: string
   };
 }
 
-export interface In extends WebsocketIn {
+export interface In {
   data: {
     result: regResponse,
+    user?: string,
     uid?: string
   };
 }

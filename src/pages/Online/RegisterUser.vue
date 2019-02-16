@@ -1,5 +1,4 @@
-import {regResponse} from "../../../serverInterfaces/userReg";
-import {regResponse} from "../../../serverInterfaces/userReg";
+import {namespace} from "../../../serverInterfaces";
 <template>
   <div class="root">
     <div class="container">
@@ -18,10 +17,7 @@ import {regResponse} from "../../../serverInterfaces/userReg";
             <div v-if="userExist">
               {{e(ns, "userExist")}}
             </div>
-            <div v-if="networkRequestError">
-              {{e(ns, "networkError")}}
-            </div>
-            <bu :callback="tryReg" :throttle="2000">
+            <bu :callback="tryReg" :throttle="5000">
               <span class="ok">{{e("global", "ok")}}</span>
             </bu>
           </template>
@@ -60,10 +56,11 @@ import {regResponse} from "../../../serverInterfaces/userReg";
   import {say} from "@/utils/i18n";
   import inp from "@/components/InputField/Input.vue";
   import bu from "@/components/InputField/Button.vue";
-  import {Comm} from "@/utils/ws";
-  import {Method} from "../../../serverInterfaces";
-  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
+  import {events, In, Out, regResponse} from "../../../serverInterfaces/userReg";
   import dia from "@/components/Dialogs/Simple/index.vue";
+  import state from "@/utils/state";
+  import {namespace} from "../../../serverInterfaces";
+  import {ioOf} from "@/utils/socket";
 
   export default Vue.extend({
     name: "RegisterUser",
@@ -82,37 +79,33 @@ import {regResponse} from "../../../serverInterfaces/userReg";
         e: say,
         ns,
         usernameInputs: "",
-        networkRequestInProgress: false,
-        networkRequestError: false,
-        userExist: false,
-        tunnel: new Comm()
+        userExist: false
       };
+    },
+    mounted() {
+      const regHandler = (m: In) => {
+        console.log(1);
+        if (m.data.result === regResponse.ok) {
+          state.online.user = m.data.user;
+          state.online.uid = m.data.uid;
+          console.log(JSON.stringify(state.online));
+          this.callback();
+        } else if (m.data.result === regResponse.exist) {
+          this.userExist = true;
+        }
+      };
+      // ioOfConnect(namespace.reg).on(events.reg, regHandler);
     },
     methods: {
       tryReg() {
-        this.tunnel.registerListener((e) => {
-          this.networkRequestInProgress = false;
-          if ((e as In).data.result === regResponse.exist) {
-            this.userExist = true;
-          } else if ((e as In).data.result === regResponse.ok) {
-            this.callback();
-          } else {
-            this.networkRequestError = true;
-          }
-        });
-        this.tunnel.registerErrorListener((e) => {
-          this.networkRequestInProgress = false;
-          this.networkRequestError = true;
-        });
-        this.networkRequestError = false;
-        this.userExist = false;
-        if (this.tunnel.send(Method.reg, {
+        ioOf(namespace.reg).emit(events.reg, {
           data: {
             username: this.usernameInputs
           }
-        } as Out)) {
-          this.networkRequestInProgress = true;
-        }
+        } as Out);
+        ioOf(namespace.reg).on(events.reg, () => {
+          console.log(1);
+        });
       }
     }
   });

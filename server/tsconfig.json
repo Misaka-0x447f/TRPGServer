@@ -2,6 +2,7 @@
   "compilerOptions": {
     // "target": "es5",
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true, // babel compatibility, see https://github.com/Microsoft/TypeScript/issues/16093
     "importHelpers": true,
     "baseUrl": ".",
     "outDir": "./out"
