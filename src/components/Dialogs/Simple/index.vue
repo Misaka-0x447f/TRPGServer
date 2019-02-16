@@ -9,17 +9,21 @@
         <slot></slot>
       </div>
       <bo></bo>
+      <div class="buttons">
+        <slot name="footer"></slot>
+      </div>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .container {
     max-width: min(30em, 50%);
+    text-align: initial;
   }
 
   .dialog-content {
-    margin: 1em 0.5em;
-    padding: 1em 0.5em;
+    margin: 1em 7px;
+    padding: 2em 1em;
     background: dialog-background-0;
   }
   
@@ -28,6 +32,12 @@
     font-size: 1.2em;
     margin: 0.2em 0;
     margin-right: 7px;
+  }
+  
+  .buttons {
+    display: flex;
+    margin: 0.5em 7px;
+    justify-content: flex-end;
   }
 </style>
 <script lang="ts">

@@ -5,17 +5,18 @@
         <dia
           :title="e(ns, 'registerTitle')"
         >
-          <div class="content">
-            <inp
-              v-model="usernameInputs"
-              :label="e(ns, 'username')"
-              placeholder=""
-            ></inp>
-            <span>{{e(ns, "registerDesc")}}</span>
+          <inp
+            v-model="usernameInputs"
+            :label="e(ns, 'username')"
+            placeholder=""
+            class="inp"
+          ></inp>
+          <span class="desc">{{e(ns, "registerDesc")}}</span>
+          <template slot="footer">
             <bu :callback="tryReg">
               <span class="ok">{{e("global", "ok")}}</span>
             </bu>
-          </div>
+          </template>
         </dia>
       </div>
     </div>
@@ -33,12 +34,16 @@
     justify-content: center;
   }
 
-  .content > div {
-    margin: 0.5em 0;
+  .inp {
+    margin-bottom: 0.5em;
   }
 
   .ok {
     padding: 0 2em;
+  }
+
+  .desc {
+    color: plain-text-0-hints;
   }
 </style>
 <script lang="ts">
