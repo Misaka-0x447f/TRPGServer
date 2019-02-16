@@ -2,7 +2,7 @@
   <div class="root">
     <wp></wp>
     <div class="container">
-      <user v-if="page === 'register'"></user>
+      <user v-if="page === 'register'" :callback="registerSuccessListener"></user>
     </div>
   </div>
 </template>
@@ -31,6 +31,11 @@
       return {
         page: "register"
       };
+    },
+    methods: {
+      registerSuccessListener() {
+        console.log("success");
+      }
     }
   });
 </script>

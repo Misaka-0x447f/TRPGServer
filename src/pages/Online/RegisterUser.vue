@@ -1,19 +1,27 @@
+import {regResponse} from "../../../serverInterfaces/userReg";
+import {regResponse} from "../../../serverInterfaces/userReg";
 <template>
   <div class="root">
     <div class="container">
       <div class="inner-container">
         <dia
-          :title="e(ns, 'registerTitle')"
+          :title="e(ns, 'setName')"
         >
           <inp
             v-model="usernameInputs"
-            :label="e(ns, 'username')"
+            :label="e(ns, 'friendlyName')"
             placeholder=""
             class="inp"
           ></inp>
-          <span class="desc">{{e(ns, "registerDesc")}}</span>
+          <span class="desc">{{e(ns, "setNameDesc")}}</span>
           <template slot="footer">
-            <bu :callback="tryReg">
+            <div v-if="userExist">
+              {{e(ns, "userExist")}}
+            </div>
+            <div v-if="networkRequestError">
+              {{e(ns, "networkError")}}
+            </div>
+            <bu :callback="tryReg" :throttle="2000">
               <span class="ok">{{e("global", "ok")}}</span>
             </bu>
           </template>
@@ -54,7 +62,7 @@
   import bu from "@/components/InputField/Button.vue";
   import {Comm} from "@/utils/ws";
   import {Method} from "../../../serverInterfaces";
-  import {Out} from "../../../serverInterfaces/RegisterUser";
+  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
   import dia from "@/components/Dialogs/Simple/index.vue";
 
   export default Vue.extend({
@@ -64,23 +72,47 @@
       bu,
       dia
     },
+    props: {
+      callback: {
+        type: Function as unknown as () => (() => void)
+      }
+    },
     data: () => {
       return {
         e: say,
         ns,
         usernameInputs: "",
-        networkRequestInProgress: false
+        networkRequestInProgress: false,
+        networkRequestError: false,
+        userExist: false,
+        tunnel: new Comm()
       };
     },
     methods: {
       tryReg() {
-        const tunnel = new Comm();
-        tunnel.send(Method.reg, {
-          user: this.usernameInputs
-        } as Out);
-        tunnel.registerListener((e) => {
-          console.log(e.data);
+        this.tunnel.registerListener((e) => {
+          this.networkRequestInProgress = false;
+          if ((e as In).data.result === regResponse.exist) {
+            this.userExist = true;
+          } else if ((e as In).data.result === regResponse.ok) {
+            this.callback();
+          } else {
+            this.networkRequestError = true;
+          }
         });
+        this.tunnel.registerErrorListener((e) => {
+          this.networkRequestInProgress = false;
+          this.networkRequestError = true;
+        });
+        this.networkRequestError = false;
+        this.userExist = false;
+        if (this.tunnel.send(Method.reg, {
+          data: {
+            username: this.usernameInputs
+          }
+        } as Out)) {
+          this.networkRequestInProgress = true;
+        }
       }
     }
   });

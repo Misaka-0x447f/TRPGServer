@@ -7,7 +7,7 @@
     "start": "npm run clean && npm run serve",
     "build": "npm run clean && npm run lint && webpack --config webpack.config.js -p && npm run copy-config",
     "serve": "npx tsc-watch -p tsconfig.json --onSuccess \"concurrently --kill-others-on-fail -p \".\" --c 'cyan.bgCyan,green.bgGreen' 'npm:lint' 'npm:node'\"",
-    "node": "node out/index.js",
+    "node": "node out/server/src/index.js",
     "run-built": "node dist/bundle.js",
     "lint": "npx tslint -c tslint.json -p tsconfig.json",
     "copy-config": "npx copyfiles web.config dist",
@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash": "^4.14.121",
     "@types/ws": "^6.0.1",
     "concurrently": "^4.1.0",
     "copyfiles": "^2.1.0",
@@ -28,6 +29,8 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
+    "uuid": "^3.3.2",
     "ws": "^6.1.3"
   }
 }

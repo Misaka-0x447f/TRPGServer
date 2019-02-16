@@ -27,6 +27,10 @@ export const limitedStringify = (v: any) => {
   }
 };
 
+export const getUnixTimestamp = () => {
+  return (new Date()).getTime();
+};
+
 export const xr = (a: any[], i: number, e: any) => {
   // this function tries to read array by index. if index not exist, push e.
   while (a.length <= i) {

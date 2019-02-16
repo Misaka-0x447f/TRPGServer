@@ -1,13 +1,15 @@
 import {serverAddr} from "@/interfaces/ws";
 import {Method, WebsocketIn, WebsocketOut} from "../../serverInterfaces";
-import {Watchable} from "@/utils/lang";
-import {isUndefined} from "lodash";
+import {getUnixTimestamp, Watchable} from "@/utils/lang";
+import {isUndefined, remove} from "lodash";
 
 export class Comm {
-  private w = new WebSocket(serverAddr);
+  public w = new WebSocket(serverAddr);
   private outBufferProxy = new Watchable();
-  private outBuffer: WebsocketOut[] = this.outBufferProxy.init([]);
+  private outBuffer: Array<WebsocketOut & { timestamp: number }> = this.outBufferProxy.init([]);
   private outRequestCount = 0;
+  private bufferLength = 1;
+  private timeout = 30000;
 
   constructor() {
     // traffic control
@@ -16,33 +18,36 @@ export class Comm {
     }, 300);
 
     this.outBufferProxy.registerTrigger(() => {
-      if (this.outBuffer.length > 50) {
-        console.warn(`Warning: too many (${this.outBuffer.length}) websocket outgoing traffic`);
-      }
+      // clean up timed-out request
+      remove(this.outBuffer, (o: WebsocketOut & { timestamp: number }) => {
+        return getUnixTimestamp() - o.timestamp > this.timeout;
+      });
+
       if (this.w.readyState !== 1 || this.outBuffer.length === 0) {
-        return; // will be try again
+        return;
       }
       const payload = this.outBuffer.shift();
       this.outRequestCount++;
       if (isUndefined(payload)) {
         return;
       }
-      try {
-        this.w.send(JSON.stringify(payload));
-      } catch (e) {
-        throw e;
-      } finally {
-        this.outRequestCount--;
-      }
+      this.w.send(JSON.stringify(payload));
+      this.outRequestCount--;
       console.log(`>>> ${JSON.stringify(payload.data)}`);
     });
   }
 
   public send(method: Method, data: object) {
-    this.outBuffer.push({
+    if (this.w.readyState > 1 || this.outBuffer.length >= this.bufferLength) {
+      return false;
+    }
+    const d = {
       method,
-      data
-    } as WebsocketOut);
+      data,
+      timestamp: getUnixTimestamp()
+    };
+    this.outBuffer.push(d);
+    return true;
   }
 
   public registerListener(callback: (T: WebsocketIn) => void) {
@@ -50,6 +55,12 @@ export class Comm {
     this.w.onmessage = (e: MessageEvent) => {
       console.log(`<<< ${e.data}`);
       callback({data: JSON.parse(e.data)} as WebsocketIn);
+    };
+  }
+
+  public registerErrorListener(callback: (e: Event) => void) {
+    this.w.onerror = (ev: Event) => {
+      callback(ev);
     };
   }
 }

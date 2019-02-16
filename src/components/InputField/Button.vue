@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="{container: true, enabled, inline, block}" @click="clicked">
+    <div :class="{container: true, enabled: enabled && throttleEnabled, inline, block}" @click="clicked">
       <slot></slot>
     </div>
   </div>
@@ -50,6 +50,10 @@
         type: Boolean,
         default: true
       },
+      throttle: {
+        type: Number,
+        default: 30
+      },
       inline: {
         type: Boolean,
         default: false
@@ -60,12 +64,19 @@
       }
     },
     data: () => {
-      return {};
+      return {
+        throttleEnabled: true
+      };
     },
     methods: {
       clicked() {
         if (this.enabled) {
           this.callback();
+          this.throttleEnabled = false;
+          const enable = () => {
+            this.throttleEnabled = true;
+          };
+          setTimeout(enable, this.throttle);
         }
       }
     }

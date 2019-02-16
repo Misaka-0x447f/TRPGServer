@@ -4,9 +4,16 @@ export interface WebsocketOut {
 }
 
 export interface WebsocketIn {
+  status: Status;
   data: object;
 }
 
 export const enum Method {
   reg = "register"
+}
+
+export const enum Status {
+  ok = "ok",
+  badRequest = "badRequest",
+  serverError = "serverError"
 }

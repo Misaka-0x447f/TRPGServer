@@ -33,9 +33,13 @@ export const dict = {
       viewMenu: "视图",
     },
     onlineGame: {
-      username: "用户名",
-      registerTitle: "创建用户",
-      registerDesc: "要使用在线功能，你将需要一个用户名。我们不要求密码等其他信息，也不会在您登出后储存任何信息。",
+      friendlyName: "友好名称",
+      setName: "设定友好名称",
+      setNameDesc: "要使用在线功能，你将需要一个人类可读的名称。我们不要求密码等其他信息，也不会在磁盘中永久存储任何信息。" +
+        "因此，每次服务器程序更新或重启时，存储在服务器上的数据都会丢失，但游戏进度不会丢失，因为游戏进度存储于您的游戏管理员" +
+        "的浏览器中。",
+      userExist: "友好名称已存在。请试试其它的。",
+      networkError: "网络连接出现问题。"
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
