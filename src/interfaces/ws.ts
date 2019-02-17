@@ -3,8 +3,8 @@ import {forIn} from "lodash";
 // tslint:disable-next-line
 let env = process.env.NODE_ENV as string;
 export const serverAddrProfile = {
-  development: `http://localhost`,
-  production: `https://api.trpg.misaka.org`
+  development: `ws://localhost`,
+  production: `wss://api.trpg.misaka.org`
 };
 
 // @ts-ignore

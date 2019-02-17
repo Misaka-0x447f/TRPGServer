@@ -1,7 +1,3 @@
-export enum events {
-  reg = "reg"
-}
-
 export interface Out {
   data: {
     username: string

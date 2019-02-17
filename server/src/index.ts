@@ -1,10 +1,23 @@
+import ClusterWS, {Configurations, Socket, WSServer} from "clusterws";
+
 import {setRegProcessor} from "./userReg";
-import io from "socket.io";
 
 const port = (process.env.PORT || 80) as number;
-const server = io();
-server.listen(port);
 
-setRegProcessor(server);
+// tslint:disable-next-line
+new ClusterWS({
+  port,
+  worker
+} as Configurations);
 
-console.log("Websocket server started");
+function worker() {
+  // Get websocket server
+  const wss: WSServer = this.wss;
+  // http/https server
+  // const server: Server = this.server;
+
+  // Listen on connections to websocket server
+  wss.on("connection", (socket: Socket): void => {
+    setRegProcessor(socket);
+  });
+}

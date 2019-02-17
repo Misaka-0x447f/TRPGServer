@@ -1,3 +1,3 @@
-export const enum namespace {
-  reg = "/register"
+export enum events {
+  reg = "reg"
 }
