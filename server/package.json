@@ -11,13 +11,15 @@
     "run-built": "node dist/bundle.js",
     "lint": "npx tslint -c tslint.json -p tsconfig.json",
     "copy-config": "npx copyfiles web.config dist",
-    "clean": "npx rimraf dist out"
+    "clean": "npx rimraf dist out",
+    "postinstall": "patch-package"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/lodash": "^4.14.121",
     "@types/node": "^11.9.4",
+    "@types/ws": "^6.0.1",
     "concurrently": "^4.1.0",
     "copyfiles": "^2.1.0",
     "rimraf": "^2.6.3",
@@ -29,8 +31,8 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "clusterws": "^3.3.0",
     "lodash": "^4.17.11",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "ws": "^6.1.4"
   }
 }
