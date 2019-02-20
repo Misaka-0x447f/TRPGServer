@@ -11,8 +11,7 @@
     "run-built": "node dist/bundle.js",
     "lint": "npx tslint -c tslint.json -p tsconfig.json",
     "copy-config": "npx copyfiles web.config dist",
-    "clean": "npx rimraf dist out",
-    "postinstall": "patch-package"
+    "clean": "npx rimraf dist out"
   },
   "author": "",
   "license": "ISC",
