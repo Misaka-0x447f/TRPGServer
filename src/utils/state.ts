@@ -1,6 +1,3 @@
-import ClusterWS from "clusterws-client-js";
-import {serverAddr} from "@/interfaces/ws";
-
 export enum langEnum {
   zh = "zh-CN"
 }
@@ -19,10 +16,6 @@ class FiniteStateManager {
   };
 
   public online = {
-    link: new ClusterWS({
-      url: serverAddr,
-      autoReconnect: true
-    }),
     user: undefined as string | undefined,
     uid: undefined as string | undefined
   };
@@ -39,7 +32,5 @@ class FiniteStateManager {
 }
 
 export const state = new FiniteStateManager();
-
-export const link = state.online.link;
 
 export default state;

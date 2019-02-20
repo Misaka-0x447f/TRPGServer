@@ -8,5 +8,3 @@ function connected(link: WebSocket) {
 }
 
 listen(connected);
-
-console.log("    Websocket server started");

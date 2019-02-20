@@ -1,5 +1,3 @@
-import {events} from "../../../serverInterfaces/userReg";
-import {namespace} from "../../../serverInterfaces";
 <template>
   <div class="root">
     <div class="container">
@@ -57,10 +55,11 @@ import {namespace} from "../../../serverInterfaces";
   import {say} from "@/utils/i18n";
   import inp from "@/components/InputField/Input.vue";
   import bu from "@/components/InputField/Button.vue";
-  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
+  import {Out, regResponse} from "../../../serverInterfaces/userReg";
   import dia from "@/components/Dialogs/Simple/index.vue";
-  import state, {link} from "@/utils/state";
+  import state from "@/utils/state";
   import {events} from "../../../serverInterfaces";
+  import {link} from "@/utils/ws";
 
   export default Vue.extend({
     name: "RegisterUser",
@@ -83,24 +82,21 @@ import {namespace} from "../../../serverInterfaces";
       };
     },
     mounted() {
-      const regHandler = (m: In) => {
-        if (m.data.result === regResponse.ok) {
-          state.online.user = m.data.user;
-          state.online.uid = m.data.uid;
-          console.log(m);
+      const regHandler = (m: any) => {
+        if (m.result === regResponse.ok) {
+          state.online.user = m.user;
+          state.online.uid = m.uid;
           this.callback();
-        } else if (m.data.result === regResponse.exist) {
+        } else if (m.result === regResponse.exist) {
           this.userExist = true;
         }
       };
-      link.on(events.reg, regHandler);
+      link.RX(events.reg, regHandler);
     },
     methods: {
       tryReg() {
-        link.send(events.reg, {
-          data: {
-            username: this.usernameInputs
-          }
+        link.TX(events.reg, {
+          username: this.usernameInputs
         } as Out);
       }
     }

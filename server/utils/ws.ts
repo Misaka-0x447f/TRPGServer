@@ -1,44 +1,39 @@
-import {events, Upstream} from "../../serverInterfaces";
+import {events, ServerRXListener, ServerRXListenerCallback, Upstream} from "../../serverInterfaces";
 import {isJSON} from "./lang";
 import * as ws from "ws";
 
-interface Listener {
-  event: events;
-  callback: (T: object) => void;
-}
-
 export class Server {
-  private listener: Listener[] = [];
+  private listener: ServerRXListener[] = [];
   private link: WebSocket;
 
   // whatever it's an internal implement we can do performance fix when needed.
-
   constructor(link: WebSocket) {
     this.link = link;
     // @ts-ignore
-    this.link.onmessage((message: MessageEvent) => {
+    this.link.on("message", (message: string) => {
       console.log("<<< %s", message);
-      if (!isJSON(message.data)) {
+      if (!isJSON(message)) {
         this.badRequest();
       }
-      const req = JSON.parse(message.data) as Upstream;
+      const req = JSON.parse(message) as Upstream;
       if (!req.hasOwnProperty("event")) {
         this.badRequest();
       }
-      this.listener.forEach((v: Listener) => {
+      this.listener.forEach((v: ServerRXListener) => {
         if (v.event === req.event) {
-          v.callback(req.payload);
+          v.callback(this, req.payload);
         }
       });
     });
   }
 
-  public RX(event: events, callback: Listener["callback"]) {
+  public RX(event: events, callback: ServerRXListenerCallback) {
     this.listener.push({event, callback});
   }
 
-  public TX(event: events, message: object) {
-    this.link.send(JSON.stringify({event, payload: JSON.stringify(message)}));
+  public TX(event: events, payload: object) {
+    console.log(">>> %s", JSON.stringify({event, payload}));
+    this.link.send(JSON.stringify({event, payload}));
   }
 
   private badRequest() {

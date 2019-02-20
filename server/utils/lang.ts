@@ -33,6 +33,10 @@ export class Watchable {
 }
 
 export const isJSON = (data: string) => {
+  if (typeof data !== "string") {
+    console.warn("Unexcepted isJSON test");
+    return false;
+  }
   try {
     JSON.parse(data);
     return true;
