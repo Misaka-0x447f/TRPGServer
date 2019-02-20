@@ -4,7 +4,7 @@ import {forIn} from "lodash";
 let env = process.env.NODE_ENV as string;
 export const serverAddrProfile = {
   development: `ws://localhost:6655`,
-  production: `wss://api.trpg.misaka.org:6655`
+  production: `wss://api.trpg.misaka.org`
 };
 
 // @ts-ignore
