@@ -2,7 +2,8 @@
   <div class="root">
     <div class="container">
       <div class="title">
-        <span>{{title}}</span>
+        <net v-if="isNetRelated"></net>
+        <div class="title-text">{{title}}</div>
       </div>
       <bo></bo>
       <div class="dialog-content">
@@ -26,14 +27,19 @@
     padding: 2em 1em;
     background: dialog-background-0;
   }
-  
+
   .title {
-    text-align: right;
-    font-size: 1.2em;
-    margin: 0.2em 0;
-    margin-right: 7px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.2em 0.5em;
   }
-  
+
+  .title-text {
+    font-size: 1.2em;
+    flex: 1;
+    text-align: right;
+  }
+
   .buttons {
     display: flex;
     margin: 0.5em 7px;
@@ -43,16 +49,22 @@
 <script lang="ts">
   import Vue from "vue";
   import bo from "./Border.vue";
+  import net from "@/components/netstat.vue";
 
   export default Vue.extend({
     name: "SimpleInput",
     components: {
-      bo
+      bo,
+      net
     },
     props: {
       title: {
         type: String,
         default: ""
+      },
+      isNetRelated: {
+        type: Boolean,
+        default: false
       }
     },
     data: () => {

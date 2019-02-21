@@ -1,4 +1,4 @@
-import {cloneDeep, includes, isUndefined} from "lodash";
+import {cloneDeep, includes, isUndefined, set} from "lodash";
 
 export const timeout = async (time: number) => {
   return new Promise((success) => {
@@ -77,3 +77,8 @@ export class Watchable {
     }
   }
 }
+
+export const generatePulse = (obj: object, path: string[]) => {
+  set(obj, path, true);
+  set(obj, path, false);
+};

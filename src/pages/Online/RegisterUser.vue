@@ -4,6 +4,7 @@
       <div class="inner-container">
         <dia
           :title="e(ns, 'setName')"
+          isNetRelated
         >
           <inp
             v-model="usernameInputs"
