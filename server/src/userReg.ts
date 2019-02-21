@@ -6,7 +6,7 @@ import uid from "uuid/v1";
 import {Server} from "../utils/ws";
 
 export const setRegProcessor = (s: Server, m: Out) => {
-  if (find(userPool, {name: m.username}) === undefined) {
+  if (find(userPool, {user: m.username}) === undefined) {
     const user: OnlineUserData = {
       user: m.username,
       uid: uid()

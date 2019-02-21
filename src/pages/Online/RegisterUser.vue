@@ -13,7 +13,7 @@
           ></inp>
           <span class="desc">{{e(ns, "setNameDesc")}}</span>
           <template slot="footer">
-            <div v-if="userExist">
+            <div v-if="userExist" class="user-exist">
               {{e(ns, "userExist")}}
             </div>
             <bu :callback="tryReg" :throttle="5000">
@@ -47,6 +47,12 @@
 
   .desc {
     color: plain-text-0-hints;
+  }
+  
+  .user-exist {
+    margin-right: auto;
+    height: 2em;
+    line-height: 2em;
   }
 </style>
 <script lang="ts">
@@ -86,6 +92,7 @@
         if (m.result === regResponse.ok) {
           state.online.user = m.user;
           state.online.uid = m.uid;
+          this.userExist = false;
           this.callback();
         } else if (m.result === regResponse.exist) {
           this.userExist = true;
