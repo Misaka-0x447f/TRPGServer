@@ -21,15 +21,17 @@
 
   .link.active {
     color: led-link;
+    text-shadow: getShadow(led-link);
   }
-
+    
   .act {
     color led-act-off;
     margin-left: 0.5em;
   }
-
+    
   .act.active {
     color led-act;
+    text-shadow: getShadow(led-act);
   }
 </style>
 <script lang="ts">

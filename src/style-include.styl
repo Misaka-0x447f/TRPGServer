@@ -2,14 +2,6 @@ nearly-white = #eee
 nearly-grey = #888
 nearly-black = #223
 
-//o = 0px; // shadow-spread
-//p = 1px; // shadow-radius
-//
-//shadow-0 = o o p nearly-black,
-//  o -(o) p nearly-black,
-//  -(o) o p nearly-black,
-//  -(o) -(o) p nearly-black
-
 plain-text-0 = #beffdc
 plain-text-0-weak = rgba(desaturate(plain-text-0, 40%), 0.9)
 plain-text-0-hints = rgba(desaturate(plain-text-0, 60%), 0.6)
@@ -69,3 +61,16 @@ led-link = #0f0;
 led-link-off = alpha(darken(led-link, 50%), 0.9);
 led-act = #fb0;
 led-act-off = alpha(darken(led-act, 50%), 0.9);
+
+getShadow(color) {
+  return unquote(
+    join(
+      ', ',
+      (0 0 5px color),
+      (0 0 8px color),
+      (0 0 13px color),
+      (0 0 21px color),
+      (0 0 34px color)
+    )
+  )
+}
