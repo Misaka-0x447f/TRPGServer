@@ -49,7 +49,7 @@
   .desc {
     color: plain-text-0-hints;
   }
-  
+
   .user-exist {
     margin-right: auto;
     height: 2em;
@@ -62,7 +62,7 @@
   import {say} from "@/utils/i18n";
   import inp from "@/components/InputField/Input.vue";
   import bu from "@/components/InputField/Button.vue";
-  import {Out, regResponse} from "../../../serverInterfaces/userReg";
+  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
   import dia from "@/components/Dialogs/Simple/index.vue";
   import state from "@/utils/state";
   import {events} from "../../../serverInterfaces";
@@ -77,7 +77,7 @@
     },
     props: {
       callback: {
-        type: Function as unknown as () => (() => void)
+        type: Function as unknown as () => ((T: In) => void)
       }
     },
     data: () => {
@@ -89,12 +89,12 @@
       };
     },
     mounted() {
-      const regHandler = (m: any) => {
+      const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
           state.online.user = m.user;
           state.online.uid = m.uid;
           this.userExist = false;
-          this.callback();
+          this.callback(m);
         } else if (m.result === regResponse.exist) {
           this.userExist = true;
         }

@@ -20,7 +20,7 @@ export interface RXListener {
   callback: RXListenerCallback;
 }
 
-export type RXListenerCallback = (T: object) => void;
+export type RXListenerCallback = (T: any) => void;
 
 export interface ServerRXListener {
   event: events;

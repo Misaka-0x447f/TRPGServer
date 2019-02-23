@@ -30,7 +30,14 @@ export default new Router({
     {
       path: "/online",
       name: "online",
-      component: () => import("./pages/Online/index.vue")
+      component: () => import("./pages/Online/index.vue"),
+      children: [
+        {
+          path: "scope", // choosing a scope to join && play
+          name: "scopeSelect",
+          component: () => import("@/pages/Online/ScopeSelect.vue")
+        }
+      ]
     }
   ],
 });

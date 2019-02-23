@@ -1,5 +1,5 @@
 import {events, ServerRXListener, ServerRXListenerCallback, Upstream} from "../../serverInterfaces";
-import {isJSON} from "./lang";
+import {isJSONString} from "./lang";
 import * as ws from "ws";
 
 export class Server {
@@ -12,7 +12,7 @@ export class Server {
     // @ts-ignore
     this.link.on("message", (message: string) => {
       console.log("<<< %s", message);
-      if (!isJSON(message)) {
+      if (!isJSONString(message)) {
         this.badRequest();
       }
       const req = JSON.parse(message) as Upstream;
