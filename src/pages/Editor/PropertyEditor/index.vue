@@ -1,4 +1,3 @@
-import {MenuStyle} from "@/utils/SideTabHandler";
 <template>
   <div class="root">
     <div class="container">
