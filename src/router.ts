@@ -35,7 +35,7 @@ export default new Router({
         {
           path: "scope", // choosing a scope to join && play
           name: "scopeSelect",
-          component: () => import("@/pages/Online/ScopeSelect.vue")
+          component: () => import("@/pages/Online/ScopeSelect/ScopeSelect.vue")
         }
       ]
     }

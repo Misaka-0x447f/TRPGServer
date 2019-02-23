@@ -16,4 +16,7 @@ export class Env {
   public static exist(key: LocalStorage) {
     return !isNull(window.localStorage.getItem(key));
   }
+  public static clr(key: LocalStorage) {
+    window.localStorage.removeItem(key);
+  }
 }

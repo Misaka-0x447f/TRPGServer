@@ -1,6 +1,7 @@
 <template>
   <div class="root">
     <wp></wp>
+    <stat></stat>
     <div class="container">
       <user v-if="showRegisterDialog" :callback="registerSuccessListener"></user>
       <router-view></router-view>
@@ -23,14 +24,16 @@
   import user from "./RegisterUser.vue";
   import {In} from "../../../serverInterfaces/userReg";
   import {Env, LocalStorage} from "@/utils/ls";
-  import scope from "./ScopeSelect.vue";
+  import scope from "./ScopeSelect/ScopeSelect.vue";
+  import stat from "./UserBox.vue";
 
   export default Vue.extend({
     name: "OnlineIndex",
     components: {
       user,
       wp,
-      scope
+      scope,
+      stat
     },
     data: () => {
       return {

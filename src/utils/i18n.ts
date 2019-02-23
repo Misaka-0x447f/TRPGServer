@@ -38,7 +38,8 @@ export const dict = {
       setNameDesc: "我们不要求密码等其他信息，也不会在磁盘中永久存储任何信息。" +
         "您的游戏进度将由您的游戏管理员保管。",
       userExist: "友好名称已存在。请试试其它的。",
-      networkError: "网络连接出现问题。"
+      networkError: "网络连接出现问题。",
+      logOut: "注销",
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
