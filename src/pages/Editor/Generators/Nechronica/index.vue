@@ -56,7 +56,7 @@
   import page5 from "./Page5.vue";
   import {say} from "@/utils/i18n";
   import bu from "@/components/InputField/Button.vue";
-  import {init, ns} from "@/interfaces/Nechronica";
+  import {ns} from "@/interfaces/Nechronica";
   import {storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
   const maxPage = 5;
@@ -79,9 +79,6 @@
         ns,
         storageProxy
       };
-    },
-    mounted() {
-      init();
     },
     computed: {
       prevAble(): boolean {

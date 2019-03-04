@@ -1,7 +1,8 @@
 import WSL from "reconnecting-websocket";
 import {serverAddr} from "@/interfaces/ws";
 import {Downstream, events, RXListener, RXListenerCallback, Upstream} from "../../serverInterfaces";
-import {generatePulse, Watchable} from "@/utils/lang";
+import {generatePulse} from "@/utils/lang";
+import Watchable from "managed-object-proxy";
 
 export type linkStatusCallback = (on: boolean) => void;
 

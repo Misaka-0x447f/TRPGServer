@@ -1,9 +1,17 @@
-import {CustomCollections, CustomRemains, FreeEnhanceDecideDef, SocketRecordDef} from "@/interfaces/Nechronica";
-import {Watchable} from "@/utils/lang";
+import {
+  CustomCollections,
+  CustomRemains,
+  FreeEnhanceDecideDef,
+  SocketRecordDef,
+  storageInit
+} from "@/interfaces/Nechronica";
+import Watchable from "managed-object-proxy";
 import {getRandomName} from "@/utils/math";
 import {forIn, random} from "lodash";
 import {Backpack} from "@/interfaces/Nechronica/Equips";
 import {updateProperty} from "@/utils/PropertyEditor";
+
+storageInit();
 
 export const storageProxy = new Watchable();
 

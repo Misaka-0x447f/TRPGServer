@@ -36,7 +36,7 @@ export interface Effect {
 }
 
 export enum SpecialEffect {
-  heal = "heal",                      // auto recovery parts if not destoryed at the end of round.
+  heal = "heal",                      // auto recovery parts if not destroyed at the end of round.
   invincible = "invincible",          // is not able to be destroy.
   supportLegPart = "supportLegPart",  // other leg parts still works if destroy.
   destroyTrigger = "destroyTrigger",  // effect trigger if destroyed.

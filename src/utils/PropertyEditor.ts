@@ -61,7 +61,7 @@ interface PropertyCreateDef {
 
 export const createProperty = (id: string, text: string, value?: string) => {
   if (PropertyExist(id)) {
-    // refused to create.
+    console.warn(`property existed, refused to create property ${id} with value ${value}`);
     return false;
   }
 
@@ -78,7 +78,7 @@ export const createProperty = (id: string, text: string, value?: string) => {
 export const updateProperty = (id: string, value: any) => {
   const target = getPropertyById(id);
   if (target === undefined) {
-    console.warn(`Property does not exist: ${id}. Will not create one.`);
+    console.warn(`Property does not exist: ${id}. Refused not create one.`);
     return false;
   }
 

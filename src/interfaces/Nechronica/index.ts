@@ -1,7 +1,6 @@
 import {say} from "@/utils/i18n";
 import {batchCreateProperty} from "@/utils/PropertyEditor";
 import {Socket} from "@/interfaces/Nechronica/Equips";
-import {storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 
 export const ns = "nechronica";
 
@@ -53,7 +52,7 @@ export interface SocketRecordDef {
   socket: Socket;
 }
 
-export const init = () => {
+export const storageInit = () => {
   batchCreateProperty([
     {
       id: idEnums.gameType,
@@ -123,5 +122,4 @@ export const init = () => {
       value: []
     }
   ]);
-  storageProxy.triggerAll();
 };
