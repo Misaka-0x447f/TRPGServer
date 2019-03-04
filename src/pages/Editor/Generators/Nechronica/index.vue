@@ -6,10 +6,10 @@
           {{e(ns, "title")}}
         </span>
         <div class="button-group">
-          <bu :callback="nextStep" :enabled="nextAble">
+          <bu @click="nextStep" :enabled="nextAble">
             {{e("global", "nextStep")}}
           </bu>
-          <bu :callback="prevStep" :enabled="prevAble">
+          <bu @click="prevStep" :enabled="prevAble">
             {{e("global", "prevStep")}}
           </bu>
         </div>
@@ -57,8 +57,7 @@
   import {say} from "@/utils/i18n";
   import bu from "@/components/InputField/Button.vue";
   import {ns} from "@/interfaces/Nechronica";
-  import {storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
-
+  
   const maxPage = 5;
 
   export default Vue.extend({
@@ -76,8 +75,7 @@
         page: 1,
         nextEnabled: true,
         e: say,
-        ns,
-        storageProxy
+        ns
       };
     },
     computed: {

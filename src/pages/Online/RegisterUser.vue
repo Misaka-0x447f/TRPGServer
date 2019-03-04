@@ -17,7 +17,7 @@
             <div v-if="userExist" class="user-exist">
               {{e(ns, "userExist")}}
             </div>
-            <bu :callback="tryReg" :throttle="5000">
+            <bu @click="tryReg" :throttle="5000">
               <span class="ok">{{e("global", "ok")}}</span>
             </bu>
           </template>

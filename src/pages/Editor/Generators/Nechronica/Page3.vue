@@ -24,7 +24,7 @@
       </div>
       <bonus
         :InheritedDef="bonusDef"
-        :callback="bonusCallback"
+        @change="bonusChange"
         :title="e(ns, 'enhance')"
         :minSlots="5"
       ></bonus>
@@ -91,7 +91,7 @@
       individuality(e: Choices) {
         this.$set(s, idEnums.ind, e.label);
       },
-      bonusCallback(e: { common: FreeEnhanceDecideDef[] }) {
+      bonusChange(e: { common: FreeEnhanceDecideDef[] }) {
         this.$set(s, idEnums.enhance, e.common);
       },
       updateBonusDef() {

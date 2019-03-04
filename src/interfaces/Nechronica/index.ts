@@ -1,5 +1,4 @@
 import {say} from "@/utils/i18n";
-import {batchCreateProperty} from "@/utils/PropertyEditor";
 import {Socket} from "@/interfaces/Nechronica/Equips";
 
 export const ns = "nechronica";
@@ -52,74 +51,22 @@ export interface SocketRecordDef {
   socket: Socket;
 }
 
-export const storageInit = () => {
-  batchCreateProperty([
-    {
-      id: idEnums.gameType,
-      text: "",
-      value: "Nechronica"
-    },
-    {
-      id: idEnums.name, text: say(ns, "characterName")
-    },
-    {
-      id: idEnums.age, text: say(ns, "characterAge")
-    },
-    {
-      id: idEnums.desc, text: say(ns, "characterDesc"),
-      value: ""
-    },
-    {
-      id: idEnums.remains, text: say(ns, "remains"),
-      value: ""
-    },
-    {
-      id: idEnums.cache, text: say(ns, "cache"),
-      value: ["", ""]
-    },
-    {
-      id: idEnums.Firm1, text: say(ns, "primaryFirmware"),
-      value: ""
-    },
-    {
-      id: idEnums.Firm2, text: say(ns, "secondaryFirmware"),
-      value: ""
-    },
-    {
-      id: idEnums.ind, text: say(ns, "individuality"),
-      value: ""
-    },
-    {
-      id: idEnums.enhance, text: say(ns, "enhance"),
-      value: []
-    },
-    {
-      id: idEnums.arms, text: say(ns, "arms"),
-      value: []
-    },
-    {
-      id: idEnums.evolve, text: say(ns, "evolve"),
-      value: []
-    },
-    {
-      id: idEnums.modify, text: say(ns, "modify"),
-      value: []
-    },
-    {
-      id: idEnums.collections, text: say(ns, "collections"),
-      value: []
-    },
-    {
-      id: idEnums.defaultLocation, text: say(ns, "defaultLocation"),
-      value: ""
-    },
-    {
-      id: idEnums.collectionsSocket, text: say(ns, "collectionsSocket"),
-      value: []
-    },
-    {
-      id: idEnums.equipsSocket, text: say(ns, "equipsSocket"),
-      value: []
-    }
-  ]);
+export const texts = {
+  [idEnums.gameType]: "",
+  [idEnums.name]: say(ns, "characterName"),
+  [idEnums.age]: say(ns, "characterAge"),
+  [idEnums.desc]: say(ns, "characterDesc"),
+  [idEnums.remains]: say(ns, "remains"),
+  [idEnums.cache]: say(ns, "cache"),
+  [idEnums.Firm1]: say(ns, "primaryFirmware"),
+  [idEnums.Firm2]: say(ns, "secondaryFirmware"),
+  [idEnums.ind]: say(ns, "individuality"),
+  [idEnums.enhance]: say(ns, "enhance"),
+  [idEnums.arms]: say(ns, "arms"),
+  [idEnums.evolve]: say(ns, "evolve"),
+  [idEnums.modify]: say(ns, "modify"),
+  [idEnums.collections]: say(ns, "collections"),
+  [idEnums.defaultLocation]: say(ns, "defaultLocation"),
+  [idEnums.collectionsSocket]: say(ns, "collectionsSocket"),
+  [idEnums.equipsSocket]: say(ns, "equipsSocket")
 };

@@ -46,20 +46,7 @@ export const PropertyExist = (id: string) => {
   );
 };
 
-
-export const batchCreateProperty = (obj: PropertyCreateDef[]) => {
-  for (const i of obj) {
-    createProperty(i.id, i.text, i.value);
-  }
-};
-
-interface PropertyCreateDef {
-  id: string;
-  text: string;
-  value?: any;
-}
-
-export const createProperty = (id: string, text: string, value?: string) => {
+export const createProperty = (id: string, text: string, value: any) => {
   if (PropertyExist(id)) {
     console.warn(`property existed, refused to create property ${id} with value ${value}`);
     return false;

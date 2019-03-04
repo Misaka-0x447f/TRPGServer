@@ -18,7 +18,6 @@
           @page="(e) => {equipsUpdate(e, v.label)}"
           :title="v.text"
           :items="soc"
-          @equipSlotChanged="storageProxy.triggerAll()"
         >
         </ch>
       </div>
@@ -116,7 +115,6 @@
         } else {
           s.equipsSocket.push(n);
         }
-        storageProxy.triggerAll();
       }
     }
   });

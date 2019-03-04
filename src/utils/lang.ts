@@ -23,7 +23,7 @@ export const limitedStringify = (v: any) => {
   } else if (typeof v === "string") {
     return v;
   } else {
-    throw new Error(`Unexpected type: ${typeof v}`);
+    throw new Error(`Unexpected type: ${typeof v}, got ${v}`);
   }
 };
 

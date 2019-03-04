@@ -4,7 +4,7 @@
     <div class="container">
       <bu
         v-if="isLoggedIn"
-        :callback="logOut"
+        @click="logOut"
         inline
       >
         {{e(ns, "logOut")}}

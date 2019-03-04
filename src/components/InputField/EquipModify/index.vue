@@ -18,7 +18,6 @@
               :inventory="inventory"
               :backpack="backpack"
               :at="[tech, v - 1]"
-              :callback="callback"
             ></sl>
           </div>
         </div>
@@ -33,7 +32,7 @@
   .container {
     min-width: 4em;
   }
-  
+
   .edge {
     border-bottom: underline-0;
     display: flex;
@@ -71,7 +70,6 @@
   import names from "@/components/propTitle.vue";
   import sl from "./Slot.vue";
   import {sum} from "lodash";
-  import {getEmptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "EquipModifyIndex",
@@ -89,10 +87,6 @@
       },
       slotsDef: {
         type: Array as () => number[]
-      },
-      callback: {
-        type: Function as unknown as () => ((T: EquipText | null) => void),
-        default: getEmptyEventHandler()
       }
     },
     computed: {

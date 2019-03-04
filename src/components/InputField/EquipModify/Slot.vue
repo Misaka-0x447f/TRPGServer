@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="container">
-      <bu block :callback="equipClick">
+      <bu block @click="equipClick">
         <span v-if="hasEquipped">{{getEquippedText}}</span>
         <span v-if="!hasEquipped">
           <font-awesome-icon
@@ -25,7 +25,7 @@
     max-width: 6em;
     min-width: 2em;
   }
-  
+
   .equipListContainer {
     position: relative;
   }
@@ -44,7 +44,6 @@
   import equips from "./EquipList.vue";
   import {cloneDeep, findIndex, isNull, reverse, sortBy} from "lodash";
   import {count} from "@/components/InputField/EquipModify/EquipListCount";
-  import {getEmptyEventHandler} from "@/utils/TypeScript";
   import {xr} from "@/utils/lang";
 
   const sr = (backpack: Backpack, tech: number, slot: number): EquipText | null => {
@@ -70,10 +69,6 @@
         type: Array as () => EquipText[]
         // inventory for choose.
         // will not check tech levels.
-      },
-      callback: {
-        type: Function as unknown as () => ((T: EquipText | null) => void),
-        default: getEmptyEventHandler()
       }
     },
     data: () => {
@@ -136,10 +131,6 @@
           count[0]();
           count.pop();
         }
-
-        // at last, callback. emit.
-        this.$emit("event-slot-changed");
-        this.callback(cloneDeep(this.backpack[tech][slot]));
       }
     }
   });
