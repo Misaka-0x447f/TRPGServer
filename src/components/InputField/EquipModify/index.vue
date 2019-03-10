@@ -58,7 +58,7 @@
 
   .not-available {
     color: plain-text-0-hints;
-    margin: calc(0.5em / 1.2) 0;
+    margin: calc(0.5em / 1.2) 0;87
     font-size: 1.2em;
   }
 </style>

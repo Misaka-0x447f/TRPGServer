@@ -1,8 +1,8 @@
 // EP stands for enhance point
-import {computed, computedProxy, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
+import {computed, s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
 import {CustomCollections, equipTypes, FreeEnhanceDecideDef, ns} from "@/interfaces/Nechronica";
 import {cloneDeep, find, flatten, forIn, isNull, isUndefined} from "lodash";
-import {Equip, EquipText, Socket} from "@/interfaces/Nechronica/Equips";
+import {Backpack, Equip, EquipText, Socket} from "@/interfaces/Nechronica/Equips";
 import {arms} from "@/interfaces/Nechronica/Equips/Arms";
 import {evolve} from "@/interfaces/Nechronica/Equips/Evolve";
 import {modify} from "@/interfaces/Nechronica/Equips/Modify";
@@ -65,15 +65,6 @@ export const getSlotsFromShared = (which: equipTypes) => {
   const p2 = getFreeEP(which, s.enhance);
   return EPSlotMap[p1 + p2];
 };
-
-export const updateSlotsFromShared = () => {
-  forIn(equipTypes, (v) => {
-    computed[v] = getSlotsFromShared(v);
-  });
-};
-
-storageProxy.registerTrigger(updateSlotsFromShared);
-updateSlotsFromShared();
 
 const getAllEquipTexts = () => {
   return cloneDeep(say(ns, "builtInArms"))
@@ -177,13 +168,16 @@ export const needsClearEquipConfig = (v: equipTypes) => {
   return flag;
 };
 
-export const cleanEquipsConfig = () => {
-  forIn(equipTypes, (v: equipTypes) => {
-    if (needsClearEquipConfig(v) === true) {
-      // For now just clean up all.
-      s[v] = [];
-    }
-  });
+export const safeReadEquip = (backpack: Backpack, tech: number, slot: number): EquipText | undefined => {
+  if (isUndefined(backpack[tech])) {
+    return undefined;
+  }
+  return backpack[tech][slot];
 };
 
-computedProxy.registerTrigger(cleanEquipsConfig);
+export const safeWriteEquip = (backpack: Backpack, tech: number, slot: number, value: EquipText | undefined) => {
+  if (isUndefined(backpack[tech])) {
+    backpack[tech] = [];
+  }
+  backpack[tech][slot] = value;
+};

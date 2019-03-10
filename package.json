@@ -23,9 +23,12 @@
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.0",
+    "@types/glob": "^7.1.1",
+    "@types/is-promise": "^2.1.0",
     "@types/lodash": "^4.14.121",
     "@types/node": "^11.10.4",
     "@types/sha1": "^1.1.1",
+    "@types/webpack": "^4.4.25",
     "@vue/cli-plugin-typescript": "^3.4.1",
     "@vue/cli-service": "^3.4.1",
     "concurrently": "^4.1.0",

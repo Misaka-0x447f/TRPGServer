@@ -1,6 +1,6 @@
 import {
   CustomCollections,
-  CustomRemains,
+  CustomRemains, equipTypes,
   FreeEnhanceDecideDef,
   idEnums,
   SocketRecordDef,
@@ -11,6 +11,7 @@ import {getRandomName} from "@/utils/math";
 import {forIn, random} from "lodash";
 import {Backpack} from "@/interfaces/Nechronica/Equips";
 import {createProperty, updateProperty} from "@/utils/PropertyEditor";
+import {getSlotsFromShared, needsClearEquipConfig} from "@/utils/Nechronica";
 
 export const storageProxy = new Watchable();
 
@@ -18,23 +19,23 @@ export const randName = getRandomName();
 export const randAge = random(8, 17).toString();
 
 export const s: { [T in idEnums]: any } = storageProxy.init({
-  [idEnums.gameType]: "Nechronica",
-  [idEnums.name]: randName,
-  [idEnums.age]: randAge,
-  [idEnums.desc]: "",
-  [idEnums.remains]: "" as string | CustomRemains,
-  [idEnums.cache]: ["", ""],
-  [idEnums.Firm1]: "",
-  [idEnums.Firm2]: "",
-  [idEnums.ind]: "",
-  [idEnums.enhance]: [] as FreeEnhanceDecideDef[],
-  [idEnums.arms]: [] as Backpack,
-  [idEnums.evolve]: [] as Backpack,
-  [idEnums.modify]: [] as Backpack,
-  [idEnums.collections]: [] as CustomCollections[],
-  [idEnums.defaultLocation]: "",
-  [idEnums.collectionsSocket]: [] as SocketRecordDef[],
-  [idEnums.equipsSocket]: [] as SocketRecordDef[]
+  gameType: "Nechronica",
+  name: randName,
+  age: randAge,
+  desc: "",
+  remains: "" as string | CustomRemains,
+  cache: ["", ""],
+  primaryFirmware: "",
+  secondaryFirmware: "",
+  individuality: "",
+  enhance: [] as FreeEnhanceDecideDef[],
+  arms: [] as Backpack,
+  evolve: [] as Backpack,
+  modify: [] as Backpack,
+  collections: [] as CustomCollections[],
+  defaultLocation: "",
+  collectionsSocket: [] as SocketRecordDef[],
+  equipsSocket: [] as SocketRecordDef[]
 });
 
 // copy everything to the property editor
@@ -49,6 +50,29 @@ export const computed = computedProxy.init({
   evolve: [0, 0, 0],
   modify: [0, 0, 0]
 });
+
+// ------------- internal tasks ---------------- //
+
+// computedSlots updated here
+const updateSlotsFromShared = () => {
+  forIn(equipTypes, (v) => {
+    computed[v] = getSlotsFromShared(v);
+  });
+};
+
+storageProxy.registerTrigger(updateSlotsFromShared);
+updateSlotsFromShared();
+
+const cleanEquipsConfig = () => {
+  forIn(equipTypes, (v: equipTypes) => {
+    if (needsClearEquipConfig(v) === true) {
+      // For now just clean up all.
+      s[v] = [];
+    }
+  });
+};
+
+computedProxy.registerTrigger(cleanEquipsConfig);
 
 const mirror = () => {
   // copy everything to PE

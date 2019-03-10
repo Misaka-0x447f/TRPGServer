@@ -61,5 +61,5 @@ export interface EquipText {
   tech: number;  // tech level (T1~T3)
 }
 
-export type Backpack = Array<Array<EquipText | null>>;
+export type Backpack = Array<Array<EquipText | undefined>>;
 // dim1: tech levels; dim2: slots

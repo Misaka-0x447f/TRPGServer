@@ -42,13 +42,10 @@
   import bu from "@/components/InputField/Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import equips from "./EquipList.vue";
-  import {cloneDeep, findIndex, isNull, reverse, sortBy} from "lodash";
+  import {cloneDeep, findIndex, reverse, sortBy} from "lodash";
   import {count} from "@/components/InputField/EquipModify/EquipListCount";
-  import {xr} from "@/utils/lang";
-
-  const sr = (backpack: Backpack, tech: number, slot: number): EquipText | null => {
-    return cloneDeep(xr(xr(backpack, tech, []), slot, null));
-  };
+  import {isUndefined} from "style-resources-loader/lib/utils";
+  import {safeReadEquip, safeWriteEquip} from "@/utils/Nechronica";
 
   export default Vue.extend({
     name: "EquipSlot",
@@ -79,12 +76,12 @@
     },
     computed: {
       hasEquipped(): boolean {
-        return !isNull(sr(this.backpack, this.at[0], this.at[1]));
+        return !isUndefined(safeReadEquip(this.backpack, this.at[0], this.at[1]));
       },
       getEquippedText(): string {
-        const read = sr(this.backpack, this.at[0], this.at[1]);
+        const read = safeReadEquip(this.backpack, this.at[0], this.at[1]);
 
-        if (!isNull(read)) {
+        if (!isUndefined(read)) {
           return read.text;
         }
         return "";
@@ -114,16 +111,15 @@
       equipSelect(label: string) {
         const tech = this.at[0];
         const slot = this.at[1];
-        // read or create an equip here.
-        const equipped = sr(this.backpack, tech, slot);
-        if (!isNull(equipped)) {
-          // a equip in this slot.
+        const equipped = safeReadEquip(this.backpack, tech, slot);
+        if (!isUndefined(equipped)) {
+          // a equip in this slot. clear it and send back to inventory.
           this.inventory.push(equipped);
-          this.backpack[tech].splice(slot, 1, null);
+          safeWriteEquip(this.backpack, tech, slot, undefined);
         }
         // ok no equip in this slot now. locate selected equip.
         const i = findIndex(this.inventory, {label});
-        this.backpack[tech].splice(slot, 1, cloneDeep(this.inventory[i]));
+        safeWriteEquip(this.backpack, tech, slot, cloneDeep(this.inventory[i]));
         this.inventory.splice(i, 1);
 
         // close context menu if exist

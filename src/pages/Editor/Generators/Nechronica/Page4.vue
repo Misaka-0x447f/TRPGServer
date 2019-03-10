@@ -20,7 +20,7 @@
           <eq
             :backpack="s.arms"
             :inventory="armsInv"
-            :slotsDef="maxSlots['arms']"
+            :slotsDef="computed.arms"
           >
           </eq>
         </div>
@@ -31,7 +31,7 @@
           <eq
             :backpack="s.evolve"
             :inventory="evolveInv"
-            :slotsDef="maxSlots['evolve']"
+            :slotsDef="computed.evolve"
           >
           </eq>
         </div>
@@ -42,7 +42,7 @@
           <eq
             :backpack="s.modify"
             :inventory="modifyInv"
-            :slotsDef="maxSlots['modify']"
+            :slotsDef="computed.modify"
           >
           </eq>
         </div>
@@ -123,22 +123,19 @@
         armsInv: cloneDeep(say(ns, "builtInArms")),
         evolveInv: cloneDeep(say(ns, "builtInEvolve")),
         modifyInv: cloneDeep(say(ns, "builtInModify")),
-        maxSlots: {
-          arms: [0, 0, 0],
-          evolve: [0, 0, 0],
-          modify: [0, 0, 0]
-        },
         customCollections: {
           label: "",
           title: "",
           desc: ""
         },
-        s
+        s,
+        computed
       };
     },
     mounted() {
+      // link to computedProxy changes
       const updateSlots = () => {
-        this.maxSlots = cloneDeep(computed);
+        this.$forceUpdate();
       };
       computedProxy.registerTrigger(updateSlots);
     },

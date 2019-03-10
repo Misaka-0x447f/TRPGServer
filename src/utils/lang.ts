@@ -1,4 +1,4 @@
-import {cloneDeep, fill, includes, isNull, isUndefined, isArray, set} from "lodash";
+import {includes, isNull, isUndefined, set} from "lodash";
 
 export const timeout = async (time: number) => {
   return new Promise((success) => {
@@ -42,19 +42,6 @@ export const limitedUnstringify = (v: string | null) => {
   } else {
     return v;
   }
-};
-
-export const xr = (a: any[], i: number, e: any) => {
-  // this function tries to read array by index. if index not exist, push e.
-  if (!isArray(a)) {
-    if (isUndefined(a)) {
-      return e;
-    }
-    throw new Error(`Unexpected argument; expect type array, got ${a}`);
-  }
-  const initLength = a.length;
-  fill(a, cloneDeep(e), initLength);
-  return a[i];
 };
 
 export const isJSONString = (data: string) => {
