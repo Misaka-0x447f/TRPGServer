@@ -1,6 +1,11 @@
 <template>
   <div class="root">
-    <div :class="{container: true, enabled: enabled && throttleEnabled, inline, block}" @click="clicked">
+    <div
+      :class="{container: true, enabled: enabled && throttleEnabled, inline, block}"
+      :tabindex="enabled ? 0 : -1"
+      @click="clicked"
+      @keypress.enter="clicked"
+    >
       <slot></slot>
     </div>
   </div>
@@ -24,13 +29,17 @@
   .container.enabled:hover {
     background: button-background-0;
   }
-
+    
+  .container:focus {
+    outline: button-0-focused;
+  }
+    
   .container.inline {
     border: none;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
   }
-  
+
   .container.block {
     display: flex;
     align-items center;

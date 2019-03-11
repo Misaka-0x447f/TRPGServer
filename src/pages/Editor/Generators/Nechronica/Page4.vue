@@ -163,6 +163,4 @@
       }
     }
   });
-
-  // TODO: known bug: equip numbers will not check when EP changed.
 </script>

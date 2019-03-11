@@ -10,11 +10,10 @@ export const getRandomHash = () => {
   return sha1(source).toString().substr(-8);
 };
 
-// TODO: sometimes it gens '10' instead of alphabets.
 export const getRandomName = () => {
   let sto = "";
   for (let i = 0; i < 3; i++) {
-    sto += (random(11, 36)).toString(36);
+    sto += (random(11, 35)).toString(36);
   }
   sto += "-";
   sto += padStart(random(0, 9999).toString(), 4, "0");

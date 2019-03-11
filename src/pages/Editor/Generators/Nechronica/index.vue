@@ -1,6 +1,11 @@
 <template>
   <div class="root">
     <div class="container">
+      <page1 v-show="page === 1"></page1>
+      <page2 v-show="page === 2"></page2>
+      <page3 v-show="page === 3"></page3>
+      <page4 v-show="page === 4"></page4>
+      <page5 v-show="page === 5"></page5>
       <div class="title">
         <span class="title-text">
           {{e(ns, "title")}}
@@ -14,17 +19,14 @@
           </bu>
         </div>
       </div>
-      <page1 v-show="page === 1"></page1>
-      <page2 v-show="page === 2"></page2>
-      <page3 v-show="page === 3"></page3>
-      <page4 v-show="page === 4"></page4>
-      <page5 v-show="page === 5"></page5>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
   .container {
     text-align: left;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   .title {
