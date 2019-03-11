@@ -51,6 +51,10 @@ export const computed = computedProxy.init({
   modify: [0, 0, 0]
 });
 
+// storageProxy.registerTrigger(() => {
+//   console.log(JSON.stringify(s.arms));
+// });
+
 // ------------- internal tasks ---------------- //
 
 // computedSlots updated here

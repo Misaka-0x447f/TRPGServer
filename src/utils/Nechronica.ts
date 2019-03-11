@@ -177,7 +177,8 @@ export const safeReadEquip = (backpack: Backpack, tech: number, slot: number): E
 
 export const safeWriteEquip = (backpack: Backpack, tech: number, slot: number, value: EquipText | undefined) => {
   if (isUndefined(backpack[tech])) {
-    backpack[tech] = [];
+    Reflect.set(backpack, tech, []);
   }
-  backpack[tech][slot] = value;
+  Reflect.set(backpack[tech], slot, value);
+  console.log(backpack);
 };
