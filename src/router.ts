@@ -33,6 +33,11 @@ export default new Router({
       component: () => import("./pages/Online/index.vue"),
       children: [
         {
+          path: "register",
+          name: "register",
+          component: () => import("@/pages/Online/RegisterUser.vue")
+        },
+        {
           path: "scope", // choosing a scope to join && play
           name: "scopeSelect",
           component: () => import("@/pages/Online/ScopeSelect/ScopeSelect.vue")

@@ -17,7 +17,7 @@
             <div v-if="userExist" class="user-exist">
               {{e(ns, "userExist")}}
             </div>
-            <bu :callback="tryReg" :throttle="5000">
+            <bu @click="tryReg" :throttle="5000">
               <span class="ok">{{e("global", "ok")}}</span>
             </bu>
           </template>
@@ -67,6 +67,8 @@
   import state from "@/utils/state";
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
+  import {Env, LocalStorage} from "@/utils/ls";
+  import {timeout} from "@/utils/lang";
 
   export default Vue.extend({
     name: "RegisterUser",
@@ -74,11 +76,6 @@
       inp,
       bu,
       dia
-    },
-    props: {
-      callback: {
-        type: Function as unknown as () => ((T: In) => void)
-      }
     },
     data: () => {
       return {
@@ -89,12 +86,12 @@
       };
     },
     mounted() {
-      const regHandler = (m: In) => {
+      const regHandler = async (m: In) => {
         if (m.result === regResponse.ok) {
           state.online.user = m.user;
           state.online.uid = m.uid;
           this.userExist = false;
-          this.callback(m);
+          await this.registerSuccessListener(m);
         } else if (m.result === regResponse.exist) {
           this.userExist = true;
         }
@@ -106,6 +103,11 @@
         link.TX(events.reg, {
           username: this.usernameInputs
         } as Out);
+      },
+      async registerSuccessListener(m: In) {
+        Env.set(LocalStorage.user, m);
+        await timeout(10);
+        this.$router.push("/online/scope");
       }
     }
   });

@@ -52,9 +52,6 @@
   export default Vue.extend({
     name: "Button",
     props: {
-      callback: {
-        type: Function
-      },
       enabled: {
         type: Boolean,
         default: true
@@ -80,7 +77,7 @@
     methods: {
       clicked() {
         if (this.enabled) {
-          this.callback();
+          this.$emit("click");
           this.throttleEnabled = false;
           const enable = () => {
             this.throttleEnabled = true;

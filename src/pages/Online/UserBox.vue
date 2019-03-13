@@ -1,10 +1,9 @@
-<!-- TODO: incomplete component -->
 <template>
   <div class="root">
     <div class="container">
       <bu
         v-if="isLoggedIn"
-        :callback="logOut"
+        @click="logOut"
         inline
       >
         {{e(ns, "logOut")}}
@@ -13,7 +12,10 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {}
+  .container {
+    float: right;
+    margin-top: 2em;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
@@ -41,6 +43,7 @@
     methods: {
       logOut() {
         Env.clr(LocalStorage.user);
+        // TODO: re-login not done
         this.$router.push("/");
       }
     }

@@ -30,10 +30,10 @@
             >
             </div>
           </div>
-          <bu :callback="buttonCallbackGen(v, true)" :enabled="allocateEnabled" inline>
+          <bu @click="buttonCallbackGen(v, true)" :enabled="allocateEnabled" inline>
             <font-awesome-icon :icon="ico.caretUp"></font-awesome-icon>
           </bu>
-          <bu :callback="buttonCallbackGen(v, false)" :enabled="freeEnabled(v)" inline>
+          <bu @click="buttonCallbackGen(v, false)" :enabled="freeEnabled(v)" inline>
             <font-awesome-icon :icon="ico.caretDown"></font-awesome-icon>
           </bu>
         </div>

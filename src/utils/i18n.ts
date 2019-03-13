@@ -40,6 +40,8 @@ export const dict = {
       userExist: "友好名称已存在。请试试其它的。",
       networkError: "网络连接出现问题。",
       logOut: "注销",
+      scopeSelect: "选择域",
+      scopeSelectPublicNotSupported: "服务器不支持列出域。请输入名称来创建或选择域。",
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",

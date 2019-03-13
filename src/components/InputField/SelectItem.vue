@@ -10,10 +10,10 @@
             <div v-else class="name">
               {{v.title}}
             </div>
-            <bu :callback="prev" :enabled="prevAble" inline>
+            <bu @click="prev" :enabled="prevAble" inline>
               <font-awesome-icon :icon="ico.chevronLeft"></font-awesome-icon>
             </bu>
-            <bu :callback="next" :enabled="nextAble" inline>
+            <bu @click="next" :enabled="nextAble" inline>
               <font-awesome-icon :icon="ico.chevronRight"></font-awesome-icon>
             </bu>
           </div>

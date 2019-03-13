@@ -11,10 +11,10 @@
           {{e(ns, "title")}}
         </span>
         <div class="button-group">
-          <bu :callback="nextStep" :enabled="nextAble">
+          <bu @click="nextStep" :enabled="nextAble">
             {{e("global", "nextStep")}}
           </bu>
-          <bu :callback="prevStep" :enabled="prevAble">
+          <bu @click="prevStep" :enabled="prevAble">
             {{e("global", "prevStep")}}
           </bu>
         </div>

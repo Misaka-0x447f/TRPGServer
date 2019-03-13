@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="container">
-      <bu block :callback="equipClick">
+      <bu block @click="equipClick">
         <span v-if="hasEquipped">{{getEquippedText}}</span>
         <span v-if="!hasEquipped">
           <font-awesome-icon
