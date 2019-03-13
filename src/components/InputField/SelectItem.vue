@@ -80,7 +80,6 @@
   import Vue from "vue";
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
-  import {getEmptyEventHandler} from "@/utils/TypeScript";
   import {say} from "@/utils/i18n";
 
   export interface Choices {
@@ -101,10 +100,6 @@
       },
       items: {
         type: Array as () => Choices[]
-      },
-      callback: {
-        type: Function,
-        default: getEmptyEventHandler()
       }
     },
     data: () => {

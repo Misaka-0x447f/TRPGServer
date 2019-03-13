@@ -21,7 +21,7 @@
             :backpack="s.arms"
             :inventory="armsInv"
             :slotsDef="maxSlots['arms']"
-            :callback="callbacks"
+            @equip-change="callbacks"
           >
           </eq>
         </div>
@@ -33,7 +33,7 @@
             :backpack="s.evolve"
             :inventory="evolveInv"
             :slotsDef="maxSlots['evolve']"
-            :callback="callbacks"
+            @equip-change="callbacks"
           >
           </eq>
         </div>
@@ -45,7 +45,7 @@
             :backpack="s.modify"
             :inventory="modifyInv"
             :slotsDef="maxSlots['modify']"
-            :callback="callbacks"
+            @equip-change="callbacks"
           >
           </eq>
         </div>

@@ -5,7 +5,7 @@
         class="equip"
         v-for="v in list"
         v-if="v.tech <= tech"
-        @click="callback(v.label)"
+        @click="$emit('change', v.label)"
       >
         <div class="equip-detail">
           <div class="title">
@@ -89,7 +89,6 @@
 <script lang="ts">
   import Vue from "vue";
   import {EquipText} from "@/interfaces/Nechronica/Equips";
-  import {getEmptyEventHandler} from "@/utils/TypeScript";
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Nechronica";
 
@@ -103,10 +102,6 @@
       tech: {
         // tech level of this slot in.
         type: Number
-      },
-      callback: {
-        type: Function,
-        default: getEmptyEventHandler()
       }
     },
     data: () => {
