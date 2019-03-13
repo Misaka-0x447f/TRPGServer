@@ -12,9 +12,9 @@
       <div class="hint">
         {{e(ns, "preferBuiltInRemains")}}
       </div>
-      <txt :label="e(ns, 'customRemains')" :callback="customRemainsInput"
+      <txt :label="e(ns, 'customRemains')" @input="customRemainsInput"
            v-model="customRemains.title"></txt>
-      <txt :label="e(ns, 'customRemainsDesc')" :callback="customRemainsInput"
+      <txt :label="e(ns, 'customRemainsDesc')" @input="customRemainsInput"
            v-model="customRemains.desc"></txt>
       <div class="break"></div>
       <txt :label="e(ns, 'cache') + '#01'" v-model="cache[0]"></txt>

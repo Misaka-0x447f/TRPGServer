@@ -22,7 +22,7 @@
     align-items center;
     justify-content space-between;
   }
-    
+
   .withLabel {
     border-bottom: underline-0;
   }
@@ -47,7 +47,6 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {getEmptyEventHandler} from "@/utils/TypeScript";
 
   export default Vue.extend({
     name: "SimpleInput",
@@ -67,10 +66,6 @@
         type: String,   // A string, not a method name.
         default: "input"
       },
-      callback: {
-        type: Function,
-        default: getEmptyEventHandler()
-      },
       disabled: {
         type: Boolean,
         default: false
@@ -79,7 +74,6 @@
     methods: {
       gotInputs(e: any) {
         this.$emit(this.listenTo, e.target.value);
-        this.callback(e.target.value);
       }
     }
   });

@@ -56,9 +56,9 @@
           :title="e(ns, 'collections')"
           :items="e(ns, 'builtInCollections')"
         ></ch>
-        <txt :label="e(ns, 'customCollections')" :callback="customCollectionsInput"
+        <txt :label="e(ns, 'customCollections')" @input="customCollectionsInput"
              v-model="customCollections.title"></txt>
-        <txt :label="e(ns, 'customCollectionsDesc')" :callback="customCollectionsInput"
+        <txt :label="e(ns, 'customCollectionsDesc')" @input="customCollectionsInput"
              v-model="customCollections.desc"></txt>
         <div class="hint">
           {{e(ns, "collectionsDesc")}}

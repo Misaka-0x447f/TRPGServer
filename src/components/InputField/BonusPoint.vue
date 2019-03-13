@@ -30,10 +30,10 @@
             >
             </div>
           </div>
-          <bu @click="buttonCallbackGen(v, true)" :enabled="allocateEnabled" inline>
+          <bu @click="() => pointOperate(v, true)" :enabled="allocateEnabled" inline>
             <font-awesome-icon :icon="ico.caretUp"></font-awesome-icon>
           </bu>
-          <bu @click="buttonCallbackGen(v, false)" :enabled="freeEnabled(v)" inline>
+          <bu @click="() => pointOperate(v, false)" :enabled="freeEnabled(v)" inline>
             <font-awesome-icon :icon="ico.caretDown"></font-awesome-icon>
           </bu>
         </div>
@@ -100,7 +100,6 @@
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
-  import {FreeEnhanceDecideDef} from "@/interfaces/Nechronica";
 
   interface InitialPointDef {
     label: string;
@@ -130,9 +129,6 @@
     props: {
       InheritedDef: {
         type: Object as () => PointDef
-      },
-      callback: {
-        type: (Function as unknown) as () => ((T: { common: FreeEnhanceDecideDef[] }) => void)
       },
       title: {
         type: String,
@@ -206,35 +202,33 @@
         }
         throw new Error(`Impossible route has been reached due to found: ${JSON.stringify(obj)}`);
       },
-      buttonCallbackGen(which: InitialPointDef, isIncrease: boolean) {
-        return () => {
-          // this attr exist in the bonus store? if not, create one.
-          if (findIndex(this.store, (o) => {
-            return o.label === which.label;
-          }) === -1) {
-            this.store.push({label: which.label, points: 0});
-          }
+      pointOperate(which: InitialPointDef, isIncrease: boolean) {
+        // this attr exist in the bonus store? if not, create one.
+        if (findIndex(this.store, (o) => {
+          return o.label === which.label;
+        }) === -1) {
+          this.store.push({label: which.label, points: 0});
+        }
 
-          // then operate points..
-          // also use Vue.set for change tracking...
-          const obj = find(this.store, (o) => {
-            return o.label === which.label;
-          }) as BonusStore;
-          if (isIncrease) {
-            this.$set(obj, "points", obj.points + 1);
-          } else {
-            this.$set(obj, "points", obj.points - 1);
-          }
+        // then operate points..
+        // also use Vue.set for change tracking...
+        const obj = find(this.store, (o) => {
+          return o.label === which.label;
+        }) as BonusStore;
+        if (isIncrease) {
+          this.$set(obj, "points", obj.points + 1);
+        } else {
+          this.$set(obj, "points", obj.points - 1);
+        }
 
-          this.useCallback();
-        };
+        this.useCallback();
       },
       useCallback() {
         // also remember to clean 'bonus-point is 0' item...
         remove(this.store, (o) => {
           return o.points === 0;
         });
-        this.callback({
+        this.$emit("change", {
           common: this.store
         });
       }

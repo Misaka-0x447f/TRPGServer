@@ -24,7 +24,7 @@
       </div>
       <bonus
         :InheritedDef="bonusDef"
-        :callback="bonusCallback"
+        @change="bonusCallback"
         :title="e(ns, 'enhance')"
         :minSlots="5"
       ></bonus>
