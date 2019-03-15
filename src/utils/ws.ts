@@ -1,6 +1,6 @@
 import WSL from "reconnecting-websocket";
 import {serverAddr} from "@/interfaces/ws";
-import {Downstream, events, RXListener, RXListenerCallback, Upstream} from "../../serverInterfaces";
+import {Downstream, events, OutPayload, RXListener, RXListenerCallback, Upstream} from "../../serverInterfaces";
 import {generatePulse, Watchable} from "@/utils/lang";
 
 export type linkStatusCallback = (on: boolean) => void;
@@ -29,7 +29,7 @@ class Client {
     });
   }
 
-  public TX(event: events, payload: object) {
+  public TX(event: events, payload: OutPayload) {
     this.ws.send(JSON.stringify({event, payload} as Upstream));
     console.log(`>>> ${JSON.stringify({event, payload} as Upstream)}`);
     generatePulse(sharedNetStatus, ["TX"]);

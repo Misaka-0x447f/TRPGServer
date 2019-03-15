@@ -40,7 +40,7 @@
     },
     mounted() {
       if (!Env.exist(LocalStorage.user)) {
-        this.$router.push("/online/register");
+        this.$router.push("/online");
       } else {
         this.$router.push("/online/scope");
       }

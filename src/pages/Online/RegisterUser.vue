@@ -1,3 +1,4 @@
+import {regResponse} from "../../../serverInterfaces/userReg";
 <template>
   <div class="root">
     <div class="container">
@@ -6,16 +7,26 @@
           :title="e(ns, 'setName')"
           isNetRelated
         >
-          <inp
-            v-model="usernameInputs"
-            :label="e(ns, 'friendlyName')"
-            placeholder=""
-            class="inp"
-          ></inp>
-          <span class="desc">{{e(ns, "setNameDesc")}}</span>
+          <div @keypress.enter="tryReg">
+            <inp
+              v-model="usernameInputs"
+              :label="e(ns, 'friendlyName')"
+              @input="userNameChange"
+            ></inp>
+            <inp
+              v-show="status !== stat.empty"
+              v-model="uidInputs"
+              :label="e(ns, 'uid')"
+            >
+            </inp>
+          </div>
+          <div class="desc">{{e(ns, "setNameDesc")}}</div>
           <template slot="footer">
-            <div v-if="userExist" class="user-exist">
+            <div v-if="status === stat.userExist" class="user-tip">
               {{e(ns, "userExist")}}
+            </div>
+            <div v-if="status === stat.validateFailed" class="user-tip">
+              {{e(ns, "validateFailed")}}
             </div>
             <bu @click="tryReg" :throttle="5000">
               <span class="ok">{{e("global", "ok")}}</span>
@@ -38,19 +49,16 @@
     justify-content: center;
   }
 
-  .inp {
-    margin-bottom: 0.5em;
-  }
-
   .ok {
     padding: 0 2em;
   }
 
   .desc {
+    margin-top: 0.5em;
     color: plain-text-0-hints;
   }
 
-  .user-exist {
+  .user-tip {
     margin-right: auto;
     height: 2em;
     line-height: 2em;
@@ -68,8 +76,13 @@
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
   import {Env, LocalStorage} from "@/utils/ls";
-  import {timeout} from "@/utils/lang";
 
+  enum stat {
+    empty,
+    userExist,
+    validateFailed
+  }
+  
   export default Vue.extend({
     name: "RegisterUser",
     components: {
@@ -82,32 +95,43 @@
         e: say,
         ns,
         usernameInputs: "",
-        userExist: false
+        uidInputs: "",
+        status: stat.empty,
+        stat
       };
     },
     mounted() {
-      const regHandler = async (m: In) => {
+      const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
           state.online.user = m.user;
           state.online.uid = m.uid;
-          this.userExist = false;
-          await this.registerSuccessListener(m);
+          Env.set(LocalStorage.user, m);
+          this.$router.push("/online/scope");
         } else if (m.result === regResponse.exist) {
-          this.userExist = true;
+          this.status = stat.userExist;
+        } else if (m.result === regResponse.rejected) {
+          this.status = stat.validateFailed;
         }
       };
       link.RX(events.reg, regHandler);
     },
     methods: {
       tryReg() {
-        link.TX(events.reg, {
-          username: this.usernameInputs
-        } as Out);
+        this.status = stat.empty;
+        if (this.uidInputs === "") {
+          link.TX(events.reg, {
+            user: this.usernameInputs
+          } as Out);
+        } else {
+          link.TX(events.reg, {
+            user: this.usernameInputs,
+            uid: this.uidInputs
+          } as Out);
+        }
       },
-      async registerSuccessListener(m: In) {
-        Env.set(LocalStorage.user, m);
-        await timeout(10);
-        this.$router.push("/online/scope");
+      userNameChange() {
+        this.status = stat.empty;
+        this.uidInputs = "";
       }
     }
   });

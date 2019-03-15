@@ -7,12 +7,19 @@ export enum events {
 
 export interface Upstream {
   event: events;
-  payload: object;
+  payload: OutPayload;
 }
 
 export interface Downstream {
   event: events;
-  payload: object;
+  payload: InPayload;
+}
+
+// tslint:disable-next-line
+export interface OutPayload {}
+
+export interface InPayload {
+  result: any;
 }
 
 export interface RXListener {
@@ -20,7 +27,7 @@ export interface RXListener {
   callback: RXListenerCallback;
 }
 
-export type RXListenerCallback = (T: any) => void;
+export type RXListenerCallback = (T: InPayload) => void;
 
 export interface ServerRXListener {
   event: events;

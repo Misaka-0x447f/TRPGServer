@@ -8,3 +8,22 @@ export function getAttrInEvent(e: Event, attrName: string) {
   }
   return currentElement.getAttribute(attrName);
 }
+
+export const mergeClasses = (...args: Array<object | string>) => {
+  let c = "";
+  for (const i of args) {
+    if (typeof i === "object") {
+      for (const j in i) {
+        // @ts-ignore
+        if (i[j]) {
+          c = `${c} ${j}`;
+        }
+      }
+    } else if (typeof i === "string") {
+      c = `${c} ${i}`;
+    } else {
+      throw new Error("Unexpected data type.");
+    }
+  }
+  return c;
+};

@@ -1,8 +1,11 @@
-export interface Out {
-  username: string;
+import {InPayload, OutPayload} from "./index";
+
+export interface Out extends OutPayload {
+  user: string;
+  uid?: string;
 }
 
-export interface In {
+export interface In extends InPayload {
   result: regResponse;
   user?: string;
   uid?: string;
@@ -10,5 +13,6 @@ export interface In {
 
 export enum regResponse {
   ok = "ok",
-  exist = "exist"
+  exist = "exist",
+  rejected = "rejected"
 }

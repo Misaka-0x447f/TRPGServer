@@ -1,7 +1,8 @@
 <template>
   <div class="root">
     <div
-      :class="{container: true, enabled: enabled && throttleEnabled, inline, block}"
+      class="container"
+      :class="mergeClasses({enabled: enabled && throttleEnabled, inline, block}, theme)"
       :tabindex="enabled ? 0 : -1"
       @click="clicked"
       @keypress.enter="clicked"
@@ -30,10 +31,19 @@
     background: button-background-0;
   }
     
+  .container.enabled.red {
+    border-color: button-red;
+    color: button-red;
+  }
+
+  .container.enabled:hover {
+    background: button-background-red;
+  }
+
   .container:focus {
     outline: button-0-focused;
   }
-    
+
   .container.inline {
     border: none;
     padding-top: 0.2em;
@@ -48,6 +58,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import {mergeClasses} from "@/utils/dom";
 
   export default Vue.extend({
     name: "Button",
@@ -67,11 +78,16 @@
       block: {
         type: Boolean,
         default: false
+      },
+      theme: {
+        type: String as () => "" | "red",
+        default: ""
       }
     },
     data: () => {
       return {
-        throttleEnabled: true
+        throttleEnabled: true,
+        mergeClasses
       };
     },
     methods: {

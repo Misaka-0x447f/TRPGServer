@@ -6,14 +6,23 @@ import uid from "uuid/v1";
 import {Server} from "../utils/ws";
 
 export const setRegProcessor = (s: Server, m: Out) => {
-  if (find(userPool, {user: m.username}) === undefined) {
+  const found = find(userPool, {user: m.user});
+  if (found === undefined) {
     const user: OnlineUserData = {
-      user: m.username,
+      user: m.user,
       uid: uid()
     };
     userPool.push(user);
     s.TX(events.reg, {result: regResponse.ok, ...user} as In);
   } else {
+    if (m.uid) {
+      if (found.uid === m.uid) {
+        s.TX(events.reg, {result: regResponse.ok, ...found});
+      } else {
+        s.TX(events.reg, {result: regResponse.rejected});
+      }
+      return;
+    }
     s.TX(events.reg, {result: regResponse.exist} as In);
   }
 };

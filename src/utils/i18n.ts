@@ -34,12 +34,15 @@ export const dict = {
     },
     onlineGame: {
       friendlyName: "友好名称",
+      uid: "用户ID",
       setName: "服务器不允许匿名登录",
       setNameDesc: "我们不要求密码等其他信息，也不会在磁盘中永久存储任何信息。" +
         "您的游戏进度将由您的游戏管理员保管。",
-      userExist: "友好名称已存在。请试试其它的。",
+      userExist: "友好名称已存在。输入用户ID或另一个名称。",
+      validateFailed: "鉴权失败。请重试。",
       networkError: "网络连接出现问题。",
-      logOut: "注销",
+      logOut: "登出",
+      logOutDesc: "登出后，可以凭以上用户ID再次登录",
       scopeSelect: "选择域",
       scopeSelectPublicNotSupported: "服务器不支持列出域。请输入名称来创建或选择域。",
     },

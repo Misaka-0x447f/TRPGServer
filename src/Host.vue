@@ -15,7 +15,7 @@
     display flex
     align-content center
     justify-content center
-    font-family 'DengXian', 'Microsoft JhengHei UI', sans-serif
+    font-family font-std
     -webkit-font-smoothing subpixel-antialiased
     -moz-osx-font-smoothing grayscale
     text-align center

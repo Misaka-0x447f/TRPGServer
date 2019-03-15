@@ -18,28 +18,23 @@ export default new Router({
     },
     {
       path: "/index",
-      name: "index",
       // lazy load
       component: () => import("./pages/Index/index.vue"),
     },
     {
       path: "/editor",
-      name: "editor",
       component: () => import("./pages/Editor/index.vue"),
     },
     {
       path: "/online",
-      name: "online",
       component: () => import("./pages/Online/index.vue"),
       children: [
         {
-          path: "register",
-          name: "register",
+          path: "/",
           component: () => import("@/pages/Online/RegisterUser.vue")
         },
         {
           path: "scope", // choosing a scope to join && play
-          name: "scopeSelect",
           component: () => import("@/pages/Online/ScopeSelect/ScopeSelect.vue")
         }
       ]
