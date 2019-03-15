@@ -34,8 +34,8 @@ export default new Router({
           component: () => import("@/pages/Online/RegisterUser.vue")
         },
         {
-          path: "scope", // choosing a scope to join && play
-          component: () => import("@/pages/Online/ScopeSelect/ScopeSelect.vue")
+          path: "namespace", // choosing a namespace to join && play
+          component: () => import("@/pages/Online/Namespace/index.vue")
         }
       ]
     }

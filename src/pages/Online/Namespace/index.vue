@@ -4,9 +4,12 @@
       <div class="inner-container">
         <dia
           isNetRelated
-          :title="e(ns, 'scopeSelect')"
+          :title="e(ns, 'namespaceSelect')"
         >
-          {{e(ns, "scopeSelectPublicNotSupported")}}
+          {{e(ns, "namespaceSelectPublicNotSupported")}}
+          <inp
+            :label="e(ns, 'namespaceName')"
+          ></inp>
         </dia>
       </div>
     </div>
@@ -29,11 +32,15 @@
   import dia from "@/components/Dialogs/Simple/index.vue";
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Online";
-  
+  import bu from "@/components/InputField/Button.vue";
+  import inp from "@/components/InputField/Input.vue";
+
   export default Vue.extend({
     name: "Room",
     components: {
       dia,
+      bu,
+      inp
     },
     data: () => {
       return {

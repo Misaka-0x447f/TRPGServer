@@ -5,7 +5,7 @@ export const dict = {
   zh: {
     global: {
       // general
-      launcherTitle: "TRPG Server Project Launcher",
+      launcherTitle: "TRPG 协处理器启动工具",
       unknownRoute: "未知路由错误。将返回主选单。",
       prevStep: "上一步",
       nextStep: "下一步",
@@ -15,8 +15,8 @@ export const dict = {
       // global side menu text
       version: "TRPG Server Project (continuous delivery build)",
       about: "此程序正在开发中，尚未开始alpha测试。" +
-        "\n目前多人游戏按钮不可用，只有属性编辑器能用。" +
-        "\n" +
+        "\n目前多人游戏服务器因节约成本原因已关闭。" +
+        "\n如需测试多人游戏，请联系我们。" +
         "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
       remainingPoints: "自由点数",
       noEquipAvailable: "无可用装备。",
@@ -43,8 +43,9 @@ export const dict = {
       networkError: "网络连接出现问题。",
       logOut: "登出",
       logOutDesc: "登出后，可以凭以上用户ID再次登录",
-      scopeSelect: "选择域",
-      scopeSelectPublicNotSupported: "服务器不支持列出域。请输入名称来创建或选择域。",
+      namespaceSelect: "选择名字空间",
+      namespaceSelectPublicNotSupported: "服务器不支持列出名字空间。输入名称来搜索一个名字空间。",
+      namespaceName: "名字空间名称",
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",

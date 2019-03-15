@@ -106,7 +106,7 @@ import {regResponse} from "../../../serverInterfaces/userReg";
           state.online.user = m.user;
           state.online.uid = m.uid;
           Env.set(LocalStorage.user, m);
-          this.$router.push("/online/scope");
+          this.$router.push("/online/namespace");
         } else if (m.result === regResponse.exist) {
           this.status = stat.userExist;
         } else if (m.result === regResponse.rejected) {

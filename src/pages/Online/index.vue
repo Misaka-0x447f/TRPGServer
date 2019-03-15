@@ -27,7 +27,7 @@
   import wp from "@/components/Wallpaper.vue";
   import user from "./RegisterUser.vue";
   import {Env, LocalStorage} from "@/utils/ls";
-  import scope from "./ScopeSelect/ScopeSelect.vue";
+  import scope from "./Namespace/index.vue";
   import stat from "./UserBox.vue";
 
   export default Vue.extend({
@@ -42,7 +42,7 @@
       if (!Env.exist(LocalStorage.user)) {
         this.$router.push("/online");
       } else {
-        this.$router.push("/online/scope");
+        this.$router.push("/online/namespace");
       }
     }
   });
