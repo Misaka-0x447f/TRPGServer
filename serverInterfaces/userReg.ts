@@ -1,11 +1,11 @@
-import {InPayload, OutPayload} from "./index";
+import {Receive, Transfer} from "./index";
 
-export interface Out extends OutPayload {
+export interface Out extends Transfer {
   user: string;
   uid?: string;
 }
 
-export interface In extends InPayload {
+export interface In extends Receive {
   result: regResponse;
   user?: string;
   uid?: string;

@@ -46,6 +46,12 @@ export const dict = {
       namespaceSelect: "选择名字空间",
       namespaceSelectPublicNotSupported: "服务器不支持列出名字空间。输入名称来搜索一个名字空间。",
       namespaceName: "名字空间名称",
+      namespaceList: "列出...",
+      namespaceJoin: "加入",
+      namespaceCreate: "创建",
+      namespaceExist: "名字空间已存在。",
+      namespaceNotExist: "名字空间不存在。",
+      namespaceFull: "名字空间已满员。"
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",

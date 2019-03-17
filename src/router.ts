@@ -3,6 +3,10 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
+export enum RouterName {
+  room = "room"
+}
+
 // noinspection JSUnusedGlobalSymbols
 export default new Router({
   base: process.env.BASE_URL,
@@ -36,6 +40,10 @@ export default new Router({
         {
           path: "namespace", // choosing a namespace to join && play
           component: () => import("@/pages/Online/Namespace/index.vue")
+        },
+        {
+          path: "namespace/:uid",
+          name: RouterName.room
         }
       ]
     }

@@ -1,4 +1,3 @@
-import {regResponse} from "../../../serverInterfaces/userReg";
 <template>
   <div class="root">
     <div class="container">

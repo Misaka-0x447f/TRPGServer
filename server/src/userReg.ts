@@ -1,13 +1,13 @@
 import {In, Out, regResponse} from "../../serverInterfaces/userReg";
 import {OnlineUserData, userPool} from "../utils/state";
 import {events} from "../../serverInterfaces";
-import {find} from "lodash";
+import {find, isUndefined} from "lodash";
 import uid from "uuid/v1";
 import {Server} from "../utils/ws";
 
 export const setRegProcessor = (s: Server, m: Out) => {
   const found = find(userPool, {user: m.user});
-  if (found === undefined) {
+  if (isUndefined(found)) {
     const user: OnlineUserData = {
       user: m.user,
       uid: uid()
@@ -26,3 +26,5 @@ export const setRegProcessor = (s: Server, m: Out) => {
     s.TX(events.reg, {result: regResponse.exist} as In);
   }
 };
+
+export default setRegProcessor;

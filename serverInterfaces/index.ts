@@ -2,24 +2,31 @@ import {Server} from "../server/utils/ws";
 
 export enum events {
   reg = "reg",
-  uncat = "uncategorized",
+  namespaceQuery = "namespaceQuery",
+  namespaceCreate = "namespaceCreate" // create or get in
 }
 
 export interface Upstream {
   event: events;
-  payload: OutPayload;
+  payload: Transfer;
 }
 
 export interface Downstream {
   event: events;
-  payload: InPayload;
+  payload: Receive;
 }
 
 // tslint:disable-next-line
-export interface OutPayload {}
+export interface Transfer {}
 
-export interface InPayload {
+export interface Receive {
   result: any;
+}
+
+// TransferWithAuth
+export interface TransferAuth extends Transfer {
+  user: string;
+  uid: string;
 }
 
 export interface RXListener {
@@ -27,7 +34,7 @@ export interface RXListener {
   callback: RXListenerCallback;
 }
 
-export type RXListenerCallback = (T: InPayload) => void;
+export type RXListenerCallback = (T: Receive) => void;
 
 export interface ServerRXListener {
   event: events;

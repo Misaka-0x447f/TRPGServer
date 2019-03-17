@@ -2,6 +2,7 @@ import {events, ServerRXListener, ServerRXListenerCallback, Upstream} from "../.
 import {isJSONString} from "./lang";
 import * as ws from "ws";
 
+// TODO: memory leaks.
 export class Server {
   private listener: ServerRXListener[] = [];
   private link: WebSocket;
@@ -37,7 +38,7 @@ export class Server {
   }
 
   private badRequest() {
-    this.TX(events.uncat, {message: "bad request."});
+    this.link.send(JSON.stringify({error: "unexpected request string."}));
   }
 }
 
