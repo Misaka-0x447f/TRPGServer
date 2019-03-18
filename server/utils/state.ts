@@ -14,8 +14,13 @@ export interface NamespacePool {
   name: string;
   uid: string;
   child: {
-    owner: string[];  // uid
+    owner: string[],  // uid
     player: string[],
-    spectator: string[]
+  };
+  options: {
+    capacity: {
+      owner: number,
+      player: number, // max player count
+    }
   };
 }

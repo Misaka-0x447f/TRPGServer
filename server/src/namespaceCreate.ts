@@ -14,14 +14,23 @@ export const setProcessor = (s: Server, m: Out) => {
       uid: id,
       child: {
         owner: [m.uid],
-        player: [],
-        spectator: []
+        player: []
+      },
+      options: {
+        capacity: {
+          owner: 1,
+          player: 32
+        }
       }
     });
     s.TX(events.namespaceCreate, {result: response.ok, namespace: m.namespace, uid: id} as In);
   } else {
-    found.child.player.push(m.uid);
-    s.TX(events.namespaceCreate, {result: response.ok} as In);
+    if (found.child.player.length < found.options.capacity.player) {
+      found.child.player.push(m.uid);
+      s.TX(events.namespaceCreate, {result: response.ok} as In);
+    } else {
+      s.TX(events.namespaceCreate, {result: response.full} as In);
+    }
   }
 };
 

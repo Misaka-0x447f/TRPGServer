@@ -113,10 +113,16 @@
     },
     methods: {
       event() {
-        if (this.state === "search") {
+        if (["search", "full"].includes(this.state)) {
           link.TX(events.namespaceQuery, {
             namespace: this.namespace
           } as ls.Out);
+        } else if (["create", "join"].includes(this.state)) {
+          link.TX(events.namespaceCreate, {
+            namespace: this.namespace
+          } as cd.Out);
+        } else {
+          throw new Error("Unexpected mode.");
         }
       },
       stateReset() {

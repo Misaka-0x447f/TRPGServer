@@ -49,9 +49,9 @@ export const dict = {
       namespaceList: "列出...",
       namespaceJoin: "加入",
       namespaceCreate: "创建",
-      namespaceExist: "名字空间已存在。",
-      namespaceNotExist: "名字空间不存在。",
-      namespaceFull: "名字空间已满员。"
+      namespaceExist: "名字空间已存在",
+      namespaceNotExist: "名字空间不存在",
+      namespaceFull: "名字空间无法接受更多的成员"
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",
