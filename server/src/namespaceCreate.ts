@@ -13,12 +13,13 @@ export const setProcessor = (s: Server, m: Out) => {
       name: m.namespace,
       uid: id,
       child: {
-        owner: [m.uid],
+        host: m.uid,
+        master: [m.uid],
         player: []
       },
       options: {
         capacity: {
-          owner: 1,
+          master: 1,
           player: 32
         }
       }

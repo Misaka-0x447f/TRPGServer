@@ -14,12 +14,13 @@ export interface NamespacePool {
   name: string;
   uid: string;
   child: {
-    owner: string[],  // uid
-    player: string[],
+    host: string        // host of the room
+    master: string[],   // game masters
+    player: string[],   // players
   };
   options: {
     capacity: {
-      owner: number,
+      master: number,
       player: number, // max player count
     }
   };
