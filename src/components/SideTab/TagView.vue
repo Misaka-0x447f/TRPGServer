@@ -1,12 +1,11 @@
 <template>
   <div class="root" data-manuallyScoped-j3uasjk>
-    <!--suppress JSValidateTypes -->
     <div
+      class="container"
       :class="{
-        container: true,
         active: isActive
       }"
-      @click="clickHandler(tagName)"
+      @click="$emit('click')"
     >
       <font-awesome-icon
         :icon="this.icon"
@@ -82,18 +81,9 @@
         type: String,
         default: "user-friends"
       },
-      tagName: {
-        type: String,
-      },
       isActive: {
         type: Boolean,
         default: false
-      },
-      counter: {
-        type: Number
-      },
-      clickHandler: {
-        type: Function
       }
     }
   });

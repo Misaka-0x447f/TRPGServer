@@ -1,7 +1,7 @@
 <template>
   <div class="root">
-    <div :class="{container: true, disabled: this.isDisabled}" @click="clickHandler">
-      {{this.name}}
+    <div class="container" :class="{enabled}" @click="$emit('click')">
+      <slot></slot>
       <font-awesome-icon
         icon="chevron-right"
       ></font-awesome-icon>
@@ -18,39 +18,20 @@
     cursor: pointer;
   }
 
-  .disabled {
+  .container:not(.enabled) {
     color: sidebar-invalid;
     text-decoration: line-through;
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {sideTab} from "@/main";
 
   export default Vue.extend({
     name: "Click",
     props: {
-      name: {
-        type: String,
-        default: "undefined click menu"
-      },
-      click: {
-        type: Function
-      },
-      isDisabled: {
+      enabled: {
         type: Boolean,
-        default: false
-      }
-    },
-    data: () => {
-      return {};
-    },
-    methods: {
-      clickHandler() {
-        this.click();
-        if (!this.isDisabled) {
-          sideTab.closeTabMethod();
-        }
+        default: true
       }
     }
   });

@@ -12,21 +12,29 @@
         class="tab-tags"
       >
         <tag
-          v-for="i in sortedTagList"
-          :key="i._private_key"
-          :tagName="i._private_key"
-          :clickHandler="tabClickHandler"
+          v-for="i in def"
+          :key="i.id"
           :icon="i.icon"
-          :isActive="isActive(i._private_key)"
+          :isActive="isActive(i.id)"
+          @click="tabClickHandler(i.id)"
         >
-          {{e("menuName", i._private_key)}}
+          {{e("menuName", i.text)}}
         </tag>
       </div>
       <vs :isWhite="isActive()"></vs>
       <div :class="{vs: true, active: isActive()}"></div>
       <transition name="side">
-        <div v-if="isActive()" class="menu-content-container">
-          <sm :definition="this.definition"></sm>
+        <div>
+          <div
+            v-for="i in def"
+            v-show="isActive(i.id)"
+            class="menu-content-container"
+            @click="closeTab"
+          >
+            <slot :name="i.id">
+              {{i.id}}
+            </slot>
+          </div>
         </div>
       </transition>
     </div>
@@ -47,7 +55,7 @@
     display: flex;
     flex-direction: column;
   }
-    
+
   .side-enter-active, .side-leave-active {
     transition: width .5s cubic-bezier(0, 0.5, 0.25, 1);
   }
@@ -86,54 +94,34 @@
   import Vue from "vue";
   import TagView from "./TagView.vue";
   import {say} from "@/utils/i18n";
-  import {sideTab} from "@/main";
-  import sideTabManager from "./SideTabContents/index.vue";
-  import {cloneDeep, forIn, sortBy} from "lodash";
-  import {getEmptyEventHandler} from "@/utils/TypeScript";
   import vs from "../VerticalSplitter.vue";
-  import {MenuItem} from "@/utils/SideTabHandler";
-  
+  import {TabDef} from "@/interfaces/sideTab";
+
   export default Vue.extend({
     name: "sidebarIndex",
     components: {
       tag: TagView,
-      sm: sideTabManager,
       vs
+    },
+    props: {
+      // tab definitions;
+      def: {
+        type: Array as () => TabDef[]
+      }
     },
     data: () => {
       return {
-        instance: sideTab,
-        definition: {} as MenuItem[],
         activeTab: "",
         e: say,
       };
     },
-    computed: {
-      sortedTagList() {
-        const copy: any = cloneDeep(sideTab.storage);
-        forIn(copy, (value, key) => {
-          copy[key]._private_key = key;
-        });
-        return sortBy(copy, ["index"]);
-      }
-    },
-    mounted() {
-      sideTab.registerTabDestroyMethod(this.closeTab);
-    },
-    beforeDestroy() {
-      sideTab.registerTabDestroyMethod(getEmptyEventHandler);
-    },
     methods: {
-      tabClickHandler(e: string) {
-        if (this.instance.storage.hasOwnProperty(e)) {
-          if (this.activeTab !== e) {
-            this.openTab(e);
-          } else {
-            this.closeTab();
-          }
-          return;
+      tabClickHandler(id: string) {
+        if (this.isActive(id)) {
+          this.closeTab();
+        } else {
+          this.openTab(id);
         }
-        throw new Error(`Unexpected tab ${e}`);
       },
       isActive(key?: string) {
         if (typeof key === "string") {
@@ -144,11 +132,9 @@
       },
       openTab(e: string) {
         this.activeTab = e;
-        this.definition = (this.instance.storage as any)[e].children;
       },
       closeTab() {
         this.activeTab = "";
-        this.definition = [];
       }
     }
   });

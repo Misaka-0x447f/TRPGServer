@@ -1,6 +1,18 @@
 <template>
   <div class="root">
     <div class="container">
+      <st
+        :def="stDef"
+      >
+        <template slot="about">
+          <div>
+            {{e(ns, "version")}}
+          </div>
+          <div>
+            {{e(ns, "about")}}
+          </div>
+        </template>
+      </st>
       <wp></wp>
       <div class="title">
         {{e("global", "launcherTitle")}}
@@ -49,64 +61,37 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import Tilt from "./TiltBox.vue";
-  import MenuButton from "./MenuButton.vue";
-  import Splitter from "./VerticalSplitter.vue";
-  import {timeout} from "@/utils/lang";
-  import WallPaper from "@/components/Wallpaper.vue";
-  import {sideTab} from "@/main";
+  
+  import tilt from "./TiltBox.vue";
+  import menuButton from "./MenuButton.vue";
+  import vs from "./VerticalSplitter.vue";
+  import wp from "@/components/Wallpaper.vue";
+  import st from "@/components/SideTab/index.vue";
+  
   import {ico} from "@/utils/FontAwesome";
-  import {MenuStyle} from "@/utils/SideTabHandler";
-
+  import {timeout} from "@/utils/lang";
+  
   export default Vue.extend({
     name: "MainMenu",
     components: {
-      tilt: Tilt,
-      menuButton: MenuButton,
-      vs: Splitter,
-      wp: WallPaper
+      tilt,
+      menuButton,
+      vs,
+      wp,
+      st
     },
     data: () => {
       return {
-        e: say
-      };
-    },
-    mounted() {
-      sideTab.updateTab({
-        aboutMenu: {
-          icon: ico.infoCircle,
-          children: [
-            {
-              name: {
-                scope: "global",
-                key: "version"
-              },
-              style: MenuStyle.text
-            },
-            {
-              name: {
-                scope: "global",
-                key: "about"
-              },
-              style: MenuStyle.textarea
-            }
-          ]
-        }
-      });
-    },
-    destroyed() {
-      sideTab.destroyTab({
-        aboutMenu: [
+        e: say,
+        ns: "global",
+        stDef: [
           {
-            scope: "global",
-            key: "version"
-          },
-          {
-            scope: "global",
-            key: "about"
+            id: "about",
+            text: "aboutMenu",
+            icon: ico.infoCircle
           }
         ]
-      });
+      };
     },
     async beforeRouteLeave(_0, _1, next) {
       await timeout(1000);

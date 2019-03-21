@@ -38,10 +38,6 @@
   import ne from "./Generators/Nechronica/index.vue";
   import vs from "@/components/VerticalSplitter.vue";
   import state from "@/utils/state";
-  import saveAs from "file-saver";
-  import {sideTab} from "@/main";
-  import {ico} from "@/utils/FontAwesome";
-  import {MenuStyle} from "@/utils/SideTabHandler";
 
   export default Vue.extend({
     name: "editorIndex",
@@ -55,50 +51,6 @@
       return {
         state
       };
-    },
-    mounted() {
-      sideTab.updateTab({
-        fileMenu: {
-          icon: ico.fileCode,
-          children: [
-            {
-              name: {
-                scope: "propertyEditor",
-                key: "export"
-              },
-              style: MenuStyle.click,
-              handler: this.saveFile,
-            },
-            {
-              name: {
-                scope: "propertyEditor",
-                key: "fileOperateTips"
-              },
-              style: MenuStyle.textarea
-            }
-          ]
-        }
-      });
-    },
-    beforeDestroy() {
-      sideTab.destroyTab({
-        fileMenu: [
-          {
-            scope: "propertyEditor",
-            key: "export"
-          },
-          {
-            scope: "propertyEditor",
-            key: "fileOperateTips"
-          }
-        ]
-      });
-    },
-    methods: {
-      saveFile() {
-        // @ts-ignore
-        saveAs(new File([JSON.stringify(state.editor.storage)], "character.json"));
-      }
     }
   });
 </script>

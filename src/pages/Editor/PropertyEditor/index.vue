@@ -1,6 +1,26 @@
 <template>
   <div class="root">
     <div class="container">
+      <st :def="stDef">
+        <template slot="file">
+          <bu @click="saveFile">
+            <span>{{e(ns, "export")}}</span>
+          </bu>
+          <div>
+            {{e(ns, "fileOperateTips")}}
+          </div>
+        </template>
+        <template slot="edit">
+          <bu @click="undo()" :enabled="undoable()">
+            <span>{{e(ns, "undoDeleteLine")}}</span>
+          </bu>
+        </template>
+        <template slot="view">
+          <bu @click="toggleIdView()">
+            <span>{{e(ns, "toggleIdentifier")}}</span>
+          </bu>
+        </template>
+      </st>
       <ro :ro="isReadOnly"></ro>
       <table v-if="content.length">
         <tr>
@@ -8,7 +28,6 @@
           <th>{{e("propertyEditor", "value")}}</th>
           <th>{{e("propertyEditor", "text")}}</th>
         </tr>
-        <!--suppress JSUnusedLocalSymbols -->
         <tr v-for="(_, i) in content" :data-i="i">
           <td v-show="showId">
             <txt v-model="content[i].id" :disabled="isReadOnly" :placeholder="e('propertyEditor', 'identifier')"></txt>
@@ -64,15 +83,17 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {PropertyData} from "@/utils/PropertyEditor";
   import {say} from "@/utils/i18n";
   import txt from "@/components/InputField/Input.vue";
-  import {getAttrInEvent} from "@/utils/dom";
-  import {cloneDeep, isNull, last, pullAt} from "lodash";
-  import {sideTab} from "@/main";
-  import {MenuStyle} from "@/utils/SideTabHandler";
-  import {ico} from "@/utils/FontAwesome";
   import ro from "./ReadOnlyOverlay.vue";
+  import st from "@/components/SideTab/index.vue";
+  import bu from "@/components/SideTab/SideTabContents/Button.vue";
+  import {PropertyData} from "@/utils/PropertyEditor";
+  import {getAttrInEvent} from "@/utils/dom";
+  import {cloneDeep, isNull, last, pullAt, isUndefined} from "lodash";
+  import {ico} from "@/utils/FontAwesome";
+  import state from "@/utils/state";
+  import saveAs from "file-saver";
 
   enum mutation {
     del = "delete"
@@ -88,7 +109,9 @@
     name: "PropertyEditor",
     components: {
       txt,
-      ro
+      ro,
+      st,
+      bu
     },
     props: {
       content: {
@@ -99,67 +122,37 @@
         default: false
       }
     },
-    data: (): {
-      e: typeof say,
-      pullAt: typeof pullAt,
-      showId: boolean,
-      history: History[]
-    } => {
+    data() {
       return {
         e: say,
         pullAt,
         showId: false,
-        history: []
+        history: [] as History[],
+        stDef: [
+          {
+            id: "file",
+            text: "fileMenu",
+            icon: ico.fileCode
+          },
+          {
+            id: "edit",
+            text: "editMenu",
+            icon: ico.penSquare
+          },
+          {
+            id: "view",
+            text: "viewMenu",
+            icon: ico.streetView
+          }
+        ],
+        ns: "propertyEditor"
       };
     },
     mounted() {
       window.addEventListener("keydown", this.keyEventHandler);
-      sideTab.updateTab({
-        editMenu: {
-          icon: ico.penSquare,
-          children: [
-            {
-              name: {
-                scope: "propertyEditor",
-                key: "undoDeleteLine"
-              },
-              style: MenuStyle.click,
-              handler: this.undo,
-              enabled: this.undoable
-            }
-          ]
-        },
-        viewMenu: {
-          icon: ico.streetView,
-          children: [
-            {
-              name: {
-                scope: "propertyEditor",
-                key: "toggleIdentifier"
-              },
-              style: MenuStyle.click,
-              handler: this.toggleIdView
-            }
-          ]
-        }
-      });
     },
     destroyed() {
       window.removeEventListener("keydown", this.keyEventHandler);
-      sideTab.destroyTab({
-        editMenu: [
-          {
-            scope: "propertyEditor",
-            key: "undoDeleteLine"
-          }
-        ],
-        viewMenu: [
-          {
-            scope: "propertyEditor",
-            key: "toggleIdentifier"
-          }
-        ]
-      });
     },
     methods: {
       keyEventHandler(e: KeyboardEvent) {
@@ -206,7 +199,7 @@
         this.$forceUpdate();
       },
       undo() {
-        if (last(this.history) !== undefined) {
+        if (!isUndefined(last(this.history))) {
           const l = last(this.history) as History;
           if (l.mutation === mutation.del) {
             this.newLine(l.changedLine as number, l.data);
@@ -223,6 +216,10 @@
       },
       toggleIdView() {
         this.showId = this.showId !== true;
+      },
+      saveFile() {
+        // @ts-ignore
+        saveAs(new File([JSON.stringify(state.editor.storage)], "character.json"));
       }
     }
   });
