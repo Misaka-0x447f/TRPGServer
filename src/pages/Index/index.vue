@@ -5,11 +5,13 @@
         :def="stDef"
       >
         <template slot="about">
-          <div>
-            {{e(ns, "version")}}
-          </div>
-          <div>
-            {{e(ns, "about")}}
+          <div class="about-panel">
+            <div>
+              {{e(ns, "version")}}
+            </div>
+            <div>
+              {{e(ns, "about")}}
+            </div>
           </div>
         </template>
       </st>
@@ -54,6 +56,10 @@
     height 100%
   }
 
+  .about-panel {
+    padding: 1.5em 0;
+  }
+
   .big {
     font-size 1.5em
   }
@@ -61,16 +67,16 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  
+
   import tilt from "./TiltBox.vue";
   import menuButton from "./MenuButton.vue";
   import vs from "./VerticalSplitter.vue";
   import wp from "@/components/Wallpaper.vue";
   import st from "@/components/SideTab/index.vue";
-  
+
   import {ico} from "@/utils/FontAwesome";
   import {timeout} from "@/utils/lang";
-  
+
   export default Vue.extend({
     name: "MainMenu",
     components: {

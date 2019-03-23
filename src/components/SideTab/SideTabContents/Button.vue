@@ -13,8 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center
-    min-height: 2em;
-    padding: 1em 1.5em 0 1.5em;
+    line-height: 4em;
     cursor: pointer;
   }
 

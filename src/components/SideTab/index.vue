@@ -32,6 +32,7 @@
             v-for="i in def"
             v-show="isActive(i.id)"
             @click="closeTab"
+            class="menu-content"
           >
             <slot
               :name="i.id"
@@ -71,7 +72,13 @@
   .side-di5am519-enter-to, .side-di5am519-leave {
     width: 30vw;
   }
-
+    
+  .menu-content {
+    width: 30vw;
+    box-sizing border-box;
+    padding: 0 1.5em;
+  }
+    
   .menu-content-container {
     background: sidebar-background-0;
   }
