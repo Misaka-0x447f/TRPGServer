@@ -2,7 +2,7 @@
   <div class="root">
     <div class="container">
       <st :def="stDef">
-        <template slot="file">
+        <template #file>
           <bu @click="saveFile">
             <span>{{e(ns, "export")}}</span>
           </bu>
@@ -10,12 +10,12 @@
             {{e(ns, "fileOperateTips")}}
           </div>
         </template>
-        <template slot="edit">
+        <template #edit>
           <bu @click="undo()" :enabled="undoable()">
             <span>{{e(ns, "undoDeleteLine")}}</span>
           </bu>
         </template>
-        <template slot="view">
+        <template #view>
           <bu @click="toggleIdView()">
             <span>{{e(ns, "toggleIdentifier")}}</span>
           </bu>

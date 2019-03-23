@@ -23,15 +23,19 @@
       </div>
       <vs :isWhite="isActive()"></vs>
       <div :class="{vs: true, active: isActive()}"></div>
-      <transition name="side">
-        <div>
+      <transition name="side-di5am519">
+        <div
+          class="menu-content-container"
+          v-show="isActive()"
+        >
           <div
             v-for="i in def"
             v-show="isActive(i.id)"
-            class="menu-content-container"
             @click="closeTab"
           >
-            <slot :name="i.id">
+            <slot
+              :name="i.id"
+            >
               {{i.id}}
             </slot>
           </div>
@@ -56,15 +60,15 @@
     flex-direction: column;
   }
 
-  .side-enter-active, .side-leave-active {
+  .side-di5am519-enter-active, .side-di5am519-leave-active {
     transition: width .5s cubic-bezier(0, 0.5, 0.25, 1);
   }
 
-  .side-enter, .side-leave-to {
+  .side-di5am519-enter, .side-di5am519-leave-to {
     width: 0;
   }
 
-  .side-enter-to, .side-leave {
+  .side-di5am519-enter-to, .side-di5am519-leave {
     width: 30vw;
   }
 
@@ -75,6 +79,7 @@
   .overlay-container {
     position: fixed;
     top: 0;
+    left: 0;
     display: block;
     background: sidebar-mask-0;
     width: 100vw;
