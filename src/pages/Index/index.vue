@@ -4,7 +4,7 @@
       <st
         :def="stDef"
       >
-        <template slot="about">
+        <template #about>
           <div class="about-panel">
             <div>
               {{e(ns, "version")}}
