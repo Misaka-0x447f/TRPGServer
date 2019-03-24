@@ -1,7 +1,7 @@
 import {EventEmitter} from "events";
 
 export enum ev {
-  menuButtonClick = "menuButtonClick"
+  menuButtonClick = "menuButtonClick",
 }
 
 export const ec = new EventEmitter(); // ec stands for event center

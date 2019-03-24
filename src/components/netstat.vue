@@ -36,32 +36,29 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {sharedNetStatus, sharedNetStatusProxy} from "@/utils/ws";
+  import {linkStatus} from "@/utils/ws";
 
   export default Vue.extend({
     name: "netstat",
     data: () => {
       return {
         link: false,
-        act: false,
-        actLED: false
+        actLED: false,
+        intervalID: NaN
       };
     },
     mounted() {
-      sharedNetStatusProxy.registerTrigger(() => {
-        this.link = sharedNetStatus.link;
-        if (sharedNetStatus.RX || sharedNetStatus.TX) {
-          this.act = true;
-        }
-      });
-      setInterval(() => {
-        if (this.act) {
-          this.actLED = true;
-          this.act = false;
-        } else {
-          this.actLED = false;
-        }
-      }, 333);
+      this.intervalID = setInterval(this.update, 333) as unknown as number;
+    },
+    beforeDestroy() {
+      // prevent memory leak;
+      clearInterval(this.intervalID);
+    },
+    methods: {
+      update() {
+        this.link = linkStatus.link;
+        this.actLED = linkStatus.act > 0 as boolean;
+      }
     }
   });
 </script>
