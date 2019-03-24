@@ -31,6 +31,8 @@ export const dict = {
       editMenu: "编辑",
       aboutMenu: "关于",
       viewMenu: "视图",
+      teamMenu: "小队",
+      userMenu: "用户",
     },
     onlineGame: {
       friendlyName: "友好名称",

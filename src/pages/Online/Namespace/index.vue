@@ -1,5 +1,12 @@
 <template>
   <div class="root">
+    <st
+      :def="stDef"
+    >
+      <template #user>
+        <us></us>
+      </template>
+    </st>
     <div class="container">
       <div class="inner-container" @keypress.enter="event">
         <dia
@@ -73,20 +80,32 @@
   import * as ls from "../../../../serverInterfaces/namespaceQuery";
   import * as cd from "../../../../serverInterfaces/namespaceCreate";
   import {RouterName} from "@/router";
+  import st from "@/components/SideTab/index.vue";
+  import {ico} from "@/utils/FontAwesome";
+  import us from "../UserMenu.vue";
 
   export default Vue.extend({
     name: "Room",
     components: {
       dia,
       bu,
-      inp
+      inp,
+      st,
+      us
     },
     data: () => {
       return {
         e: say,
         ns,
         state: "search" as "search" | "create" | "join" | "full",
-        namespace: ""
+        namespace: "",
+        stDef: [
+          {
+            id: "user",
+            text: "userMenu",
+            icon: ico.userTag
+          }
+        ]
       };
     },
     mounted() {

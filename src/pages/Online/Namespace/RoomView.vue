@@ -1,5 +1,16 @@
 <template>
   <div class="root">
+    <st
+      :def="stDef"
+      startup="team"
+    >
+      <template #user>
+        <us></us>
+      </template>
+      <template #team>
+        
+      </template>
+    </st>
     <div class="container">
       <dia
         isNetRelated
@@ -19,15 +30,32 @@
   import Vue from "vue";
   import dia from "@/components/Dialogs/Simple/index.vue";
   import {ns} from "@/interfaces/Online";
+  import st from "@/components/SideTab/index.vue";
+  import {ico} from "@/utils/FontAwesome";
+  import us from "../UserMenu.vue";
 
   export default Vue.extend({
     name: "RoomView",
     components: {
-      dia
+      dia,
+      st,
+      us
     },
     data: () => {
       return {
-        ns
+        ns,
+        stDef: [
+          {
+            id: "user",
+            text: "userMenu",
+            icon: ico.userTag
+          },
+          {
+            id: "team",
+            text: "teamMenu",
+            icon: ico.userFriends
+          }
+        ]
       };
     }
   });

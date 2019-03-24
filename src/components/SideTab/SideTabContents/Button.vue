@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div class="container" :class="{enabled}" @click="$emit('click')">
+    <div class="container" :class="{enabled, danger}" @click="click">
       <slot></slot>
       <font-awesome-icon
         icon="chevron-right"
@@ -21,9 +21,14 @@
     color: sidebar-invalid;
     text-decoration: line-through;
   }
+
+  .danger {
+    color: button-red;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
+  import ec, {ev} from "@/utils/event";
 
   export default Vue.extend({
     name: "Click",
@@ -31,6 +36,16 @@
       enabled: {
         type: Boolean,
         default: true
+      },
+      danger: {
+        type: Boolean,
+        default: false
+      }
+    },
+    methods: {
+      click() {
+        ec.emit(ev.menuButtonClick);
+        this.$emit("click");
       }
     }
   });

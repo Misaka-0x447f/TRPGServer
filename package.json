@@ -13,6 +13,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/vue-fontawesome": "^0.1.6",
+    "events": "^3.0.0",
     "file-saver": "^2.0.1",
     "lodash": "^4.17.11",
     "reconnecting-websocket": "^4.1.10",
@@ -21,6 +22,7 @@
     "vue-router": "^3.0.2"
   },
   "devDependencies": {
+    "@types/events": "^3.0.0",
     "@types/file-saver": "^2.0.0",
     "@types/lodash": "^4.14.123",
     "@types/node": "^11.11.5",

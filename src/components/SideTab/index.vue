@@ -31,7 +31,6 @@
           <div
             v-for="i in def"
             v-show="isActive(i.id)"
-            @click="closeTab"
             class="menu-content"
           >
             <slot
@@ -47,6 +46,7 @@
 </template>
 <style lang="stylus" scoped>
   .container {
+    text-align: initial;
     display: flex;
     flex-direction: row;
     position: fixed;
@@ -72,13 +72,13 @@
   .side-di5am519-enter-to, .side-di5am519-leave {
     width: 30vw;
   }
-    
+
   .menu-content {
     width: 30vw;
     box-sizing border-box;
     padding: 0 1.5em;
   }
-    
+
   .menu-content-container {
     background: sidebar-background-0;
   }
@@ -108,6 +108,8 @@
   import {say} from "@/utils/i18n";
   import vs from "../VerticalSplitter.vue";
   import {TabDef} from "@/interfaces/sideTab";
+  import {isNull} from "lodash";
+  import ec, {ev} from "@/utils/event";
 
   export default Vue.extend({
     name: "sidebarIndex",
@@ -119,6 +121,10 @@
       // tab definitions;
       def: {
         type: Array as () => TabDef[]
+      },
+      startup: {
+        type: String,
+        default: null
       }
     },
     data: () => {
@@ -126,6 +132,15 @@
         activeTab: "",
         e: say,
       };
+    },
+    mounted() {
+      if (!isNull(this.startup)) {
+        this.activeTab = this.startup;
+      }
+      ec.on(ev.menuButtonClick, this.closeTab);
+    },
+    beforeDestroy() {
+      ec.off(ev.menuButtonClick, this.closeTab);
     },
     methods: {
       tabClickHandler(id: string) {

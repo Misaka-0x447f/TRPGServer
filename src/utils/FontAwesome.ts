@@ -12,7 +12,7 @@ import {
   faPlus,
   faStreetView,
   faUserFriends,
-  faUsersCog
+  faUsersCog, faUserTag
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
 // @ts-ignore
@@ -33,7 +33,9 @@ export default function fontAwesomeInit() {
     faCaretUp,
     faCaretDown,
     faPlus,
-    faFileCode
+    faFileCode,
+    faUserFriends,
+    faUserTag
   );
 }
 
@@ -46,5 +48,7 @@ export enum ico {
   caretUp = "caret-up",
   caretDown = "caret-down",
   plus = "plus",
-  fileCode = "file-code"
+  fileCode = "file-code",
+  userFriends = "user-friends",
+  userTag = "user-tag"
 }

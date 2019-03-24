@@ -1,7 +1,6 @@
 <template>
   <div class="root">
     <wp></wp>
-    <stat></stat>
     <div class="container">
       <router-view class="view"></router-view>
     </div>
@@ -28,15 +27,13 @@
   import user from "./RegisterUser.vue";
   import {Env, LocalStorage} from "@/utils/ls";
   import scope from "./Namespace/index.vue";
-  import stat from "./UserBox.vue";
 
   export default Vue.extend({
     name: "OnlineIndex",
     components: {
       user,
       wp,
-      scope,
-      stat
+      scope
     },
     mounted() {
       if (!Env.exist(LocalStorage.user)) {
