@@ -14,10 +14,8 @@ export const dict = {
       viewOnlineGames: "搜索线上游戏",
       // global side menu text
       version: "TRPG Server Project (continuous delivery build)",
-      about: "此程序正在开发中，尚未开始alpha测试。" +
-        "\n目前多人游戏服务器因节约成本原因已关闭。" +
-        "\n如需测试多人游戏，请联系我们。" +
-        "\n遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
+      about: "此程序正在开发中，尚未开始alpha测试。",
+      aboutFollowUs: "遇到问题或催更，请至github页面：github.com/Misaka-0x447f/TRPGServer",
       remainingPoints: "自由点数",
       noEquipAvailable: "无可用装备。",
       noSlotsAvailable: "无可用栏位。",

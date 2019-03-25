@@ -12,6 +12,9 @@
             <div>
               {{e(ns, "about")}}
             </div>
+            <div>
+              {{e(ns, "aboutFollowUs")}}
+            </div>
           </div>
         </template>
       </st>

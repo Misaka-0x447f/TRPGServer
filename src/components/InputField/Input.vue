@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <div :class="{container: true, withLabel: label !== ''}">
+    <div class="container" :class="{withLabel: label !== ''}">
       <label class="contents">
         <input
           type="text"

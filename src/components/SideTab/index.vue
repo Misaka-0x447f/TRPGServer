@@ -69,14 +69,21 @@
     width: 0;
   }
 
-  .side-di5am519-enter-to, .side-di5am519-leave {
-    width: 30vw;
-  }
-
   .menu-content {
-    width: 30vw;
     box-sizing border-box;
     padding: 0 1.5em;
+  }
+
+  @media (min-width: 500px) {
+    .side-di5am519-enter-to, .side-di5am519-leave, .menu-content {
+      width: 30vw;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .side-di5am519-enter-to, .side-di5am519-leave, .menu-content {
+      width: calc(100vw - 2.5em);
+    }
   }
 
   .menu-content-container {
