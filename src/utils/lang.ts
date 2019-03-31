@@ -108,3 +108,6 @@ export const isJSONString = (data: string) => {
   }
 };
 
+export const removeSpace = (s: string) => {
+  return s.replace(/\s+/g, "");
+};

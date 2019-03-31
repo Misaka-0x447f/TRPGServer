@@ -77,6 +77,7 @@
   import {link} from "@/utils/ws";
   import {Env, LocalStorage} from "@/utils/ls";
   import st from "@/components/SideTab/index.vue";
+  import {removeSpace} from "@/utils/lang";
 
   enum stat {
     empty,
@@ -127,7 +128,7 @@
         } else {
           link.TX(events.reg, {
             user: this.usernameInputs,
-            uid: this.uidInputs
+            uid: removeSpace(this.uidInputs)
           } as Out);
         }
       },
