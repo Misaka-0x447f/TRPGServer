@@ -1,5 +1,6 @@
 <template>
   <div class="root">
+    <st></st>
     <div class="container">
       <div class="inner-container">
         <dia
@@ -75,19 +76,21 @@
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
   import {Env, LocalStorage} from "@/utils/ls";
+  import st from "@/components/SideTab/index.vue";
 
   enum stat {
     empty,
     userExist,
     validateFailed
   }
-  
+
   export default Vue.extend({
     name: "RegisterUser",
     components: {
       inp,
       bu,
-      dia
+      dia,
+      st
     },
     data: () => {
       return {

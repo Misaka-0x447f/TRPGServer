@@ -24,10 +24,6 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-    margin-top: 1.5em;
-  }
-
   .username {
     font-size: 1.5em;
   }

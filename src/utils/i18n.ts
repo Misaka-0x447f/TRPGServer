@@ -5,13 +5,13 @@ export const dict = {
   zh: {
     global: {
       // general
-      launcherTitle: "TRPG 协处理器启动工具",
+      launcherTitle: "启动页 / TRPG 协处理器",
       unknownRoute: "未知路由错误。将返回主选单。",
       prevStep: "上一步",
       nextStep: "下一步",
       // main menu
-      characterEditor: "角色卡编辑器",
-      viewOnlineGames: "搜索线上游戏",
+      editor: "角色编辑",
+      online: "线上游戏",
       // global side menu text
       version: "TRPG Server Project (continuous delivery build)",
       about: "此程序正在开发中，尚未开始alpha测试。",
@@ -21,7 +21,9 @@ export const dict = {
       noSlotsAvailable: "无可用栏位。",
       unspecified: "未指定",
       invalid: "有其他一项或多项设定不正确。",
-      ok: "好"
+      ok: "好",
+      run: "切换到",
+      guide: "要开始，请单击右下角的切换任务按钮。"
     },
     menuName: {
       // side menu names

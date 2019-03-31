@@ -6,7 +6,7 @@ import {
   faChevronRight,
   faFileCode,
   faGlobe,
-  faInfoCircle,
+  faInfoCircle, faLocationArrow,
   faLowVision,
   faPenSquare,
   faPlus,
@@ -35,7 +35,8 @@ export default function fontAwesomeInit() {
     faPlus,
     faFileCode,
     faUserFriends,
-    faUserTag
+    faUserTag,
+    faLocationArrow
   );
 }
 
@@ -50,5 +51,6 @@ export enum ico {
   plus = "plus",
   fileCode = "file-code",
   userFriends = "user-friends",
-  userTag = "user-tag"
+  userTag = "user-tag",
+  locationArrow = "location-arrow"
 }

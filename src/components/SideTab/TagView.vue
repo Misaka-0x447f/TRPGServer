@@ -1,9 +1,12 @@
 <template>
-  <div class="root" data-manuallyScoped-j3uasjk>
+  <div class="root">
     <div
       class="container"
       :class="{
-        active: isActive
+        active: isActive,
+        top,
+        odd,
+        bottom
       }"
       @click="$emit('click')"
     >
@@ -12,7 +15,7 @@
         class="icon"
       ></font-awesome-icon>
       <div
-        class="shadow"
+        class="text"
         :class="{'non-asia': !isEastAsian()}"
       >
         <slot></slot>
@@ -30,29 +33,44 @@
     margin-bottom: -2em;
     clip-path: polygon(0 0, 100% 2em, 100% 100%, 0 calc(100% - 2em));
     word-break: break-all;
-    position: relative;
     overflow: hidden;
     z-index: 65535;
-    background: sidebar-edge-0;
-    color: sidebar-font-0;
     cursor: pointer;
   }
 
-  .root[data-manuallyScoped-j3uasjk]:nth-of-type(odd) .container {
-    background-color: sidebar-edge-1;
-  }
-
-  .root[data-manuallyScoped-j3uasjk]:first-of-type .container {
+  .container.top {
     padding-top: 1.5em;
     padding-bottom: 3em;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 2em));
   }
 
-  .root[data-manuallyScoped-j3uasjk] .container.active {
-    // clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 2em));
+  .container.bottom {
+    padding-top: 3em;
+    padding-bottom: 3em;
+    clip-path: polygon(0 2em, 100% 0, 100% 100%, 0 100%);
+  }
+
+  /**************************/
+
+  .container {
+    background: sidebar-edge-0;
+    color: sidebar-font-0;
+  }
+
+  .container.odd {
+    background-color: sidebar-edge-1;
+  }
+
+  .container.bottom {
+    background: sidebar-edge-sp0;
+  }
+
+  .container.active {
     background: sidebar-edge-active-0;
     color: sidebar-font-active-0;
   }
+
+  /*****************************/
 
   .non-asia {
     writing-mode: vertical-rl;
@@ -62,7 +80,9 @@
     padding: 0.2em 0;
   }
   
-  .shadow {
+  .text {
+    position: relative;
+    left: 0.1em;
   }
 </style>
 <script lang="ts">
@@ -82,6 +102,18 @@
         default: "user-friends"
       },
       isActive: {
+        type: Boolean,
+        default: false
+      },
+      odd: {
+        type: Boolean,
+        default: false
+      },
+      top: {
+        type: Boolean,
+        default: false
+      },
+      bottom: {
         type: Boolean,
         default: false
       }

@@ -8,18 +8,34 @@
       ></div>
     </transition>
     <div class="container">
-      <div
-        class="tab-tags"
-      >
-        <tag
-          v-for="i in def"
-          :key="i.id"
-          :icon="i.icon"
-          :isActive="isActive(i.id)"
-          @click="tabClickHandler(i.id)"
+      <div class="side-tabs">
+        <div
+          class="menu-tags"
         >
-          {{e("menuName", i.text)}}
-        </tag>
+          <tag
+            v-for="(v, i) in def"
+            :key="v.id"
+            :icon="v.icon"
+            :isActive="isActive(v.id)"
+            @click="tabClickHandler(v.id)"
+            :top="i === 0"
+            :odd="i % 2 === 1"
+          >
+            {{e("menuName", v.text)}}
+          </tag>
+        </div>
+        <div
+          class="run-tags"
+        >
+          <tag
+            :icon="ico.locationArrow"
+            :isActive="isActive('_switch_to')"
+            @click="tabClickHandler('_switch_to')"
+            bottom
+          >
+            {{e(ns, "run")}}
+          </tag>
+        </div>
       </div>
       <vs :isWhite="isActive()"></vs>
       <div :class="{vs: true, active: isActive()}"></div>
@@ -28,6 +44,18 @@
           class="menu-content-container"
           v-show="isActive()"
         >
+          <div
+            v-if="activeTab === '_switch_to'"
+            v-show="isActive('_switch_to')"
+            class="menu-content"
+          >
+            <bu @click="$router.push('/editor')">
+              {{e(ns, "editor")}}
+            </bu>
+            <bu @click="$router.push('/online')">
+              {{e(ns, "online")}}
+            </bu>
+          </div>
           <div
             v-for="i in def"
             v-show="isActive(i.id)"
@@ -55,8 +83,14 @@
     height: 100vh;
     z-index: 65535;
   }
+  
+  .side-tabs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-  .tab-tags {
+  .menu-tags {
     display: flex;
     flex-direction: column;
   }
@@ -71,7 +105,7 @@
 
   .menu-content {
     box-sizing border-box;
-    padding: 0 1.5em;
+    padding: 1.5em;
   }
 
   @media (min-width: 500px) {
@@ -117,12 +151,15 @@
   import {TabDef} from "@/interfaces/sideTab";
   import {isNull} from "lodash";
   import ec, {ev} from "@/utils/event";
+  import {ico} from "@/utils/FontAwesome";
+  import bu from "./SideTabContents/Button.vue";
 
   export default Vue.extend({
     name: "sidebarIndex",
     components: {
       tag: TagView,
-      vs
+      vs,
+      bu
     },
     props: {
       // tab definitions;
@@ -138,6 +175,8 @@
       return {
         activeTab: "",
         e: say,
+        ico,
+        ns: "global"
       };
     },
     mounted() {

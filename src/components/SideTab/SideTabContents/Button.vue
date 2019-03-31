@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center
-    line-height: 4em;
+    line-height: 2em;
     cursor: pointer;
   }
 
