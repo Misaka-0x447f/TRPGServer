@@ -28,7 +28,7 @@
           class="run-tags"
         >
           <tag
-            :icon="ico.locationArrow"
+            :icon="ico.compass"
             :isActive="isActive('_switch_to')"
             @click="tabClickHandler('_switch_to')"
             bottom
@@ -96,7 +96,7 @@
   }
 
   .side-di5am519-enter-active, .side-di5am519-leave-active {
-    transition: width .5s cubic-bezier(0, 0.5, 0.25, 1);
+    transition: width .8s cubic-bezier(.19, 1, .22, 1);
   }
 
   .side-di5am519-enter, .side-di5am519-leave-to {
@@ -136,7 +136,7 @@
   }
 
   .background-ks3ja5sj-enter-active, .background-ks3ja5sj-leave-active {
-    transition: opacity .5s;
+    transition: opacity .8s cubic-bezier(.19, 1, .22, 1);
   }
 
   .background-ks3ja5sj-enter, .background-ks3ja5sj-leave-to {

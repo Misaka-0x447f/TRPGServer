@@ -22,8 +22,8 @@ export const dict = {
       unspecified: "未指定",
       invalid: "有其他一项或多项设定不正确。",
       ok: "好",
-      run: "切换到",
-      guide: "要开始，请单击右下角的切换任务按钮。"
+      run: "运行",
+      guide: "要开始，请单击右下角的运行按钮。"
     },
     menuName: {
       // side menu names

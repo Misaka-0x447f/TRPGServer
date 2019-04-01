@@ -4,15 +4,17 @@ import {
   faCaretUp,
   faChevronLeft,
   faChevronRight,
+  faCompass,
   faFileCode,
   faGlobe,
-  faInfoCircle, faLocationArrow,
+  faInfoCircle,
   faLowVision,
   faPenSquare,
   faPlus,
   faStreetView,
   faUserFriends,
-  faUsersCog, faUserTag
+  faUsersCog,
+  faUserTag
 } from "@fortawesome/free-solid-svg-icons";
 import Vue from "vue";
 // @ts-ignore
@@ -36,7 +38,7 @@ export default function fontAwesomeInit() {
     faFileCode,
     faUserFriends,
     faUserTag,
-    faLocationArrow
+    faCompass,
   );
 }
 
@@ -52,5 +54,5 @@ export enum ico {
   fileCode = "file-code",
   userFriends = "user-friends",
   userTag = "user-tag",
-  locationArrow = "location-arrow"
+  compass = "compass"
 }
