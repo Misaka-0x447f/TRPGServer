@@ -23,9 +23,11 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  
   import fl from "@/components/FullScreenFloating.vue";
   import dia from "@/components/Dialogs/Simple/index.vue";
   import bu from "@/components/InputField/Button.vue";
+  
   import {say} from "@/utils/i18n";
   import {logOut} from "@/utils/ls";
 

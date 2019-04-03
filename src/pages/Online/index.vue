@@ -23,6 +23,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  
   import wp from "@/components/Wallpaper.vue";
   import user from "./RegisterUser.vue";
   import scope from "./Namespace/index.vue";

@@ -7,8 +7,8 @@
         <us></us>
       </template>
     </st>
-    <div class="container">
-      <div class="inner-container" @keypress.enter="event">
+    <div class="container" @keypress.enter="event">
+      <fl>
         <dia
           isNetRelated
           :title="e(ns, 'namespaceSelect')"
@@ -45,22 +45,11 @@
             </div>
           </template>
         </dia>
-      </div>
+      </fl>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-    height: 100%;
-  }
-
-  .inner-container {
-    height: 60%;
-    display: flex;
-    align-items center;
-    justify-content: center;
-  }
-
   .foot {
     width 100%;
     display: flex;
@@ -70,19 +59,23 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
+  
   import dia from "@/components/Dialogs/Simple/index.vue";
-  import {say} from "@/utils/i18n";
-  import {ns} from "@/interfaces/Online";
   import bu from "@/components/InputField/Button.vue";
   import inp from "@/components/InputField/Input.vue";
+  import fl from "@/components/FullScreenFloating.vue";
+  import st from "@/components/SideTab/index.vue";
+  import us from "../UserMenu.vue";
+  
+  import {say} from "@/utils/i18n";
+  import {ns} from "@/interfaces/Online";
   import {link} from "@/utils/ws";
   import {events} from "../../../../serverInterfaces";
+  import {RouterName} from "@/router";
+  import {ico} from "@/utils/FontAwesome";
+  
   import * as ls from "../../../../serverInterfaces/namespaceQuery";
   import * as cd from "../../../../serverInterfaces/namespaceCreate";
-  import {RouterName} from "@/router";
-  import st from "@/components/SideTab/index.vue";
-  import {ico} from "@/utils/FontAwesome";
-  import us from "../UserMenu.vue";
 
   export default Vue.extend({
     name: "Room",
@@ -91,7 +84,8 @@
       bu,
       inp,
       st,
-      us
+      us,
+      fl
     },
     data() {
       return {

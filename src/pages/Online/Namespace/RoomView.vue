@@ -12,27 +12,29 @@
       </template>
     </st>
     <div class="container">
-      <dia
-        isNetRelated
-        :title="e(ns, 'briefingRoom')"
-      >
-        
-      </dia>
+      <fl>
+        <dia
+          isNetRelated
+          :title="e(ns, 'briefingRoom')"
+        >
+          
+        </dia>
+      </fl>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-
-  }
 </style>
 <script lang="ts">
   import Vue from "vue";
+  
   import dia from "@/components/Dialogs/Simple/index.vue";
-  import {ns} from "@/interfaces/Online";
   import st from "@/components/SideTab/index.vue";
-  import {ico} from "@/utils/FontAwesome";
   import us from "../UserMenu.vue";
+  import fl from "@/components/FullScreenFloating.vue";
+  
+  import {ns} from "@/interfaces/Online";
+  import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
 
   export default Vue.extend({
@@ -40,7 +42,8 @@
     components: {
       dia,
       st,
-      us
+      us,
+      fl
     },
     data: () => {
       return {

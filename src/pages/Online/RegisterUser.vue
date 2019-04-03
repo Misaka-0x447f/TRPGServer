@@ -2,7 +2,7 @@
   <div class="root">
     <st></st>
     <div class="container">
-      <div class="inner-container">
+      <fl>
         <dia
           :title="e(ns, 'setName')"
           isNetRelated
@@ -33,22 +33,11 @@
             </bu>
           </template>
         </dia>
-      </div>
+      </fl>
     </div>
   </div>
 </template>
 <style lang="stylus" scoped>
-  .container {
-    height: 100%;
-  }
-
-  .inner-container {
-    height: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .ok {
     padding: 0 2em;
   }
@@ -66,17 +55,20 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import {ns} from "@/interfaces/Online";
-  import {say} from "@/utils/i18n";
+  
   import inp from "@/components/InputField/Input.vue";
   import bu from "@/components/InputField/Button.vue";
-  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
   import dia from "@/components/Dialogs/Simple/index.vue";
+  import fl from "@/components/FullScreenFloating.vue";
+  import st from "@/components/SideTab/index.vue";
+  
+  import {ns} from "@/interfaces/Online";
+  import {say} from "@/utils/i18n";
   import state from "@/utils/state";
+  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
   import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
-  import st from "@/components/SideTab/index.vue";
   import {removeSpace} from "@/utils/lang";
 
   enum stat {
@@ -91,7 +83,8 @@
       inp,
       bu,
       dia,
-      st
+      st,
+      fl
     },
     data: () => {
       return {
