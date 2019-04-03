@@ -18,7 +18,7 @@
             :label="e(ns, 'namespaceName')"
             @input="stateReset"
           ></inp>
-          <template slot="footer">
+          <template #footer>
             <div class="foot">
               <div class="tips">
                 <div v-if="isState('join')">
@@ -31,7 +31,7 @@
                   {{e(ns, "namespaceFull")}}
                 </div>
               </div>
-              <bu :throttle="5000" @click="event" v-model="namespace">
+              <bu :throttle="5000" @click="event">
                 <span v-if="isState('join')">
                   {{e(ns, "namespaceJoin")}}
                 </span>
@@ -60,7 +60,7 @@
     align-items center;
     justify-content: center;
   }
-  
+
   .foot {
     width 100%;
     display: flex;
@@ -93,7 +93,7 @@
       st,
       us
     },
-    data: () => {
+    data() {
       return {
         e: say,
         ns,

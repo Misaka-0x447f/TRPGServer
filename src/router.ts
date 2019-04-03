@@ -34,6 +34,11 @@ export default new Router({
       component: () => import("./pages/Online/index.vue"),
       children: [
         {
+          path: "authError",
+          name: "authError",
+          component: () => import("@/pages/Online/AuthError/index.vue")
+        },
+        {
           path: "/",
           component: () => import("@/pages/Online/RegisterUser.vue")
         },

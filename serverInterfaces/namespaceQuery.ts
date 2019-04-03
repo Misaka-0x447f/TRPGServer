@@ -1,6 +1,6 @@
-import {Receive, TransferAuth} from "./index";
+import {Receive, Transfer} from "./index";
 
-export interface Out extends TransferAuth {
+export interface Out extends Transfer {
   namespace: string;
 }
 

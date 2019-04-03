@@ -6,7 +6,7 @@ import namespaceCreate from "./namespaceCreate";
 
 function connected(link: WebSocket) {
   const server = new Server(link);
-  server.RX(events.reg, reg);
+  server.RX(events.reg, reg, {auth: false});
   server.RX(events.namespaceQuery, namespaceQuery);
   server.RX(events.namespaceCreate, namespaceCreate);
 }

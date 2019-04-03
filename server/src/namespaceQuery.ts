@@ -1,7 +1,7 @@
 import {Server} from "../utils/ws";
 import {In, Out, response} from "../../serverInterfaces/namespaceQuery";
-import {find, isUndefined} from "lodash";
 import {namespacePool} from "../utils/state";
+import {find, isUndefined} from "lodash";
 import {events} from "../../serverInterfaces";
 
 export const setProcessor = (s: Server, m: Out) => {

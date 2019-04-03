@@ -33,6 +33,7 @@
   import st from "@/components/SideTab/index.vue";
   import {ico} from "@/utils/FontAwesome";
   import us from "../UserMenu.vue";
+  import {say} from "@/utils/i18n";
 
   export default Vue.extend({
     name: "RoomView",
@@ -43,6 +44,7 @@
     },
     data: () => {
       return {
+        e: say,
         ns,
         stDef: [
           {

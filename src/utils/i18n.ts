@@ -6,7 +6,9 @@ export const dict = {
     global: {
       // general
       launcherTitle: "启动页 / TRPG 协处理器",
-      unknownRoute: "未知路由错误。将返回主选单。",
+      unknownRoute: "未知路由。将返回主选单。",
+      authErrorTitle: "鉴权失败",
+      authError: "可能是服务器已重置。将注销用户并返回主选单。",
       prevStep: "上一步",
       nextStep: "下一步",
       // main menu

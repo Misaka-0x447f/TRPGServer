@@ -2,12 +2,12 @@
   <div class="root">
     <div class="container">
       <div class="username">
-        {{Env.get(LocalStorage.user)["user"]}}
+        {{Env.get(LocalStorage.__auth)["user"]}}
       </div>
       <div>
         <div class="info">
           <div class="code">
-            {{Env.get(LocalStorage.user)['uid']}}
+            {{Env.get(LocalStorage.__auth)['uid']}}
           </div>
           <div>
             {{e(ns, "logOutDesc")}}
@@ -66,7 +66,7 @@
     },
     methods: {
       logOut() {
-        Env.clr(LocalStorage.user);
+        Env.clr(LocalStorage.__auth);
         this.$router.push("/");
       }
     }

@@ -25,7 +25,6 @@
   import Vue from "vue";
   import wp from "@/components/Wallpaper.vue";
   import user from "./RegisterUser.vue";
-  import {Env, LocalStorage} from "@/utils/ls";
   import scope from "./Namespace/index.vue";
 
   export default Vue.extend({
@@ -34,13 +33,6 @@
       user,
       wp,
       scope
-    },
-    mounted() {
-      if (!Env.exist(LocalStorage.user)) {
-        this.$router.push("/online");
-      } else {
-        this.$router.push("/online/namespace");
-      }
     }
   });
 </script>

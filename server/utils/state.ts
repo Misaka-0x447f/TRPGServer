@@ -1,7 +1,4 @@
-import {Watchable} from "./lang";
-
-const onlineUserDataProxy = new Watchable();
-export const userPool: OnlineUserData[] = onlineUserDataProxy.init([]);
+export const userPool: OnlineUserData[] = [];
 
 export interface OnlineUserData {
   user: string;
@@ -18,8 +15,8 @@ export interface NamespacePool {
     master: string[],   // game masters
     player: string[],   // players
   };
-  options: {
-    capacity: {
+  options?: {
+    capacity?: {
       master: number,
       player: number, // max player count
     }

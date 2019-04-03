@@ -21,7 +21,7 @@
             </inp>
           </div>
           <div class="desc">{{e(ns, "setNameDesc")}}</div>
-          <template slot="footer">
+          <template #footer>
             <div v-if="status === stat.userExist" class="user-tip">
               {{e(ns, "userExist")}}
             </div>
@@ -75,7 +75,7 @@
   import state from "@/utils/state";
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
-  import {Env, LocalStorage} from "@/utils/ls";
+  import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
   import st from "@/components/SideTab/index.vue";
   import {removeSpace} from "@/utils/lang";
 
@@ -108,7 +108,7 @@
         if (m.result === regResponse.ok) {
           state.online.user = m.user;
           state.online.uid = m.uid;
-          Env.set(LocalStorage.user, m);
+          Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
           this.$router.push("/online/namespace");
         } else if (m.result === regResponse.exist) {
           this.status = stat.userExist;
@@ -116,7 +116,7 @@
           this.status = stat.validateFailed;
         }
       };
-      link.RX(events.reg, regHandler);
+      link.RX(events.reg, regHandler, {auth: false});
     },
     methods: {
       tryReg() {
@@ -124,12 +124,12 @@
         if (this.uidInputs === "") {
           link.TX(events.reg, {
             user: this.usernameInputs
-          } as Out);
+          } as Out, {auth: false});
         } else {
           link.TX(events.reg, {
             user: this.usernameInputs,
             uid: removeSpace(this.uidInputs)
-          } as Out);
+          } as Out, {auth: false});
         }
       },
       userNameChange() {
