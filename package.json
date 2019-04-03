@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "concurrently -p \".\" -c \"blueBright.bgBlueBright,yellowBright.bgYellowBright\" \"npm:serve\" \"cd server && npm start -s\"",
+    "start.raw": "concurrently -r \"npm:serve\" \"cd server && npm start -s\"",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
