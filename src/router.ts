@@ -47,7 +47,7 @@ export default new Router({
           component: () => import("@/pages/Online/Namespace/index.vue")
         },
         {
-          path: "namespace/:uid",
+          path: "namespace/:ns",
           name: RouterName.room,
           component: () => import("@/pages/Online/Namespace/RoomView.vue")
         }

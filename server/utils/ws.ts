@@ -38,16 +38,19 @@ export class Server {
         if (v.event === req.event) {
           // auth required?
           if (get(v, "options.auth") !== false) {
+            const user = get(req, "options.auth.user");
+            const uid = get(req, "options.auth.uid");
             // ...and auth failed?
-            if (!auth(
-              get(req, "options.auth.user"),
-              get(req, "options.auth.uid")
-            )) {
+            if (!auth(user, uid)) {
               this.authError(v.event);  // send "auth error";
               return false; // equal to "continue" in native forEach;
             }
+            // auth required, succeed, has extra data;
+            v.callback(this, req.payload, {auth: {user, uid}});
+          } else {
+            // auth not required, no extras
+            v.callback(this, req.payload);
           }
-          v.callback(this, req.payload);
         }
       });
     });

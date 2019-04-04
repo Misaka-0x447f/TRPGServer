@@ -7,9 +7,9 @@ import {events} from "../../serverInterfaces";
 export const setProcessor = (s: Server, m: Out) => {
   const found = find(namespacePool, {name: m.namespace});
   if (isUndefined(found)) {
-    s.TX(events.namespaceQuery, {result: response.null, namespace: m.namespace} as In);
+    s.TX(events.namespaceQuery, {result: response.null} as In);
   } else {
-    s.TX(events.namespaceQuery, {result: response.ok, namespace: m.namespace} as In);
+    s.TX(events.namespaceQuery, {result: response.ok} as In);
   }
 };
 

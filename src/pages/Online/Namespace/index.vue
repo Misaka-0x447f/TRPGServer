@@ -7,7 +7,7 @@
         <us></us>
       </template>
     </st>
-    <div class="container" @keypress.enter="event">
+    <div class="container" @keypress.enter="query">
       <fl>
         <dia
           isNetRelated
@@ -17,6 +17,7 @@
           <inp
             :label="e(ns, 'namespaceName')"
             @input="stateReset"
+            v-model="namespace"
           ></inp>
           <template #footer>
             <div class="foot">
@@ -30,15 +31,18 @@
                 <div v-if="isState('full')">
                   {{e(ns, "namespaceFull")}}
                 </div>
+                <div v-if="isState('empty')">
+                  {{e(ns, "namespaceNameEmpty")}}
+                </div>
               </div>
-              <bu :throttle="5000" @click="event">
+              <bu :throttle="5000" @click="query">
                 <span v-if="isState('join')">
                   {{e(ns, "namespaceJoin")}}
                 </span>
-                <span v-if="isState('create')">
+                <span v-else-if="isState('create')">
                   {{e(ns, "namespaceCreate")}}
                 </span>
-                <span v-if="isState('search') || isState('full')">
+                <span v-else>
                   {{e(ns, "namespaceList")}}
                 </span>
               </bu>
@@ -91,7 +95,7 @@
       return {
         e: say,
         ns,
-        state: "search" as "search" | "create" | "join" | "full",
+        state: "search" as "search" | "create" | "join" | "full" | "empty",
         namespace: "",
         stDef: [
           {
@@ -115,7 +119,8 @@
       link.RX(events.namespaceQuery, queryHandler);
       const joinHandler = (m: cd.In) => {
         if (m.result === cd.response.ok) {
-          this.$router.push({name: RouterName.room, params: {uid: m.uid as string}});
+          // TODO: room id
+          this.$router.push({name: RouterName.room, params: {ns: this.namespace}});
         } else if (m.result === cd.response.full) {
           this.state = "full";
         } else {
@@ -125,7 +130,11 @@
       link.RX(events.namespaceCreate, joinHandler);
     },
     methods: {
-      event() {
+      query() {
+        if (this.namespace.length === 0) {
+          this.state = "empty";
+          return;
+        }
         if (["search", "full"].includes(this.state)) {
           link.TX(events.namespaceQuery, {
             namespace: this.namespace

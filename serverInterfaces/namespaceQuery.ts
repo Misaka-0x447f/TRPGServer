@@ -6,7 +6,6 @@ export interface Out extends Transfer {
 
 export interface In extends Receive {
   result: response;
-  namespace?: string;
 }
 
 export enum response {

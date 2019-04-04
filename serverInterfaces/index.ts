@@ -52,10 +52,19 @@ export interface UpstreamOptions {
   auth?: false; // if false, auth is not required by this method
 }
 
+// Receiving extra data in listener
+export interface UpstreamExtras {
+  // for get uid in listener
+  auth?: {
+    user: string;
+    uid: string;
+  };
+}
+
 export interface UpstreamListener {
   event: events;
   callback: UpstreamListenerCallback;
   options?: UpstreamOptions;
 }
 
-export type UpstreamListenerCallback = (L: Server, T: object) => void;
+export type UpstreamListenerCallback = (L: Server, T: Transfer, E?: UpstreamExtras) => void;

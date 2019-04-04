@@ -56,6 +56,7 @@ export const dict = {
       namespaceExist: "名字空间已存在",
       namespaceNotExist: "名字空间不存在",
       namespaceFull: "名字空间无法接受更多的成员",
+      namespaceNameEmpty: "名字空间的名字不能是空的",
       briefingRoom: "简报室"
     },
     propertyEditor: {
