@@ -10,13 +10,13 @@ export const setRegProcessor = (s: Server, m: Out) => {
   if (isUndefined(found)) {
     const user: OnlineUserData = {
       user: m.user,
-      uid: uid()
+      credential: uid()
     };
     userPool.push(user);
     s.TX(events.reg, {result: regResponse.ok, ...user} as In);
   } else {
-    if (m.uid) {
-      if (found.uid === m.uid) {
+    if (m.credential) {
+      if (found.credential === m.credential) {
         s.TX(events.reg, {result: regResponse.ok, ...found});
       } else {
         s.TX(events.reg, {result: regResponse.rejected});

@@ -39,14 +39,14 @@ export class Server {
           // auth required?
           if (get(v, "options.auth") !== false) {
             const user = get(req, "options.auth.user");
-            const uid = get(req, "options.auth.uid");
+            const credential = get(req, "options.auth.credential");
             // ...and auth failed?
-            if (!auth(user, uid)) {
+            if (!auth(user, credential)) {
               this.authError(v.event);  // send "auth error";
               return false; // equal to "continue" in native forEach;
             }
             // auth required, succeed, has extra data;
-            v.callback(this, req.payload, {auth: {user, uid}});
+            v.callback(this, req.payload, {auth: {user, credential}});
           } else {
             // auth not required, no extras
             v.callback(this, req.payload);

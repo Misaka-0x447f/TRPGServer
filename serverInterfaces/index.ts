@@ -11,7 +11,7 @@ export interface Upstream {
   options?: {
     auth?: {
       user: string;
-      uid: string;
+      credential: string;
     };
   };
   payload: Transfer;
@@ -54,10 +54,10 @@ export interface UpstreamOptions {
 
 // Receiving extra data in listener
 export interface UpstreamExtras {
-  // for get uid in listener
+  // for get credential in listener
   auth?: {
     user: string;
-    uid: string;
+    credential: string;
   };
 }
 

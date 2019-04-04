@@ -1,8 +1,8 @@
 import {userPool} from "./state";
 import {find, isUndefined} from "lodash";
 
-export const auth = (user: string, uid: string) => {
-  const found = find(userPool, {uid});
+export const auth = (user: string, credential: string) => {
+  const found = find(userPool, {credential});
   if (isUndefined(found)) {
     return false;
   }

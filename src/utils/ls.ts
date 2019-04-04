@@ -4,13 +4,13 @@ import {isNull} from "lodash";
 import router from "@/router";
 
 export enum LocalStorage {
-  __auth = "__auth" // JSON; user information, including username and uid.
+  __auth = "__auth" // JSON; user information, including username and credential.
 }
 
 export interface LocalStorageDef {
   __auth: {
     user: string;
-    uid: string;
+    credential: string;
   };
 }
 

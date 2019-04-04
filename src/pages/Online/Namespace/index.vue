@@ -119,7 +119,7 @@
       link.RX(events.namespaceQuery, queryHandler);
       const joinHandler = (m: cd.In) => {
         if (m.result === cd.response.ok) {
-          // TODO: room id
+          // TODO: no more room id in router
           this.$router.push({name: RouterName.room, params: {ns: this.namespace}});
         } else if (m.result === cd.response.full) {
           this.state = "full";

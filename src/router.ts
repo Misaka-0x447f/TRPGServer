@@ -3,6 +3,7 @@ import Router from "vue-router";
 
 Vue.use(Router);
 
+// TODO: use router name replace path
 export enum RouterName {
   room = "room"
 }

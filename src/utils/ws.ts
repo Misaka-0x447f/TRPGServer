@@ -62,7 +62,7 @@ class Client {
           event, payload, options: {
             auth: {
               user: get(authObj, "user"),
-              uid: get(authObj, "uid")
+              credential: get(authObj, "credential")
             }
           }
         } as Upstream));

@@ -38,15 +38,15 @@ export const dict = {
     },
     onlineGame: {
       friendlyName: "友好名称",
-      uid: "用户ID",
+      credential: "凭据",
       setName: "服务器不允许匿名登录",
       setNameDesc: "我们不要求密码等其他信息，也不会在磁盘中永久存储任何信息。" +
         "您的游戏进度将由您的游戏管理员保管。",
-      userExist: "友好名称已存在。输入用户ID或另一个名称。",
+      userExist: "友好名称已存在。输入凭据或另一个名称。",
       validateFailed: "鉴权失败。请重试。",
       networkError: "网络连接出现问题。",
       logOut: "登出",
-      logOutDesc: "登出后，可以凭以上用户ID再次登录",
+      logOutDesc: "登出后，可使用以上凭据再次登录",
       namespaceSelect: "选择名字空间",
       namespaceSelectPublicNotSupported: "服务器不支持列出名字空间。输入名称来搜索一个名字空间。",
       namespaceName: "名字空间名称",
@@ -55,8 +55,8 @@ export const dict = {
       namespaceCreate: "创建",
       namespaceExist: "名字空间已存在",
       namespaceNotExist: "名字空间不存在",
-      namespaceFull: "名字空间无法接受更多的成员",
-      namespaceNameEmpty: "名字空间的名字不能是空的",
+      namespaceFull: "名字空间成员过多",
+      namespaceNameEmpty: "查询不能为空",
       briefingRoom: "简报室"
     },
     propertyEditor: {

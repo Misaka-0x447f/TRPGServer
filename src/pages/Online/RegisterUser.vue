@@ -16,7 +16,7 @@
             <inp
               v-show="status !== stat.empty"
               v-model="uidInputs"
-              :label="e(ns, 'uid')"
+              :label="e(ns, 'credential')"
             >
             </inp>
           </div>
@@ -55,16 +55,15 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  
+
   import inp from "@/components/InputField/Input.vue";
   import bu from "@/components/InputField/Button.vue";
   import dia from "@/components/Dialogs/Simple/index.vue";
   import fl from "@/components/FullScreenFloating.vue";
   import st from "@/components/SideTab/index.vue";
-  
+
   import {ns} from "@/interfaces/Online";
   import {say} from "@/utils/i18n";
-  import state from "@/utils/state";
   import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
@@ -99,8 +98,6 @@
     mounted() {
       const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
-          state.online.user = m.user;
-          state.online.uid = m.uid;
           Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
           this.$router.push("/online/namespace");
         } else if (m.result === regResponse.exist) {
@@ -121,7 +118,7 @@
         } else {
           link.TX(events.reg, {
             user: this.usernameInputs,
-            uid: removeSpace(this.uidInputs)
+            credential: removeSpace(this.uidInputs)
           } as Out, {auth: false});
         }
       },

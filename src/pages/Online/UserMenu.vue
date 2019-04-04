@@ -7,7 +7,7 @@
       <div>
         <div class="info">
           <div class="code">
-            {{Env.get(LocalStorage.__auth)['uid']}}
+            {{Env.get(LocalStorage.__auth)['credential']}}
           </div>
           <div>
             {{e(ns, "logOutDesc")}}
