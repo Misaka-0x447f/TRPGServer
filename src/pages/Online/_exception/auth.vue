@@ -22,6 +22,7 @@
   import ex from "@/components/Dialogs/ExceptionDialog.vue";
   
   import {logOut} from "@/utils/ls";
+  import {say} from "@/utils/i18n";
 
   export default Vue.extend({
     name: "auth.vue",
@@ -30,7 +31,8 @@
     },
     data: () => {
       return {
-        logOut
+        logOut,
+        e: say
       };
     }
   });

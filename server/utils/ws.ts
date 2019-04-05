@@ -37,7 +37,7 @@ export class Server {
       this.listener.forEach((v: UpstreamListener) => {
         if (v.event === req.event) {
           // auth required?
-          if (get(v, "extras.auth") !== false) {
+          if (get(v, "options.auth") !== false) {
             const user = get(req, "extras.auth.user");
             const credential = get(req, "extras.auth.credential");
             // ...and auth failed?
