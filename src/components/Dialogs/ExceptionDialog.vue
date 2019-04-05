@@ -3,12 +3,12 @@
     <div class="container">
       <fl>
         <dia
-          :title="e('global', 'authErrorTitle')"
+          :title="title"
         >
-          {{e('global', 'authError')}}
+          <slot></slot>
           <template #footer>
-            <bu class="logout-button" @click="logOut">
-              {{e("onlineGame", "logOut")}}({{timer}})
+            <bu class="action-button" @click="act">
+              {{action}}({{timer}})
             </bu>
           </template>
         </dia>
@@ -17,40 +17,46 @@
   </div>
 </template>
 <style lang="stylus" scoped>
-  .logout-button {
+  .action-button {
     margin-left: auto;
   }
 </style>
 <script lang="ts">
   import Vue from "vue";
-  
+
   import fl from "@/components/FullScreenFloating.vue";
   import dia from "@/components/Dialogs/Simple/index.vue";
   import bu from "@/components/InputField/Button.vue";
-  
+
   import {say} from "@/utils/i18n";
-  import {logOut} from "@/utils/ls";
 
   export default Vue.extend({
-    name: "index",
+    name: "auth.vue",
     components: {
       fl,
       dia,
       bu
+    },
+    props: {
+      title: {
+        type: String
+      },
+      action: {
+        type: String
+      }
     },
     data: () => {
       return {
         e: say,
         timer: 29,
         timeoutNumber: NaN,
-        logOut
       };
     },
     mounted() {
       this.timeoutNumber = setInterval(() => {
         if (this.timer <= 0) {
           clearInterval(this.timeoutNumber);
-          logOut();
+          this.act();
           return;
         }
         this.timer--;
@@ -58,6 +64,11 @@
     },
     beforeDestroy() {
       clearInterval(this.timeoutNumber);
+    },
+    methods: {
+      act() {
+        this.$emit("ok");
+      }
     }
   });
 </script>

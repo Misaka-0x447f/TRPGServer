@@ -18,7 +18,7 @@
   import router, {RouterName} from "../../router";
 
   export default Vue.extend({
-    name: "index",
+    name: "auth.vue",
     data: () => {
       return {
         e: say

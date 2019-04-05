@@ -44,7 +44,7 @@ export default new Router({
         {
           path: "authError",
           name: RouterName.authError,
-          component: () => import("@/pages/Online/AuthError/index.vue")
+          component: () => import("@/pages/Online/_exception/auth.vue")
         },
         {
           path: "/",
@@ -52,12 +52,12 @@ export default new Router({
           component: () => import("@/pages/Online/RegisterUser.vue")
         },
         {
-          path: "namespace", // choosing a namespace to join && play
+          path: "ns", // choosing a namespace to join && play
           name: RouterName.nsSelect,
           component: () => import("@/pages/Online/Namespace/index.vue")
         },
         {
-          path: "namespace/:ns",
+          path: "ns/room",
           name: RouterName.roomView,
           component: () => import("@/pages/Online/Namespace/RoomView.vue")
         }

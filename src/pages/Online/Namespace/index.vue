@@ -1,3 +1,4 @@
+import {LocalStorage} from "../../../utils/ls";
 <template>
   <div class="root">
     <st
@@ -63,23 +64,24 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  
+
   import dia from "@/components/Dialogs/Simple/index.vue";
   import bu from "@/components/InputField/Button.vue";
   import inp from "@/components/InputField/Input.vue";
   import fl from "@/components/FullScreenFloating.vue";
   import st from "@/components/SideTab/index.vue";
   import us from "../UserMenu.vue";
-  
+
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Online";
   import {link} from "@/utils/ws";
   import {events} from "../../../../serverInterfaces";
   import {RouterName} from "@/router";
   import {ico} from "@/utils/FontAwesome";
-  
+
   import * as ls from "../../../../serverInterfaces/namespaceQuery";
   import * as cd from "../../../../serverInterfaces/namespaceCreate";
+  import state from "@/utils/state";
 
   export default Vue.extend({
     name: "Room",
@@ -119,8 +121,8 @@
       link.RX(events.namespaceQuery, queryHandler);
       const joinHandler = (m: cd.In) => {
         if (m.result === cd.response.ok) {
-          // TODO: no more room id in router, take another name
-          this.$router.push({name: RouterName.roomView, params: {ns: this.namespace}});
+          state.online.namespace.name = this.namespace;
+          this.$router.push({name: RouterName.roomView});
         } else if (m.result === cd.response.full) {
           this.state = "full";
         } else {

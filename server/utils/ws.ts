@@ -4,7 +4,7 @@ import {
   Upstream,
   UpstreamListener,
   UpstreamListenerCallback,
-  UpstreamOptions
+  UpstreamListenerOptions
 } from "../../serverInterfaces";
 import {isJSONString} from "./lang";
 import {get} from "lodash";
@@ -37,27 +37,28 @@ export class Server {
       this.listener.forEach((v: UpstreamListener) => {
         if (v.event === req.event) {
           // auth required?
-          if (get(v, "options.auth") !== false) {
-            const user = get(req, "options.auth.user");
-            const credential = get(req, "options.auth.credential");
+          if (get(v, "extras.auth") !== false) {
+            const user = get(req, "extras.auth.user");
+            const credential = get(req, "extras.auth.credential");
             // ...and auth failed?
             if (!auth(user, credential)) {
               this.authError(v.event);  // send "auth error";
-              return false; // equal to "continue" in native forEach;
+              return; // equal to "continue" in native forEach;
             }
             // auth required, succeed, has extra data;
             v.callback(this, req.payload, {auth: {user, credential}});
-          } else {
-            // auth not required, no extras
-            v.callback(this, req.payload);
+            return;
           }
+
+          // no special action required, no extras
+          v.callback(this, req.payload);
         }
       });
     });
   }
 
   // listen to client
-  public RX(event: events, callback: UpstreamListenerCallback, options?: UpstreamOptions) {
+  public RX(event: events, callback: UpstreamListenerCallback, options?: UpstreamListenerOptions) {
     this.listener.push({event, callback, options});
   }
 

@@ -6,50 +6,52 @@ export enum events {
   namespaceCreate = "namespaceCreate" // create or get in
 }
 
-export interface Upstream {
-  event: events;
-  options?: {
-    auth?: {
-      user: string;
-      credential: string;
-    };
-  };
-  payload: Transfer;
-}
-
-export interface Downstream {
-  event: events;
-  extras?: {
-    auth?: false;
-  };
-  payload: Receive;
-}
-
 // tslint:disable-next-line
-export interface Transfer {}
+export interface Transfer {
+}
 
 export interface Receive {
   result: any;
 }
 
-// Downstream Listeners
+// Downstream
 
-export interface DownstreamOptions {
-  auth?: false; // if false, client thought that auth not required
+export interface Downstream {
+  event: events;
+  extras?: DownstreamExtras;
+  payload: Receive;
+}
+
+/*
+* No downstream listener/sender options here.
+* If auth failed, it could be figure out by extra data.
+* */
+
+export interface DownstreamExtras {
+  auth?: false; // exist if auth failed
 }
 
 export interface DownstreamListener {
   event: events;
   callback: DownstreamListenerCallback;
-  options?: DownstreamOptions;
 }
 
 export type DownstreamListenerCallback = (T: Receive) => void;
 
-// Upstream Listener
+// Upstream
 
-export interface UpstreamOptions {
-  auth?: false; // if false, auth is not required by this method
+export interface Upstream {
+  event: events;
+  extras?: UpstreamExtras;
+  payload: Transfer;
+}
+
+export interface UpstreamSenderOptions {
+  auth?: false;  // if false no auth need with this method;
+}
+
+export interface UpstreamListenerOptions {
+  auth?: false; // exist so auth is not required by this method
 }
 
 // Receiving extra data in listener
@@ -64,7 +66,7 @@ export interface UpstreamExtras {
 export interface UpstreamListener {
   event: events;
   callback: UpstreamListenerCallback;
-  options?: UpstreamOptions;
+  options?: UpstreamListenerOptions;
 }
 
 export type UpstreamListenerCallback = (L: Server, T: Transfer, E?: UpstreamExtras) => void;

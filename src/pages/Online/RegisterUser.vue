@@ -107,7 +107,7 @@
           this.status = stat.validateFailed;
         }
       };
-      link.RX(events.reg, regHandler, {auth: false});
+      link.RX(events.reg, regHandler);
     },
     methods: {
       tryReg() {

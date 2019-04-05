@@ -57,7 +57,9 @@ export const dict = {
       namespaceNotExist: "名字空间不存在",
       namespaceFull: "名字空间成员过多",
       namespaceNameEmpty: "查询不能为空",
-      briefingRoom: "简报室"
+      notInNsTitle: "不在名字空间中",
+      notInNs: "您已不在当前名字空间中。可能是服务器已重置，或房间已消失。将返回选择页面。",
+      briefingRoom: "简报室",
     },
     propertyEditor: {
       contentEmpty: "属性编辑器中没有数据。按 Enter 添加一行数据。",

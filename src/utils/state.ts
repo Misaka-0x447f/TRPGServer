@@ -15,6 +15,12 @@ class FiniteStateManager {
     }
   };
 
+  public online = {
+    namespace: {
+      name: undefined as string | undefined
+    }
+  };
+
   // public update(namespace: keyof this, value: object) {
   //   console.log(`updating ${namespace} <<<<< state`);
   //   console.log(this[namespace]);

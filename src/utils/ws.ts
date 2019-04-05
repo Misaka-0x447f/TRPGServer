@@ -1,10 +1,10 @@
 import WSL from "reconnecting-websocket";
 import {serverAddr} from "@/interfaces/ws";
 import {
+  UpstreamSenderOptions,
   Downstream,
   DownstreamListener,
   DownstreamListenerCallback,
-  DownstreamOptions,
   events,
   Transfer,
   Upstream
@@ -13,10 +13,6 @@ import {timeout} from "@/utils/lang";
 import {get} from "lodash";
 import {Env, LocalStorage, logOut} from "@/utils/ls";
 import router from "@/router";
-
-interface ClientTXOptions {
-  auth?: false;  // if false no auth need with this method;
-}
 
 // TODO: memory leak.
 class Client {
@@ -51,7 +47,7 @@ class Client {
     });
   }
 
-  public TX(event: events, payload: Transfer, options?: ClientTXOptions) {
+  public TX(event: events, payload: Transfer, options?: UpstreamSenderOptions) {
     if (get(options, "auth") === false) {
       this.ws.send(JSON.stringify({event, payload} as Upstream));
       console.log(`>>> [noAuth] ${JSON.stringify({event, payload} as Upstream)}`);
@@ -59,7 +55,7 @@ class Client {
       if (Env.exist(LocalStorage.__auth)) {
         const authObj = Env.get(LocalStorage.__auth);
         this.ws.send(JSON.stringify({
-          event, payload, options: {
+          event, payload, extras: {
             auth: {
               user: get(authObj, "user"),
               credential: get(authObj, "credential")
@@ -78,8 +74,8 @@ class Client {
     actHere();
   }
 
-  public RX(event: events, callback: DownstreamListenerCallback, options?: DownstreamOptions) {
-    this.listener.push({event, callback, options});
+  public RX(event: events, callback: DownstreamListenerCallback) {
+    this.listener.push({event, callback});
   }
 }
 
