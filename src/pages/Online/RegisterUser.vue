@@ -69,6 +69,7 @@
   import {link} from "@/utils/ws";
   import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
   import {removeSpace} from "@/utils/lang";
+  import {RouterName} from "@/router";
 
   enum stat {
     empty,
@@ -99,7 +100,7 @@
       const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
           Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
-          this.$router.push("/online/namespace");
+          this.$router.push({name: RouterName.nsSelect});
         } else if (m.result === regResponse.exist) {
           this.status = stat.userExist;
         } else if (m.result === regResponse.rejected) {

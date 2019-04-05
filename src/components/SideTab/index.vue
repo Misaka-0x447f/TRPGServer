@@ -49,10 +49,10 @@
             v-show="isActive('_switch_to')"
             class="menu-content"
           >
-            <bu @click="$router.push('/editor')">
+            <bu @click="$router.push({name: RouterName.editor})">
               {{e(ns, "editor")}}
             </bu>
-            <bu @click="$router.push('/online')">
+            <bu @click="$router.push({name: RouterName.register})">
               {{e(ns, "online")}}
             </bu>
           </div>
@@ -153,6 +153,7 @@
   import ec, {ev} from "@/utils/event";
   import {ico} from "@/utils/FontAwesome";
   import bu from "./SideTabContents/Button.vue";
+  import {RouterName} from "@/router";
 
   export default Vue.extend({
     name: "sidebarIndex",
@@ -176,7 +177,8 @@
         activeTab: "",
         e: say,
         ico,
-        ns: "global"
+        ns: "global",
+        RouterName
       };
     },
     mounted() {

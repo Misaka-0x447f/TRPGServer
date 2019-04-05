@@ -15,7 +15,7 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import router from "../../router";
+  import router, {RouterName} from "../../router";
 
   export default Vue.extend({
     name: "index",
@@ -26,7 +26,7 @@
     },
     mounted() {
       // noinspection TypeScriptUnresolvedFunction
-      router.push("/");
+      router.push({name: RouterName.startup});
     }
   });
 </script>

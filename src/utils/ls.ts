@@ -1,7 +1,7 @@
 // typescript limiter for browser's localstorage;
 import {limitedStringify, limitedUnstringify} from "@/utils/lang";
 import {isNull} from "lodash";
-import router from "@/router";
+import router, {RouterName} from "@/router";
 
 export enum LocalStorage {
   __auth = "__auth" // JSON; user information, including username and credential.
@@ -35,5 +35,5 @@ export class Env {
 
 export const logOut = () => {
   Env.clr(LocalStorage.__auth);
-  router.push("/");
+  router.push({name: RouterName.startup});
 };

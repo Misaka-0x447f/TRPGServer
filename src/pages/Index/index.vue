@@ -48,7 +48,6 @@
 <script lang="ts">
   import Vue from "vue";
   import {say} from "@/utils/i18n";
-  import vs from "./VerticalSplitter.vue";
   import wp from "@/components/Wallpaper.vue";
   import st from "@/components/SideTab/index.vue";
 
@@ -57,7 +56,6 @@
   export default Vue.extend({
     name: "MainMenu",
     components: {
-      vs,
       wp,
       st
     },
