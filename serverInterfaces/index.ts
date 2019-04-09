@@ -1,9 +1,11 @@
 import {Server} from "../server/utils/ws";
 
+// events that start with lodash means server event
 export enum events {
   reg = "reg",
   namespaceQuery = "namespaceQuery",
-  namespaceCreate = "namespaceCreate" // create or get in
+  namespaceCreate = "namespaceCreate", // create or get in
+  _auth = "_auth"
 }
 
 // tslint:disable-next-line
@@ -18,7 +20,6 @@ export interface Receive {
 
 export interface Downstream {
   event: events;
-  extras?: DownstreamExtras;
   payload: Receive;
 }
 
@@ -26,10 +27,6 @@ export interface Downstream {
 * No downstream listener/sender options here.
 * If auth failed, it could be figure out by extra data.
 * */
-
-export interface DownstreamExtras {
-  auth?: false; // exist if auth failed
-}
 
 export interface DownstreamListener {
   event: events;

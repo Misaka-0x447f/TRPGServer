@@ -1,5 +1,4 @@
 import {
-  Downstream,
   events,
   Upstream,
   UpstreamListener,
@@ -10,6 +9,7 @@ import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";
 import auth from "./auth";
+import authFailed from "../src/serverEvent/authFailed";
 
 // TODO: memory leaks.
 export class Server {
@@ -42,7 +42,7 @@ export class Server {
             const credential = get(req, "extras.auth.credential");
             // ...and auth failed?
             if (!auth(user, credential)) {
-              this.authError(v.event);  // send "auth error";
+              authFailed(this); // send authFailed
               return; // equal to "continue" in native forEach;
             }
             // auth required, succeed, has extra data;
@@ -71,11 +71,6 @@ export class Server {
   private badRequest() {
     console.log(">>> [badRequest]");
     this.link.send(JSON.stringify({error: "unexpected request string."}));
-  }
-
-  private authError(event: Upstream["event"]) {
-    console.log(">>> [authFailed]");
-    this.link.send(JSON.stringify({event, payload: {}, extras: {auth: false}} as Downstream));
   }
 }
 

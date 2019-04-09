@@ -1,13 +1,13 @@
 import WSL from "reconnecting-websocket";
 import {serverAddr} from "@/interfaces/ws";
 import {
-  UpstreamSenderOptions,
   Downstream,
   DownstreamListener,
   DownstreamListenerCallback,
   events,
   Transfer,
-  Upstream
+  Upstream,
+  UpstreamSenderOptions
 } from "../../serverInterfaces";
 import {timeout} from "@/utils/lang";
 import {get} from "lodash";
@@ -22,16 +22,8 @@ class Client {
   constructor() {
     this.ws.addEventListener("message", (e: MessageEvent) => {
       console.log(`<<< ${e.data}`);
-      // noinspection JSIgnoredPromiseFromCall
       actHere();
       const d = (JSON.parse(e.data) as Downstream);
-
-      // got an auth error?
-      if (get(d, "extras.auth") === false) {
-        // auth error. router push.
-        router.push({name: "authError"});
-        return;
-      }
 
       this.listener.forEach((v: DownstreamListener) => {
         if (v.event === d.event) {
@@ -70,7 +62,6 @@ class Client {
       }
     }
 
-    // noinspection JSIgnoredPromiseFromCall
     actHere();
   }
 
@@ -81,7 +72,11 @@ class Client {
 
 export const link = new Client();
 
-// only for special purpose, do not access outside of 'components/netstat'
+link.RX(events._auth, () => {
+  actHere();
+  router.push({name: "authError"});
+});
+
 export const linkStatus = {
   link: false,
   act: 0
