@@ -13,12 +13,13 @@
 </template>
 <style lang="stylus" scoped>
   .container {
-    border: button-0-disabled 1px solid;
+    border: button-0-disabled 2px solid;
     color: button-0-disabled;
     padding: 0.5em 1em;
     display: inline-block;
     cursor: not-allowed;
     user-select: none;
+    border-radius: 3px;
   }
 
   .container.enabled {
@@ -41,7 +42,8 @@
   }
 
   .container:focus {
-    outline: button-0-focused;
+    border: dotted 2px;
+    outline: none;
   }
 
   .container.inline {
