@@ -5,14 +5,14 @@ export interface OnlineUserData {
   credential: string;
 }
 
-export const namespacePool: NamespacePool[] = [];
+export const namespacePool: Namespace[] = [];
 
-export interface NamespacePool {
+export interface Namespace {
   name: string;
   child: {
-    host: string        // host of the room
-    master: string[],   // game masters
-    player: string[],   // players
+    host: OnlineUserData["user"]            // host of the room
+    master: Array<OnlineUserData["user"]>,  // game masters
+    player: Array<OnlineUserData["user"]>,  // players
   };
   options?: {
     capacity?: {

@@ -3,9 +3,14 @@ import {In, Out, response} from "../../serverInterfaces/namespaceCreate";
 import {namespacePool} from "../utils/state";
 import {find, isUndefined} from "lodash";
 import {events, UpstreamExtras} from "../../serverInterfaces";
+import {userExistInNs} from "../utils/ns";
 
 export const setProcessor = (s: Server, m: Out, e: UpstreamExtras) => {
   const found = find(namespacePool, {name: m.namespace});
+  if (userExistInNs(e.auth.user, found)) {
+    s.TX(events.namespaceCreate, {result: response.ok} as In);
+    return;
+  }
   if (isUndefined(found)) {
     namespacePool.push({
       name: m.namespace,
