@@ -11,6 +11,8 @@ export enum RouterName {
   register = "register",
   nsSelect = "nsSelect",
   roomView = "roomView",
+  nsNotJoined = "nsNotJoined",
+  nsNotExist = "nsNotExist",
 }
 
 // noinspection JSUnusedGlobalSymbols
@@ -45,6 +47,16 @@ export default new Router({
           path: "authError",
           name: RouterName.authError,
           component: () => import("@/pages/Online/_exception/auth.vue")
+        },
+        {
+          path: "notIn",
+          name: RouterName.nsNotJoined,
+          component: () => import("@/pages/Online/_exception/notInNs.vue")
+        },
+        {
+          path: "notExist",
+          name: RouterName.nsNotExist,
+          component: () => import("@/pages/Online/_exception/notExist.vue")
         },
         {
           path: "/",

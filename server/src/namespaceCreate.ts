@@ -15,7 +15,6 @@ export const setProcessor = (s: Server, m: Out, e: UpstreamExtras) => {
     namespacePool.push({
       name: m.namespace,
       child: {
-        host: e.auth.user,
         master: [e.auth.user],
         player: []
       },

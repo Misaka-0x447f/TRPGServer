@@ -100,22 +100,8 @@
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
-
-  interface InitialPointDef {
-    label: string;
-    text: string;
-    inherited: number;
-  }
-
-  interface FreePointDef {
-    totalFree: number;
-  }
-
-  export interface PointDef {
-    initialPoint: InitialPointDef[];
-    freePoint: FreePointDef;
-  }
-
+  import {InitialPointDef, PointDef} from "@/components/InputField/BonusPoint";
+  
   interface BonusStore {
     label: string;
     points: number;

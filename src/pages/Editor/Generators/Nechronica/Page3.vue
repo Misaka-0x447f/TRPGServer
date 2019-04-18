@@ -39,13 +39,15 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
+  import ch from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
   import {getPropertyById} from "@/utils/PropertyEditor";
-  import bonus, {PointDef} from "@/components/InputField/BonusPoint.vue";
+  import bonus from "@/components/InputField/BonusPoint.vue";
   import {equipTypes, FreeEnhanceDecideDef, idEnums, ns} from "@/interfaces/Nechronica";
   import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import {getInheritedEP} from "@/utils/Nechronica";
+  import {Choices} from "@/components/InputField/SelectItem";
+  import {PointDef} from "@/components/InputField/BonusPoint";
 
   export default Vue.extend({
     name: "Page3",

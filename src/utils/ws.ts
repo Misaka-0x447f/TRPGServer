@@ -12,7 +12,7 @@ import {
 import {timeout} from "@/utils/lang";
 import {get} from "lodash";
 import {Env, LocalStorage, logOut} from "@/utils/ls";
-import router from "@/router";
+import router, {RouterName} from "@/router";
 
 // TODO: memory leak.
 class Client {
@@ -72,9 +72,16 @@ class Client {
 
 export const link = new Client();
 
-link.RX(events._auth, () => {
-  actHere();
-  router.push({name: "authError"});
+link.RX(events.authFailed, () => {
+  router.push({name: RouterName.authError});
+});
+
+link.RX(events.namespaceNotExist, () => {
+  router.push({name: RouterName.nsNotExist});
+});
+
+link.RX(events.namespaceNotJoined, () => {
+  router.push({name: RouterName.nsNotJoined});
 });
 
 export const linkStatus = {

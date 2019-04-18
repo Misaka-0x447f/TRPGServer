@@ -81,13 +81,8 @@
   import bu from "./Button.vue";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
-
-  export interface Choices {
-    label: string;  // label of an option. Will be passed to the handler.
-    title: string;
-    desc: string;
-  }
-
+  import {Choices} from "@/components/InputField/SelectItem";
+  
   export default Vue.extend({
     name: "SelectItem",
     components: {

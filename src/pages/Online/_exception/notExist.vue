@@ -2,11 +2,11 @@
   <div class="root">
     <div class="container">
       <ex
-        :title="e(ns, 'notInNsTitle')"
-        :action="e(ns, 'ok')"
-        @ok="exit"
+        :title="e(ns, 'notExistTitle')"
+        :action="e('global', 'ok')"
+        @ok="exitNamespace"
       >
-        {{e(ns, "notInNs")}}
+        {{e(ns, "notExist")}}
       </ex>
     </div>
   </div>
@@ -16,9 +16,8 @@
 <script lang="ts">
   import Vue from "vue";
   import ex from "@/components/Dialogs/ExceptionDialog.vue";
-  import router, {RouterName} from "@/router";
   import {say} from "@/utils/i18n";
-  import state from "@/utils/state";
+  import {exitNamespace} from "@/utils/ns";
 
   export default Vue.extend({
     name: "room",
@@ -28,14 +27,9 @@
     data: () => {
       return {
         e: say,
-        ns: "onlineGame"
+        ns: "onlineGame",
+        exitNamespace
       };
-    },
-    methods: {
-      exit() {
-        state.online.namespace.name = undefined;
-        router.push({name: RouterName.nsSelect});
-      }
     }
   });
 </script>

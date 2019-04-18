@@ -40,7 +40,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
+  import ch from "@/components/InputField/SelectItem.vue";
   import {say} from "@/utils/i18n";
   import {getPropertyById} from "@/utils/PropertyEditor";
   import txt from "@/components/InputField/Input.vue";
@@ -48,6 +48,7 @@
   import {idEnums, ns} from "@/interfaces/Nechronica";
   import {s} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import linkText from "@/components/linkText.vue";
+  import {Choices} from "@/components/InputField/SelectItem";
 
   export default Vue.extend({
     name: "NecPage2",

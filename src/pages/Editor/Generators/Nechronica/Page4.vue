@@ -107,9 +107,10 @@
   import eq from "@/components/InputField/EquipModify/index.vue";
   import {cloneDeep} from "lodash";
   import {computed, computedProxy, s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
-  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
+  import ch from "@/components/InputField/SelectItem.vue";
   import txt from "@/components/InputField/Input.vue";
   import {getHashByString} from "@/utils/math";
+  import {Choices} from "@/components/InputField/SelectItem";
 
   export default Vue.extend({
     name: "Page4",

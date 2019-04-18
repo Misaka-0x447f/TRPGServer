@@ -5,7 +5,10 @@ export enum events {
   reg = "reg",
   namespaceQuery = "namespaceQuery",
   namespaceCreate = "namespaceCreate", // create or get in
-  _auth = "_auth"
+  namespaceChildQuery = "namespaceChildQuery",
+  authFailed = "authFailed",
+  namespaceNotJoined = "namespaceNotJoined",
+  namespaceNotExist = "namespaceNotExist",
 }
 
 // tslint:disable-next-line
@@ -33,7 +36,7 @@ export interface DownstreamListener {
   callback: DownstreamListenerCallback;
 }
 
-export type DownstreamListenerCallback = (T: Receive) => void;
+export type DownstreamListenerCallback = (T: any) => void;
 
 // Upstream
 

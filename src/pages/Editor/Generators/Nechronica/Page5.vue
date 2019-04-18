@@ -46,11 +46,12 @@
   import Vue from "vue";
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Nechronica";
-  import ch, {Choices} from "@/components/InputField/SelectItem.vue";
+  import ch from "@/components/InputField/SelectItem.vue";
   import {s, storageProxy} from "@/pages/Editor/Generators/Nechronica/SharedStorage";
   import {EquipText, Socket} from "@/interfaces/Nechronica/Equips";
   import {getCollectionByLabel, getEquipsToBeSet} from "@/utils/Nechronica";
   import {findIndex} from "lodash";
+  import {Choices} from "@/components/InputField/SelectItem";
 
   export default Vue.extend({
     name: "Page5",
