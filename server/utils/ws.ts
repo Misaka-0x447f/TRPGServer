@@ -9,7 +9,7 @@ import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";
 import auth from "./auth";
-import authFailed from "../src/serverEvent/authFailed";
+import {authFailed} from "../src/_serverEvents";
 
 // TODO: memory leaks.
 export class Server {
