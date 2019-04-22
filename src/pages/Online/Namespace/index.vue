@@ -27,7 +27,7 @@ import {LocalStorage} from "../../../utils/ls";
                   {{e(ns, "namespaceExist")}}
                 </div>
                 <div v-if="isState('create')">
-                  {{e(ns, "namespaceNotExist")}}
+                  {{e(ns, "nsPushNotExist")}}
                 </div>
                 <div v-if="isState('full')">
                   {{e(ns, "namespaceFull")}}
@@ -41,7 +41,7 @@ import {LocalStorage} from "../../../utils/ls";
                   {{e(ns, "namespaceJoin")}}
                 </span>
                 <span v-else-if="isState('create')">
-                  {{e(ns, "namespaceCreate")}}
+                  {{e(ns, "nsJoin")}}
                 </span>
                 <span v-else>
                   {{e(ns, "namespaceList")}}
@@ -79,8 +79,8 @@ import {LocalStorage} from "../../../utils/ls";
   import {RouterName} from "@/router";
   import {ico} from "@/utils/FontAwesome";
 
-  import * as ls from "../../../../serverInterfaces/namespaceQuery";
-  import * as cd from "../../../../serverInterfaces/namespaceCreate";
+  import * as ls from "../../../../serverInterfaces/nsGet";
+  import * as cd from "../../../../serverInterfaces/nsJoin";
   import state from "@/utils/state";
 
   export default Vue.extend({
@@ -118,7 +118,7 @@ import {LocalStorage} from "../../../utils/ls";
           throw new Error("Unexpected state.");
         }
       };
-      link.RX(events.namespaceQuery, queryHandler);
+      link.RX(events.nsGet, queryHandler);
       const joinHandler = (m: cd.In) => {
         if (m.result === cd.response.ok) {
           state.online.namespace.name = this.namespace;
@@ -129,7 +129,7 @@ import {LocalStorage} from "../../../utils/ls";
           throw new Error("Unexpected state.");
         }
       };
-      link.RX(events.namespaceCreate, joinHandler);
+      link.RX(events.nsJoin, joinHandler);
     },
     methods: {
       query() {
@@ -138,11 +138,11 @@ import {LocalStorage} from "../../../utils/ls";
           return;
         }
         if (["search", "full"].includes(this.state)) {
-          link.TX(events.namespaceQuery, {
+          link.TX(events.nsGet, {
             namespace: this.namespace
           } as ls.Out);
         } else if (["create", "join"].includes(this.state)) {
-          link.TX(events.namespaceCreate, {
+          link.TX(events.nsJoin, {
             namespace: this.namespace
           } as cd.Out);
         } else {

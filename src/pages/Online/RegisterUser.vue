@@ -64,7 +64,7 @@
 
   import {ns} from "@/interfaces/Online";
   import {say} from "@/utils/i18n";
-  import {In, Out, regResponse} from "../../../serverInterfaces/userReg";
+  import {In, Out, regResponse} from "../../../serverInterfaces/userUpdate";
   import {events} from "../../../serverInterfaces";
   import {link} from "@/utils/ws";
   import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
@@ -107,17 +107,17 @@
           this.status = stat.validateFailed;
         }
       };
-      link.RX(events.reg, regHandler);
+      link.RX(events.userUpdate, regHandler);
     },
     methods: {
       tryReg() {
         this.status = stat.empty;
         if (this.uidInputs === "") {
-          link.TX(events.reg, {
+          link.TX(events.userUpdate, {
             user: this.usernameInputs
           } as Out, {auth: false});
         } else {
-          link.TX(events.reg, {
+          link.TX(events.userUpdate, {
             user: this.usernameInputs,
             credential: removeSpace(this.uidInputs)
           } as Out, {auth: false});

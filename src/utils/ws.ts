@@ -72,15 +72,15 @@ class Client {
 
 export const link = new Client();
 
-link.RX(events.authFailed, () => {
+link.RX(events.userPushFailedAuth, () => {
   router.push({name: RouterName.authError});
 });
 
-link.RX(events.namespaceNotExist, () => {
+link.RX(events.nsPushNotExist, () => {
   router.push({name: RouterName.nsNotExist});
 });
 
-link.RX(events.namespaceNotJoined, () => {
+link.RX(events.nsPushNotJoined, () => {
   router.push({name: RouterName.nsNotJoined});
 });
 

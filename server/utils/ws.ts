@@ -9,7 +9,7 @@ import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";
 import auth from "./auth";
-import {authFailed} from "../src/authFailed";
+import {userPushFailedAuth} from "../src/userPushFailedAuth";
 
 // TODO: memory leaks.
 export class Server {
@@ -42,7 +42,7 @@ export class Server {
             const credential = get(req, "extras.auth.credential");
             // ...and auth failed?
             if (!auth(user, credential)) {
-              authFailed(this); // send authFailed
+              userPushFailedAuth(this); // send authFailed
               return; // equal to "continue" in native forEach;
             }
             // auth required, succeed, has extra data;

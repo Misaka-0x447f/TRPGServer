@@ -60,7 +60,7 @@
   import {Namespace} from "../../../../server/utils/state";
   import {link} from "@/utils/ws";
   import {events} from "../../../../serverInterfaces";
-  import {In, Out} from "../../../../serverInterfaces/namespaceChildQuery";
+  import {In, Out} from "../../../../serverInterfaces/nsUpdateChild";
   import state from "@/utils/state";
 
   export default Vue.extend({
@@ -94,8 +94,8 @@
       const receiveInitialChild = (m: In) => {
         this.updateTeam(m.child);
       };
-      link.RX(events.namespaceChildQuery, receiveInitialChild);
-      link.TX(events.namespaceChildQuery, {
+      link.RX(events.nsUpdateChild, receiveInitialChild);
+      link.TX(events.nsUpdateChild, {
         namespace: state.online.namespace.name
       } as Out);
     },

@@ -2,13 +2,13 @@ import {Server} from "../server/utils/ws";
 
 // events that start with lodash means server event
 export enum events {
-  reg = "reg",
-  namespaceQuery = "namespaceQuery",
-  namespaceCreate = "namespaceCreate", // create or get in
-  namespaceChildQuery = "namespaceChildQuery",
-  authFailed = "authFailed",
-  namespaceNotJoined = "namespaceNotJoined",
-  namespaceNotExist = "namespaceNotExist",
+  userUpdate = "userUpdate",
+  nsGet = "nsGet",
+  nsJoin = "nsJoin", // create or get in
+  nsUpdateChild = "nsUpdateChild",
+  userPushFailedAuth = "userPushFailedAuth",
+  nsPushNotJoined = "nsPushNotJoined",
+  nsPushNotExist = "nsPushNotExist",
 }
 
 // tslint:disable-next-line

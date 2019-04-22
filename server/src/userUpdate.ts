@@ -1,4 +1,4 @@
-import {In, Out, regResponse} from "../../serverInterfaces/userReg";
+import {In, Out, regResponse} from "../../serverInterfaces/userUpdate";
 import {OnlineUserData, userPool} from "../utils/state";
 import {events} from "../../serverInterfaces";
 import {find, isUndefined} from "lodash";
@@ -13,17 +13,17 @@ export const setRegProcessor = (s: Server, m: Out) => {
       credential: uid()
     };
     userPool.push(user);
-    s.TX(events.reg, {result: regResponse.ok, ...user} as In);
+    s.TX(events.userUpdate, {result: regResponse.ok, ...user} as In);
   } else {
     if (m.credential) {
       if (found.credential === m.credential) {
-        s.TX(events.reg, {result: regResponse.ok, ...found});
+        s.TX(events.userUpdate, {result: regResponse.ok, ...found});
       } else {
-        s.TX(events.reg, {result: regResponse.rejected});
+        s.TX(events.userUpdate, {result: regResponse.rejected});
       }
       return;
     }
-    s.TX(events.reg, {result: regResponse.exist} as In);
+    s.TX(events.userUpdate, {result: regResponse.exist} as In);
   }
 };
 

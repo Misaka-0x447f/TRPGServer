@@ -1,6 +1,6 @@
 import {Namespace, namespacePool, OnlineUserData, UserLink} from "./state";
-import {namespaceNotJoined} from "../src/namespaceNotJoined";
-import {namespaceNotExist} from "../src/namespaceNotExist";
+import {nsPushNotJoined} from "../src/nsPushNotJoined";
+import {nsPushNotExist} from "../src/nsPushNotExist";
 import {events} from "../../serverInterfaces";
 import {Server} from "./ws";
 import {find, forIn, isUndefined} from "lodash";
@@ -22,11 +22,11 @@ export const userExistInNs = (user: OnlineUserData["user"], ns: Namespace) => {
 export const nsPermCheck = (ns: string, s: Server, user: OnlineUserData["user"]) => {
   const found = findNs(ns);
   if (isUndefined(found)) {
-    namespaceNotExist(s);
+    nsPushNotExist(s);
     return;
   }
   if (!userExistInNs(user, found)) {
-    namespaceNotJoined(s);
+    nsPushNotJoined(s);
     return;
   }
   return found;
