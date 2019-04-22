@@ -1,9 +1,9 @@
 import {EventEmitter} from "events";
 
-export enum ev {
+export enum EventType {
   menuButtonClick = "menuButtonClick",
 }
 
-export const ec = new EventEmitter(); // ec stands for event center
+export const EventManager = new EventEmitter();
 
-export default ec;
+export default EventManager;

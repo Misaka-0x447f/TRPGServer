@@ -28,7 +28,7 @@
 </style>
 <script lang="ts">
   import Vue from "vue";
-  import ec, {ev} from "@/utils/event";
+  import EventManager, {EventType} from "@/utils/event";
 
   export default Vue.extend({
     name: "Click",
@@ -44,7 +44,7 @@
     },
     methods: {
       click() {
-        ec.emit(ev.menuButtonClick);
+        EventManager.emit(EventType.menuButtonClick);
         this.$emit("click");
       }
     }

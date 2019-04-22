@@ -15,3 +15,11 @@ function connected(link: WebSocket) {
 }
 
 listen(connected);
+
+/*
+  TODO: change file names according to the following rules
+  request send by client: getXXX / setXXX
+  request send by server: pushXXX / pullXXX
+ */
+
+// TODO: missing room close, user leave, heartbeat

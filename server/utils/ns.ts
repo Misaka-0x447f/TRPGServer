@@ -1,8 +1,13 @@
-import {Namespace, namespacePool, OnlineUserData} from "./state";
-import {find, isUndefined} from "lodash";
-import {namespaceNotExist} from "../src/namespaceNotExist";
-import {Server} from "./ws";
+import {Namespace, namespacePool, OnlineUserData, UserLink} from "./state";
 import {namespaceNotJoined} from "../src/namespaceNotJoined";
+import {namespaceNotExist} from "../src/namespaceNotExist";
+import {events} from "../../serverInterfaces";
+import {Server} from "./ws";
+import {find, forIn, isUndefined} from "lodash";
+
+export const findNs = (ns: string) => {
+  return find(namespacePool, {name: ns});
+};
 
 export const userExistInNs = (user: OnlineUserData["user"], ns: Namespace) => {
   if (isUndefined(ns)) {
@@ -15,7 +20,7 @@ export const userExistInNs = (user: OnlineUserData["user"], ns: Namespace) => {
 };
 
 export const nsPermCheck = (ns: string, s: Server, user: OnlineUserData["user"]) => {
-  const found = find(namespacePool, {name: ns});
+  const found = findNs(ns);
   if (isUndefined(found)) {
     namespaceNotExist(s);
     return;
@@ -25,4 +30,10 @@ export const nsPermCheck = (ns: string, s: Server, user: OnlineUserData["user"])
     return;
   }
   return found;
+};
+
+export const nsBroadcast = (ns: Namespace, event: events, payload: object) => {
+  forIn(ns.childLink, (v: UserLink) => {
+    v.link.TX(event, payload);
+  });
 };

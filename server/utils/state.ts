@@ -1,3 +1,5 @@
+import {Server} from "./ws";
+
 export const userPool: OnlineUserData[] = [];
 
 export interface OnlineUserData {
@@ -13,10 +15,16 @@ export interface Namespace {
     master: Array<OnlineUserData["user"]>,  // game masters
     player: Array<OnlineUserData["user"]>,  // players
   };
+  childLink: UserLink[];
   options?: {
     capacity?: {
       master: number,
       player: number, // max player count
     }
   };
+}
+
+export interface UserLink {
+  user: OnlineUserData["user"];
+  link: Server;
 }
