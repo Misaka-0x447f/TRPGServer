@@ -27,7 +27,7 @@ import {LocalStorage} from "../../../utils/ls";
                   {{e(ns, "namespaceExist")}}
                 </div>
                 <div v-if="isState('create')">
-                  {{e(ns, "nsPushNotExist")}}
+                  {{e(ns, "namespaceNotExist")}}
                 </div>
                 <div v-if="isState('full')">
                   {{e(ns, "namespaceFull")}}
@@ -41,7 +41,7 @@ import {LocalStorage} from "../../../utils/ls";
                   {{e(ns, "namespaceJoin")}}
                 </span>
                 <span v-else-if="isState('create')">
-                  {{e(ns, "nsJoin")}}
+                  {{e(ns, "namespaceCreate")}}
                 </span>
                 <span v-else>
                   {{e(ns, "namespaceList")}}
