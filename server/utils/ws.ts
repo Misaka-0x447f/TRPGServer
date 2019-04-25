@@ -75,6 +75,7 @@ export class Server {
 }
 
 export const listen = (listener: (T: WebSocket) => void) => {
+  console.log("Setting up server with port number " + (process.env.PORT || 6655));
   const wss = new ws.Server({port: (process.env.PORT || 6655) as number});
   wss.on("connection", listener);
 };

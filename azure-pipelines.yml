@@ -8,24 +8,28 @@ trigger:
 
 pool:
   vmImage: 'Ubuntu-16.04'
-
-steps:
-- script: |
-    npm install
-    npm run build
-    cd server
-    npm install
-    npm run build
-  displayName: 'npm run build'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
-    artifactName: 'client'
-  displayName: 'client - publish'
-
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
-    artifactName: 'server'
-  displayName: 'server - publish'
+  
+jobs:
+  - job: 'client'
+    steps:
+    - script: |
+        npm i
+        npm run build
+      displayName: 'build'
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
+        artifactName: 'client'
+      displayName: 'publish'
+  - job: 'server'
+    steps:
+      - script: |
+        cd server
+        npm i
+        npm run build
+      displayName: 'build'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
+          artifactName: 'server'
+        displayName: 'publish'
