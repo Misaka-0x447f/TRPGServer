@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- master
+  - master
 
 jobs:
   - job: 'client'
@@ -25,10 +25,10 @@ jobs:
       vmImage: 'Ubuntu-16.04'
     steps:
       - script: |
-        cd server
-        npm i
-        npm run build
-      displayName: 'build'
+          cd server
+          npm i
+          npm run build
+        displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
           PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
