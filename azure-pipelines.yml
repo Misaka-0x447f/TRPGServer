@@ -6,22 +6,23 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'Ubuntu-16.04'
-  
 jobs:
   - job: 'client'
+    pool:
+      vmImage: 'Ubuntu-16.04'
     steps:
-    - script: |
-        npm i
-        npm run build
-      displayName: 'build'
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
-        artifactName: 'client'
-      displayName: 'publish'
+      - script: |
+          npm i
+          npm run build
+        displayName: 'build'
+      - task: PublishBuildArtifacts@1
+        inputs:
+          PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
+          artifactName: 'client'
+        displayName: 'publish'
   - job: 'server'
+    pool:
+      vmImage: 'Ubuntu-16.04'
     steps:
       - script: |
         cd server
