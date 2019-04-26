@@ -11,9 +11,11 @@ jobs:
     pool:
       vmImage: 'win1803'
     steps:
-      - script: |
-          npm i
-          npm run build
+      - task: Bash@1
+        inputs:
+          script: |
+            npm i
+            npm run build
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
@@ -24,10 +26,12 @@ jobs:
     pool:
       vmImage: 'win1803'
     steps:
-      - script: |
-          cd server
-          npm i
-          npm run build
+      - task: Bash@1
+        inputs:
+          script: |
+            npm i
+            npm run build
+          workingDirectory: ./server
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
