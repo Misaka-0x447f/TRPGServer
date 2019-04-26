@@ -11,11 +11,12 @@ jobs:
     pool:
       vmImage: 'win1803'
     steps:
-      - task: PowerShell@2
+      - task: Npm@1
+        displayName: 'install'
+      - task: Npm@1
         inputs:
-          script: |
-            npm i
-            npm run build
+          command: custom
+          customCommand: build
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
@@ -26,12 +27,15 @@ jobs:
     pool:
       vmImage: 'win1803'
     steps:
-      - task: PowerShell@2
+      - task: Npm@1
         inputs:
-          script: |
-            npm i
-            npm run build
-          workingDirectory: ./server
+          workingDir: server
+        displayName: 'install'
+      - task: Npm@1
+        inputs:
+          workingDir: server
+          command: custom
+          customCommand: build
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
