@@ -9,7 +9,7 @@ trigger:
 jobs:
   - job: 'client'
     pool:
-      vmImage: 'Ubuntu-16.04'
+      vmImage: 'win1803'
     steps:
       - script: |
           npm i
@@ -22,7 +22,7 @@ jobs:
         displayName: 'publish'
   - job: 'server'
     pool:
-      vmImage: 'Ubuntu-16.04'
+      vmImage: 'win1803'
     steps:
       - script: |
           cd server
