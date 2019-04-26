@@ -16,7 +16,7 @@ jobs:
       - task: Npm@1
         inputs:
           command: custom
-          customCommand: build
+          customCommand: run build
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
@@ -35,7 +35,7 @@ jobs:
         inputs:
           workingDir: server
           command: custom
-          customCommand: build
+          customCommand: run build
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
