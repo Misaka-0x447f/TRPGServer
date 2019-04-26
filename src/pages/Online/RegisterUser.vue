@@ -97,6 +97,7 @@
       };
     },
     mounted() {
+      // TODO: handle user tries to login again
       const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
           Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
