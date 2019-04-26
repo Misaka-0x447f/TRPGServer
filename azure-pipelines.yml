@@ -11,30 +11,30 @@ jobs:
     pool:
       vmImage: 'win1803'
     steps:
-      - task: Bash@1
-        inputs:
-          script: |
-            npm i
-            npm run build
-        displayName: 'build'
+      - task: Bash@3
+          inputs:
+            script: |
+              npm i
+              npm run build
+          displayName: 'build'
       - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
-          artifactName: 'client'
-        displayName: 'publish'
+          inputs:
+            PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
+            artifactName: 'client'
+          displayName: 'publish'
   - job: 'server'
     pool:
       vmImage: 'win1803'
     steps:
-      - task: Bash@2
-        inputs:
-          script: |
-            npm i
-            npm run build
-          workingDirectory: ./server
-        displayName: 'build'
+      - task: Bash@3
+          inputs:
+            script: |
+              npm i
+              npm run build
+            workingDirectory: ./server
+          displayName: 'build'
       - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
-          artifactName: 'server'
-        displayName: 'publish'
+          inputs:
+            PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
+            artifactName: 'server'
+          displayName: 'publish'
