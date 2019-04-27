@@ -1,54 +1,19 @@
 {
-  "icon": "trpg-server",
-  "version": "0.1.0",
-  "private": true,
+  "name": "trpgserver",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://dev.azure.com/misaka-org/trpg/_apis/build/status/Misaka-0x447f.TRPGServer?branchName=master)](https://dev.azure.com/misaka-org/trpg/_build/latest?definitionId=2&branchName=master)",
+  "main": "index.js",
   "scripts": {
-    "start": "concurrently -p \".\" -c \"blueBright.bgBlueBright,yellowBright.bgYellowBright\" \"npm:serve\" \"cd server && npm start -s\"",
-    "start.raw": "concurrently -r \"npm:serve\" \"cd server && npm start -s\"",
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "inspect-webpack-config": "vue-cli-service inspect > webpack-config-readable.txt"
+    "start": "npx concurrently -n \".\" --c cyan.bgCyan,magenta.bgMagenta \"cd client && npm start\" \"cd server && npm start -s\""
   },
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.17",
-    "@fortawesome/free-solid-svg-icons": "^5.8.1",
-    "@fortawesome/vue-fontawesome": "^0.1.6",
-    "events": "^3.0.0",
-    "file-saver": "^2.0.1",
-    "lodash": "^4.17.11",
-    "reconnecting-websocket": "^4.1.10",
-    "sha1": "^1.1.1",
-    "vue": "^2.6.10",
-    "vue-router": "^3.0.5"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Misaka-0x447f/TRPGServer.git"
   },
-  "devDependencies": {
-    "@types/events": "^3.0.0",
-    "@types/file-saver": "^2.0.0",
-    "@types/lodash": "^4.14.123",
-    "@types/node": "^11.13.4",
-    "@types/sha1": "^1.1.1",
-    "@vue/cli-plugin-typescript": "^3.6.0",
-    "@vue/cli-service": "^3.6.0",
-    "concurrently": "^4.1.0",
-    "style-resources-loader": "^1.2.1",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "tslint": "^5.15.0",
-    "tslint-loader": "^3.5.4",
-    "typescript": "^3.4.3",
-    "vue-template-compiler": "^2.6.10",
-    "webpack-cli": "^3.3.0",
-    "webpack-node-externals": "^1.7.2"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Misaka-0x447f/TRPGServer/issues"
   },
-  "postcss": {
-    "plugins": {
-      "autoprefixer": {}
-    }
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ]
+  "homepage": "https://github.com/Misaka-0x447f/TRPGServer#readme"
 }

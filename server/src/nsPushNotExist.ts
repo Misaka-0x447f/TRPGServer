@@ -1,6 +1,6 @@
 import {Server} from "../utils/ws";
-import {events} from "../../serverInterfaces";
-import {In} from "../../serverInterfaces/nsPushNotExist";
+import {events} from "#/index";
+import {In} from "#/nsPushNotExist";
 
 export const nsPushNotExist = (s: Server) => {
   s.TX(events.nsPushNotExist, {} as In);

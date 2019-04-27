@@ -1,8 +1,8 @@
 import {Server} from "../utils/ws";
-import {In, Out, response} from "../../serverInterfaces/nsJoin";
+import {In, Out, response} from "#/nsJoin";
 import {Namespace, namespacePool} from "../utils/state";
 import {isUndefined} from "lodash";
-import {events, UpstreamExtras} from "../../serverInterfaces";
+import {events, UpstreamExtras} from "#/index";
 import {findNs, userExistInNs} from "../utils/ns";
 import ec, {ev, EvListeners} from "../utils/event";
 

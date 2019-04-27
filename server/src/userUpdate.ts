@@ -1,6 +1,6 @@
-import {In, Out, regResponse} from "../../serverInterfaces/userUpdate";
+import {In, Out, regResponse} from "#/userUpdate";
 import {OnlineUserData, userPool} from "../utils/state";
-import {events} from "../../serverInterfaces";
+import {events} from "#/index";
 import {find, isUndefined} from "lodash";
 import uid from "uuid/v1";
 import {Server} from "../utils/ws";

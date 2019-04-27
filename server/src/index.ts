@@ -1,5 +1,5 @@
 import {listen, Server} from "../utils/ws";
-import {events} from "../../serverInterfaces";
+import {events} from "#/index";
 import userUpdate from "./userUpdate";
 import nsGet from "./nsGet";
 import nsJoin from "./nsJoin";

@@ -19,10 +19,8 @@ export const mergeClasses = (...args: Array<object | string>) => {
           c = `${c} ${j}`;
         }
       }
-    } else if (typeof i === "string") {
-      c = `${c} ${i}`;
     } else {
-      throw new Error("Unexpected data type.");
+      c = `${c} ${i}`;
     }
   }
   return c;

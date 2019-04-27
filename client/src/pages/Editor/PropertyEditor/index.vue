@@ -215,7 +215,7 @@
         return this.history.length > 0 && !this.isReadOnly;
       },
       toggleIdView() {
-        this.showId = this.showId !== true;
+        this.showId = !this.showId;
       },
       saveFile() {
         // @ts-ignore

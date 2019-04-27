@@ -4,7 +4,7 @@ import {
   UpstreamListener,
   UpstreamListenerCallback,
   UpstreamListenerOptions
-} from "../../serverInterfaces";
+} from "#/index";
 import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";

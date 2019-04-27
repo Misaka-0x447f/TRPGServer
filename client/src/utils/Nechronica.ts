@@ -179,7 +179,7 @@ export const needsClearEquipConfig = (v: equipTypes) => {
 
 export const cleanEquipsConfig = () => {
   forIn(equipTypes, (v: equipTypes) => {
-    if (needsClearEquipConfig(v) === true) {
+    if (needsClearEquipConfig(v)) {
       // For now just clean up all.
       s[v] = [];
     }

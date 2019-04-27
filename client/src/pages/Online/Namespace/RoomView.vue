@@ -57,10 +57,10 @@
   import {ns} from "@/interfaces/Online";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
-  import {Namespace} from "../../../../server/utils/state";
+  import {Namespace} from "@/../../../server/utils/state";
   import {link} from "@/utils/ws";
-  import {events} from "../../../../serverInterfaces";
-  import {In, Out} from "../../../../serverInterfaces/nsUpdateChild";
+  import {events} from "#";
+  import {In, Out} from "#/nsUpdateChild";
   import state from "@/utils/state";
 
   export default Vue.extend({

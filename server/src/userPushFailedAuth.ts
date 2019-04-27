@@ -1,6 +1,6 @@
 import {Server} from "../utils/ws";
-import {events} from "../../serverInterfaces";
-import {In} from "../../serverInterfaces/userPushFailedAuth";
+import {events} from "#/index";
+import {In} from "#/userPushFailedAuth";
 
 // TODO: use event system
 
