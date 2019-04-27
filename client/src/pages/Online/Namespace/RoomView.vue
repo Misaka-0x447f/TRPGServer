@@ -59,8 +59,8 @@
   import {say} from "@/utils/i18n";
   import {Namespace} from "@/../../../server/utils/state";
   import {link} from "@/utils/ws";
-  import {events} from "#";
-  import {In, Out} from "#/nsUpdateChild";
+  import {events} from "../../../../../bridge";
+  import {In, Out} from "../../../../../bridge/nsUpdateChild";
   import state from "@/utils/state";
 
   export default Vue.extend({

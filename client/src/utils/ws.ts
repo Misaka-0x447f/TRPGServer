@@ -8,7 +8,7 @@ import {
   Transfer,
   Upstream,
   UpstreamSenderOptions
-} from "#";
+} from "@/../../bridge";
 import {timeout} from "@/utils/lang";
 import {get} from "lodash";
 import {Env, LocalStorage, logOut} from "@/utils/ls";

@@ -75,12 +75,12 @@ import {LocalStorage} from "../../../utils/ls";
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Online";
   import {link} from "@/utils/ws";
-  import {events} from "#";
+  import {events} from "../../../../../bridge";
   import {RouterName} from "@/router";
   import {ico} from "@/utils/FontAwesome";
 
-  import * as ls from "#/nsGet";
-  import * as cd from "#/nsJoin";
+  import * as ls from "../../../../../bridge/nsGet";
+  import * as cd from "../../../../../bridge/nsJoin";
   import state from "@/utils/state";
 
   export default Vue.extend({

@@ -1,6 +1,6 @@
 import {Server} from "../utils/ws";
-import {events} from "#/index";
-import {In} from "#/userPushFailedAuth";
+import {events} from "../../bridge";
+import {In} from "../../bridge/userPushFailedAuth";
 
 // TODO: use event system
 

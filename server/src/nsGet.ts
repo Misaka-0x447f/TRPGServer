@@ -1,7 +1,7 @@
 import {Server} from "../utils/ws";
-import {In, Out, response} from "#/nsGet";
+import {In, Out, response} from "../../bridge/nsGet";
 import {isUndefined} from "lodash";
-import {events} from "#/index";
+import {events} from "../../bridge";
 import {findNs} from "../utils/ns";
 
 export const setProcessor = (s: Server, m: Out) => {

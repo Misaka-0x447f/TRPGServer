@@ -26,8 +26,9 @@ module.exports = {
         return {
           emitErrors: true
         }
-      })
-      .end();
+      });
+    
+    // config.resolve.alias
     const types = ['vue-modules', 'vue', 'normal-modules', 'normal'];
     // noinspection JSUnresolvedFunction
     types.forEach(type => addStyleResource(config.module.rule('stylus').oneOf(type)));

@@ -12,15 +12,18 @@ jobs:
       vmImage: 'win1803'
     steps:
       - task: Npm@1
+        inputs:
+          workingDir: client
         displayName: 'install'
       - task: Npm@1
         inputs:
+          workingDir: client
           command: custom
           customCommand: run build
         displayName: 'build'
       - task: PublishBuildArtifacts@1
         inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/dist'
+          PathtoPublish: '$(System.DefaultWorkingDirectory)/client/dist'
           artifactName: 'client'
         displayName: 'publish'
   - job: 'server'

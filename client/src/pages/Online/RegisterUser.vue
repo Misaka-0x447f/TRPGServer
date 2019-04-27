@@ -64,8 +64,8 @@
 
   import {ns} from "@/interfaces/Online";
   import {say} from "@/utils/i18n";
-  import {In, Out, regResponse} from "#/userUpdate";
-  import {events} from "#";
+  import {In, Out, regResponse} from "../../../../bridge/userUpdate";
+  import {events} from "../../../../bridge";
   import {link} from "@/utils/ws";
   import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
   import {removeSpace} from "@/utils/lang";

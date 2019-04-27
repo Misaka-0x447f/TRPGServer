@@ -7,8 +7,7 @@
     "baseUrl": ".",
     "outDir": "./out",
     "paths": {
-      "#": ["../interfaces"],
-      "#/*": ["../interfaces/*"]
+      "@/*": ["src/*"]
     }
   },
   "include": [
