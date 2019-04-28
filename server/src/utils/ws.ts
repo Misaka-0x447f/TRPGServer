@@ -1,10 +1,4 @@
-import {
-  events,
-  Upstream,
-  UpstreamListener,
-  UpstreamListenerCallback,
-  UpstreamListenerOptions
-} from "../../../bridge";
+import {events, Upstream, UpstreamListener, UpstreamListenerCallback, UpstreamListenerOptions} from "../../../bridge";
 import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";
@@ -75,7 +69,8 @@ export class Server {
 }
 
 export const listen = (listener: (T: WebSocket) => void) => {
-  console.log("Setting up server with port number " + (process.env.PORT || 6655));
-  const wss = new ws.Server({port: (process.env.PORT || 6655) as number});
+  const port = 6655;
+  console.log("Setting up server with port number " + port);
+  const wss = new ws.Server({port});
   wss.on("connection", listener);
 };
