@@ -9,7 +9,7 @@ trigger:
 jobs:
   - job: 'client'
     pool:
-      vmImage: 'win1803'
+      vmImage: 'ubuntu-16.04'
     steps:
       - task: Npm@1
         inputs:
@@ -30,7 +30,7 @@ jobs:
         displayName: 'publish'
   - job: 'server'
     pool:
-      vmImage: 'win1803'
+      vmImage: 'ubuntu-16.04'
     steps:
       - task: Npm@1
         inputs:
