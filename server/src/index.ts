@@ -1,9 +1,9 @@
-import {listen, Server} from "../utils/ws";
+import {listen, Server} from "./utils/ws";
 import {events} from "../../bridge";
-import userUpdate from "./userUpdate";
-import nsGet from "./nsGet";
-import nsJoin from "./nsJoin";
-import nsUpdateChild from "./nsUpdateChild";
+import userUpdate from "./events/userUpdate";
+import nsGet from "./events/nsGet";
+import nsJoin from "./events/nsJoin";
+import nsUpdateChild from "./events/nsUpdateChild";
 
 function connected(link: WebSocket) {
   const server = new Server(link);

@@ -1,5 +1,5 @@
-import {events, UpstreamExtras} from "../../bridge";
-import {In, Out, response} from "../../bridge/nsUpdateChild";
+import {events, UpstreamExtras} from "../../../bridge";
+import {In, Out, response} from "../../../bridge/nsUpdateChild";
 import {Server} from "../utils/ws";
 import {nsBroadcast, nsPermCheck} from "../utils/ns";
 import {isUndefined} from "lodash";

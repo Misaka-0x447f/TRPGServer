@@ -1,6 +1,6 @@
-import {In, Out, regResponse} from "../../bridge/userUpdate";
+import {In, Out, regResponse} from "../../../bridge/userUpdate";
 import {OnlineUserData, userPool} from "../utils/state";
-import {events} from "../../bridge";
+import {events} from "../../../bridge";
 import {find, isUndefined} from "lodash";
 import uid from "uuid/v1";
 import {Server} from "../utils/ws";

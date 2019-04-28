@@ -1,4 +1,4 @@
-import {Server} from "../server/utils/ws";
+import {Server} from "../server/src/utils/ws";
 
 // events that start with lodash means server event
 export enum events {

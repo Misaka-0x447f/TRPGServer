@@ -4,16 +4,21 @@
   "description": "[![Build Status](https://dev.azure.com/misaka-org/trpg/_apis/build/status/Misaka-0x447f.TRPGServer?branchName=master)](https://dev.azure.com/misaka-org/trpg/_build/latest?definitionId=2&branchName=master)",
   "main": "index.js",
   "scripts": {
-    "start": "npx concurrently -n \".\" --c cyan.bgCyan,magenta.bgMagenta \"cd client && npm start\" \"cd server && npm start -s\""
+    "start": "npx concurrently -r -n \".\" --c cyan.bgCyan,magenta.bgMagenta \"cd client && npm start -s\" \"cd server && npm start -s\"",
+    "build": "npx concurrently -r --kill-others-on-fail \"cd client && npm run build\" \"cd server && npm run build\"",
+    "postinstall": "npx concurrently -r --kill-others-on-fail \"cd client && npm i\" \"cd server && npm i\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Misaka-0x447f/TRPGServer.git"
   },
-  "author": "",
+  "author": "Misaka misaka",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Misaka-0x447f/TRPGServer/issues"
   },
-  "homepage": "https://github.com/Misaka-0x447f/TRPGServer#readme"
+  "homepage": "https://github.com/Misaka-0x447f/TRPGServer#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
 }

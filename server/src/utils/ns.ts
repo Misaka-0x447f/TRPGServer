@@ -1,7 +1,7 @@
 import {Namespace, namespacePool, OnlineUserData, UserLink} from "./state";
-import {nsPushNotJoined} from "../src/nsPushNotJoined";
-import {nsPushNotExist} from "../src/nsPushNotExist";
-import {events} from "#/index";
+import {nsPushNotJoined} from "../events/nsPushNotJoined";
+import {nsPushNotExist} from "../events/nsPushNotExist";
+import {events} from "../../../bridge";
 import {Server} from "./ws";
 import {find, forIn, isUndefined} from "lodash";
 

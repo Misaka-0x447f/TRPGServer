@@ -4,12 +4,12 @@ import {
   UpstreamListener,
   UpstreamListenerCallback,
   UpstreamListenerOptions
-} from "../../bridge";
+} from "../../../bridge";
 import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";
 import auth from "./auth";
-import {userPushFailedAuth} from "@/userPushFailedAuth";
+import {userPushFailedAuth} from "../events/userPushFailedAuth";
 
 // TODO: memory leaks.
 export class Server {

@@ -57,7 +57,7 @@
   import {ns} from "@/interfaces/Online";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
-  import {Namespace} from "@/../../../server/utils/state";
+  import {Namespace} from "@/../../../server/src/utils/state";
   import {link} from "@/utils/ws";
   import {events} from "../../../../../bridge";
   import {In, Out} from "../../../../../bridge/nsUpdateChild";

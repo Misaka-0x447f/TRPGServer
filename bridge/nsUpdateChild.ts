@@ -1,5 +1,5 @@
 import {Receive, Transfer} from "./index";
-import {Namespace} from "../server/utils/state";
+import {Namespace} from "../server/src/utils/state";
 
 export interface Out extends Transfer {
   namespace: string;

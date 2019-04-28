@@ -5,10 +5,7 @@
     "esModuleInterop": true, // babel compatibility, see https://github.com/Microsoft/TypeScript/issues/16093
     "importHelpers": true,
     "baseUrl": ".",
-    "outDir": "./out",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "outDir": "./out"
   },
   "include": [
     "src/**/*.ts"

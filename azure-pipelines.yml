@@ -6,46 +6,25 @@
 trigger:
   - master
 
-jobs:
-  - job: 'client'
-    pool:
-      vmImage: 'ubuntu-16.04'
-    steps:
-      - task: Npm@1
-        inputs:
-          workingDir: /client
-          command: custom
-          customCommand: install
-        displayName: 'install'
-      - task: Npm@1
-        inputs:
-          workingDir: /client
-          command: custom
-          customCommand: run build
-        displayName: 'build'
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/client/dist'
-          artifactName: 'client'
-        displayName: 'publish'
-  - job: 'server'
-    pool:
-      vmImage: 'ubuntu-16.04'
-    steps:
-      - task: Npm@1
-        inputs:
-          workingDir: /server
-          command: custom
-          customCommand: install
-        displayName: 'install'
-      - task: Npm@1
-        inputs:
-          workingDir: /server
-          command: custom
-          customCommand: run build
-        displayName: 'build'
-      - task: PublishBuildArtifacts@1
-        inputs:
-          PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
-          artifactName: 'server'
-        displayName: 'publish'
+pool:
+  vmImage: 'ubuntu-16.04'
+steps:
+  - task: Npm@1
+    displayName: 'install'
+  - task: Npm@1
+    inputs: 
+      command: custom
+      customCommand: run build
+      verbose: on
+    displayName: 'build'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/client/dist'
+      artifactName: 'client'
+    displayName: 'publish 1/2'
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/server/dist'
+      artifactName: 'server'
+    displayName: 'publish 2/2'
+    
