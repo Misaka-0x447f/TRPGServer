@@ -13,13 +13,13 @@ jobs:
     steps:
       - task: Npm@1
         inputs:
-          workingDir: client
+          workingDir: /client
           command: custom
           customCommand: install
         displayName: 'install'
       - task: Npm@1
         inputs:
-          workingDir: client
+          workingDir: /client
           command: custom
           customCommand: run build
         displayName: 'build'
@@ -34,13 +34,13 @@ jobs:
     steps:
       - task: Npm@1
         inputs:
-          workingDir: server
+          workingDir: /server
           command: custom
           customCommand: install
         displayName: 'install'
       - task: Npm@1
         inputs:
-          workingDir: server
+          workingDir: /server
           command: custom
           customCommand: run build
         displayName: 'build'
