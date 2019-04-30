@@ -21,8 +21,6 @@ export class Server {
     this.link = link;
     // @ts-ignore
     this.link.on("message", (message: string) => {
-      console.log("<<< %s", message);
-
       // parse error?
       if (!isJSONString(message)) {
         this.badRequest();
@@ -32,6 +30,11 @@ export class Server {
       // no event defined?
       if (!req.hasOwnProperty("event")) {
         this.badRequest();
+      }
+
+      // log if not a heartbeat event
+      if (req.event !== commEvents.userHeartbeat) {
+        console.log("<<< %s", message);
       }
 
       this.listener.forEach((v: UpstreamListener) => {
@@ -76,7 +79,7 @@ export class Server {
 
 export const listen = (listener: (T: WebSocket) => void) => {
   const port = 6655;
-  console.log("Setting up server with port number " + port);
+  console.log("[ DONE ] Setting up server with port number " + port);
   const wss = new ws.Server({port});
   wss.on("connection", listener);
 };

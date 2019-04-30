@@ -15,6 +15,7 @@ export interface LocalStorageDef {
 }
 
 export class Env {
+  // TODO: change the any to type defined
   public static set(key: LocalStorage, value: any) {
     window.localStorage.setItem(key, limitedStringify(value));
   }

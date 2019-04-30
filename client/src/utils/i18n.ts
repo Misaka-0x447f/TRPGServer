@@ -453,6 +453,7 @@ export const dict = {
   }
 };
 
+// TODO: check subItem and word
 export function say(subItem: string, word: string) {
   // Disabled typescript type check; Do custom runtime check.
   if (!dict.zh.hasOwnProperty(subItem) || !(dict.zh as any)[subItem].hasOwnProperty(word)) {

@@ -150,7 +150,7 @@
   import vs from "../VerticalSplitter.vue";
   import {TabDef} from "@/interfaces/sideTab";
   import {isNull} from "lodash";
-  import EventManager, {EventType} from "@/utils/event";
+  import EventManager, {ev} from "@/utils/event";
   import {ico} from "@/utils/FontAwesome";
   import bu from "./SideTabContents/Button.vue";
   import {RouterName} from "@/router";
@@ -185,10 +185,10 @@
       if (!isNull(this.startup)) {
         this.activeTab = this.startup;
       }
-      EventManager.on(EventType.menuButtonClick, this.closeTab);
+      EventManager.on(ev.menuButtonClick, this.closeTab);
     },
     beforeDestroy() {
-      EventManager.off(EventType.menuButtonClick, this.closeTab);
+      EventManager.off(ev.menuButtonClick, this.closeTab);
     },
     methods: {
       tabClickHandler(id: string) {

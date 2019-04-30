@@ -17,13 +17,13 @@ export const setRegProcessor = (s: Server, m: Out) => {
       lastUp: getTimestamp()
     };
     userPool.push(user);
-    s.TX(commEvents.userUpdate, {result: regResponse.ok, ...user} as In);
+    s.TX(commEvents.userUpdate, {result: regResponse.ok, user: user.user, credential: user.credential} as In);
   } else {
     if (m.credential) {
       if (found.credential === m.credential) {
-        s.TX(commEvents.userUpdate, {result: regResponse.ok, ...found});
+        s.TX(commEvents.userUpdate, {result: regResponse.ok} as In);
       } else {
-        s.TX(commEvents.userUpdate, {result: regResponse.rejected});
+        s.TX(commEvents.userUpdate, {result: regResponse.rejected} as In);
       }
       return;
     }

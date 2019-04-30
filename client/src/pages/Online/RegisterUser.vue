@@ -1,3 +1,4 @@
+import {LocalStorage} from "../../utils/ls";
 <template>
   <div class="root">
     <st></st>
@@ -100,7 +101,14 @@
       // TODO: handle user tries to login again
       const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
-          Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
+          if (this.uidInputs === "") {
+            Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
+          } else {
+            Env.set(LocalStorage.__auth, {
+              user: this.usernameInputs,
+              credential: removeSpace(this.uidInputs)
+            } as LocalStorageDef["__auth"]);
+          }
           this.$router.push({name: RouterName.nsSelect});
         } else if (m.result === regResponse.exist) {
           this.status = stat.userExist;

@@ -1,1 +1,1 @@
-import "nsRemoveOfflineUsers";
+import "./nsRemoveOfflineUsers";

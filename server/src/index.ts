@@ -5,7 +5,7 @@ import nsGet from "./events/nsGet";
 import nsJoin from "./events/nsJoin";
 import nsUpdateChild from "./events/nsUpdateChild";
 import {userHeartbeat} from "./events/userHeartbeat";
-import "tasks";
+import "./tasks";
 
 function connected(link: WebSocket) {
   const server = new Server(link);

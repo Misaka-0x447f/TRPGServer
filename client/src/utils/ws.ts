@@ -91,7 +91,7 @@ export const linkStatus = {
 
 async function actHere() {
   linkStatus.act++;
-  await timeout(333);
+  await timeout(200);
   linkStatus.act--;
 }
 
@@ -102,4 +102,4 @@ export const heartbeat = (l: Client) => {
   }
 };
 
-export const heartbeatTimer = setInterval(heartbeat, 3000);
+export const heartbeatTimer = setInterval(() => heartbeat(link), 3000);
