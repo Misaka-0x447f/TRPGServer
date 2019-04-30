@@ -1,14 +1,30 @@
 import {EventEmitter} from "events";
-import {Namespace} from "./state";
+import {Namespace, OnlineUserData} from "./state";
 
 export const enum ev {
-  userChanged = "userChanged"
+  userChanged = "userChanged",
+  nsNotExistAsIntend = "nsNotExistAsIntend",
+  nsNotJoinedAsIntend = "nsNotJoinedAsIntend"
 }
 
 export interface EvListeners {
   [ev.userChanged]: (ns: Namespace) => void;
+  [ev.nsNotExistAsIntend]: (ns: Namespace) => void;
+  [ev.nsNotJoinedAsIntend]: (user: OnlineUserData["link"]) => void;
 }
 
-export const ec = new EventEmitter();
+export class Ev {
+  public static emit<T extends ev, K extends Parameters<EvListeners[T]>>(event: T, ...payload: K) {
+    Ev.ec.emit(event, ...payload);
+  }
 
-export default ec;
+  public static on<T extends ev, K extends EvListeners[T]>(event: T, callback: K) {
+    Ev.ec.on(event, callback);
+  }
+
+  public static off<T extends ev, K extends EvListeners[T]>(event: T, callback: K) {
+    Ev.ec.off(event, callback);
+  }
+
+  private static ec = new EventEmitter();
+}

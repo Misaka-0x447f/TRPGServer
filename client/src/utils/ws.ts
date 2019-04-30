@@ -4,14 +4,14 @@ import {
   Downstream,
   DownstreamListener,
   DownstreamListenerCallback,
-  events,
+  commEvents,
   Transfer,
   Upstream,
   UpstreamSenderOptions
 } from "@/../../bridge";
 import {timeout} from "@/utils/lang";
 import {get} from "lodash";
-import {Env, LocalStorage, logOut} from "@/utils/ls";
+import {authAvailable, Env, LocalStorage, logOut} from "@/utils/ls";
 import router, {RouterName} from "@/router";
 
 // TODO: memory leak.
@@ -39,12 +39,12 @@ class Client {
     });
   }
 
-  public TX(event: events, payload: Transfer, options?: UpstreamSenderOptions) {
+  public TX(event: commEvents, payload: Transfer, options?: UpstreamSenderOptions) {
     if (get(options, "auth") === false) {
       this.ws.send(JSON.stringify({event, payload} as Upstream));
       console.log(`>>> [noAuth] ${JSON.stringify({event, payload} as Upstream)}`);
     } else {
-      if (Env.exist(LocalStorage.__auth)) {
+      if (authAvailable()) {
         const authObj = Env.get(LocalStorage.__auth);
         this.ws.send(JSON.stringify({
           event, payload, extras: {
@@ -65,22 +65,22 @@ class Client {
     actHere();
   }
 
-  public RX(event: events, callback: DownstreamListenerCallback) {
+  public RX(event: commEvents, callback: DownstreamListenerCallback) {
     this.listener.push({event, callback});
   }
 }
 
 export const link = new Client();
 
-link.RX(events.userPushFailedAuth, () => {
+link.RX(commEvents.userPushFailedAuth, () => {
   router.push({name: RouterName.authError});
 });
 
-link.RX(events.nsPushNotExist, () => {
+link.RX(commEvents.nsPushNotExist, () => {
   router.push({name: RouterName.nsNotExist});
 });
 
-link.RX(events.nsPushNotJoined, () => {
+link.RX(commEvents.nsPushNotJoined, () => {
   router.push({name: RouterName.nsNotJoined});
 });
 
@@ -94,3 +94,12 @@ async function actHere() {
   await timeout(333);
   linkStatus.act--;
 }
+
+export const heartbeat = (l: Client) => {
+  if (linkStatus.link && authAvailable()) {
+    l.TX(commEvents.userHeartbeat, {});
+    actHere();
+  }
+};
+
+export const heartbeatTimer = setInterval(heartbeat, 3000);

@@ -37,3 +37,7 @@ export const logOut = () => {
   Env.clr(LocalStorage.__auth);
   router.push({name: RouterName.startup});
 };
+
+export const authAvailable = () => {
+  return Env.exist(LocalStorage.__auth);
+};

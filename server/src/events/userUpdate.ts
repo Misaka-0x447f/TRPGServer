@@ -1,29 +1,33 @@
 import {In, Out, regResponse} from "../../../bridge/userUpdate";
 import {OnlineUserData, userPool} from "../utils/state";
-import {events} from "../../../bridge";
-import {find, isUndefined} from "lodash";
+import {commEvents} from "../../../bridge";
+import {isUndefined} from "lodash";
 import uid from "uuid/v1";
 import {Server} from "../utils/ws";
+import {getTimestamp} from "../utils/lang";
+import {findUser} from "../utils/user";
 
 export const setRegProcessor = (s: Server, m: Out) => {
-  const found = find(userPool, {user: m.user});
+  const found = findUser(m.user);
   if (isUndefined(found)) {
     const user: OnlineUserData = {
       user: m.user,
-      credential: uid()
+      credential: uid(),
+      link: s,
+      lastUp: getTimestamp()
     };
     userPool.push(user);
-    s.TX(events.userUpdate, {result: regResponse.ok, ...user} as In);
+    s.TX(commEvents.userUpdate, {result: regResponse.ok, ...user} as In);
   } else {
     if (m.credential) {
       if (found.credential === m.credential) {
-        s.TX(events.userUpdate, {result: regResponse.ok, ...found});
+        s.TX(commEvents.userUpdate, {result: regResponse.ok, ...found});
       } else {
-        s.TX(events.userUpdate, {result: regResponse.rejected});
+        s.TX(commEvents.userUpdate, {result: regResponse.rejected});
       }
       return;
     }
-    s.TX(events.userUpdate, {result: regResponse.exist} as In);
+    s.TX(commEvents.userUpdate, {result: regResponse.exist} as In);
   }
 };
 

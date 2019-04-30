@@ -65,7 +65,7 @@
   import {ns} from "@/interfaces/Online";
   import {say} from "@/utils/i18n";
   import {In, Out, regResponse} from "../../../../bridge/userUpdate";
-  import {events} from "../../../../bridge";
+  import {commEvents} from "../../../../bridge";
   import {link} from "@/utils/ws";
   import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
   import {removeSpace} from "@/utils/lang";
@@ -108,17 +108,17 @@
           this.status = stat.validateFailed;
         }
       };
-      link.RX(events.userUpdate, regHandler);
+      link.RX(commEvents.userUpdate, regHandler);
     },
     methods: {
       tryReg() {
         this.status = stat.empty;
         if (this.uidInputs === "") {
-          link.TX(events.userUpdate, {
+          link.TX(commEvents.userUpdate, {
             user: this.usernameInputs
           } as Out, {auth: false});
         } else {
-          link.TX(events.userUpdate, {
+          link.TX(commEvents.userUpdate, {
             user: this.usernameInputs,
             credential: removeSpace(this.uidInputs)
           } as Out, {auth: false});

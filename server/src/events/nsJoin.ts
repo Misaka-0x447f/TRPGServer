@@ -1,48 +1,44 @@
 import {Server} from "../utils/ws";
 import {In, Out, response} from "../../../bridge/nsJoin";
-import {Namespace, namespacePool} from "../utils/state";
+import {gameStatus, Namespace, namespacePool} from "../utils/state";
 import {isUndefined} from "lodash";
-import {events, UpstreamExtras} from "../../../bridge";
+import {commEvents, UpstreamExtras} from "../../../bridge";
 import {findNs, userExistInNs} from "../utils/ns";
-import ec, {ev, EvListeners} from "../utils/event";
+import {Ev, ev} from "../utils/event";
+import {findUser} from "../utils/user";
 
 export const setProcessor = (s: Server, m: Out, e: UpstreamExtras) => {
   const found = findNs(m.namespace);
+  const foundUser = findUser(e.auth.user);
   if (userExistInNs(e.auth.user, found)) {
-    s.TX(events.nsJoin, {result: response.ok} as In);
+    s.TX(commEvents.nsJoin, {result: response.ok} as In);
     return;
   }
   if (isUndefined(found)) {
     const nsPointer: Namespace = {
       name: m.namespace,
       child: {
-        master: [e.auth.user],
+        master: [foundUser],
         player: []
       },
-      childLink: [
-        {
-          user: e.auth.user,
-          link: s
-        }
-      ],
       options: {
         capacity: {
           master: 1,
           player: 32
         }
-      }
+      },
+      status: gameStatus.waiting
     };
     namespacePool.push(nsPointer);
-    s.TX(events.nsJoin, {result: response.ok} as In);
-    ec.emit(ev.userChanged, ...[nsPointer] as Parameters<EvListeners[ev.userChanged]>);
+    s.TX(commEvents.nsJoin, {result: response.ok} as In);
+    Ev.emit(ev.userChanged, nsPointer);
   } else {
     if (found.child.player.length < found.options.capacity.player) {
-      found.child.player.push(e.auth.user);
-      found.childLink.push({user: e.auth.user, link: s});
-      s.TX(events.nsJoin, {result: response.ok} as In);
-      ec.emit(ev.userChanged, ...[found] as Parameters<EvListeners[ev.userChanged]>);
+      found.child.player.push(foundUser);
+      s.TX(commEvents.nsJoin, {result: response.ok} as In);
+      Ev.emit(ev.userChanged, found);
     } else {
-      s.TX(events.nsJoin, {result: response.full} as In);
+      s.TX(commEvents.nsJoin, {result: response.full} as In);
     }
   }
 };

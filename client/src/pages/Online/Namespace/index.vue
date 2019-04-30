@@ -75,7 +75,7 @@ import {LocalStorage} from "../../../utils/ls";
   import {say} from "@/utils/i18n";
   import {ns} from "@/interfaces/Online";
   import {link} from "@/utils/ws";
-  import {events} from "../../../../../bridge";
+  import {commEvents} from "../../../../../bridge";
   import {RouterName} from "@/router";
   import {ico} from "@/utils/FontAwesome";
 
@@ -118,7 +118,7 @@ import {LocalStorage} from "../../../utils/ls";
           throw new Error("Unexpected state.");
         }
       };
-      link.RX(events.nsGet, queryHandler);
+      link.RX(commEvents.nsGet, queryHandler);
       const joinHandler = (m: cd.In) => {
         if (m.result === cd.response.ok) {
           state.online.namespace.name = this.namespace;
@@ -129,7 +129,7 @@ import {LocalStorage} from "../../../utils/ls";
           throw new Error("Unexpected state.");
         }
       };
-      link.RX(events.nsJoin, joinHandler);
+      link.RX(commEvents.nsJoin, joinHandler);
     },
     methods: {
       query() {
@@ -138,11 +138,11 @@ import {LocalStorage} from "../../../utils/ls";
           return;
         }
         if (["search", "full"].includes(this.state)) {
-          link.TX(events.nsGet, {
+          link.TX(commEvents.nsGet, {
             namespace: this.namespace
           } as ls.Out);
         } else if (["create", "join"].includes(this.state)) {
-          link.TX(events.nsJoin, {
+          link.TX(commEvents.nsJoin, {
             namespace: this.namespace
           } as cd.Out);
         } else {

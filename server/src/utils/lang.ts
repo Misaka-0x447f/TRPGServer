@@ -10,3 +10,9 @@ export const isJSONString = (data: string) => {
     return false;
   }
 };
+
+export type Timestamp = number;
+
+export const getTimestamp = () => {
+  return new Date().getTime() as Timestamp;
+};

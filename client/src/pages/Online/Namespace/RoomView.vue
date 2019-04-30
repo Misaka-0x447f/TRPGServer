@@ -59,7 +59,7 @@
   import {say} from "@/utils/i18n";
   import {Namespace} from "@/../../../server/src/utils/state";
   import {link} from "@/utils/ws";
-  import {events} from "../../../../../bridge";
+  import {commEvents} from "../../../../../bridge";
   import {In, Out} from "../../../../../bridge/nsUpdateChild";
   import state from "@/utils/state";
 
@@ -94,8 +94,8 @@
       const receiveInitialChild = (m: In) => {
         this.updateTeam(m.child);
       };
-      link.RX(events.nsUpdateChild, receiveInitialChild);
-      link.TX(events.nsUpdateChild, {
+      link.RX(commEvents.nsUpdateChild, receiveInitialChild);
+      link.TX(commEvents.nsUpdateChild, {
         namespace: state.online.namespace.name
       } as Out);
     },

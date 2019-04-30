@@ -1,7 +1,7 @@
-import {Namespace, namespacePool, OnlineUserData, UserLink} from "./state";
+import {Namespace, namespacePool, OnlineUserData} from "./state";
 import {nsPushNotJoined} from "../events/nsPushNotJoined";
 import {nsPushNotExist} from "../events/nsPushNotExist";
-import {events} from "../../../bridge";
+import {commEvents} from "../../../bridge";
 import {Server} from "./ws";
 import {find, forIn, isUndefined} from "lodash";
 
@@ -13,13 +13,13 @@ export const userExistInNs = (user: OnlineUserData["user"], ns: Namespace) => {
   if (isUndefined(ns)) {
     return false;
   }
-  if (!isUndefined(find(ns.child.master, (o) => o === user))) {
+  if (!isUndefined(find(ns.child.master, (o) => o.user === user))) {
     return true;
   }
-  return !isUndefined(find(ns.child.player, (o) => o === user));
+  return !isUndefined(find(ns.child.player, (o) => o.user === user));
 };
 
-export const nsPermCheck = (ns: string, s: Server, user: OnlineUserData["user"]) => {
+export const nsPermCheckByName = (ns: string, s: Server, user: OnlineUserData["user"]) => {
   const found = findNs(ns);
   if (isUndefined(found)) {
     nsPushNotExist(s);
@@ -32,8 +32,23 @@ export const nsPermCheck = (ns: string, s: Server, user: OnlineUserData["user"])
   return found;
 };
 
-export const nsBroadcast = (ns: Namespace, event: events, payload: object) => {
-  forIn(ns.childLink, (v: UserLink) => {
+export const nsBroadcastByEventName = (ns: Namespace, event: commEvents, payload: object) => {
+  forIn(ns.child.master, (v: OnlineUserData) => {
     v.link.TX(event, payload);
   });
+  forIn(ns.child.player, (v: OnlineUserData) => {
+    v.link.TX(event, payload);
+  });
+};
+
+export const nsRemoveMasterByIndex = (ns: Namespace, i: string) => {
+  ns.child.master.splice(parseInt(i, 10), 1);
+};
+
+export const nsRemoveUserByIndex = (ns: Namespace, i: string) => {
+  ns.child.player.splice(parseInt(i, 10), 1);
+};
+
+export const nsRemoveByIndex = (nsIndex: string) => {
+  namespacePool.splice(parseInt(nsIndex, 10), 1);
 };

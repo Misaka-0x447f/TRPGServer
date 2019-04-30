@@ -1,4 +1,10 @@
-import {events, Upstream, UpstreamListener, UpstreamListenerCallback, UpstreamListenerOptions} from "../../../bridge";
+import {
+  commEvents,
+  Upstream,
+  UpstreamListener,
+  UpstreamListenerCallback,
+  UpstreamListenerOptions
+} from "../../../bridge";
 import {isJSONString} from "./lang";
 import {get} from "lodash";
 import * as ws from "ws";
@@ -52,12 +58,12 @@ export class Server {
   }
 
   // listen to client
-  public RX(event: events, callback: UpstreamListenerCallback, options?: UpstreamListenerOptions) {
+  public RX(event: commEvents, callback: UpstreamListenerCallback, options?: UpstreamListenerOptions) {
     this.listener.push({event, callback, options});
   }
 
   // send to client
-  public TX(event: events, payload: object) {
+  public TX(event: commEvents, payload: object) {
     console.log(">>> %s", JSON.stringify({event, payload}));
     this.link.send(JSON.stringify({event, payload}));
   }

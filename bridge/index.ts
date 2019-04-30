@@ -1,14 +1,15 @@
 import {Server} from "../server/src/utils/ws";
 
 // events that start with lodash means server event
-export enum events {
-  userUpdate = "userUpdate",
+export enum commEvents {
   nsGet = "nsGet",
   nsJoin = "nsJoin", // create or get in
   nsUpdateChild = "nsUpdateChild",
-  userPushFailedAuth = "userPushFailedAuth",
   nsPushNotJoined = "nsPushNotJoined",
   nsPushNotExist = "nsPushNotExist",
+  userUpdate = "userUpdate",
+  userHeartbeat = "userHeartbeat",
+  userPushFailedAuth = "userPushFailedAuth",
 }
 
 // tslint:disable-next-line
@@ -22,17 +23,12 @@ export interface Receive {
 // Downstream
 
 export interface Downstream {
-  event: events;
+  event: commEvents;
   payload: Receive;
 }
 
-/*
-* No downstream listener/sender options here.
-* If auth failed, it could be figure out by extra data.
-* */
-
 export interface DownstreamListener {
-  event: events;
+  event: commEvents;
   callback: DownstreamListenerCallback;
 }
 
@@ -41,7 +37,7 @@ export type DownstreamListenerCallback = (T: any) => void;
 // Upstream
 
 export interface Upstream {
-  event: events;
+  event: commEvents;
   extras?: UpstreamExtras;
   payload: Transfer;
 }
@@ -64,7 +60,7 @@ export interface UpstreamExtras {
 }
 
 export interface UpstreamListener {
-  event: events;
+  event: commEvents;
   callback: UpstreamListenerCallback;
   options?: UpstreamListenerOptions;
 }

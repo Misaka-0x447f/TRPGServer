@@ -1,22 +1,27 @@
-import {events, UpstreamExtras} from "../../../bridge";
+import {commEvents, UpstreamExtras} from "../../../bridge";
 import {In, Out, response} from "../../../bridge/nsUpdateChild";
 import {Server} from "../utils/ws";
-import {nsBroadcast, nsPermCheck} from "../utils/ns";
+import {nsBroadcastByEventName, nsPermCheckByName} from "../utils/ns";
 import {isUndefined} from "lodash";
-import ec, {ev, EvListeners} from "../utils/event";
+import {Ev, ev} from "../utils/event";
+import {Namespace} from "../utils/state";
 
 export const setProcessor = (s: Server, m: Out, e: UpstreamExtras) => {
-  const found = nsPermCheck(m.namespace, s, e.auth.user);
+  const found = nsPermCheckByName(m.namespace, s, e.auth.user);
   if (isUndefined(found)) {
     return;
   }
-  s.TX(events.nsUpdateChild, {result: response.ok, child: found.child} as In);
+  nsPushUpdateChild(s, found);
 };
 
-const updateHandler: EvListeners[ev.userChanged] = (ns) => {
-  nsBroadcast(ns, events.nsUpdateChild, {result: response.ok, child: ns.child} as In);
+const nsPushUpdateChild = (s: Server, ns: Namespace) => {
+  s.TX(commEvents.nsUpdateChild, {result: response.ok, child: ns.child} as In);
 };
 
-ec.on(ev.userChanged, updateHandler);
+const nsBroadcastUpdateChild = (ns: Namespace) => {
+  nsBroadcastByEventName(ns, commEvents.nsUpdateChild, {result: response.ok, child: ns.child} as In);
+};
+
+Ev.on(ev.userChanged, nsBroadcastUpdateChild);
 
 export default setProcessor;
