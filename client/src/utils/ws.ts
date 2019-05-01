@@ -1,10 +1,10 @@
 import WSL from "reconnecting-websocket";
 import {serverAddr} from "@/interfaces/ws";
 import {
+  commEvents,
   Downstream,
   DownstreamListener,
   DownstreamListenerCallback,
-  commEvents,
   Transfer,
   Upstream,
   UpstreamSenderOptions
@@ -13,6 +13,7 @@ import {timeout} from "@/utils/lang";
 import {get} from "lodash";
 import {authAvailable, Env, LocalStorage, logOut} from "@/utils/ls";
 import router, {RouterName} from "@/router";
+import {Out} from "../../../bridge/userHeartbeat";
 
 // TODO: memory leak.
 class Client {
@@ -96,8 +97,8 @@ async function actHere() {
 }
 
 export const heartbeat = (l: Client) => {
-  if (linkStatus.link && authAvailable()) {
-    l.TX(commEvents.userHeartbeat, {});
+  if (linkStatus.link && authAvailable() && Env.exist(LocalStorage.currNs)) {
+    l.TX(commEvents.userHeartbeat, {namespace: Env.get(LocalStorage.currNs)} as Out);
     actHere();
   }
 };
