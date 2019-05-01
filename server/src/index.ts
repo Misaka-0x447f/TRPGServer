@@ -20,4 +20,3 @@ function connected(link: WebSocket) {
 listen(connected);
 
 // TODO: missing room close, user leave
-// TODO: make all events event driven

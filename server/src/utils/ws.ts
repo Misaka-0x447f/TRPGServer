@@ -11,7 +11,6 @@ import * as ws from "ws";
 import auth from "./auth";
 import {userPushFailedAuth} from "../events/userPushFailedAuth";
 
-// TODO: memory leaks.
 export class Server {
   private listener: UpstreamListener[] = [];
   private link: WebSocket;
