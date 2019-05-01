@@ -1,7 +1,7 @@
 import {commEvents, UpstreamExtras} from "../../../bridge";
 import {In, Out, response} from "../../../bridge/nsUpdateChild";
 import {Server} from "../utils/ws";
-import {nsBroadcastByEventName, nsPermCheckByName} from "../utils/ns";
+import {nsBroadcastByEventName, nsGetChildListForClient, nsPermCheckByName} from "../utils/ns";
 import {isUndefined} from "lodash";
 import {Ev, ev} from "../utils/event";
 import {Namespace} from "../utils/state";
@@ -15,11 +15,11 @@ export const setProcessor = (s: Server, m: Out, e: UpstreamExtras) => {
 };
 
 const nsPushUpdateChild = (s: Server, ns: Namespace) => {
-  s.TX(commEvents.nsUpdateChild, {result: response.ok, child: ns.child} as In);
+  s.TX(commEvents.nsUpdateChild, {result: response.ok, child: nsGetChildListForClient(ns)} as In);
 };
 
 const nsBroadcastUpdateChild = (ns: Namespace) => {
-  nsBroadcastByEventName(ns, commEvents.nsUpdateChild, {result: response.ok, child: ns.child} as In);
+  nsBroadcastByEventName(ns, commEvents.nsUpdateChild, {result: response.ok, child: nsGetChildListForClient(ns)} as In);
 };
 
 Ev.on(ev.userChanged, nsBroadcastUpdateChild);

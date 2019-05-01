@@ -52,3 +52,17 @@ export const nsRemoveUserByIndex = (ns: Namespace, i: string) => {
 export const nsRemoveByIndex = (nsIndex: string) => {
   namespacePool.splice(parseInt(nsIndex, 10), 1);
 };
+
+export const nsGetChildListForClient = (ns: Namespace) => {
+  const child = {
+    master: [],
+    player: []
+  };
+  for (const vMaster of ns.child.master) {
+    child.master.push(vMaster.user);
+  }
+  for (const vPlayer of ns.child.player) {
+    child.player.push(vPlayer.user);
+  }
+  return child;
+};

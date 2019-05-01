@@ -1,5 +1,5 @@
 import {Receive, Transfer} from "./index";
-import {Namespace} from "../server/src/utils/state";
+import {OnlineUserData} from "../server/src/utils/state";
 
 export interface Out extends Transfer {
   namespace: string;
@@ -7,7 +7,10 @@ export interface Out extends Transfer {
 
 export interface In extends Receive {
   result: response;
-  child: Namespace["child"];
+  child: {
+    master: Array<OnlineUserData["user"]>,
+    player: Array<OnlineUserData["user"]>
+  };
 }
 
 export enum response {

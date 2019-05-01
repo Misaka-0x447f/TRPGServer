@@ -1,5 +1,6 @@
 import {EventEmitter} from "events";
 import {Namespace, OnlineUserData} from "./state";
+import * as util from "util";
 
 export const enum ev {
   userChanged = "userChanged",
@@ -16,6 +17,8 @@ export interface EvListeners {
 export class Ev {
   public static emit<T extends ev, K extends Parameters<EvListeners[T]>>(event: T, ...payload: K) {
     Ev.ec.emit(event, ...payload);
+    console.log(`--- [${event}] ---
+    ${util.inspect(payload)}`);
   }
 
   public static on<T extends ev, K extends EvListeners[T]>(event: T, callback: K) {

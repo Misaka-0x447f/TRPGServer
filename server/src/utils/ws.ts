@@ -33,7 +33,10 @@ export class Server {
       }
 
       // log if not a heartbeat event
-      if (req.event !== commEvents.userHeartbeat) {
+      if (![
+        commEvents.userHeartbeat,
+        commEvents.userPushFailedAuth
+      ].includes(req.event)) {
         console.log("<<< %s", message);
       }
 
@@ -67,8 +70,10 @@ export class Server {
 
   // send to client
   public TX(event: commEvents, payload: object) {
-    console.log(">>> %s", JSON.stringify({event, payload}));
-    this.link.send(JSON.stringify({event, payload}));
+    if (this.link.readyState === this.link.OPEN) {
+      console.log(">>> %s", JSON.stringify({event, payload}));
+      this.link.send(JSON.stringify({event, payload}));
+    }
   }
 
   private badRequest() {

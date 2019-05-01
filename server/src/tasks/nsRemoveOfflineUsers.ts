@@ -17,7 +17,7 @@ const agent = () => {
     });
 
     // remove room if game master leaves
-    if (isEmpty(nsPointer.child.master.length)) {
+    if (isEmpty(nsPointer.child.master)) {
       nsRemoveByIndex(i);
       Ev.emit(ev.nsNotExistAsIntend, nsPointer);
       hasUpdateFlag = true;
