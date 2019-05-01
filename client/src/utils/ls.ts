@@ -5,25 +5,26 @@ import router, {RouterName} from "@/router";
 
 export enum LocalStorage {
   __auth = "__auth", // JSON; user information, including username and credential.
+  currNs = "currNs"
 }
 
 export interface LocalStorageDef {
-  __auth: {
+  [LocalStorage.__auth]: {
     user: string;
     credential: string;
   };
+  [LocalStorage.currNs]: string;
 }
 
 export class Env {
-  // TODO: change the any to type defined
-  public static set(key: LocalStorage, value: any) {
+  public static set<T extends LocalStorage, K extends LocalStorageDef[T]>(key: T, value: K) {
     window.localStorage.setItem(key, limitedStringify(value));
   }
-  public static get(key: LocalStorage) {
+  public static get<T extends LocalStorage, K extends LocalStorageDef[T]>(key: T) {
     if (Env.exist(key)) {
-      return limitedUnstringify(window.localStorage.getItem(key));
+      return limitedUnstringify(window.localStorage.getItem(key)) as K;
     }
-    console.warn(`Environment variable get failed: ${key}`);
+    console.warn(`Local storage not found: ${key}`);
     return;
   }
   public static exist(key: LocalStorage) {

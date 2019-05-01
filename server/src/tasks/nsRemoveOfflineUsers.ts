@@ -39,7 +39,7 @@ const agent = () => {
 };
 
 const isTimeout = (d: OnlineUserData) => {
-  return d.lastUp < getTimestamp() - 5000;
+  return d.lastUp < getTimestamp() - 10000;
 };
 
 setInterval(agent, 5000);

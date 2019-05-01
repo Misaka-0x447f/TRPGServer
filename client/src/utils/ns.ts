@@ -1,7 +1,7 @@
 import router, {RouterName} from "@/router";
-import state from "@/utils/state";
+import {Env, LocalStorage} from "@/utils/ls";
 
 export const exitNamespace = () => {
-  state.online.namespace.name = undefined;
+  Env.clr(LocalStorage.currNs);
   router.push({name: RouterName.nsSelect});
 };

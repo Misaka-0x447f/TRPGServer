@@ -40,7 +40,7 @@
     border-bottom underline-0;
     text-align right;
   }
-  
+
   .members {
     font-size 1.2em;
     line-height: 1.4em;
@@ -57,11 +57,10 @@
   import {ns} from "@/interfaces/Online";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
-  import {Namespace} from "@/../../../server/src/utils/state";
   import {link} from "@/utils/ws";
   import {commEvents} from "../../../../../bridge";
   import {In, Out} from "../../../../../bridge/nsUpdateChild";
-  import state from "@/utils/state";
+  import {Env, LocalStorage} from "@/utils/ls";
 
   export default Vue.extend({
     name: "RoomView",
@@ -87,22 +86,17 @@
             icon: ico.userFriends
           }
         ],
-        team: {} as Namespace["child"]
+        team: {} as In["child"]
       };
     },
     mounted() {
-      const receiveInitialChild = (m: In) => {
-        this.updateTeam(m.child);
+      const updateTeam = (m: In) => {
+        Vue.set(this, "team", m.child);
       };
-      link.RX(commEvents.nsUpdateChild, receiveInitialChild);
+      link.RX(commEvents.nsUpdateChild, updateTeam);
       link.TX(commEvents.nsUpdateChild, {
-        namespace: state.online.namespace.name
+        namespace: Env.get(LocalStorage.currNs)
       } as Out);
-    },
-    methods: {
-      updateTeam(i: Namespace["child"]) {
-        Vue.set(this, "team", i);
-      }
     }
   });
 </script>

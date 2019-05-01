@@ -1,4 +1,3 @@
-import {LocalStorage} from "../../../utils/ls";
 <template>
   <div class="root">
     <st
@@ -82,6 +81,7 @@ import {LocalStorage} from "../../../utils/ls";
   import * as ls from "../../../../../bridge/nsGet";
   import * as cd from "../../../../../bridge/nsJoin";
   import state from "@/utils/state";
+  import {Env, LocalStorage} from "@/utils/ls";
 
   export default Vue.extend({
     name: "Room",
@@ -121,7 +121,7 @@ import {LocalStorage} from "../../../utils/ls";
       link.RX(commEvents.nsGet, queryHandler);
       const joinHandler = (m: cd.In) => {
         if (m.result === cd.response.ok) {
-          state.online.namespace.name = this.namespace;
+          Env.set(LocalStorage.currNs, this.namespace);
           this.$router.push({name: RouterName.roomView});
         } else if (m.result === cd.response.full) {
           this.state = "full";
