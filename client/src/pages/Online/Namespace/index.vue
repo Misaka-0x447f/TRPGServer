@@ -13,33 +13,50 @@
           isNetRelated
           :title="e(ns, 'namespaceSelect')"
         >
-          {{e(ns, "namespaceSelectPublicNotSupported")}}
-          <inp
-            :label="e(ns, 'namespaceName')"
-            @input="stateReset"
-            v-model="namespace"
-          ></inp>
+          <div>
+            <div>
+              {{e(ns, "namespaceSelectPublicNotSupported")}}
+            </div>
+            <inp
+              :label="e(ns, 'namespaceName')"
+              @input="stateReset"
+              v-model="namespace"
+            ></inp>
+          </div>
+          <div class="margin" v-if="Env.exist(LocalStorage.currNs)">
+            <div>
+              {{e(ns, "namespaceRejoinDesc")}}
+            </div>
+            <div class="split">
+              <div class="big">
+                {{Env.get(LocalStorage.currNs)}}
+              </div>
+              <bu inline :throttle="5000" @click="joinNs">
+                {{e(ns, "namespaceJoin")}}
+              </bu>
+            </div>
+          </div>
           <template #footer>
             <div class="foot">
               <div class="tips">
-                <div v-if="isState('join')">
+                <div v-if="state === stat.join">
                   {{e(ns, "namespaceExist")}}
                 </div>
-                <div v-if="isState('create')">
+                <div v-if="state === stat.create">
                   {{e(ns, "namespaceNotExist")}}
                 </div>
-                <div v-if="isState('full')">
+                <div v-if="state === stat.full">
                   {{e(ns, "namespaceFull")}}
                 </div>
-                <div v-if="isState('empty')">
+                <div v-if="state === stat.empty">
                   {{e(ns, "namespaceNameEmpty")}}
                 </div>
               </div>
               <bu :throttle="5000" @click="query">
-                <span v-if="isState('join')">
+                <span v-if="state === stat.join">
                   {{e(ns, "namespaceJoin")}}
                 </span>
-                <span v-else-if="isState('create')">
+                <span v-else-if="state === stat.create">
                   {{e(ns, "namespaceCreate")}}
                 </span>
                 <span v-else>
@@ -59,6 +76,20 @@
     display: flex;
     align-items center;
     justify-content space-between;
+  }
+  
+  .split {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+  }
+  
+  .margin {
+    margin-top: 1em;
+  }
+    
+  .big {
+    font-size: 1.2em;
   }
 </style>
 <script lang="ts">
@@ -80,9 +111,16 @@
 
   import * as ls from "../../../../../bridge/nsGet";
   import * as cd from "../../../../../bridge/nsJoin";
-  import state from "@/utils/state";
   import {Env, LocalStorage} from "@/utils/ls";
 
+  enum stat {
+    search = "search",
+    create = "create",
+    join = "join",
+    full = "full",
+    empty = "empty"
+  }
+  
   export default Vue.extend({
     name: "Room",
     components: {
@@ -97,8 +135,11 @@
       return {
         e: say,
         ns,
-        state: "search" as "search" | "create" | "join" | "full" | "empty",
+        state: stat.search,
+        stat,
         namespace: "",
+        Env,
+        LocalStorage,
         stDef: [
           {
             id: "user",
@@ -111,9 +152,9 @@
     mounted() {
       const queryHandler = (m: ls.In) => {
         if (m.result === ls.response.ok) {
-          this.state = "join";
+          this.state = stat.join;
         } else if (m.result === ls.response.null) {
-          this.state = "create";
+          this.state = stat.create;
         } else {
           throw new Error("Unexpected state.");
         }
@@ -124,7 +165,7 @@
           Env.set(LocalStorage.currNs, this.namespace);
           this.$router.push({name: RouterName.roomView});
         } else if (m.result === cd.response.full) {
-          this.state = "full";
+          this.state = stat.full;
         } else {
           throw new Error("Unexpected state.");
         }
@@ -134,14 +175,14 @@
     methods: {
       query() {
         if (this.namespace.length === 0) {
-          this.state = "empty";
+          this.state = stat.empty;
           return;
         }
-        if (["search", "full"].includes(this.state)) {
+        if (this.isState(stat.search, stat.full)) {
           link.TX(commEvents.nsGet, {
             namespace: this.namespace
           } as ls.Out);
-        } else if (["create", "join"].includes(this.state)) {
+        } else if (this.isState(stat.create, stat.join)) {
           link.TX(commEvents.nsJoin, {
             namespace: this.namespace
           } as cd.Out);
@@ -150,10 +191,13 @@
         }
       },
       stateReset() {
-        this.state = "search";
+        this.state = stat.search;
       },
-      isState(s: string) {
-        return s === this.state;
+      isState(...s: stat[]) {
+        return s.includes(this.state);
+      },
+      joinNs() {
+        this.$router.push({name: RouterName.roomView});
       }
     }
   });

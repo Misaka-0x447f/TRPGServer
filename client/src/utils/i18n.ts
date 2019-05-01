@@ -49,6 +49,7 @@ export const dict = {
       logOutDesc: "登出后，可使用以上凭据再次登录",
       namespaceSelect: "选择名字空间",
       namespaceSelectPublicNotSupported: "服务器不支持列出名字空间。输入名称来搜索一个名字空间。",
+      namespaceRejoinDesc: "先前加入的名字空间",
       namespaceName: "名字空间名称",
       namespaceList: "列出...",
       namespaceJoin: "加入",
