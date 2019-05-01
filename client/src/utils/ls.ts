@@ -24,8 +24,7 @@ export class Env {
     if (Env.exist(key)) {
       return limitedUnstringify(window.localStorage.getItem(key)) as K;
     }
-    console.warn(`Local storage not found: ${key}`);
-    return;
+    throw new Error(`Local storage not found: ${key}`);
   }
   public static exist(key: LocalStorage) {
     return !isNull(window.localStorage.getItem(key));

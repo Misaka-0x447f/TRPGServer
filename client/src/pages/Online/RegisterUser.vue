@@ -1,4 +1,3 @@
-import {LocalStorage} from "../../utils/ls";
 <template>
   <div class="root">
     <st></st>
@@ -68,9 +67,10 @@ import {LocalStorage} from "../../utils/ls";
   import {In, Out, regResponse} from "../../../../bridge/userUpdate";
   import {commEvents} from "../../../../bridge";
   import {link} from "@/utils/ws";
-  import {Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
+  import {authAvailable, Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
   import {removeSpace} from "@/utils/lang";
   import {RouterName} from "@/router";
+  import {omit} from "lodash";
 
   enum stat {
     empty,
@@ -98,17 +98,9 @@ import {LocalStorage} from "../../utils/ls";
       };
     },
     mounted() {
-      // TODO: handle user tries to login again
       const regHandler = (m: In) => {
         if (m.result === regResponse.ok) {
-          if (this.uidInputs === "") {
-            Env.set(LocalStorage.__auth, m as LocalStorageDef["__auth"]);
-          } else {
-            Env.set(LocalStorage.__auth, {
-              user: this.usernameInputs,
-              credential: removeSpace(this.uidInputs)
-            } as LocalStorageDef["__auth"]);
-          }
+          Env.set(LocalStorage.__auth, omit(m, ["result"]) as LocalStorageDef["__auth"]);
           this.$router.push({name: RouterName.nsSelect});
         } else if (m.result === regResponse.exist) {
           this.status = stat.userExist;
@@ -117,6 +109,11 @@ import {LocalStorage} from "../../utils/ls";
         }
       };
       link.RX(commEvents.userUpdate, regHandler);
+
+      if (authAvailable()) {
+        const au = Env.get(LocalStorage.__auth);
+        link.TX(commEvents.userUpdate, au as Out, {auth: false});
+      }
     },
     methods: {
       tryReg() {

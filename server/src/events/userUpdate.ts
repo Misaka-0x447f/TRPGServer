@@ -21,7 +21,7 @@ export const setRegProcessor = (s: Server, m: Out) => {
   } else {
     if (m.credential) {
       if (found.credential === m.credential) {
-        s.TX(commEvents.userUpdate, {result: regResponse.ok} as In);
+        s.TX(commEvents.userUpdate, {result: regResponse.ok, user: found.user, credential: found.credential} as In);
       } else {
         s.TX(commEvents.userUpdate, {result: regResponse.rejected} as In);
       }

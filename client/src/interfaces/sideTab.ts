@@ -6,7 +6,6 @@ export interface TabDef {
   text: keyof typeof dict.zh;
   icon: ico;
   // TODO: [Maybe] index?: number;               // how to sort tabs. default: 0;
-  // TODO: [Maybe] align?: "bottom" | "top";           // default: "top";
 }
 
 /*

@@ -453,9 +453,8 @@ export const dict = {
   }
 };
 
-// TODO: check subItem and word
-export function say(subItem: string, word: string) {
-  // Disabled typescript type check; Do custom runtime check.
+export function say<T extends keyof typeof dict["zh"], K extends keyof typeof dict["zh"][T]>(subItem: T, word: K) {
+  // TypeScript type check may not working at all time; Do runtime check.
   if (!dict.zh.hasOwnProperty(subItem) || !(dict.zh as any)[subItem].hasOwnProperty(word)) {
     throw new Error(`unexpected i18n index: ${subItem}/${word}`);
   }
