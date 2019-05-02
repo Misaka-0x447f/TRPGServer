@@ -6,7 +6,7 @@
         :action="e('global', 'ok')"
         @ok="exitNamespace"
       >
-        {{e(ns, "nsNotJoined")}}
+        {{e(ns, "notInNs")}}
       </ex>
     </div>
   </div>
@@ -28,8 +28,10 @@
       return {
         e: say,
         ns: "onlineGame",
-        exitNamespace
       };
+    },
+    methods: {
+      exitNamespace
     }
   });
 </script>

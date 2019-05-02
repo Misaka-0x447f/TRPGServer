@@ -1,7 +1,7 @@
 import {Namespace, namespacePool, OnlineUserData} from "../utils/state";
 import {forIn, isEmpty, isNull} from "lodash";
 import {getTimestamp} from "../utils/lang";
-import {nsRemoveByIndex, nsRemoveMasterByIndex, nsRemoveUserByIndex} from "../utils/ns";
+import {nsRemoveByIndex, nsRemoveMasterByIndex, nsRemovePlayerByIndex} from "../utils/ns";
 import {Ev, ev} from "../utils/event";
 
 const agent = () => {
@@ -11,7 +11,6 @@ const agent = () => {
     forIn(nsPointer.child.master, (vMaster: OnlineUserData, iMaster) => {
       if (isTimeout(vMaster)) {
         nsRemoveMasterByIndex(nsPointer, iMaster);
-        Ev.emit(ev.nsNotJoinedAsIntend, vMaster.link);
         hasUpdateFlag = true;
       }
     });
@@ -20,14 +19,13 @@ const agent = () => {
     if (isEmpty(nsPointer.child.master)) {
       nsRemoveByIndex(i);
       Ev.emit(ev.nsNotExistAsIntend, nsPointer);
-      hasUpdateFlag = true;
+      return;
     }
 
     // remove offline players
     forIn(nsPointer.child.player, (vPlayer: OnlineUserData, iPlayer) => {
       if (isTimeout(vPlayer)) {
-        nsRemoveUserByIndex(nsPointer, iPlayer);
-        Ev.emit(ev.nsNotJoinedAsIntend, vPlayer.link);
+        nsRemovePlayerByIndex(nsPointer, iPlayer);
         hasUpdateFlag = true;
       }
     });

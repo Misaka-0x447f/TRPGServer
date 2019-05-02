@@ -53,6 +53,7 @@ export const dict = {
       namespaceName: "名字空间名称",
       namespaceList: "列出...",
       namespaceJoin: "加入",
+      namespaceExit: "退出名字空间",
       namespaceCreate: "创建",
       namespaceExist: "名字空间已存在",
       namespaceNotExist: "名字空间不存在",

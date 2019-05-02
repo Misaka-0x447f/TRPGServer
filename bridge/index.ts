@@ -1,9 +1,12 @@
 import {Server} from "../server/src/utils/ws";
 
+// TODO: refactor. make definitely typed.
+
 // events that start with lodash means server event
 export enum commEvents {
   nsGet = "nsGet",
   nsJoin = "nsJoin", // create or get in
+  nsExit = "nsExit",
   nsUpdateChild = "nsUpdateChild",
   nsPushNotJoined = "nsPushNotJoined",
   nsPushNotExist = "nsPushNotExist",

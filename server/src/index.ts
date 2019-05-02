@@ -5,6 +5,7 @@ import nsGet from "./events/nsGet";
 import nsJoin from "./events/nsJoin";
 import nsUpdateChild from "./events/nsUpdateChild";
 import {userHeartbeat} from "./events/userHeartbeat";
+import {nsExit} from "./events/nsExit";
 import "./tasks";
 
 function connected(link: WebSocket) {
@@ -13,10 +14,11 @@ function connected(link: WebSocket) {
   server.RX(commEvents.userHeartbeat, userHeartbeat);
   server.RX(commEvents.nsGet, nsGet);
   server.RX(commEvents.nsJoin, nsJoin);
-  // manually update namespace child
   server.RX(commEvents.nsUpdateChild, nsUpdateChild);
+  server.RX(commEvents.nsExit, nsExit);
 }
 
 listen(connected);
 
 // TODO: missing room close, user leave
+// TODO: add listeners in one statement

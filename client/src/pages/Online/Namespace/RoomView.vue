@@ -1,4 +1,3 @@
-import {commEvents} from "../../../../../bridge";
 <template>
   <div class="root">
     <st
@@ -9,17 +8,24 @@ import {commEvents} from "../../../../../bridge";
         <us></us>
       </template>
       <template #team>
-        <div class="member-title">
-          {{e(ns, "master")}}
+        <div class="operates">
+          <sbu @click="exitNamespace">
+            {{e(ns, "namespaceExit")}}
+          </sbu>
         </div>
-        <div v-for="v in team.master" class="members">
-          {{v}}
-        </div>
-        <div class="member-title">
-          {{e(ns, "player")}}
-        </div>
-        <div v-for="v in team.player" class="members">
-          {{v}}
+        <div class="member-list">
+          <div class="member-title">
+            {{e(ns, "master")}}
+          </div>
+          <div v-for="v in team.master" class="members">
+            {{v}}
+          </div>
+          <div class="member-title">
+            {{e(ns, "player")}}
+          </div>
+          <div v-for="v in team.player" class="members">
+            {{v}}
+          </div>
         </div>
       </template>
     </st>
@@ -46,6 +52,10 @@ import {commEvents} from "../../../../../bridge";
     font-size 1.2em;
     line-height: 1.4em;
   }
+  
+  .operates {
+    margin-bottom: 1em;
+  }
 </style>
 <script lang="ts">
   import Vue from "vue";
@@ -54,14 +64,16 @@ import {commEvents} from "../../../../../bridge";
   import st from "@/components/SideTab/index.vue";
   import us from "../UserMenu.vue";
   import fl from "@/components/FullScreenFloating.vue";
+  import sbu from "@/components/SideTab/SideTabContents/Button.vue";
 
   import {ns} from "@/interfaces/Online";
   import {ico} from "@/utils/FontAwesome";
   import {say} from "@/utils/i18n";
   import {link} from "@/utils/ws";
-  import {commEvents} from "../../../../../bridge";
-  import {In, Out} from "../../../../../bridge/nsUpdateChild";
+  import {commEvents} from "@/../../bridge";
+  import {In, Out} from "@/../../bridge/nsUpdateChild";
   import {Env, LocalStorage} from "@/utils/ls";
+  import {exitNamespace} from "@/utils/ns";
 
   export default Vue.extend({
     name: "RoomView",
@@ -69,7 +81,8 @@ import {commEvents} from "../../../../../bridge";
       dia,
       st,
       us,
-      fl
+      fl,
+      sbu
     },
     data: () => {
       return {
@@ -102,7 +115,8 @@ import {commEvents} from "../../../../../bridge";
     methods: {
       updateTeam(m: In) {
         Vue.set(this, "team", m.child);
-      }
+      },
+      exitNamespace
     }
   });
 </script>
