@@ -1,5 +1,5 @@
 import {Namespace, namespacePool, OnlineUserData} from "../utils/state";
-import {forIn, isEmpty} from "lodash";
+import {forIn, isEmpty, isNull} from "lodash";
 import {getTimestamp} from "../utils/lang";
 import {nsRemoveByIndex, nsRemoveMasterByIndex, nsRemoveUserByIndex} from "../utils/ns";
 import {Ev, ev} from "../utils/event";
@@ -39,6 +39,9 @@ const agent = () => {
 };
 
 const isTimeout = (d: OnlineUserData) => {
+  if (isNull(d.lastUp)) {
+    return false;
+  }
   return d.lastUp < getTimestamp() - 10000;
 };
 

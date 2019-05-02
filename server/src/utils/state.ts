@@ -7,7 +7,7 @@ export interface OnlineUserData {
   user: string;
   credential: string;
   link: Server;
-  lastUp: Timestamp;
+  lastUp: Timestamp | null;
 }
 
 export const namespacePool: Namespace[] = [];

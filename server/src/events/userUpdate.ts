@@ -4,7 +4,6 @@ import {commEvents} from "../../../bridge";
 import {isUndefined} from "lodash";
 import uid from "uuid/v1";
 import {Server} from "../utils/ws";
-import {getTimestamp} from "../utils/lang";
 import {findUser} from "../utils/user";
 
 export const setRegProcessor = (s: Server, m: Out) => {
@@ -14,7 +13,7 @@ export const setRegProcessor = (s: Server, m: Out) => {
       user: m.user,
       credential: uid(),
       link: s,
-      lastUp: getTimestamp()
+      lastUp: null
     };
     userPool.push(user);
     s.TX(commEvents.userUpdate, {result: regResponse.ok, user: user.user, credential: user.credential} as In);
