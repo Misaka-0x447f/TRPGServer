@@ -10,7 +10,7 @@ import "./tasks";
 
 function connected(link: WebSocket) {
   const server = new Server(link);
-  server.RXGroup(
+  server.RX(
     [commEvents.userUpdate, userUpdate, {auth: false}],
     [commEvents.userHeartbeat, userHeartbeat],
     [commEvents.nsGet, nsGet],

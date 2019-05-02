@@ -1,18 +1,13 @@
-import {
-  commEvents,
-  Upstream,
-  UpstreamListener,
-  UpstreamListenerCallback,
-  UpstreamListenerOptions
-} from "../../../bridge";
+import {commEvents, Upstream, UpstreamListenerCallback, UpstreamListenerOptions} from "../../../bridge";
 import {isJSONString} from "./lang";
-import {get} from "lodash";
+import {get, isEmpty, isUndefined} from "lodash";
 import * as ws from "ws";
 import auth from "./auth";
 import {userPushFailedAuth} from "../events/userPushFailedAuth";
+import {EventEmitter} from "events";
 
 export class Server {
-  private listener: UpstreamListener[] = [];
+  private Ev = new EventEmitter();
   private link: WebSocket;
 
   // whatever it's an internal implement we can do performance fix when needed.
@@ -36,60 +31,66 @@ export class Server {
         commEvents.userHeartbeat,
         commEvents.userPushFailedAuth
       ].includes(req.event)) {
-        console.log("<<< %s", message);
+        console.log(`<<< ${req.event} ${isEmpty(req.payload) ? "" : JSON.stringify(req.payload)}`);
       }
 
-      this.listener.forEach((v: UpstreamListener) => {
-        if (v.event === req.event) {
-          // auth required?
-          if (get(v, "options.auth") !== false) {
-            const user = get(req, "extras.auth.user");
-            const credential = get(req, "extras.auth.credential");
-            // ...and auth failed?
-            if (!auth(user, credential)) {
-              userPushFailedAuth(this); // send authFailed
-              return; // equal to "continue" in native forEach;
-            }
-            // auth required, succeed, has extra data;
-            v.callback(this, req.payload, {auth: {user, credential}});
-            return;
-          }
-
-          // no special action required, no extras
-          v.callback(this, req.payload);
-        }
-      });
+      this.Ev.emit(req.event, req);
     });
   }
 
-  // listen to client
-  public RX(event: commEvents, callback: UpstreamListenerCallback, options?: UpstreamListenerOptions) {
-    this.listener.push({event, callback, options});
-  }
-
-  public RXGroup(...obj: Array<[commEvents, UpstreamListenerCallback, UpstreamListenerOptions?]>) {
+  public RX(...obj: Array<[commEvents, UpstreamListenerCallback, UpstreamListenerOptions?]>) {
     for (const v of obj) {
-      this.listener.push({event: v[0], callback: v[1], options: v[2]});
+      this.RXSingle(...v);
     }
   }
 
-  // send to client
+  // public Off(...obj: Array<[commEvents, UpstreamListenerCallback, UpstreamListenerOptions?]>) {
+  //   for (const v of obj) {
+  //     this.Ev.off(v[0], v[1]);
+  //   }
+  // }
+
   public TX(event: commEvents, payload: object) {
     if (this.link.readyState === this.link.OPEN) {
-      console.log(">>> %s", JSON.stringify({event, payload}));
+      console.log(`>>> ${event} ${isEmpty(payload) ? "" : JSON.stringify(payload)}`);
       this.link.send(JSON.stringify({event, payload}));
     }
   }
 
+  // listen to client
+  private RXSingle(event: commEvents, callback: UpstreamListenerCallback, options?: UpstreamListenerOptions) {
+    const eventHandlerFactory = () => {
+      return (req: Upstream) => {
+        if (isUndefined(get(options, "auth"))) {
+          // auth required
+          const user = get(req, "extras.auth.user");
+          const credential = get(req, "extras.auth.credential");
+          if (!auth(user, credential)) {
+            // auth failed
+            userPushFailedAuth(this); // send authFailed
+            return;
+          } else {
+            // auth required, succeed
+            callback(this, req.payload, {auth: {user, credential}});
+            return;
+          }
+        }
+        // no options, everything is default
+        callback(this, req.payload);
+      };
+    };
+    this.Ev.on(event, eventHandlerFactory());
+  }
+
   private badRequest() {
-    console.log(">>> [badRequest]");
+    console.log("<<< (badRequest)");
     this.link.send(JSON.stringify({error: "unexpected request string."}));
   }
 }
 
-export const listen = (listener: (T: WebSocket) => void) => {
+export const listen = (create: (T: WebSocket) => void) => {
   const port = 6655;
   console.log("[ DONE ] Setting up server with port number " + port);
   const wss = new ws.Server({port});
-  wss.on("connection", listener);
+  wss.on("connection", create);
 };
