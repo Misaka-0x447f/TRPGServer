@@ -67,6 +67,12 @@ export class Server {
     this.listener.push({event, callback, options});
   }
 
+  public RXGroup(...obj: Array<[commEvents, UpstreamListenerCallback, UpstreamListenerOptions?]>) {
+    for (const v of obj) {
+      this.listener.push({event: v[0], callback: v[1], options: v[2]});
+    }
+  }
+
   // send to client
   public TX(event: commEvents, payload: object) {
     if (this.link.readyState === this.link.OPEN) {
