@@ -21,9 +21,9 @@ class Client {
 
   constructor() {
     this.ws.addEventListener("message", (e: MessageEvent) => {
-      console.log(`<<< ${e.data}`);
+      const d = JSON.parse(e.data) as Downstream;
+      console.log(`<<< ${d.event} ${JSON.stringify(d.payload)}`);
       actHere();
-      const d = (JSON.parse(e.data) as Downstream);
       this.ev.emit(d.event, d.payload);
     });
     this.ws.addEventListener("open", () => {
@@ -37,7 +37,7 @@ class Client {
   public TX(event: commEvents, payload: Transfer, options?: UpstreamSenderOptions) {
     if (get(options, "auth") === false) {
       this.ws.send(JSON.stringify({event, payload} as Upstream));
-      console.log(`>>> [noAuth] ${JSON.stringify({event, payload} as Upstream)}`);
+      console.log(`>>> ${event} ${JSON.stringify(payload)} [noAuth]`);
     } else {
       if (authAvailable()) {
         const authObj = Env.get(LocalStorage.__auth);
@@ -49,7 +49,7 @@ class Client {
             }
           }
         } as Upstream));
-        console.log(`>>> ${JSON.stringify({event, payload} as Upstream)}`);
+        console.log(`>>> ${event} ${JSON.stringify(payload)}`);
       } else {
         // Auth required but no info about it.
         console.warn(`Auth required by event ${event}, but no auth info available here.`);

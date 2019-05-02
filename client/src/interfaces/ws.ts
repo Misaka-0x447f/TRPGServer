@@ -10,7 +10,7 @@ export const serverAddrProfile = {
 // @ts-ignore
 export const serverAddr = serverAddrProfile[env];
 
-console.log(`ENV: ${env}`);
+console.log(`    $ ${env}`);
 forIn(serverAddrProfile, (v, i) => {
   console.log(`${i === env ? "-->" : "   "} ${v}`);
 });
