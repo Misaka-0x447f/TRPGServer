@@ -3,7 +3,6 @@ import {serverAddr} from "@/interfaces/ws";
 import {
   commEvents,
   Downstream,
-  DownstreamListener,
   DownstreamListenerCallback,
   Transfer,
   Upstream,
@@ -14,23 +13,18 @@ import {get} from "lodash";
 import {authAvailable, Env, LocalStorage, logOut} from "@/utils/ls";
 import router, {RouterName} from "@/router";
 import {Out} from "../../../bridge/userHeartbeat";
+import {EventEmitter} from "events";
 
-// TODO: memory leak.
 class Client {
   private ws = new WSL(serverAddr);
-  private listener: DownstreamListener[] = [];
+  private ev = new EventEmitter();
 
   constructor() {
     this.ws.addEventListener("message", (e: MessageEvent) => {
       console.log(`<<< ${e.data}`);
       actHere();
       const d = (JSON.parse(e.data) as Downstream);
-
-      this.listener.forEach((v: DownstreamListener) => {
-        if (v.event === d.event) {
-          v.callback(d.payload);
-        }
-      });
+      this.ev.emit(d.event, d.payload);
     });
     this.ws.addEventListener("open", () => {
       linkStatus.link = true;
@@ -67,7 +61,11 @@ class Client {
   }
 
   public RX(event: commEvents, callback: DownstreamListenerCallback) {
-    this.listener.push({event, callback});
+    this.ev.on(event, callback);
+  }
+
+  public Off(event: commEvents, callback: DownstreamListenerCallback) {
+    this.ev.off(event, callback);
   }
 }
 
@@ -103,4 +101,4 @@ export const heartbeat = (l: Client) => {
   }
 };
 
-export const heartbeatTimer = setInterval(() => heartbeat(link), 3000);
+setInterval(() => heartbeat(link), 3000);

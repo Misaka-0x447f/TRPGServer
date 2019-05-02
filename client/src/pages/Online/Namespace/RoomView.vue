@@ -1,3 +1,4 @@
+import {commEvents} from "../../../../../bridge";
 <template>
   <div class="root">
     <st
@@ -90,13 +91,18 @@
       };
     },
     mounted() {
-      const updateTeam = (m: In) => {
-        Vue.set(this, "team", m.child);
-      };
-      link.RX(commEvents.nsUpdateChild, updateTeam);
+      link.RX(commEvents.nsUpdateChild, this.updateTeam);
       link.TX(commEvents.nsUpdateChild, {
         namespace: Env.get(LocalStorage.currNs)
       } as Out);
+    },
+    beforeDestroy() {
+      link.Off(commEvents.nsUpdateChild, this.updateTeam);
+    },
+    methods: {
+      updateTeam(m: In) {
+        Vue.set(this, "team", m.child);
+      }
     }
   });
 </script>

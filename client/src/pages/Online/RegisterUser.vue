@@ -1,3 +1,4 @@
+import {commEvents} from "../../../../bridge";
 <template>
   <div class="root">
     <st></st>
@@ -98,7 +99,18 @@
       };
     },
     mounted() {
-      const regHandler = (m: In) => {
+      link.RX(commEvents.userUpdate, this.regHandler);
+
+      if (authAvailable()) {
+        const au = Env.get(LocalStorage.__auth);
+        link.TX(commEvents.userUpdate, au as Out, {auth: false});
+      }
+    },
+    beforeDestroy() {
+      link.Off(commEvents.userUpdate, this.regHandler);
+    },
+    methods: {
+      regHandler(m: In) {
         if (m.result === regResponse.ok) {
           Env.set(LocalStorage.__auth, omit(m, ["result"]) as LocalStorageDef["__auth"]);
           this.$router.push({name: RouterName.nsSelect});
@@ -107,15 +119,7 @@
         } else if (m.result === regResponse.rejected) {
           this.status = stat.validateFailed;
         }
-      };
-      link.RX(commEvents.userUpdate, regHandler);
-
-      if (authAvailable()) {
-        const au = Env.get(LocalStorage.__auth);
-        link.TX(commEvents.userUpdate, au as Out, {auth: false});
-      }
-    },
-    methods: {
+      },
       tryReg() {
         this.status = stat.empty;
         if (this.uidInputs === "") {

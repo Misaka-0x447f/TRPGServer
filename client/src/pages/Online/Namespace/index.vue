@@ -150,17 +150,15 @@
       };
     },
     mounted() {
-      const queryHandler = (m: ls.In) => {
-        if (m.result === ls.response.ok) {
-          this.state = stat.join;
-        } else if (m.result === ls.response.null) {
-          this.state = stat.create;
-        } else {
-          throw new Error("Unexpected state.");
-        }
-      };
-      link.RX(commEvents.nsGet, queryHandler);
-      const joinHandler = (m: cd.In) => {
+      link.RX(commEvents.nsGet, this.queryHandler);
+      link.RX(commEvents.nsJoin, this.joinHandler);
+    },
+    beforeDestroy() {
+      link.Off(commEvents.nsGet, this.queryHandler);
+      link.Off(commEvents.nsJoin, this.joinHandler);
+    },
+    methods: {
+      joinHandler(m: cd.In) {
         if (m.result === cd.response.ok) {
           Env.set(LocalStorage.currNs, this.namespace);
           this.$router.push({name: RouterName.roomView});
@@ -169,10 +167,16 @@
         } else {
           throw new Error("Unexpected state.");
         }
-      };
-      link.RX(commEvents.nsJoin, joinHandler);
-    },
-    methods: {
+      },
+      queryHandler(m: ls.In) {
+        if (m.result === ls.response.ok) {
+          this.state = stat.join;
+        } else if (m.result === ls.response.null) {
+          this.state = stat.create;
+        } else {
+          throw new Error("Unexpected state.");
+        }
+      },
       query() {
         if (this.namespace.length === 0) {
           this.state = stat.empty;
