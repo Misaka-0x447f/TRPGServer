@@ -1,14 +1,14 @@
-import {UpstreamExtras} from "../../../bridge";
+import {commEvents, UpstreamExtras} from "../../../bridge";
 import {Server} from "../utils/ws";
-import {Out} from "../../../bridge/userHeartbeat";
 import {findUser} from "../utils/user";
 import {getTimestamp} from "../utils/lang";
 import {findNs, userExistInNs} from "../utils/ns";
 import {isUndefined} from "lodash";
 import {nsPushNotExist} from "./nsPushNotExist";
 import {nsPushNotJoined} from "./nsPushNotJoined";
+import {TX} from "../../../bridge/Transfer";
 
-export const userHeartbeat = (s: Server, m: Out, e: UpstreamExtras) => {
+export const userHeartbeat = (s: Server, m: TX<commEvents.userHeartbeat>, e: UpstreamExtras) => {
   const found = findUser(e.auth.user);
   // user must be exist here. if not, auth failed.
   const foundNs = findNs(m.namespace);

@@ -65,13 +65,13 @@ import {commEvents} from "../../../../bridge";
 
   import {ns} from "@/interfaces/Online";
   import {say} from "@/utils/i18n";
-  import {In, Out, regResponse} from "../../../../bridge/userUpdate";
   import {commEvents} from "../../../../bridge";
   import {link} from "@/utils/ws";
   import {authAvailable, Env, LocalStorage, LocalStorageDef} from "@/utils/ls";
   import {removeSpace} from "@/utils/lang";
   import {RouterName} from "@/router";
   import {omit} from "lodash";
+  import {RX} from "../../../../bridge/Receive";
 
   enum stat {
     empty,
@@ -103,20 +103,20 @@ import {commEvents} from "../../../../bridge";
 
       if (authAvailable()) {
         const au = Env.get(LocalStorage.__auth);
-        link.TX(commEvents.userUpdate, au as Out, {auth: false});
+        link.TX(commEvents.userUpdate, au, {auth: false});
       }
     },
     beforeDestroy() {
       link.Off(commEvents.userUpdate, this.regHandler);
     },
     methods: {
-      regHandler(m: In) {
-        if (m.result === regResponse.ok) {
+      regHandler(m: RX<commEvents.userUpdate>) {
+        if (m.result === "ok") {
           Env.set(LocalStorage.__auth, omit(m, ["result"]) as LocalStorageDef["__auth"]);
           this.$router.push({name: RouterName.nsSelect});
-        } else if (m.result === regResponse.exist) {
+        } else if (m.result === "exist") {
           this.status = stat.userExist;
-        } else if (m.result === regResponse.rejected) {
+        } else if (m.result === "rejected") {
           this.status = stat.validateFailed;
         }
       },
@@ -125,12 +125,12 @@ import {commEvents} from "../../../../bridge";
         if (this.uidInputs === "") {
           link.TX(commEvents.userUpdate, {
             user: this.usernameInputs
-          } as Out, {auth: false});
+          }, {auth: false});
         } else {
           link.TX(commEvents.userUpdate, {
             user: this.usernameInputs,
             credential: removeSpace(this.uidInputs)
-          } as Out, {auth: false});
+          }, {auth: false});
         }
       },
       userNameChange() {

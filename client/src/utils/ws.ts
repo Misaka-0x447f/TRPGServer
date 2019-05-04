@@ -1,19 +1,12 @@
 import WSL from "reconnecting-websocket";
 import {serverAddr} from "@/interfaces/ws";
-import {
-  commEvents,
-  Downstream,
-  DownstreamListenerCallback,
-  Transfer,
-  Upstream,
-  UpstreamSenderOptions
-} from "@/../../bridge";
+import {commEvents, DnCallback, Downstream, UpSendOptions, Upstream} from "@/../../bridge";
 import {timeout} from "@/utils/lang";
 import {get} from "lodash";
 import {authAvailable, Env, LocalStorage, logOut} from "@/utils/ls";
 import router, {RouterName} from "@/router";
-import {Out} from "../../../bridge/userHeartbeat";
 import {EventEmitter} from "events";
+import {TX} from "../../../bridge/Transfer";
 
 class Client {
   private ws = new WSL(serverAddr);
@@ -34,7 +27,7 @@ class Client {
     });
   }
 
-  public TX(event: commEvents, payload: Transfer, options?: UpstreamSenderOptions) {
+  public TX<T extends commEvents>(event: T, payload: TX<T>, options?: UpSendOptions) {
     if (get(options, "auth") === false) {
       this.ws.send(JSON.stringify({event, payload} as Upstream));
       console.log(`>>> ${event} ${JSON.stringify(payload)} [noAuth]`);
@@ -60,11 +53,11 @@ class Client {
     actHere();
   }
 
-  public RX(event: commEvents, callback: DownstreamListenerCallback) {
+  public RX<T extends commEvents>(event: T, callback: DnCallback<T>) {
     this.ev.on(event, callback);
   }
 
-  public Off(event: commEvents, callback: DownstreamListenerCallback) {
+  public Off<T extends commEvents>(event: T, callback: DnCallback<T>) {
     this.ev.off(event, callback);
   }
 }
@@ -96,7 +89,7 @@ async function actHere() {
 
 export const heartbeat = (l: Client) => {
   if (linkStatus.link && authAvailable() && Env.exist(LocalStorage.currNs)) {
-    l.TX(commEvents.userHeartbeat, {namespace: Env.get(LocalStorage.currNs)} as Out);
+    l.TX(commEvents.userHeartbeat, {namespace: Env.get(LocalStorage.currNs)});
     actHere();
   }
 };

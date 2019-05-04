@@ -17,12 +17,12 @@ export interface LocalStorageDef {
 }
 
 export class Env {
-  public static set<T extends LocalStorage, K extends LocalStorageDef[T]>(key: T, value: K) {
+  public static set<T extends LocalStorage>(key: T, value: LocalStorageDef[T]) {
     window.localStorage.setItem(key, limitedStringify(value));
   }
-  public static get<T extends LocalStorage, K extends LocalStorageDef[T]>(key: T) {
+  public static get<T extends LocalStorage>(key: T) {
     if (Env.exist(key)) {
-      return limitedUnstringify(window.localStorage.getItem(key)) as K;
+      return limitedUnstringify(window.localStorage.getItem(key)) as LocalStorageDef[T];
     }
     throw new Error(`Local storage not found: ${key}`);
   }

@@ -109,9 +109,8 @@
   import {RouterName} from "@/router";
   import {ico} from "@/utils/FontAwesome";
 
-  import * as ls from "../../../../../bridge/nsGet";
-  import * as cd from "../../../../../bridge/nsJoin";
   import {Env, LocalStorage} from "@/utils/ls";
+  import {RX} from "../../../../../bridge/Receive";
 
   enum stat {
     search = "search",
@@ -158,20 +157,20 @@
       link.Off(commEvents.nsJoin, this.joinHandler);
     },
     methods: {
-      joinHandler(m: cd.In) {
-        if (m.result === cd.response.ok) {
+      joinHandler(m: RX<commEvents.nsJoin>) {
+        if (m.result === "ok") {
           Env.set(LocalStorage.currNs, this.namespace);
           this.$router.push({name: RouterName.roomView});
-        } else if (m.result === cd.response.full) {
+        } else if (m.result === "full") {
           this.state = stat.full;
         } else {
           throw new Error("Unexpected state.");
         }
       },
-      queryHandler(m: ls.In) {
-        if (m.result === ls.response.ok) {
+      queryHandler(m: RX<commEvents.nsGet>) {
+        if (m.result === "ok") {
           this.state = stat.join;
-        } else if (m.result === ls.response.null) {
+        } else if (m.result === "null") {
           this.state = stat.create;
         } else {
           throw new Error("Unexpected state.");
@@ -185,11 +184,11 @@
         if (this.isState(stat.search, stat.full)) {
           link.TX(commEvents.nsGet, {
             namespace: this.namespace
-          } as ls.Out);
+          });
         } else if (this.isState(stat.create, stat.join)) {
           link.TX(commEvents.nsJoin, {
             namespace: this.namespace
-          } as cd.Out);
+          });
         } else {
           throw new Error("Unexpected mode.");
         }

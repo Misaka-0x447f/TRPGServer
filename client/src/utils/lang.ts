@@ -96,10 +96,10 @@ export class Watchable {
 }
 
 export const isJSONString = (data: string) => {
-  if (typeof data !== "string") {
-    console.warn("Unexpected isJSON test");
-    return false;
-  }
+  // if (typeof data !== "string") {
+  //   console.warn("Unexpected isJSON test");
+  //   return false;
+  // }
   try {
     const d = JSON.parse(data);
     return d && typeof d === "object";

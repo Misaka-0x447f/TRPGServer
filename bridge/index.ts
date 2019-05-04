@@ -1,9 +1,9 @@
-import {Server} from "../server/src/utils/ws";
-
-// TODO: refactor. make definitely typed.
-
 // events that start with lodash means server event
-export enum commEvents {
+import Transfer from "./Transfer";
+import {Server} from "../server/src/utils/ws";
+import Receive from "./Receive";
+
+export const enum commEvents {
   nsGet = "nsGet",
   nsJoin = "nsJoin", // create or get in
   nsExit = "nsExit",
@@ -15,43 +15,30 @@ export enum commEvents {
   userPushFailedAuth = "userPushFailedAuth",
 }
 
-// tslint:disable-next-line
-export interface Transfer {
-}
-
-export interface Receive {
-  result: any;
-}
-
 // Downstream
-
 export interface Downstream {
   event: commEvents;
-  payload: Receive;
+  payload: any; // disable ts check here
 }
 
-export interface DownstreamListener {
-  event: commEvents;
-  callback: DownstreamListenerCallback;
-}
-
-export type DownstreamListenerCallback = (T: any) => void;
+export type DnCallback<U> = U extends keyof Receive ? (Payload: Receive[U]) => void : never;
 
 // Upstream
-
 export interface Upstream {
   event: commEvents;
   extras?: UpstreamExtras;
-  payload: Transfer;
+  payload: any; // disable ts check here
 }
 
-export interface UpstreamSenderOptions {
+export interface UpSendOptions {
   auth?: false;  // if false no auth need with this method;
 }
 
-export interface UpstreamListenerOptions {
+export interface UpRecvOptions {
   auth?: false; // exist so auth is not required by this method
 }
+
+export type UpCallback<U> = U extends keyof Transfer ? (L: Server, P: Transfer[U], E?: UpstreamExtras) => void : never;
 
 // Receiving extra data in listener
 export interface UpstreamExtras {
@@ -61,11 +48,3 @@ export interface UpstreamExtras {
     credential: string;
   };
 }
-
-export interface UpstreamListener {
-  event: commEvents;
-  callback: UpstreamListenerCallback;
-  options?: UpstreamListenerOptions;
-}
-
-export type UpstreamListenerCallback = (L: Server, T: Transfer, E?: UpstreamExtras) => void;

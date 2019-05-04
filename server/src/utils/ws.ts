@@ -1,10 +1,11 @@
-import {commEvents, Upstream, UpstreamListenerCallback, UpstreamListenerOptions} from "../../../bridge";
+import {commEvents, UpCallback, UpRecvOptions, Upstream} from "../../../bridge";
 import {isJSONString} from "./lang";
 import {get, isEmpty, isUndefined} from "lodash";
 import * as ws from "ws";
 import auth from "./auth";
 import {userPushFailedAuth} from "../events/userPushFailedAuth";
 import {EventEmitter} from "events";
+import {RX} from "../../../bridge/Receive";
 
 export class Server {
   private Ev = new EventEmitter();
@@ -38,19 +39,19 @@ export class Server {
     });
   }
 
-  public RX(...obj: Array<[commEvents, UpstreamListenerCallback, UpstreamListenerOptions?]>) {
+  public RX<T extends commEvents>(...obj: Array<[T, UpCallback<T>, UpRecvOptions?]>) {
     for (const v of obj) {
       this.RXSingle(...v);
     }
   }
 
-  // public Off(...obj: Array<[commEvents, UpstreamListenerCallback, UpstreamListenerOptions?]>) {
+  // public Off(...obj: Array<[commEvents, UpstreamListenerCallback, UpRecvOptions?]>) {
   //   for (const v of obj) {
   //     this.Ev.off(v[0], v[1]);
   //   }
   // }
 
-  public TX(event: commEvents, payload: object) {
+  public TX<T extends commEvents>(event: T, payload: RX<T>) {
     if (this.link.readyState === this.link.OPEN) {
       console.log(`>>> ${event} ${isEmpty(payload) ? "" : JSON.stringify(payload)}`);
       this.link.send(JSON.stringify({event, payload}));
@@ -58,7 +59,7 @@ export class Server {
   }
 
   // listen to client
-  private RXSingle(event: commEvents, callback: UpstreamListenerCallback, options?: UpstreamListenerOptions) {
+  private RXSingle<T extends commEvents>(event: T, callback: UpCallback<T>, options?: UpRecvOptions) {
     const eventHandlerFactory = () => {
       return (req: Upstream) => {
         if (isUndefined(get(options, "auth"))) {

@@ -455,7 +455,7 @@ export const dict = {
   }
 };
 
-export function say<T extends keyof typeof dict["zh"], K extends keyof typeof dict["zh"][T]>(subItem: T, word: K) {
+export function say<T extends keyof typeof dict["zh"]>(subItem: T, word: keyof typeof dict["zh"][T]) {
   // TypeScript type check may not working at all time; Do runtime check.
   if (!dict.zh.hasOwnProperty(subItem) || !(dict.zh as any)[subItem].hasOwnProperty(word)) {
     throw new Error(`unexpected i18n index: ${subItem}/${word}`);

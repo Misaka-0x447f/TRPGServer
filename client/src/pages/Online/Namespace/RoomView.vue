@@ -71,9 +71,9 @@
   import {say} from "@/utils/i18n";
   import {link} from "@/utils/ws";
   import {commEvents} from "@/../../bridge";
-  import {In, Out} from "@/../../bridge/nsUpdateChild";
   import {Env, LocalStorage} from "@/utils/ls";
   import {exitNamespace} from "@/utils/ns";
+  import {RX} from "../../../../../bridge/Receive";
 
   export default Vue.extend({
     name: "RoomView",
@@ -100,20 +100,20 @@
             icon: ico.userFriends
           }
         ],
-        team: {} as In["child"]
+        team: {} as RX<commEvents.nsUpdateChild>["child"]
       };
     },
     mounted() {
       link.RX(commEvents.nsUpdateChild, this.updateTeam);
       link.TX(commEvents.nsUpdateChild, {
         namespace: Env.get(LocalStorage.currNs)
-      } as Out);
+      });
     },
     beforeDestroy() {
       link.Off(commEvents.nsUpdateChild, this.updateTeam);
     },
     methods: {
-      updateTeam(m: In) {
+      updateTeam(m: RX<commEvents.nsUpdateChild>) {
         Vue.set(this, "team", m.child);
       },
       exitNamespace

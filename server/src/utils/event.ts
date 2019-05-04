@@ -15,17 +15,17 @@ export interface EvListeners {
 }
 
 export class Ev {
-  public static emit<T extends ev, K extends Parameters<EvListeners[T]>>(event: T, ...payload: K) {
+  public static emit<T extends ev>(event: T, ...payload: Parameters<EvListeners[T]>) {
     Ev.ec.emit(event, ...payload);
     console.log(`--- [${event}] ---
     ${util.inspect(payload)}`);
   }
 
-  public static on<T extends ev, K extends EvListeners[T]>(event: T, callback: K) {
+  public static on<T extends ev>(event: T, callback: EvListeners[T]) {
     Ev.ec.on(event, callback);
   }
 
-  public static off<T extends ev, K extends EvListeners[T]>(event: T, callback: K) {
+  public static off<T extends ev>(event: T, callback: EvListeners[T]) {
     Ev.ec.off(event, callback);
   }
 
